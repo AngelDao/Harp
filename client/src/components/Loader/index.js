@@ -31,7 +31,7 @@ const Loader = () => {
     setInterval(function () {
       i = i == spin.animation.length - 1 ? 0 : ++i;
       setSpin(spin.animation[i]);
-    }, 300);
+    }, 200);
   };
 
   useEffect(() => {

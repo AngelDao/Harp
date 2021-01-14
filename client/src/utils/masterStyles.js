@@ -6,8 +6,10 @@ const Styles = {
     small: "12px",
   },
   background: {
-    app: "#b349f6",
-    menu: "#b349f6",
+    menu: "#cc95ff",
+    secondaryMenu: "#E9D1FF",
+    app: "#e3c1ff",
+    // menu: "linear-gradient(360deg, #f4f4f4 10%, #e3c1ff 360%);",
   },
 };
 

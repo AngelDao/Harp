@@ -1,11 +1,17 @@
 import styled from "styled-components";
 import MasterStyles from "../../utils/masterStyles";
+import { NavLink } from "react-router-dom";
+
+export const StyledLink = styled(NavLink)`
+  text-decoration: none;
+  cursor: pointer;
+`;
 
 export const MenuContainer = styled.div`
   width: 100%;
   min-height: 45px;
-  //   border: 3.5px solid black;
-  margin-top: -115px;
+  // border: 3.5px solid black;
+  margin-top: -105px;
   position: relative;
   flex-direction: row;
   display: flex;
@@ -39,6 +45,7 @@ export const Item = styled.div`
     current || hover ? "3.5px solid" : "none"};
   border-bottom: ${({ current, hover }) =>
     current || hover ? "3.5px solid" : "none"};
-  padding: 6.5px;
+  padding: 3.05px;
   cursor: pointer;
+  line-height: normal;
 `;

@@ -1,12 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Loader from "../../components/Loader";
+import { Switch, Route, withRouter, Redirect } from "react-router-dom";
+import DisconnectScreen from "../../components/DisconnectScreen";
+import CredentialsContext from "../../context/credentialsContext";
+import Farm from "../../components/Farm";
+import FAQ from "../../components/FAQ";
 
-const Content = ({ loading }) => {
-  //   if (loading) {
-  //     return <Loader />;
-  //   }
+const Content = ({ location, loading }) => {
+  const { isConnected } = useContext(CredentialsContext);
 
-  return <div></div>;
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (!isConnected) {
+    return <DisconnectScreen />;
+  }
+
+  return (
+    <div>
+      <Switch location={location}>
+        <Route exact path="/borrow" />
+        <Route exact path="/redeem" />
+        <Route exact path="/stake" />
+        <Route exact path="/farm" component={Farm} />
+        <Route exact path="/stats" />
+        <Route exact path="/faq" component={FAQ} />
+        <Route exact path="*">
+          <Redirect to="/borrow" />
+        </Route>
+      </Switch>
+    </div>
+  );
 };
 
-export default Content;
+export default withRouter(Content);
