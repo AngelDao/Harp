@@ -5,8 +5,9 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 
 contract TokenVesting {
     // Distribution
-    uint256 public AngelDAOAllocation = 1000000;
-    uint256 public AngelDAOAllocationLeft = 1000000;
+    // 1mil * 10e18
+    uint256 public AngelDAOAllocation = 1000000000000000000000000;
+    uint256 public AngelDAOAllocationLeft = 1000000000000000000000000;
     bool public vestingComplete = false;
     bool public vestingStarted = false;
     uint256 public dailyVestingRate;

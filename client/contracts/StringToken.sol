@@ -4,7 +4,8 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract StringToken is ERC20 {
     mapping(address => bool) internal allowedMinters;
-    uint256 public HarpDAOAllocation = 2000000;
+    // 2 mil * 10e18
+    uint256 public HarpDAOAllocation = 2000000000000000000000000;
     address public owner;
 
     constructor(

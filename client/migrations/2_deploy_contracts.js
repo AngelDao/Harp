@@ -1,11 +1,14 @@
 const StringToken = artifacts.require("StringToken");
 const TokenVesting = artifacts.require("TokenVesting");
+const Farm = artifacts.require("Farm");
+const LUSDLP = artifacts.require("LUSDLPToken");
+const ETHLP = artifacts.require("ETHLPToken");
 
-module.exports = async function (deployer) {
+module.exports = async function (deployer, network, accounts) {
   // 2nd Ganache
   // Token Contract
   const HarpDAOAddress = "0x0cbde7d648C1F51253d53ca1dB099030Fc35490a";
-  const owner = "0x0a3a13F87896F3F82CC4c62103b455e1B2df3892";
+  const owner = accounts[1];
   await deployer.deploy(
     StringToken,
     "ozString",
@@ -17,7 +20,7 @@ module.exports = async function (deployer) {
 
   // 3rd Ganache
   // Vesting Contract
-  const AngelDAOAddress = "0x82c3455425f4B02297f241822D2dD6c4a7bbB189";
+  const AngelDAOAddress = accounts[2];
   const years = 365 * 2;
   await deployer.deploy(
     TokenVesting,
@@ -29,5 +32,22 @@ module.exports = async function (deployer) {
 
   const vestingAddress = tokenVesting.address;
 
-  await stringToken.addVestingAddress(vestingAddress);
+  await stringToken.addVestingAddress(vestingAddress, { from: owner });
+
+  // 1st Ganache
+  // Farm Deployments
+
+  await deployer.deploy(LUSDLP, accounts[0]);
+  await deployer.deploy(ETHLP, accounts[0]);
+  const ethLPToken = await ETHLP.deployed();
+  const lusdLPToken = await LUSDLP.deployed();
+  // 10e18 = 1000000000000000000
+  //   base reward per block = 0.358974359
+  await deployer.deploy(
+    Farm,
+    ethLPToken.address,
+    lusdLPToken.address,
+    stringToken.address,
+    358974359
+  );
 };

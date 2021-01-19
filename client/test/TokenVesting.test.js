@@ -10,6 +10,14 @@ const DAY = 24 * HOUR;
 
 require("chai").use(require("chai-as-promised")).should();
 
+function tokens(n) {
+  return web3.utils.toWei(n, "ether");
+}
+
+const truncateString = (str) => {
+  return str.substr(0, 4);
+};
+
 contract("TokenVesting Tests", (accounts) => {
   let ozStringToken, tokenVesting, yearsToLockUp, clock;
   beforeEach(async () => {
@@ -49,12 +57,14 @@ contract("TokenVesting Tests", (accounts) => {
       assert.equal(AngelDAOAddr, accounts[2]);
     });
     it("Sets correct max allocation size for AngelDAO", async () => {
-      const AngelDAOAllo = await tokenVesting.AngelDAOAllocation();
-      assert.equal(AngelDAOAllo, 1000000);
+      const AngelDAOAllo = (await tokenVesting.AngelDAOAllocation()).toString();
+      assert.equal(AngelDAOAllo, tokens("1000000"));
     });
     it("Sets correct allocation left size", async () => {
-      const AngelDAOAlloLeft = await tokenVesting.AngelDAOAllocationLeft();
-      assert.equal(AngelDAOAlloLeft, 1000000);
+      const AngelDAOAlloLeft = (
+        await tokenVesting.AngelDAOAllocationLeft()
+      ).toString();
+      assert.equal(AngelDAOAlloLeft, tokens("1000000"));
     });
     it("Sets vesting complete to false", async () => {
       const complete = await tokenVesting.vestingComplete();
@@ -65,9 +75,15 @@ contract("TokenVesting Tests", (accounts) => {
       assert.equal(started, false);
     });
     it("Sets daily vesting rate correctly", async () => {
-      const expectedRate = Math.floor(1000000 / yearsToLockUp);
-      const actualRate = await tokenVesting.dailyVestingRate();
-      assert.equal(actualRate, expectedRate);
+      const vestingMax = new web3.utils.BN(1000000);
+      const divisor = new web3.utils.BN(yearsToLockUp);
+      const expectedRate = vestingMax.div(divisor);
+      const actualRate = (await tokenVesting.dailyVestingRate()).toString();
+      console.log(actualRate.toString());
+      assert.equal(
+        truncateString(actualRate.toString()),
+        expectedRate.toString()
+      );
     });
     it("Sets vesting period correctly", async () => {
       const days = await tokenVesting.vestingPeriodDays();
@@ -98,26 +114,33 @@ contract("TokenVesting Tests", (accounts) => {
       // First distribution
       await timeMachine.advanceTimeAndBlock(72 * HOUR);
       await tokenVesting.releasePending();
+
       let expectedRate = Math.floor(1000000 / yearsToLockUp);
       console.log(`yearToLockUp:${yearsToLockUp}`);
       console.log(`expectedRate:${expectedRate}`);
       let expectedBalance = expectedRate * 3;
       console.log(`expectedBalance:${expectedBalance}`);
-      let balance = (await ozStringToken.balanceOf(accounts[2])).toNumber();
+      let balance = await ozStringToken.balanceOf(accounts[2]);
       let lastBalance = balance;
+
       console.log(`actualBalance:${balance}`);
       console.log(
         "assert balance transfered to be correct, and to right wallet"
       );
-      assert.equal(expectedBalance, balance);
-      let totalSupply = (await ozStringToken.totalSupply()).toNumber();
+      assert.equal(tokens(expectedBalance.toString()), balance.toString());
+      let totalSupply = (await ozStringToken.totalSupply()).toString();
+
       console.log("assert amount was minted and added to totalsupply ");
-      assert.equal(totalSupply, 2000000 + balance);
+      const firstSupplyCheck = new web3.utils.BN(2000000);
+      let currentSupply = firstSupplyCheck.add(balance);
+      assert.equal(totalSupply, currentBalance.toString());
       let allowcationLeft = (
         await tokenVesting.AngelDAOAllocationLeft()
-      ).toNumber();
+      ).toString();
       console.log("assert remaining allocation updated ");
-      assert.equal(allowcationLeft, 1000000 - balance);
+      const firstAlloCheck = new web3.utils.BN(1000000);
+      let currentLeft = firstAlloCheck.sub(balance);
+      assert.equal(allowcationLeft, currentLeft.toString());
       let lastDistributionTime = (
         await tokenVesting.lastDistributionTime()
       ).toNumber();
@@ -136,20 +159,20 @@ contract("TokenVesting Tests", (accounts) => {
       console.log(`expectedRate:${expectedRate}`);
       expectedBalance = expectedRate * 5 + lastBalance;
       console.log(`expectedBalance:${expectedBalance}`);
-      balance = (await ozStringToken.balanceOf(accounts[2])).toNumber();
+      balance = await ozStringToken.balanceOf(accounts[2]);
       console.log(`actualBalance:${balance}`);
       console.log(
         "assert balance transfered to be correct, and to right wallet"
       );
-      assert.equal(expectedBalance, balance);
-      totalSupply = (await ozStringToken.totalSupply()).toNumber();
+      assert.equal(tokens(expectedBalance.toString()), balance.toString());
+      totalSupply = (await ozStringToken.totalSupply()).toString();
       console.log("assert amount was minted and added to totalsupply ");
-      assert.equal(totalSupply, 2000000 + balance);
-      allowcationLeft = (
-        await tokenVesting.AngelDAOAllocationLeft()
-      ).toNumber();
+      currentSupply = firstSupplyCheck.add(balance);
+      assert.equal(totalSupply, currentLeft.toString());
+      allowcationLeft = await tokenVesting.AngelDAOAllocationLeft().toString();
       console.log("assert remaining allocation updated ");
-      assert.equal(allowcationLeft, 1000000 - balance);
+      currentLeft = firstAlloCheck.sub(balance);
+      assert.equal(allowcationLeft, currentLeft.toString());
       lastDistributionTime = (
         await tokenVesting.lastDistributionTime()
       ).toNumber();
@@ -174,15 +197,15 @@ contract("TokenVesting Tests", (accounts) => {
       console.log(
         "assert balance transfered to be correct, and to right wallet"
       );
-      assert.equal(expectedBalance, balance);
-      totalSupply = (await ozStringToken.totalSupply()).toNumber();
+      assert.equal(tokens(expectedBalance.toString()), balance.toString());
+      totalSupply = (await ozStringToken.totalSupply()).toString();
       console.log("assert amount was minted and added to totalsupply ");
-      assert.equal(totalSupply, 2000000 + balance);
-      allowcationLeft = (
-        await tokenVesting.AngelDAOAllocationLeft()
-      ).toNumber();
+      currentSupply = firstSupplyCheck.add(balance);
+      assert.equal(totalSupply, currentSupply.toString());
+      allowcationLeft = await tokenVesting.AngelDAOAllocationLeft().toString();
       console.log("assert remaining allocation updated ");
-      assert.equal(allowcationLeft, 1000000 - balance);
+      currentLeft = firstAlloCheck.sub(balance);
+      assert.equal(allowcationLeft, currentLeft.toString());
       lastDistributionTime = (
         await tokenVesting.lastDistributionTime()
       ).toNumber();
@@ -209,16 +232,16 @@ contract("TokenVesting Tests", (accounts) => {
       console.log(
         "assert balance transfered to be correct, and to right wallet"
       );
-      assert.equal(expectedBalance, balance);
-      totalSupply = (await ozStringToken.totalSupply()).toNumber();
+      assert.equal(tokens(expectedBalance.toString()), balance.toString());
+      totalSupply = (await ozStringToken.totalSupply()).toString();
       console.log("assert amount was minted and added to totalsupply ");
-      assert.equal(totalSupply, 2000000 + balance);
-      allowcationLeft = (
-        await tokenVesting.AngelDAOAllocationLeft()
-      ).toNumber();
+      currentSupply = firstSupplyCheck.add(balance);
+      assert.equal(totalSupply, currentSupply.toString());
+      allowcationLeft = await tokenVesting.AngelDAOAllocationLeft().toString();
       console.log("assert remaining allocation updated ");
       console.log(allowcationLeft);
-      assert.equal(allowcationLeft, 1000000 - balance);
+      currentLeft = firstAlloCheck.sub(balance);
+      assert.equal(allowcationLeft, currentLeft.toString());
       lastDistributionTime = (
         await tokenVesting.lastDistributionTime()
       ).toNumber();

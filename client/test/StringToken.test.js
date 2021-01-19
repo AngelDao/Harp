@@ -5,6 +5,10 @@ const TokenVesting = artifacts.require("TokenVesting");
 
 require("chai").use(require("chai-as-promised")).should();
 
+function tokens(n) {
+  return web3.utils.toWei(n, "ether");
+}
+
 contract("OZString Token Tests", (accounts) => {
   let ozStringToken, tokenVesting;
 
@@ -32,8 +36,8 @@ contract("OZString Token Tests", (accounts) => {
 
   describe("Token Attributes Check On Deployment", async () => {
     it("Sets correct Token Supply upon deployment", async () => {
-      let totalSupply = (await ozStringToken.totalSupply()).toNumber();
-      assert.equal(totalSupply, 2000000);
+      let totalSupply = (await ozStringToken.totalSupply()).toString();
+      assert.equal(totalSupply, tokens("2000000"));
     });
     it("Sets correct Name upon deployment", async () => {
       let name = await ozStringToken.name();
@@ -48,8 +52,8 @@ contract("OZString Token Tests", (accounts) => {
       assert.equal(decimals, 18);
     });
     it("Sets correct Balance for harpDAO upon deployment", async () => {
-      const balance = (await ozStringToken.balanceOf(accounts[1])).toNumber();
-      assert.equal(balance, 2000000, "HarpDAOBalance");
+      const balance = (await ozStringToken.balanceOf(accounts[1])).toString();
+      assert.equal(balance, tokens("2000000"), "HarpDAOBalance");
     });
     it("sets vesting contract to mint", async () => {
       const canMint = await ozStringToken.isAllowedMinter(tokenVesting.address);
@@ -70,22 +74,24 @@ contract("OZString Token Tests", (accounts) => {
     });
 
     it("transfer tokens success", async () => {
-      await ozStringToken.transfer(accounts[0], 10, { from: accounts[1] });
+      await ozStringToken.transfer(accounts[0], tokens("10"), {
+        from: accounts[1],
+      });
 
       const recieverBalance = (
         await ozStringToken.balanceOf(accounts[0])
-      ).toNumber();
+      ).toString();
       const senderBalance = (
         await ozStringToken.balanceOf(accounts[1])
-      ).toNumber();
+      ).toString();
 
-      assert.equal(recieverBalance, 10);
-      assert.equal(senderBalance, 1999990);
+      assert.equal(recieverBalance, tokens("10"));
+      assert.equal(senderBalance, tokens("1999990"));
     });
 
     it("transfer tokens fail send more than have", async () => {
       try {
-        await ozStringToken.transfer(accounts[1], 20000000000);
+        await ozStringToken.transfer(accounts[1], tokens("20000000000"));
       } catch (err) {
         assert(
           err.message.indexOf("revert") >= 0,
@@ -95,7 +101,7 @@ contract("OZString Token Tests", (accounts) => {
     });
 
     it("Transfer Event triggerd", async () => {
-      const tx = await ozStringToken.transfer(accounts[1], 10);
+      const tx = await ozStringToken.transfer(accounts[1], tokens("10"));
 
       assert.equal(tx.logs.length, 1, "test that one event emitted");
       assert.equal(
@@ -113,19 +119,21 @@ contract("OZString Token Tests", (accounts) => {
         accounts[1],
         "test that the correct to address was used"
       );
-      assert.equal(tx.logs[0].args.value, 10, "test value of tx");
+      assert.equal(tx.logs[0].args.value, tokens("10"), "test value of tx");
     });
 
     it("approves tokens for delegated token transfer", async () => {
-      await ozStringToken.approve(accounts[0], 1000, { from: accounts[1] });
+      await ozStringToken.approve(accounts[0], tokens("1000"), {
+        from: accounts[1],
+      });
       const allowance = (
         await ozStringToken.allowance(accounts[1], accounts[0])
-      ).toNumber();
-      assert.equal(allowance, 1000);
+      ).toString();
+      assert.equal(allowance, tokens("1000"));
     });
 
     it("Approval event triggered", async () => {
-      const tx = await ozStringToken.approve(accounts[1], 1000);
+      const tx = await ozStringToken.approve(accounts[1], tokens("1000"));
 
       assert.equal(tx.logs.length, 1, "test that one event emitted");
       assert.equal(
@@ -145,7 +153,7 @@ contract("OZString Token Tests", (accounts) => {
       );
       assert.equal(
         tx.logs[0].args.value,
-        1000,
+        tokens("1000"),
         "test the value of value allowed"
       );
     });
@@ -155,21 +163,21 @@ contract("OZString Token Tests", (accounts) => {
       const spender = accounts[0];
       const to = accounts[2];
 
-      await ozStringToken.approve(spender, 100, { from });
-      const tx = await ozStringToken.transferFrom(from, to, 10, {
+      await ozStringToken.approve(spender, tokens("100"), { from });
+      const tx = await ozStringToken.transferFrom(from, to, tokens("10"), {
         from: spender,
       });
 
-      const fromBalance = (await ozStringToken.balanceOf(from)).toNumber();
-      const toBalance = (await ozStringToken.balanceOf(to)).toNumber();
+      const fromBalance = (await ozStringToken.balanceOf(from)).toString();
+      const toBalance = (await ozStringToken.balanceOf(to)).toString();
 
       const newAllowance = (
         await ozStringToken.allowance(from, spender)
-      ).toNumber();
+      ).toString();
 
-      assert.equal(newAllowance, 90);
-      assert.equal(fromBalance, 1999990);
-      assert.equal(toBalance, 10);
+      assert.equal(newAllowance, tokens("90"));
+      assert.equal(fromBalance, tokens("1999990"));
+      assert.equal(toBalance, tokens("10"));
       assert.equal(tx.logs.length, 2, "test that one event emitted");
       assert.equal(
         tx.logs[0].event,
@@ -186,7 +194,7 @@ contract("OZString Token Tests", (accounts) => {
         to,
         "test that the correct to address was used"
       );
-      assert.equal(tx.logs[0].args.value, 10, "test value of tx");
+      assert.equal(tx.logs[0].args.value, tokens("10"), "test value of tx");
     });
   });
 });
