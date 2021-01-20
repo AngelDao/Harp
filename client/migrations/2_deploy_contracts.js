@@ -51,5 +51,5 @@ module.exports = async function (deployer, network, accounts) {
   //   stringToken.address,
   //   358974359000000000
   // );
-  await deployer.deploy(LatestFarm, stringToken.address);
+  await deployer.deploy(LatestFarm, stringToken.address, 100);
 };

@@ -60,7 +60,7 @@ contract("Farm Tests", async (accounts) => {
     ethLPToken = await ETHLP.new(owner, owner2);
     lusdLPToken = await LUSDLP.new(owner, owner2);
 
-    farm = await LatestFarm.new(stringToken.address);
+    farm = await LatestFarm.new(stringToken.address, 100);
 
     await farm.add(20, lusdLPToken.address, true);
     await farm.add(80, ethLPToken.address, true);
@@ -116,7 +116,6 @@ contract("Farm Tests", async (accounts) => {
     });
 
     const withdrawCheckROI = async (pool, owner) => {
-      console.log(afterBlock.toNumber());
       await farm.withdraw(pool, tokens("10"), { from: owner });
       const userBalance = (await ethLPToken.balanceOf(owner)).toString();
       const farmBalance = (await ethLPToken.balanceOf(farm.address)).toString();
@@ -152,7 +151,6 @@ contract("Farm Tests", async (accounts) => {
       let owner = accounts[1];
       await ethLPToken.approve(farm.address, tokens("100"), { from: owner });
       await farm.deposit(1, tokens("10"), { from: owner });
-      console.log(beforeBlock.toNumber());
       // goes 1 extra
       await advanceBlock(10);
       await withdrawCheckROI(1, owner);
@@ -162,7 +160,6 @@ contract("Farm Tests", async (accounts) => {
       let owner = accounts[1];
       await lusdLPToken.approve(farm.address, tokens("100"), { from: owner });
       await farm.deposit(0, tokens("10"), { from: owner });
-      console.log(beforeBlock.toNumber());
       // goes 1 extra
       await advanceBlock(10);
       await withdrawCheckROI(0, owner);
@@ -391,7 +388,6 @@ contract("Farm Tests", async (accounts) => {
       assert.equal(rewards2.toString(), owner2Balance.toString());
     });
 
-    // check math
     it("rewards for 2 depositers", async () => {
       let owner = accounts[1];
       let owner3 = accounts[5];
@@ -399,42 +395,11 @@ contract("Farm Tests", async (accounts) => {
       const beforeUserAcc = await farm.userInfo(1, owner);
       const beforeUserAcc2 = await farm.userInfo(1, owner3);
       // 13 blocks
-      await advanceBlock(10);
-
-      const userShare1Numerator = makeBN(1);
-      const userShare1Denominator = makeBN(6);
-      const userShare2Numerator = makeBN(5);
-      const userShare2Denominator = makeBN(6);
-      const poolNumerator = makeBN(8);
-      const poolDenominator = makeBN(10);
+      await advanceBlock(200);
       await farm.withdraw(1, tokens("10"), { from: owner });
-      await farm.withdraw(1, tokens("50"), { from: owner3 });
-      const rewards = await stringToken.balanceOf(owner);
-      const rewards2 = await stringToken.balanceOf(owner3);
-      const stringPerBlock = await farm.stringPerBlock();
-      const newBlocks = makeBN(13);
-      const five = makeBN(5);
-      const expectedRewards = stringPerBlock
-        .mul(five)
-        .mul(newBlocks)
-        .mul(poolNumerator)
-        .div(poolDenominator);
-      const owner1Balance = expectedRewards
-        .mul(userShare1Numerator)
-        .div(userShare1Denominator);
-      const owner2Balance = expectedRewards
-        .mul(userShare2Numerator)
-        .div(userShare2Denominator);
-      console.log(`total rewards expected:${expectedRewards.toString()}`);
-      console.log(`owner share of rewards: ${owner1Balance.toString()}`);
-      console.log(`owner2 share of rewards: ${owner2Balance.toString()}`);
-      console.log(`actual rewards: ${rewards.toString()}`);
-      console.log(`actual rewards2: ${rewards2.toString()}`);
-      assert.equal(
-        truncateString(rewards.toString()),
-        truncateString(owner1Balance.toString())
-      );
-      assert.equal(rewards2.toString(), owner2Balance.toString());
+
+      let isBoosted = await farm.isBoosted();
+      assert.equal(isBoosted, false);
     });
   });
 });

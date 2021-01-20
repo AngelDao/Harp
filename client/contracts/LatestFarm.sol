@@ -45,6 +45,7 @@ contract LatestFarm is Ownable {
     uint256 public stringPerBlock = 1435897436000000000;
     uint256 public postBoostedBlock;
     uint256 public constant boostedMultiplier = 5;
+    bool public isBoosted = true;
 
     // Info of each pool.
     PoolInfo[] public poolInfo;
@@ -64,13 +65,13 @@ contract LatestFarm is Ownable {
         uint256 amount
     );
 
-    constructor(
-        StringToken _string // uint256 _startBlock, // uint256 _endBlock
-    ) {
+    constructor(StringToken _string, uint256 _boostedBuffer)
+    // uint256 _startBlock, // uint256 _endBlock
+    {
         stringToken = _string;
         endBlock = block.number.add(2437500);
         startBlock = block.number;
-        postBoostedBlock = block.number.add(390000);
+        postBoostedBlock = block.number.add(_boostedBuffer);
     }
 
     function poolLength() external view returns (uint256) {
@@ -183,6 +184,9 @@ contract LatestFarm is Ownable {
                 .div(totalAllocPoint)
                 .mul(boostedMultiplier);
         } else {
+            if (isBoosted) {
+                isBoosted = false;
+            }
             stringReward = multiplier
                 .mul(stringPerBlock)
                 .mul(pool.allocPoint)
