@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.6.0 <0.8.0;
 
 import "./StringToken.sol";
@@ -11,6 +12,10 @@ contract Farm {
     event Deposit(address indexed user, uint256 indexed pid, uint256 amount);
     event Withdraw(address indexed user, uint256 indexed pid, uint256 amount);
     event Claim(address indexed who, uint256 amountClaimed);
+
+    uint256 constant PRECISIONMul = 1e30;
+    uint256 constant PRECISIONDiv = 1e10;
+    uint256 constant PRECISIONDenominator = 1e20;
 
     struct User {
         uint256 balance;
@@ -41,13 +46,13 @@ contract Farm {
     bool public isStarted = false;
     uint256 public startBlock;
     // 5.6mil * 10e18
-    uint256 public farmTokensMaxAllocation = 5600000000000000000000000;
+    uint256 public farmAllocation = 5600000000000000000000000;
     // 4.48 mil * 10e18
     uint256 public ethAllocation = 4480000000000000000000000;
     // 1.12 mil * 10e18
     uint256 public lusdAllocation = 1120000000000000000000000;
     uint256 public farmTokensClaimed = 0;
-    uint256 public boostedMuliplier = 5;
+    uint256 public boostedMultiplier = 5;
     uint256 public boostedDivisor = 2;
 
     // block reward ratios
@@ -63,13 +68,13 @@ contract Farm {
     IERC20 public lusdLpToken;
 
     constructor(
-        IERC20 _ethLpToken,
+        IERC20 _ETHlpToken,
         IERC20 _LUSDlpToken,
         StringToken _token,
         uint256 _rewardPerBlock
     ) {
-        ethLpToken = _ethLpToken;
-        lusdLpToken = _ethLpToken;
+        ethLpToken = _ETHlpToken;
+        lusdLpToken = _LUSDlpToken;
         stringToken = _token;
         rewardPerBlock = _rewardPerBlock.mul(1e9);
     }
@@ -80,46 +85,10 @@ contract Farm {
         User storage user = poolUsers[_pid][msg.sender];
 
         pool.lpToken.transferFrom(msg.sender, address(this), _amount);
+        // First entrance into system
+        claim(_pid);
         user.balance = user.balance.add(_amount);
         pool.amountStaked = pool.amountStaked.add(_amount);
-        // First entrance into system
-        if (user.balance <= 0 && user.lastClaimedBlock <= 0) {
-            user.lastClaimedBlock = block.number;
-        } else {
-            claim(_pid);
-        }
-    }
-
-    // claim
-    function claim(uint256 _pid) public {
-        require(
-            farmTokensClaimed < farmTokensMaxAllocation,
-            "The Farm allocation has completed."
-        );
-        Pool storage pool = pools[_pid];
-        User storage user = poolUsers[_pid][msg.sender];
-
-        uint256 userClaimable = _getPendingRewards(_pid);
-
-        if (pool.isBoosted) {
-            uint256 boostedCap = farmTokensMaxAllocation.div(boostedDivisor);
-            if (farmTokensClaimed < boostedCap) {
-                userClaimable = userClaimable.mul(boostedMuliplier);
-            } else {
-                pool.isBoosted = false;
-            }
-        }
-
-        require(userClaimable > 0, "No tokens to claim");
-        if (userClaimable > 0) {
-            stringToken.mintTo(msg.sender, userClaimable);
-            user.claimed = user.claimed.add(userClaimable);
-            farmTokensClaimed = farmTokensClaimed.add(userClaimable);
-            pool.currentRewardsGiven = pool.currentRewardsGiven.add(
-                userClaimable
-            );
-            user.lastClaimedBlock = block.number;
-        }
     }
 
     // withdraw
@@ -136,17 +105,62 @@ contract Farm {
         user.balance = user.balance.sub(_amount);
     }
 
+    // claim
+    function claim(uint256 _pid) public {
+        require(
+            farmTokensClaimed < farmAllocation,
+            "The Farm allocation has completed."
+        );
+        Pool storage pool = pools[_pid];
+        User storage user = poolUsers[_pid][msg.sender];
+
+        uint256 userClaimable;
+
+        if (pool.isBoosted) {
+            uint256 boostedCap = pool.maxRewardsToGive.div(boostedDivisor);
+            if (pool.currentRewardsGiven < boostedCap) {
+                userClaimable = _getPendingRewards(_pid).mul(boostedMultiplier);
+            } else {
+                pool.isBoosted = false;
+                userClaimable = _getPendingRewards(_pid);
+            }
+        } else {
+            userClaimable = _getPendingRewards(_pid);
+        }
+
+        // require(userClaimable > 0, "No tokens to claim");
+        user.lastClaimedBlock = block.number;
+        if (userClaimable > 0) {
+            stringToken.mintTo(msg.sender, userClaimable);
+            user.claimed = user.claimed.add(userClaimable);
+            farmTokensClaimed = farmTokensClaimed.add(userClaimable);
+            pool.currentRewardsGiven = pool.currentRewardsGiven.add(
+                userClaimable
+            );
+        }
+    }
+
     // Get Pending Rewards
-    function _getPendingRewards(uint256 _pid) internal returns (uint256) {
+    function _getPendingRewards(uint256 _pid) public view returns (uint256) {
         Pool memory pool = pools[_pid];
         User memory user = poolUsers[_pid][msg.sender];
-        uint256 newBlocks = block.number.sub(user.lastClaimedBlock);
-        uint256 claimableTokens = newBlocks.mul(pool.rewardPerBlock);
-        uint256 userPoolShare = user.balance.div(pool.amountStaked);
-        // dont think you need to subtract here
-        // .sub(user.claimed);
-        uint256 pendingRewards = claimableTokens.mul(userPoolShare);
-        return pendingRewards;
+        if (block.number > user.lastClaimedBlock && pool.amountStaked > 0) {
+            uint256 newBlocks = block.number.sub(user.lastClaimedBlock);
+            uint256 claimableTokens = newBlocks.mul(pool.rewardPerBlock);
+            uint256 userPoolShareNumerator =
+                user.balance.mul(PRECISIONMul).div(pool.amountStaked).div(
+                    PRECISIONDiv
+                );
+            // dont think you need to subtract here
+            // .sub(user.claimed);
+            uint256 pendingRewards =
+                claimableTokens.mul(userPoolShareNumerator).div(
+                    PRECISIONDenominator
+                );
+            return pendingRewards;
+        } else {
+            return 0;
+        }
     }
 
     function addInitialPools() public {
@@ -159,8 +173,8 @@ contract Farm {
         uint256 RPBLusd =
             rewardPerBlock.mul(LUSDPoolNumerator).div(LUSDPoolDenominator);
 
-        _addPool(true, true, ethAllocation, 0, 0, RPBEth, ethLpToken, 1);
-        _addPool(true, true, lusdAllocation, 0, 0, RPBLusd, lusdLpToken, 2);
+        _addPool(true, true, ethAllocation, 0, 0, RPBEth, ethLpToken);
+        _addPool(true, true, lusdAllocation, 0, 0, RPBLusd, lusdLpToken);
         isStarted = true;
     }
 
@@ -171,8 +185,7 @@ contract Farm {
         uint256 _currentRewardsGiven,
         uint256 _amountStaked,
         uint256 _rewardPerBlock,
-        IERC20 _lpToken,
-        uint256 _pid
+        IERC20 _lpToken
     ) internal {
         Pool memory _newPool =
             Pool({

@@ -1,6 +1,7 @@
 const StringToken = artifacts.require("StringToken");
 const TokenVesting = artifacts.require("TokenVesting");
 const Farm = artifacts.require("Farm");
+const LatestFarm = artifacts.require("LatestFarm");
 const LUSDLP = artifacts.require("LUSDLPToken");
 const ETHLP = artifacts.require("ETHLPToken");
 
@@ -37,17 +38,18 @@ module.exports = async function (deployer, network, accounts) {
   // 1st Ganache
   // Farm Deployments
 
-  await deployer.deploy(LUSDLP, accounts[0]);
-  await deployer.deploy(ETHLP, accounts[0]);
+  await deployer.deploy(LUSDLP, accounts[0], accounts[1]);
+  await deployer.deploy(ETHLP, accounts[0], accounts[1]);
   const ethLPToken = await ETHLP.deployed();
   const lusdLPToken = await LUSDLP.deployed();
   // 10e18 = 1000000000000000000
   //   base reward per block = 0.358974359
-  await deployer.deploy(
-    Farm,
-    ethLPToken.address,
-    lusdLPToken.address,
-    stringToken.address,
-    358974359
-  );
+  // await deployer.deploy(
+  //   Farm,
+  //   ethLPToken.address,
+  //   lusdLPToken.address,
+  //   stringToken.address,
+  //   358974359000000000
+  // );
+  await deployer.deploy(LatestFarm, stringToken.address);
 };
