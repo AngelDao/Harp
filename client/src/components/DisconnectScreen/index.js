@@ -7,7 +7,6 @@ const DisconnectScreen = () => {
 
   const handleClick = async () => {
     console.log("log");
-    debugger;
     try {
       await handleManualConnect();
     } catch (err) {

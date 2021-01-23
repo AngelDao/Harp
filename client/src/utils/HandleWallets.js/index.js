@@ -4,7 +4,6 @@ import Web3 from "web3";
 
 // user connection flow
 export const manualConnect = async (handleClose, address, visible) => {
-  debugger;
   if (!address && !visible) {
     let res;
     try {
@@ -38,16 +37,16 @@ export const checkChain = async (instance, toast) => {
   const chainId = await instance.eth.getChainId();
   console.log("Network ID: " + netId, "Chain ID: " + chainId);
   if (netId !== 1 || chainId !== 1) {
-    setTimeout(() => {
-      toast({
-        title: "Wrong network!",
-        description:
-          "You are on the wrong network! Switch to the mainnet and reload this page!",
-        status: "warning",
-        position: "top-right",
-        duration: 300000,
-        isClosable: true,
-      });
-    }, 1500);
+    // setTimeout(() => {
+    //   toast({
+    //     title: "Wrong network!",
+    //     description:
+    //       "You are on the wrong network! Switch to the mainnet and reload this page!",
+    //     status: "warning",
+    //     position: "top-right",
+    //     duration: 300000,
+    //     isClosable: true,
+    //   });
+    // }, 1500);
   }
 };

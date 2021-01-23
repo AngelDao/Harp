@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   PoolContainer,
   PairContainer,
@@ -22,6 +22,8 @@ import {
   ActionButtonContainer,
   UserInfoSubContainer,
 } from "./styles";
+import CredentialsContext from "../../../context/credentialsContext";
+import { fromWei, toWei } from "../../../utils/truncateString";
 
 const Pool = ({
   currency1,
@@ -30,7 +32,14 @@ const Pool = ({
   collapsed,
   expand,
   collapse,
+  LPTokensInWallet,
+  LPTokensStaked,
+  stringTokens,
 }) => {
+  const { web3DataProvider } = useContext(CredentialsContext);
+
+  const web3 = web3DataProvider;
+
   const viewButton = !collapsed ? (
     <CollapseButton onClick={collapse}>Collapse ↑</CollapseButton>
   ) : (
@@ -67,8 +76,8 @@ const Pool = ({
       <UserInfoContainer collapsed={collapsed}>
         <UserInfoSubContainer>
           <InfoContainer>
-            <InfoDesc>Earning on</InfoDesc>
-            <InfoBalance>0.00000000 UNI LP</InfoBalance>
+            <InfoDesc>Staked</InfoDesc>
+            <InfoBalance>{fromWei(web3, LPTokensStaked)} UNI LP</InfoBalance>
           </InfoContainer>
           <ActionButtonContainer>
             <ActionButton>
@@ -80,7 +89,7 @@ const Pool = ({
         <UserInfoSubContainer>
           <InfoContainer>
             <InfoDesc>Wallet</InfoDesc>
-            <InfoBalance>0.00000000 UNI LP</InfoBalance>
+            <InfoBalance>{fromWei(web3, LPTokensInWallet)} UNI LP</InfoBalance>
           </InfoContainer>
           <ActionButtonContainer>
             <ActionButton>
@@ -92,7 +101,7 @@ const Pool = ({
         <UserInfoSubContainer>
           <InfoContainer>
             <InfoDesc>Recieved</InfoDesc>
-            <InfoBalance>0.00000000 STRING</InfoBalance>
+            <InfoBalance>{fromWei(web3, stringTokens)} STRING</InfoBalance>
           </InfoContainer>
           <ActionButtonContainer>
             <ActionButton>

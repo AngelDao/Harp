@@ -84,7 +84,6 @@ const launchModal = async (handleClose) => {
 export const login = async (handleClose) => {
   const provider = await launchModal(handleClose);
   const instance = new Web3(provider);
-
   const addresses = await instance.eth.getAccounts();
   console.log("Address array: ", addresses);
   if (addresses.length === 0) {
@@ -92,6 +91,5 @@ export const login = async (handleClose) => {
     window.location.reload();
   }
   const address = addresses[0];
-  debugger;
   return [instance, address];
 };
