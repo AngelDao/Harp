@@ -8,9 +8,10 @@ const Farm = () => {
     stringETH: true,
     stringLUSD: true,
   });
-  const { userBalances, farmBalances } = useContext(CredentialsContext);
+  const { userBalances, farmBalances, userAllowances } = useContext(
+    CredentialsContext
+  );
 
-  debugger;
   return (
     <FarmContainer>
       <Title>Pools</Title>
@@ -20,8 +21,10 @@ const Farm = () => {
         currencyEarned={"STRING"}
         collapsed={collapsed.stringETH}
         LPTokensInWallet={userBalances.STRING_ETH_LP}
+        LPTokensAllowance={userAllowances.STRING_ETH_LP}
         LPTokensStaked={farmBalances.userStaked.STRING_ETH_LP}
-        stringTokens={userBalances.STRING}
+        pendingTokens={farmBalances.userPending.STRING_ETH_LP}
+        stringTokensAllowance={userAllowances.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, stringETH: true });
         }}
@@ -34,9 +37,11 @@ const Farm = () => {
         currency2={"LUSD"}
         currencyEarned={"STRING"}
         collapsed={collapsed.stringLUSD}
-        LPTokensInWallet={userBalances.STRING_ETH_LP}
-        LPTokensStaked={farmBalances.userStaked.STRING_ETH_LP}
-        stringTokens={userBalances.STRING}
+        LPTokensInWallet={userBalances.STRING_LUSD_LP}
+        LPTokensAllowance={userAllowances.STRING_LUSD_LP}
+        LPTokensStaked={farmBalances.userStaked.STRING_LUSD_LP}
+        pendingTokens={farmBalances.userPending.STRING_LUSD_LP}
+        stringTokensAllowance={userAllowances.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, stringLUSD: true });
         }}

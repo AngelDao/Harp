@@ -1,6 +1,5 @@
 const StringToken = artifacts.require("StringToken");
 const TokenVesting = artifacts.require("TokenVesting");
-const Farm = artifacts.require("Farm");
 const LatestFarm = artifacts.require("LatestFarm");
 const LUSDLP = artifacts.require("LUSDLPToken");
 const ETHLP = artifacts.require("ETHLPToken");
@@ -52,4 +51,10 @@ module.exports = async function (deployer, network, accounts) {
   //   358974359000000000
   // );
   await deployer.deploy(LatestFarm, stringToken.address, 100);
+
+  const farm = await LatestFarm.deployed();
+
+  await stringToken.addVestingAddress(farm.address, { from: owner });
+  await farm.add(80, ethLPToken.address, true);
+  await farm.add(20, lusdLPToken.address, true);
 };

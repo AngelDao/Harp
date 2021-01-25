@@ -106,7 +106,7 @@ export const Earned = styled.span`
   line-height: 20px;
   color: black;
   text-align: center;
-  background: #cabed5;
+  background: #e5c8ff;
   vertical-align: middle;
 `;
 

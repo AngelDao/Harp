@@ -6,10 +6,24 @@ export const truncateAddress = (str, n) => {
 };
 
 export const fromWei = (web3, n) => {
-  debugger;
-  return web3.utils.fromWei(n, "ether");
+  let test = web3.utils.fromWei(n, "micro");
+  return web3.utils.fromWei(n, "micro");
 };
 
 export const toWei = (web3, n) => {
+  let test = web3.utils.toWei(n, "ether");
   return web3.utils.toWei(n, "ether");
+};
+
+export const toDecimal = (n) => {
+  let temp = n.replace(/[.].+$/g, "");
+  if (n.length <= 1) {
+    return "0";
+  }
+
+  const end = temp.substr(temp.length - 6, 4);
+  const diff = temp.substr(temp.length - 6, 6);
+  const start = temp.replace(diff, "");
+  // ;
+  return `${start}.${end}`;
 };

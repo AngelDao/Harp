@@ -44,7 +44,6 @@ contract LatestFarm is Ownable {
     // SUSHI tokens created per block.
     uint256 public stringPerBlock = 1435897436000000000;
     uint256 public postBoostedBlock;
-    uint256 public constant boostedMultiplier = 5;
     bool public isBoosted = true;
 
     // Info of each pool.
@@ -54,6 +53,7 @@ contract LatestFarm is Ownable {
     // Total allocation poitns. Must be the sum of all allocation points in all pools.
     uint256 public totalAllocPoint = 0;
     // The block number when SUSHI mining starts.
+    uint256 public constant boostedMultiplier = 5;
     uint256 public startBlock;
 
     event Deposit(address indexed user, uint256 indexed pid, uint256 amount);
@@ -152,8 +152,14 @@ contract LatestFarm is Ownable {
                 stringReward.mul(1e12).div(lpSupply)
             );
         }
-        return
+        uint256 pending =
             user.amount.mul(accStringPerShare).div(1e12).sub(user.rewardDebt);
+
+        if (isBoosted) {
+            return pending.mul(boostedMultiplier);
+        } else {
+            return pending;
+        }
     }
 
     // Update reward vairables for all pools. Be careful of gas spending!
@@ -176,24 +182,22 @@ contract LatestFarm is Ownable {
             return;
         }
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
-        uint256 stringReward;
+        uint256 stringReward =
+            multiplier.mul(stringPerBlock).mul(pool.allocPoint).div(
+                totalAllocPoint
+            );
         if (block.number < postBoostedBlock) {
-            stringReward = multiplier
-                .mul(stringPerBlock)
-                .mul(pool.allocPoint)
-                .div(totalAllocPoint)
-                .mul(boostedMultiplier);
+            stringToken.mintTo(
+                address(this),
+                stringReward.mul(boostedMultiplier)
+            );
         } else {
             if (isBoosted) {
                 isBoosted = false;
             }
-            stringReward = multiplier
-                .mul(stringPerBlock)
-                .mul(pool.allocPoint)
-                .div(totalAllocPoint);
+            stringToken.mintTo(address(this), stringReward);
         }
 
-        stringToken.mintTo(address(this), stringReward);
         pool.accStringPerShare = pool.accStringPerShare.add(
             stringReward.mul(1e12).div(lpSupply)
         );
@@ -203,7 +207,7 @@ contract LatestFarm is Ownable {
     // Deposit LP tokens to MasterChef for SUSHI allocation.
     function deposit(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
-        UserInfo storage user = userInfo[_pid][msg.sender];
+        UserInfo storage user = userInfo[_pid][address(msg.sender)];
         updatePool(_pid);
         if (user.amount > 0) {
             uint256 pending =
