@@ -12,11 +12,9 @@ export const fetchStringToken = async (networkId, web3, address) => {
       StringToken.abi,
       stringTokenNetwork.address
     );
-    debugger;
     const STRING = toDecimal(
       fromWei(web3, await stringToken.methods.balanceOf(address).call())
     );
-
     return [stringToken, STRING];
   }
 };
@@ -70,8 +68,7 @@ export const fetchFarm = async (
     const userSTRING_ETH_LP = toDecimal(
       fromWei(web3, (await farm.methods.userInfo(0, address).call()).amount)
     );
-    const test = await farm.methods.pendingString(0, address).call();
-    debugger;
+    // debugger;
     const pendingSTRING_ETH_LP = toDecimal(
       fromWei(web3, await farm.methods.pendingString(0, address).call())
     );

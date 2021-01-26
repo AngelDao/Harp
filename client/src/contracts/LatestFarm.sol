@@ -152,8 +152,14 @@ contract LatestFarm is Ownable {
                 stringReward.mul(1e12).div(lpSupply)
             );
         }
-        return
+        uint256 pending =
             user.amount.mul(accStringPerShare).div(1e12).sub(user.rewardDebt);
+
+        if (isBoosted) {
+            return pending.mul(boostedMultiplier);
+        } else {
+            return pending;
+        }
     }
 
     // Update reward vairables for all pools. Be careful of gas spending!
@@ -176,24 +182,20 @@ contract LatestFarm is Ownable {
             return;
         }
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
-        uint256 stringReward;
+        uint256 stringReward =
+            multiplier.mul(stringPerBlock).mul(pool.allocPoint).div(
+                totalAllocPoint
+            );
         if (block.number < postBoostedBlock) {
-            stringReward = multiplier
-                .mul(stringPerBlock)
-                .mul(pool.allocPoint)
-                .div(totalAllocPoint)
-                .mul(boostedMultiplier);
+            uint256 boostedReward = stringReward.mul(boostedMultiplier);
+            stringToken.mintTo(address(this), boostedReward);
         } else {
             if (isBoosted) {
                 isBoosted = false;
             }
-            stringReward = multiplier
-                .mul(stringPerBlock)
-                .mul(pool.allocPoint)
-                .div(totalAllocPoint);
+            stringToken.mintTo(address(this), stringReward);
         }
 
-        stringToken.mintTo(address(this), stringReward);
         pool.accStringPerShare = pool.accStringPerShare.add(
             stringReward.mul(1e12).div(lpSupply)
         );
@@ -206,10 +208,7 @@ contract LatestFarm is Ownable {
         UserInfo storage user = userInfo[_pid][msg.sender];
         updatePool(_pid);
         if (user.amount > 0) {
-            uint256 pending =
-                user.amount.mul(pool.accStringPerShare).div(1e12).sub(
-                    user.rewardDebt
-                );
+            uint256 pending = _pending(user, pool);
             safeStringTransfer(msg.sender, pending);
         }
         pool.lpToken.safeTransferFrom(
@@ -228,10 +227,7 @@ contract LatestFarm is Ownable {
         UserInfo storage user = userInfo[_pid][msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
         updatePool(_pid);
-        uint256 pending =
-            user.amount.mul(pool.accStringPerShare).div(1e12).sub(
-                user.rewardDebt
-            );
+        uint256 pending = _pending(user, pool);
         safeStringTransfer(msg.sender, pending);
         user.amount = user.amount.sub(_amount);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
@@ -243,10 +239,7 @@ contract LatestFarm is Ownable {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
         updatePool(_pid);
-        uint256 pending =
-            user.amount.mul(pool.accStringPerShare).div(1e12).sub(
-                user.rewardDebt
-            );
+        uint256 pending = _pending(user, pool);
         safeStringTransfer(msg.sender, pending);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         Claim(msg.sender, pending);
@@ -270,5 +263,20 @@ contract LatestFarm is Ownable {
         } else {
             stringToken.transfer(_to, _amount);
         }
+    }
+
+    function _pending(UserInfo storage _user, PoolInfo storage _pool)
+        internal
+        view
+        returns (uint256)
+    {
+        uint256 rewardsToSend =
+            _user.amount.mul(_pool.accStringPerShare).div(1e12).sub(
+                _user.rewardDebt
+            );
+        if (isBoosted) {
+            return rewardsToSend.mul(boostedMultiplier);
+        }
+        return rewardsToSend;
     }
 }

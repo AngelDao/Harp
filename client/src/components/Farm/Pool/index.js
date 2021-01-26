@@ -22,7 +22,7 @@ import {
   ActionButtonContainer,
   UserInfoSubContainer,
 } from "./styles";
-import ActionsModal from "../../Modal";
+import Modal from "../../Modal";
 import CredentialsContext from "../../../context/credentialsContext";
 import { fromWei, toWei } from "../../../utils/truncateString";
 
@@ -68,7 +68,7 @@ const Pool = ({
 
   return (
     <>
-      <ActionsModal
+      <Modal
         open={open}
         close={handleClose}
         type={type}
