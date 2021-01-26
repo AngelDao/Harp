@@ -85,7 +85,6 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
   };
 
   const handleDeposit = async () => {
-    debugger;
     try {
       await farm.methods
         .deposit(pool[pair], toWei(web3DataProvider, value.toString()))
@@ -99,7 +98,6 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
   };
 
   const handleWithdraw = async () => {
-    debugger;
     await farm.methods
       .withdraw(pool[pair], toWei(web3UserProvider, value.toString()))
       .send({ from: address })

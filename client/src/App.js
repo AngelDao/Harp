@@ -9,7 +9,7 @@ import {
   initialConnectForDataCollection,
   manualConnect,
   checkChain,
-} from "./utils/HandleWallets.js/index";
+} from "./utils/handleWallets.js/index";
 import {
   fetchETHLPTokens,
   fetchFarm,
@@ -28,6 +28,7 @@ function App() {
   const [userAllowances, setUserAllowances] = useState({});
   const [farmBalances, setFarmBalances] = useState({});
   const [contracts, setContracts] = useState({});
+  const [prices, setPrices] = useState({});
 
   const handleOpenConnectModal = () => {
     setConnectModalVisible(false);
@@ -65,9 +66,16 @@ function App() {
     );
     setFarmBalances(farmBalances);
     setUserAllowances(allowances);
-
     setContracts({ stringToken, ETHLPToken, LUSDLPToken, farm });
     setUserBalances({ STRING, STRING_ETH_LP, STRING_LUSD_LP });
+  };
+
+  const handlePricing = async () => {
+    const STRING = 0.1;
+    // when all deposited $500mm tvl
+    const STRING_ETH_LP = 500;
+    const STRING_LUSD_LP = 500;
+    setPrices({ STRING, STRING_ETH_LP, STRING_LUSD_LP });
   };
 
   const handleManualConnect = async () => {
@@ -99,6 +107,7 @@ function App() {
       // fetch app data
       if (address && web3DataProvider && !isConnected) {
         await handleContractConnect();
+        await handlePricing();
       }
     })();
   }, [isContractConnected]);
@@ -109,7 +118,7 @@ function App() {
     if (contracts.stringToken) {
       setIsConnected(true);
     }
-  }, [userBalances]);
+  }, [prices]);
 
   const credentials = {
     web3DataProvider,
@@ -131,6 +140,7 @@ function App() {
     setUserAllowances,
     contracts,
     reFetchData,
+    prices,
   };
 
   return (

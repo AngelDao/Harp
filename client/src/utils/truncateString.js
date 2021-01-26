@@ -7,7 +7,7 @@ export const truncateAddress = (str, n) => {
 
 export const fromWei = (web3, n) => {
   let test = web3.utils.fromWei(n, "micro");
-  // debugger;
+  // ;
   return web3.utils.fromWei(n, "micro");
 };
 
@@ -25,7 +25,7 @@ export const toDecimal = (n) => {
   const end = temp.substr(temp.length - 6, 4);
   const diff = temp.substr(temp.length - 6, 6);
   const start = temp.replace(diff, "");
-  // debugger;
+  // ;
   // ;
   return `${start}.${end}`;
 };

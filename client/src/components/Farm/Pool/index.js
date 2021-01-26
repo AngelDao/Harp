@@ -38,7 +38,9 @@ const Pool = ({
   pendingTokens,
   LPTokensAllowance,
 }) => {
-  const { web3DataProvider } = useContext(CredentialsContext);
+  const { web3DataProvider, farmBalances, prices } = useContext(
+    CredentialsContext
+  );
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("");
   const [balance, setBalance] = useState(0);
@@ -66,6 +68,42 @@ const Pool = ({
     setAllowance(0);
   };
 
+  const makeBN = (n) => {
+    return new web3DataProvider.utils.BN(n);
+  };
+  const pair = `${currency1}/${currency2}`;
+
+  const pairNames = {
+    "STRING/ETH": "STRING_ETH_LP",
+    "STRING/LUSD": "STRING_LUSD_LP",
+  };
+
+  const alloc = {
+    "STRING/ETH": 0.8,
+    "STRING/LUSD": 0.2,
+  };
+
+  const pairTokensTVL =
+    parseFloat(farmBalances.totalStaked[pairNames[pair]]) *
+    parseFloat(prices[pairNames[pair]]);
+
+  const rewardPerBlock = farmBalances.isBoosted
+    ? 1.435897436 * 5 * alloc[pair]
+    : 1.435897436 * alloc[pair];
+  const blocksPerDay = 6500;
+  // const year = 365;
+  // const week = 7;
+
+  const dailyUSDReturn = rewardPerBlock * blocksPerDay * prices.STRING;
+
+  let dailyAPY, weeklyAPY, yearlyAPY;
+  if (pairTokensTVL > 0) {
+    dailyAPY = ((dailyUSDReturn / pairTokensTVL) * 100).toFixed(2);
+    weeklyAPY = (((dailyUSDReturn * 7) / pairTokensTVL) * 100).toFixed(2);
+    yearlyAPY = (((dailyUSDReturn * 365) / pairTokensTVL) * 100).toFixed(2);
+  }
+
+  debugger;
   return (
     <>
       <Modal
@@ -74,7 +112,7 @@ const Pool = ({
         type={type}
         balance={balance && balance}
         allowance={allowance && allowance}
-        pair={`${currency1}/${currency2}`}
+        pair={pair}
       />
       <div style={{ marginTop: "12.5px", marginBottom: "35.5px" }}>
         <PoolContainer>
@@ -96,9 +134,9 @@ const Pool = ({
             <Desc>APY</Desc>
           </DescContainer>
           <StatContainer>
-            <Stat>--%</Stat>
-            <Stat>--%</Stat>
-            <Stat>--%</Stat>
+            <Stat>{dailyAPY}%</Stat>
+            <Stat>{weeklyAPY}%</Stat>
+            <Stat>{yearlyAPY}%</Stat>
           </StatContainer>
         </PoolContainer>
         <CollapseButtonContainer>{viewButton}</CollapseButtonContainer>

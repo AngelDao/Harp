@@ -68,7 +68,7 @@ export const fetchFarm = async (
     const userSTRING_ETH_LP = toDecimal(
       fromWei(web3, (await farm.methods.userInfo(0, address).call()).amount)
     );
-    // debugger;
+    // ;
     const pendingSTRING_ETH_LP = toDecimal(
       fromWei(web3, await farm.methods.pendingString(0, address).call())
     );
@@ -80,6 +80,7 @@ export const fetchFarm = async (
     const userSTRING_LUSD_LP = toDecimal(
       fromWei(web3, (await farm.methods.userInfo(1, address).call()).amount)
     );
+    const isBoosted = await farm.methods.isBoosted().call();
 
     const allowancesSTRING = toDecimal(
       fromWei(
@@ -106,6 +107,7 @@ export const fetchFarm = async (
       STRING_LUSD_LP: allowancesSTRING_LUSD_LP,
     };
     const farmBalances = {
+      isBoosted,
       userPending: {
         STRING_ETH_LP: pendingSTRING_ETH_LP,
         STRING_LUSD_LP: pendingSTRING_LUSD_LP,
