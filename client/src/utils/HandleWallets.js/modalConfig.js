@@ -1,6 +1,6 @@
 import Web3 from "web3";
 
-const launchModal = async (handleClose) => {
+const launchModal = async (handleClose, handleAccountchange) => {
   const [
     WalletConnectProvider,
     Portis,
@@ -78,11 +78,27 @@ const launchModal = async (handleClose) => {
 
   web3Modal.on("close", handleClose);
 
-  return web3Modal.connect();
+  const provider = await web3Modal.connect();
+  setEventListeners(provider, handleAccountchange);
+  return provider;
 };
 
-export const login = async (handleClose) => {
-  const provider = await launchModal(handleClose);
+export const setEventListeners = (instance, handleAccountchange) => {
+  instance
+    .on("accountsChanged", (log) => {
+      console.log("accountsChanged", log);
+      handleAccountchange(log[0]);
+    })
+    .on("connected", (log) => {
+      console.log("connected", log);
+    })
+    .on("chainChanged", (log) => {
+      console.log("chainChanged", log);
+    });
+};
+
+export const login = async (handleClose, handleAccountchange) => {
+  const provider = await launchModal(handleClose, handleAccountchange);
   const instance = new Web3(provider);
   const addresses = await instance.eth.getAccounts();
   console.log("Address array: ", addresses);
@@ -91,5 +107,7 @@ export const login = async (handleClose) => {
     window.location.reload();
   }
   const address = addresses[0];
+  // setEventListeners(instance, address);
+  // setEventListeners(window.web3, address);
   return [instance, address];
 };

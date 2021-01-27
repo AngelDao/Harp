@@ -1,13 +1,18 @@
-import { login } from "./modalConfig";
+import { login, setEventListeners } from "./modalConfig";
 import { useToast } from "@chakra-ui/react";
 import Web3 from "web3";
 
 // user connection flow
-export const manualConnect = async (handleClose, address, visible) => {
+export const manualConnect = async (
+  handleClose,
+  address,
+  visible,
+  handleAccountchange
+) => {
   if (!address && !visible) {
     let res;
     try {
-      res = await login(handleClose);
+      res = await login(handleClose, handleAccountchange);
     } catch (err) {
       console.log(err);
     }
@@ -21,7 +26,7 @@ export const initialConnectForDataCollection = async () => {
     console.log("Using window.ethereum!");
     window.web3 = new Web3(window.ethereum);
     await window.ethereum.enable();
-    return window.web3;
+    // return window.web3;
     return new Web3(window.ethereum);
   } else if (window.web3) {
     console.log("Using window.web3!");

@@ -27,8 +27,8 @@ export const UserInfoContainer = styled.div`
   display: flex;
   margin-top: 6.25px;
   justify-content: space-between;
-  max-height: ${({ collapsed }) => (collapsed ? "0px" : "auto")};
-  transition: max-height 0.2s linear;
+  max-height: ${({ collapsed }) => (collapsed ? "0px" : "200px")};
+  transition: max-height 0.4s linear;
   overflow: hidden;
 `;
 
@@ -122,6 +122,7 @@ export const CollapseButton = styled.a`
   font-size: ${MasterStyles.fontSize.small};
   cursor: pointer;
 
+  text-decoration: underline;
   :hover {
     text-decoration: underline;
   }
@@ -143,27 +144,44 @@ export const InfoBalance = styled.span`
   font-size ${MasterStyles.fontSize.large};
 `;
 
+// rgb(93 93 93)
+// rgb(93 93 93)
+// rgb(160 160 160)
+// rgb(160 160 160)
+// original1 rgb(207, 207, 207)
+// original2 rgb(252, 252, 252)
+const action1 = "rgb(207, 207, 207)";
+const action2 = "rgb(252, 252, 252)";
+const cancel1 = "#b8b8b8";
+const cancel2 = "#969696";
+// green1 a2da84
+// green2 e1eec7
+// red1 e87d7b
+// red2 f0a8a6
 export const ActionButton = styled.button`
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  background-image: -webkit-gradient(
+  background-image: ${({ action }) => {
+    return `-webkit-gradient(
     linear,
     left bottom,
     left top,
-    color-stop(0.16, rgb(207, 207, 207)),
-    color-stop(0.79, rgb(252, 252, 252))
-  );
-  background-image: -moz-linear-gradient(
+    color-stop(0.16, ${action ? "rgb(207, 207, 207)" : "rgb(93 93 93)"}),
+    color-stop(0.79, ${action ? "rgb(252, 252, 252)" : "rgb(160 160 160)"}));`;
+  }}
+  background-image: ${({ action }) => {
+    return `-moz-linear-gradient(
     center bottom,
-    rgb(207, 207, 207) 16%,
-    rgb(252, 252, 252) 79%
-  );
-  background-image: linear-gradient(
-    to top,
-    rgb(207, 207, 207) 16%,
-    rgb(252, 252, 252) 79%
-  );
+    ${action ? "rgb(207, 207, 207)" : "rgb(93 93 93)"} 16%,
+    ${action ? "rgb(252, 252, 252)" : "rgb(160 160 160)"} 79%
+  );`;
+  }}
+  background-image: ${({ action }) => {
+    return `linear-gradient(to top, ${
+      action ? "rgb(207, 207, 207)" : "rgb(93 93 93)"
+    } 16%, ${action ? "rgb(252, 252, 252)" : "rgb(160 160 160)"} 79%);`;
+  }}
   padding: 3px;
   outline: none;
   border: 1px solid #000;
@@ -172,6 +190,10 @@ export const ActionButton = styled.button`
   background-color: #fcfcfc !important;
   width: 100px;
   height: 33px;
+  font-style: italic;
+  cursor: ${({ disabled }) => {
+    return disabled ? "not-allowed" : "cursor";
+  }};
 `;
 
 export const ActionButtonContainer = styled.div`

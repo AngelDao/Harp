@@ -16,6 +16,7 @@ import {
   fetchLUSDLPTokens,
   fetchStringToken,
 } from "./utils/contractConnection";
+// import { setEventListeners } from "./utils/handleWallets.js/modalConfig";
 
 function App() {
   const [connectModalVisible, setConnectModalVisible] = useState(null);
@@ -38,8 +39,17 @@ function App() {
     setConnectModalVisible(true);
   };
 
+  const handleAccountchange = async (newAcc) => {
+    setAddress(newAcc);
+    // await reFetchData();
+  };
+
   const handleContractConnect = async () => {
-    const web3 = web3UserProvider;
+    let w = web3DataProvider;
+    let w2 = window.web3;
+    // const web3 = web3UserProvider;
+    const web3 = window.web3;
+    // ;
     const networkId = await web3.eth.net.getId();
     const [stringToken, STRING] = await fetchStringToken(
       networkId,
@@ -82,13 +92,14 @@ function App() {
     const res = await manualConnect(
       handleOpenConnectModal,
       address,
-      connectModalVisible
+      connectModalVisible,
+      handleAccountchange
     );
 
     if (res) {
-      setAddress(res[1]);
       setWeb3UserProvider(res[0]);
-      setIsContractConnected(true);
+      setAddress(res[1]);
+      // setIsContractConnected(true);
       await checkChain(res[0], toast);
     }
   };
@@ -105,12 +116,12 @@ function App() {
         setWeb3DataProvider(dataInstance);
       }
       // fetch app data
-      if (address && web3DataProvider && !isConnected) {
+      if (address && web3DataProvider) {
         await handleContractConnect();
         await handlePricing();
       }
     })();
-  }, [isContractConnected]);
+  }, [address]);
 
   // once connected to the contractss
   useEffect(() => {

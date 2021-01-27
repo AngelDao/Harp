@@ -22,7 +22,7 @@ export const HeaderContainer = styled.div`
 export const CollapseButton = styled.a`
   font-size: ${MasterStyles.fontSize.small};
   cursor: pointer;
-
+  text-decoration: underline;
   :hover {
     text-decoration: underline;
   }

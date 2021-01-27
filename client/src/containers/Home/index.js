@@ -49,6 +49,18 @@ const Home = () => {
           <Menu />
           <HR />
           {connectionStatus}
+          {/* side scrolling banner */}
+          {/* <div
+            style={{
+              width: "510px",
+              height: 17.5,
+              backgroundColor: "#fdff77",
+              position: "absolute",
+              bottom: "-25.75px",
+              left: "-3px",
+              border: "dashed black 2px",
+            }}
+          ></div> */}
         </InnerContainer>
         <Content loading={loading} />
       </AppContainer>

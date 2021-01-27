@@ -103,7 +103,6 @@ const Pool = ({
     yearlyAPY = (((dailyUSDReturn * 365) / pairTokensTVL) * 100).toFixed(2);
   }
 
-  debugger;
   return (
     <>
       <Modal
@@ -134,9 +133,9 @@ const Pool = ({
             <Desc>APY</Desc>
           </DescContainer>
           <StatContainer>
-            <Stat>{dailyAPY}%</Stat>
-            <Stat>{weeklyAPY}%</Stat>
-            <Stat>{yearlyAPY}%</Stat>
+            <Stat>{dailyAPY ? dailyAPY : "--"}%</Stat>
+            <Stat>{weeklyAPY ? weeklyAPY : "--"}%</Stat>
+            <Stat>{yearlyAPY ? yearlyAPY : "--"}%</Stat>
           </StatContainer>
         </PoolContainer>
         <CollapseButtonContainer>{viewButton}</CollapseButtonContainer>
@@ -148,6 +147,8 @@ const Pool = ({
             </InfoContainer>
             <ActionButtonContainer>
               <ActionButton
+                action={parseInt(LPTokensStaked) > 0}
+                disabled={parseInt(LPTokensStaked) <= 0}
                 onClick={() => {
                   handleOpen("Withdraw", LPTokensStaked);
                 }}
@@ -164,6 +165,8 @@ const Pool = ({
             </InfoContainer>
             <ActionButtonContainer>
               <ActionButton
+                action={parseInt(LPTokensInWallet) > 0}
+                disabled={parseInt(LPTokensInWallet) <= 0}
                 onClick={() => {
                   handleOpen("Deposit", LPTokensInWallet);
                 }}
@@ -180,6 +183,8 @@ const Pool = ({
             </InfoContainer>
             <ActionButtonContainer>
               <ActionButton
+                action={parseInt(pendingTokens) > 0}
+                disabled={parseInt(pendingTokens) <= 0}
                 onClick={() => {
                   handleOpen("Claim", pendingTokens);
                 }}

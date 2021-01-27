@@ -61,7 +61,26 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
   const [value, setValue] = useState(0);
 
   const handleChangeValue = (num) => {
-    setValue(num);
+    let temp = num;
+    if (!num) {
+      temp = "";
+    }
+    if (num === 0) {
+      temp = 0;
+    }
+    setValue(temp);
+  };
+
+  const handleFocus = () => {
+    if (value === 0) {
+      setValue("");
+    }
+  };
+
+  const handleBlur = () => {
+    if (value === "") {
+      setValue(0);
+    }
   };
 
   const handleClose = () => {
@@ -76,12 +95,14 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
   const handleApprove = async () => {
     await token[pair].methods
       .approve(farm._address, toWei(web3DataProvider, "10000000"))
-      .send({ from: address });
-    // const newAllowance = await token[pair].methods
-    //   .allowance(address, farm._address)
-    //   .call();
-    // setUserAllowances({ ...userAllowances, [pairNames[pair]]: newAllowance });
-    await reFetchData();
+      .send({ from: address })
+      .on("transactionHash", async () => {
+        await reFetchData();
+      })
+      .on("receipt", async () => {
+        await reFetchData();
+      });
+    close();
   };
 
   const handleDeposit = async () => {
@@ -90,6 +111,9 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
         .deposit(pool[pair], toWei(web3DataProvider, value.toString()))
         .send({ from: address })
         .on("transactionHash", async () => {
+          await reFetchData();
+        })
+        .on("receipt", async () => {
           await reFetchData();
         });
     } catch (err) {
@@ -103,16 +127,21 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
       .send({ from: address })
       .on("transactionHash", async () => {
         await reFetchData();
+      })
+      .on("receipt", async () => {
+        await reFetchData();
       });
   };
 
-  const handleAction = () => {
+  const handleAction = async () => {
     switch (type) {
       case "Deposit":
-        handleDeposit();
+        await handleDeposit();
+        close();
         break;
       case "Withdraw":
-        handleWithdraw();
+        await handleWithdraw();
+        close();
     }
   };
 
@@ -133,6 +162,17 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
         backgroundColor={MasterStyles.background.menu}
       >
         <HeaderContainer>
+          {allowed ? (
+            <AllowanceContainer>
+              <AllowanceText>Approved</AllowanceText>
+              <ConnectedCircle />
+            </AllowanceContainer>
+          ) : (
+            <AllowanceContainer>
+              <AllowanceText>Needs approval</AllowanceText>
+              <NotConnectedCircle />
+            </AllowanceContainer>
+          )}
           <ModalHeader textAlign="">{type}</ModalHeader>
 
           <CloseContainer>
@@ -148,65 +188,68 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
             />
           </CloseContainer>
         </HeaderContainer>
-        <ModalBody borderTop="2px solid black">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "10px",
-            }}
-          >
-            <span style={{ fontSize: MasterStyles.fontSize.small }}>
-              Amount to {type}
-            </span>
-            <span style={{ fontSize: MasterStyles.fontSize.small }}>
-              Available: {balance}
-            </span>
-          </div>
-          <NumberInput
-            defaultValue={0}
-            min={0}
-            precision={2}
-            step={0.2}
-            max={parseInt(balance)}
-            value={value}
-            inputMode="decimal"
-            borderRadius="0%"
-            borderColor="black"
-            focusBorderColor="black"
-            onChange={(str, num) => handleChangeValue(num)}
-            outline="none"
-            backgroundColor={MasterStyles.background.secondaryMenu}
-          >
-            <NumberInputField
+        {allowed ? (
+          <ModalBody borderTop="2px solid black">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "10px",
+              }}
+            >
+              <span style={{ fontSize: MasterStyles.fontSize.small }}>
+                Amount to {type}
+              </span>
+              <span style={{ fontSize: MasterStyles.fontSize.small }}>
+                Available: {balance}
+              </span>
+            </div>
+            <NumberInput
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+              defaultValue={0}
+              min={0}
+              precision={2}
+              step={0.2}
+              max={parseInt(balance)}
+              value={value}
+              inputMode="decimal"
               borderRadius="0%"
-              border="2px solid black"
+              borderColor="black"
+              focusBorderColor="black"
+              onChange={(str, num) => handleChangeValue(num)}
               outline="none"
-              _hover={{ borderColor: "black" }}
               backgroundColor={MasterStyles.background.secondaryMenu}
-            />
-            <NumberInputStepper border="none">
-              <NumberIncrementStepper border="none" />
-              <NumberDecrementStepper border="none" />
-            </NumberInputStepper>
-          </NumberInput>
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <CollapseButton onClick={handleSetMax}>+ Max {type}</CollapseButton>
-          </div>
-        </ModalBody>
+            >
+              <NumberInputField
+                borderRadius="0%"
+                border="2px solid black"
+                outline="none"
+                _hover={{ borderColor: "black" }}
+                backgroundColor={MasterStyles.background.secondaryMenu}
+              />
+              <NumberInputStepper border="none">
+                <NumberIncrementStepper border="none" />
+                <NumberDecrementStepper border="none" />
+              </NumberInputStepper>
+            </NumberInput>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <CollapseButton onClick={handleSetMax}>
+                + Max {type}
+              </CollapseButton>
+            </div>
+          </ModalBody>
+        ) : (
+          <ModalBody
+            borderTop="2px solid black"
+            padding="25px 24px"
+            textAlign="center"
+          >
+            <span>You must approve the farm in order to use it</span>
+          </ModalBody>
+        )}
         <ModalFooter paddingTop="0px">
           <div style={{ display: "flex", flexDirection: "column" }}>
-            {allowed ? (
-              <AllowanceContainer>
-                <ConnectedCircle />
-                <AllowanceText>Approved</AllowanceText>
-              </AllowanceContainer>
-            ) : (
-              <AllowanceContainer>
-                <NotConnectedCircle />
-                <AllowanceText>Needs approval</AllowanceText>
-              </AllowanceContainer>
-            )}
             <ActionContainer>
               {allowed ? (
                 <ActionButton

@@ -23,6 +23,7 @@ export const CollapseButton = styled.a`
   font-size: ${MasterStyles.fontSize.small};
   cursor: pointer;
 
+  text-decoration: underline;
   :hover {
     text-decoration: underline;
   }
@@ -96,7 +97,7 @@ export const NotConnectedCircle = styled.div`
   width: 7px;
   border-radius: 50%;
   background-color: #e42659;
-  margin-right: 5px;
+  margin-left: 5px;
 `;
 
 export const ConnectedCircle = styled.div`
@@ -104,14 +105,15 @@ export const ConnectedCircle = styled.div`
   width: 7px;
   border-radius: 50%;
   background-color: #25e472;
-  margin-right: 5px;
+  margin-left: 5px;
 `;
 
 export const AllowanceContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 10px;
   align-items: center;
+  position: absolute;
+  left 16px;
 `;
 
 export const AllowanceText = styled.span`

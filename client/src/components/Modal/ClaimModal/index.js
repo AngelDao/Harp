@@ -37,7 +37,11 @@ const ActionModal = ({ open, close, balance, pair }) => {
       .send({ from: address })
       .on("transactionHash", async () => {
         await reFetchData();
+      })
+      .on("receipt", async () => {
+        await reFetchData();
       });
+    close();
   };
 
   return (
