@@ -97,11 +97,11 @@ export const EarnLabel = styled.span`
   font-size: ${MasterStyles.fontSize.medium};
 `;
 
-export const Earned = styled.span`
-  display: inline-block;
+export const Earned = styled.div`
+  display: flex;
   margin-left: 9px;
-  padding: 4px 6px;
-  width: 65px;
+  padding: 4px 0px;
+  min-width: 71px;
   font-size: ${MasterStyles.fontSize.small};
   line-height: 20px;
   color: black;

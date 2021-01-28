@@ -25,6 +25,8 @@ import {
 import Modal from "../../Modal";
 import CredentialsContext from "../../../context/credentialsContext";
 import { fromWei, toWei } from "../../../utils/truncateString";
+import ethLogo from "../../../assets/eth1.png";
+import stringLogo from "../../../assets/string1.png";
 
 const Pool = ({
   currency1,
@@ -121,11 +123,48 @@ const Pool = ({
               <Pair>
                 {currency1}/{currency2}
               </Pair>
+              <div
+                style={{
+                  display: "flex",
+                  position: "relative",
+                  width: "100px",
+                  height: "30px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  style={{
+                    width: "50px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <img
+                    style={{
+                      width: "22px",
+                      height: "22px",
+                    }}
+                    src={stringLogo}
+                  />
+                  <img
+                    style={{
+                      width: "22px",
+                      height: "22px",
+                    }}
+                    src={ethLogo}
+                  />
+                </div>
+              </div>
             </ContractLink>
           </PairContainer>
           <EarnContainer>
             <EarnLabel>Recieve</EarnLabel>
-            <Earned>{currencyEarned}</Earned>
+            <Earned>
+              <img style={{ width: "20px", height: "20px" }} src={stringLogo} />
+              <span style={{ marginLeft: "-2.5px" }}>{currencyEarned}</span>
+            </Earned>
           </EarnContainer>
           <DescContainer>
             <Desc>Daily</Desc>
