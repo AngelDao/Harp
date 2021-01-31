@@ -96,7 +96,10 @@ contract LatestFarm is Ownable {
                 lpToken: _lpToken,
                 allocPoint: _allocPoint,
                 lastRewardBlock: lastRewardBlock,
-                accStringPerShare: 0
+                accStringPerShare: 0,
+                accLQTYPerShare: 0,
+                accLUSDPerShare: 0,
+                accETHPerShare: 0
             })
         );
     }

@@ -21,12 +21,17 @@ import {
   ActionButton,
   ActionButtonContainer,
   UserInfoSubContainer,
+  PairLogoContainer,
+  LogoContainer,
+  PairLogo,
 } from "./styles";
 import Modal from "../../Modal";
 import CredentialsContext from "../../../context/credentialsContext";
 import { fromWei, toWei } from "../../../utils/truncateString";
 import ethLogo from "../../../assets/eth1.png";
 import stringLogo from "../../../assets/string1.png";
+import liquityLogo from "../../../assets/liq.svg";
+import uniswapLogo from "../../../assets/uniswap2.svg";
 
 const Pool = ({
   currency1,
@@ -39,6 +44,8 @@ const Pool = ({
   LPTokensStaked,
   pendingTokens,
   LPTokensAllowance,
+  from,
+  src,
 }) => {
   const { web3DataProvider, farmBalances, prices } = useContext(
     CredentialsContext
@@ -85,6 +92,13 @@ const Pool = ({
     "STRING/LUSD": 0.2,
   };
 
+  const logosMap = {
+    LUSD: liquityLogo,
+    LQTY: liquityLogo,
+    STRING: stringLogo,
+    ETH: ethLogo,
+  };
+
   const pairTokensTVL =
     parseFloat(farmBalances.totalStaked[pairNames[pair]]) *
     parseFloat(prices[pairNames[pair]]);
@@ -105,6 +119,8 @@ const Pool = ({
     yearlyAPY = (((dailyUSDReturn * 365) / pairTokensTVL) * 100).toFixed(2);
   }
 
+  // debugger;
+
   return (
     <>
       <Modal
@@ -119,52 +135,53 @@ const Pool = ({
         <PoolContainer>
           <PairContainer>
             <ContractLink>
-              <DEX>Uniswap</DEX>
-              <Pair>
-                {currency1}/{currency2}
-              </Pair>
-              <div
-                style={{
-                  display: "flex",
-                  position: "relative",
-                  width: "100px",
-                  height: "30px",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <div
-                  style={{
-                    width: "50px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                    }}
-                    src={stringLogo}
-                  />
-                  <img
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                    }}
-                    src={ethLogo}
-                  />
-                </div>
-              </div>
+              <DEX>{from}</DEX>
+              <Pair>{currency2 ? `${currency1}/${currency2}` : currency1}</Pair>
+              <PairLogoContainer>
+                <LogoContainer>
+                  {/* <div> */}
+                  {currency2 ? (
+                    <>
+                      <PairLogo src={logosMap[currency1]} />
+                      <PairLogo src={logosMap[currency2]} />
+                    </>
+                  ) : (
+                    <PairLogo src={logosMap[currency1]} />
+                  )}
+                  {/* </div> */}
+                </LogoContainer>
+              </PairLogoContainer>
             </ContractLink>
           </PairContainer>
           <EarnContainer>
             <EarnLabel>Recieve</EarnLabel>
-            <Earned>
-              <img style={{ width: "20px", height: "20px" }} src={stringLogo} />
-              <span style={{ marginLeft: "-2.5px" }}>{currencyEarned}</span>
-            </Earned>
+            <div>
+              {typeof currencyEarned === "string" ? (
+                <Earned>
+                  <img
+                    style={{ width: "20px", height: "20px" }}
+                    src={logosMap[currencyEarned]}
+                  />
+                  <span style={{ marginLeft: "-2.5px" }}>{currencyEarned}</span>
+                </Earned>
+              ) : (
+                currencyEarned.map((c) => {
+                  return (
+                    <Earned style={{ marginBottom: "7px" }}>
+                      <img
+                        style={{
+                          width: "12px",
+                          height: "12px",
+                          marginLeft: "4px",
+                        }}
+                        src={logosMap[c]}
+                      />
+                      <span style={{ marginLeft: "4px" }}>{c}</span>
+                    </Earned>
+                  );
+                })
+              )}
+            </div>
           </EarnContainer>
           <DescContainer>
             <Desc>Daily</Desc>

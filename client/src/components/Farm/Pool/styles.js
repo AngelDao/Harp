@@ -108,6 +108,7 @@ export const Earned = styled.div`
   text-align: center;
   background: #e5c8ff;
   vertical-align: middle;
+  align-items: center;
 `;
 
 export const Desc = styled.span`
@@ -201,4 +202,25 @@ export const ActionButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 12.5px;
+`;
+
+export const PairLogoContainer = styled.div`
+  display: flex;
+  position: relative;
+  width: 100px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LogoContainer = styled.div`
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  alignitems: center;
+`;
+
+export const PairLogo = styled.img`
+  width: 22px;
+  height: 22px;
 `;
