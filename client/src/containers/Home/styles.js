@@ -5,6 +5,13 @@ export const Container = styled.div`
   width: 100%;
   min-height: 100vh;
 
+  // background: -webkit-linear-gradient(
+  //   31deg,
+  //   rgb(204, 149, 255),
+  //   rgb(243, 241, 244)
+  // );
+  // background: linear-gradient(31deg, rgb(204, 149, 255), rgb(243, 241, 244));
+
   background: -webkit-linear-gradient(
     -180deg,
     rgb(227, 193, 255),

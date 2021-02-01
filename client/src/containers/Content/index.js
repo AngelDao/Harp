@@ -5,6 +5,7 @@ import DisconnectScreen from "../../components/DisconnectScreen";
 import CredentialsContext from "../../context/credentialsContext";
 import Farm from "../../components/Farm";
 import FAQ from "../../components/FAQ";
+import Stake from "../../components/Stake";
 
 const Content = ({ location, loading }) => {
   const { isConnected } = useContext(CredentialsContext);
@@ -22,9 +23,8 @@ const Content = ({ location, loading }) => {
       <Switch location={location}>
         <Route exact path="/borrow" />
         <Route exact path="/redeem" />
-        <Route exact path="/stake" />
+        <Route exact path="/stake" component={Stake} />
         <Route exact path="/farm" component={Farm} />
-        <Route exact path="/stats" />
         <Route exact path="/faq" component={FAQ} />
         <Route exact path="*">
           <Redirect to="/borrow" />

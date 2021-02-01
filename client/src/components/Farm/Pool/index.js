@@ -46,6 +46,8 @@ const Pool = ({
   LPTokensAllowance,
   from,
   src,
+  conditionalMargin,
+  currencyLP,
 }) => {
   const { web3DataProvider, farmBalances, prices } = useContext(
     CredentialsContext
@@ -121,6 +123,8 @@ const Pool = ({
 
   // debugger;
 
+  const margin = conditionalMargin ? (collapsed ? "0px" : "10px") : "35.5px";
+
   return (
     <>
       <Modal
@@ -131,7 +135,7 @@ const Pool = ({
         allowance={allowance && allowance}
         pair={pair}
       />
-      <div style={{ marginTop: "12.5px", marginBottom: "35.5px" }}>
+      <div style={{ marginTop: "12.5px", marginBottom: margin }}>
         <PoolContainer>
           <PairContainer>
             <ContractLink>
@@ -199,7 +203,9 @@ const Pool = ({
           <UserInfoSubContainer>
             <InfoContainer>
               <InfoDesc>Staked</InfoDesc>
-              <InfoBalance>{LPTokensStaked} UNI LP</InfoBalance>
+              <InfoBalance>
+                {LPTokensStaked ? LPTokensStaked : 0} {currencyLP}
+              </InfoBalance>
             </InfoContainer>
             <ActionButtonContainer>
               <ActionButton
@@ -217,7 +223,9 @@ const Pool = ({
           <UserInfoSubContainer>
             <InfoContainer>
               <InfoDesc>Wallet</InfoDesc>
-              <InfoBalance>{LPTokensInWallet} UNI LP</InfoBalance>
+              <InfoBalance>
+                {LPTokensInWallet ? LPTokensInWallet : 0} {currencyLP}
+              </InfoBalance>
             </InfoContainer>
             <ActionButtonContainer>
               <ActionButton
@@ -235,7 +243,9 @@ const Pool = ({
           <UserInfoSubContainer>
             <InfoContainer>
               <InfoDesc>Recieved</InfoDesc>
-              <InfoBalance>{pendingTokens} STRING</InfoBalance>
+              <InfoBalance>
+                {pendingTokens ? pendingTokens : 0} STRING
+              </InfoBalance>
             </InfoContainer>
             <ActionButtonContainer>
               <ActionButton
