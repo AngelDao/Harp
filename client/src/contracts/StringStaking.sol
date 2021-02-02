@@ -34,7 +34,6 @@ contract LatestFarm is Ownable {
     // Info of each pool.
     struct PoolInfo {
         IERC20 lpToken; // Address of LP token contract.
-        uint256 allocPoint; // How many allocation points assigned to this pool. SUSHIs to distribute per block.
         uint256 lastRewardBlock; // Last block number that SUSHIs distribution occurs.
         uint256 accStringPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
         uint265 accLQTYPerShare;
@@ -64,14 +63,9 @@ contract LatestFarm is Ownable {
     // The block number when SUSHI mining starts.
     uint256 public startBlock;
 
-    event Deposit(address indexed user, uint256 indexed pid, uint256 amount);
-    event Withdraw(address indexed user, uint256 indexed pid, uint256 amount);
-    event Claim(address indexed who, uint256 amountClaimed);
-    event EmergencyWithdraw(
-        address indexed user,
-        uint256 indexed pid,
-        uint256 amount
-    );
+    event Deposit(address indexed user, uint256 amount);
+    event Withdraw(address indexed user, uint256 amount);
+    event EmergencyWithdraw(address indexed user, uint256 amount);
 
     constructor(
         StringToken _string,
@@ -96,49 +90,6 @@ contract LatestFarm is Ownable {
             accStringPerShare: 0,
             accLQTYPerShare: 0
         });
-    }
-
-    function poolLength() external view returns (uint256) {
-        return poolInfo.length;
-    }
-
-    // Add a new lp to the pool. Can only be called by the owner.
-    // XXX DO NOT add the same LP token more than once. Rewards will be messed up if you do.
-    function add(
-        uint256 _allocPoint,
-        IERC20 _lpToken,
-        bool _withUpdate
-    ) public onlyOwner {
-        if (_withUpdate) {
-            massUpdatePools();
-        }
-        uint256 lastRewardBlock =
-            block.number > startBlock ? block.number : startBlock;
-        totalAllocPoint = totalAllocPoint.add(_allocPoint);
-        poolInfo.push(
-            PoolInfo({
-                lpToken: _lpToken,
-                allocPoint: _allocPoint,
-                lastRewardBlock: lastRewardBlock,
-                accStringPerShare: 0,
-                accLQTYPerShare: 0
-            })
-        );
-    }
-
-    // Update the given pool's SUSHI allocation point. Can only be called by the owner.
-    function set(
-        uint256 _pid,
-        uint256 _allocPoint,
-        bool _withUpdate
-    ) public onlyOwner {
-        if (_withUpdate) {
-            massUpdatePools();
-        }
-        totalAllocPoint = totalAllocPoint.sub(poolInfo[_pid].allocPoint).add(
-            _allocPoint
-        );
-        poolInfo[_pid].allocPoint = _allocPoint;
     }
 
     // Return reward multiplier over the given _from to _to block.
@@ -265,10 +216,10 @@ contract LatestFarm is Ownable {
         UserInfo storage user = userInfo[msg.sender];
         updatePool();
         updateSP(_hint);
+        uint256 cNotes = vstringToken.balanceOf(msg.sender);
         if (user.amount > 0) {
-            uint256 cNote = vstringToken.balanceOf(msg.sender);
-            uint256 pending = _pending(user, pool);
-            uint256 pendingLQTY = _pendingLQTY(user, pool);
+            uint256 pending = _pending(user, cNotes);
+            uint256 pendingLQTY = _pendingLQTY(user, cNotes);
             safeStringTransfer(msg.sender, pending);
             safeLQTYTransfer(msg.sender, pendingLQTY);
         }
@@ -281,8 +232,17 @@ contract LatestFarm is Ownable {
         uint256 depositAmount = _amount.sub(fee);
         user.amount = user.amount.add(depositAmount);
         pool.lpTokenSupply = pool.lpTokenSupply.add(depositAmount);
-        user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
-        user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
+
+        uint256 debtAmount;
+
+        if (user.amount.sub(depositAmount) > cNotes) {
+            debtAmount = user.amount.sub(depositAmount).add(cNotes);
+        } else if (user.amount.sub(depositAmount) <= cNotes) {
+            debtAmount = user.amount;
+        }
+
+        user.rewardDebt = debtAmount.mul(pool.accStringPerShare).div(1e12);
+        user.lqtyRewardDebt = debtAmount.mul(pool.accLQTYPerShare).div(1e12);
         updateForFee(fee);
         vstringToken.mintTo(msg.sender, depositAmount);
         emit Deposit(msg.sender, _pid, _amount);
@@ -293,42 +253,34 @@ contract LatestFarm is Ownable {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
         updatePool();
-        uint256 pending = _pending(user, pool);
+        updateSP(_hint);
+        uint256 cNotes = vstringToken.balanceOf(msg.sender);
+        uint256 pending = _pending(user, cNotes);
+        uint256 pendingLQTY = _pendingLQTY(user, cNotes);
         safeStringTransfer(msg.sender, pending);
-        user.amount = user.amount.sub(_amount);
+        safeLQTYTransfer(msg.sender, pendingLQTY);
+
+        uint256 redeemAmount;
+
+        if (_amount > cNotes) {
+            redeemAmount = cNotes;
+        } else if (_amount <= cNotes) {
+            redeemAmount = _amount;
+        }
+
+        user.amount = user.amount.sub(redeemAmount);
+        vstringToken.burnFrom(msg.sender, redeemAmount);
+        pool.lpToken.safeTransfer(address(msg.sender), redeemAmount);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
-        pool.lpToken.safeTransfer(address(msg.sender), _amount);
+        user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
         emit Withdraw(msg.sender, _pid, _amount);
     }
 
-    function withdrawSP(uint256 _amount, address _hint) public {
-        UserInfo storage user = userInfo[2][msg.sender];
-        require(user.amount >= _amount, "withdraw: not good");
-        updateSP(_hint);
-        uint256 pendingLQTY = _pendingLQTY(user, pool);
-        uint256 pending = _pending(user, pool);
-        safeStringTransfer(msg.sender, pending);
-        safeLQTYTransfer(msg.sender, pendingLQTY);
-        user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
-        user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
-        pool.lpToken.safeTransfer(address(msg.sender), _amount);
-        emit Withdraw(msg.sender, 2, _amount);
-    }
-
-    function claim(uint256 _pid) public {
-        UserInfo storage user = userInfo[msg.sender];
-        updatePool();
-        uint256 pending = _pending(user, pool);
-        safeStringTransfer(msg.sender, pending);
-        user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
-        Claim(msg.sender, pending);
-    }
-
     // Withdraw without caring about rewards. EMERGENCY ONLY.
-    function emergencyWithdraw(uint256 _pid) public {
+    function emergencyWithdraw() public {
         UserInfo storage user = userInfo[msg.sender];
         pool.lpToken.safeTransfer(address(msg.sender), user.amount);
-        emit EmergencyWithdraw(msg.sender, _pid, user.amount);
+        emit EmergencyWithdraw(msg.sender, user.amount);
         user.amount = 0;
         user.rewardDebt = 0;
     }
@@ -352,28 +304,40 @@ contract LatestFarm is Ownable {
         }
     }
 
-    function _pending(UserInfo storage _user, PoolInfo storage _pool)
+    function _pending(UserInfo storage _user, uint256 _cNotes)
         internal
         view
         returns (uint256)
     {
+        uint256 amount;
+
+        if (_user.amount > _cNotes) {
+            amount = _cNotes;
+        } else if (_user.amount <= _cNotes) {
+            amount = _user.amount;
+        }
         uint256 rewardsToSend =
-            _user.amount.mul(_pool.accStringPerShare).div(1e12).sub(
-                _user.rewardDebt
-            );
+            amount.mul(pool.accStringPerShare).div(1e12).sub(_user.rewardDebt);
         if (isBoosted) {
             return rewardsToSend.mul(boostedMultiplier);
         }
         return rewardsToSend;
     }
 
-    function _pendingLQTY(UserInfo storage _user, PoolInfo storage _pool)
+    function _pendingLQTY(UserInfo storage _user, uint256 _cNotes)
         internal
         view
         returns (uint256)
     {
+        uint256 amount;
+
+        if (_user.amount > _cNotes) {
+            amount = _cNotes;
+        } else if (_user.amount <= _cNotes) {
+            amount = _user.amount;
+        }
         uint256 lqtyRewardsToSend =
-            _user.amount.mul(_pool.accLQTYPerShare).div(1e12).sub(
+            amount.mul(pool.accLQTYPerShare).div(1e12).sub(
                 _user.lqtyRewardDebt
             );
         return lqtyRewardsToSend;
