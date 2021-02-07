@@ -42,19 +42,19 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
   } = useContext(CredentialsContext);
 
   const pool = {
-    "STRING/ETH": 0,
-    "STRING/LUSD": 1,
+    "gSTRING/ETH": 0,
+    "gSTRING/LUSD": 1,
   };
 
   const token = {
-    "STRING/ETH": ETHLPToken,
-    "STRING/LUSD": LUSDLPToken,
+    "gSTRING/ETH": ETHLPToken,
+    "gSTRING/LUSD": LUSDLPToken,
     STRING: stringToken,
   };
 
   const pairNames = {
-    "STRING/ETH": "STRING_ETH_LP",
-    "STRING/LUSD": "STRING_LUSD_LP",
+    "gSTRING/ETH": "gSTRING_ETH_LP",
+    "gSTRING/LUSD": "gSTRING_LUSD_LP",
     STRING: "STRING",
   };
 
@@ -93,6 +93,7 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
   };
 
   const handleApprove = async () => {
+    debugger;
     await token[pair].methods
       .approve(farm._address, toWei(web3DataProvider, "10000000"))
       .send({ from: address })

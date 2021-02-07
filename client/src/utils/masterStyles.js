@@ -8,7 +8,7 @@ const Styles = {
   background: {
     menu: "#cc95ff",
     secondaryMenu: "#E9D1FF",
-    app: "#e3c1ff",
+    app: "white",
     // menu: "linear-gradient(360deg, #f4f4f4 10%, #e3c1ff 360%);",
   },
 };

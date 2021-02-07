@@ -20,10 +20,10 @@ contract StabilityPool {
     }
 
     function withdrawFromSP(uint256 _amount) public {
-        lusdToken.transfer(_amount, msg.sender);
+        lusdToken.transfer(msg.sender, _amount);
     }
 
-    function withdrawETHGainToTrove(uint256 _amount) public {
-        lusdToken.transfer(_amount, msg.sender);
+    function withdrawETHGainToTrove(address _hint) public returns (address) {
+        return _hint;
     }
 }

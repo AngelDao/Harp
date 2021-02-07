@@ -34,6 +34,7 @@ import liquityLogo from "../../../assets/liq.svg";
 import uniswapLogo from "../../../assets/uniswap2.svg";
 
 const Pool = ({
+  noClaim,
   currency1,
   currency2,
   currencyEarned,
@@ -98,6 +99,7 @@ const Pool = ({
     LUSD: liquityLogo,
     LQTY: liquityLogo,
     STRING: stringLogo,
+    gSTRING: stringLogo,
     ETH: ethLogo,
   };
 
@@ -199,7 +201,7 @@ const Pool = ({
           </StatContainer>
         </PoolContainer>
         <CollapseButtonContainer>{viewButton}</CollapseButtonContainer>
-        <UserInfoContainer collapsed={collapsed}>
+        <UserInfoContainer collapsed={collapsed} noClaim={noClaim}>
           <UserInfoSubContainer>
             <InfoContainer>
               <InfoDesc>Staked</InfoDesc>
@@ -240,25 +242,27 @@ const Pool = ({
             </ActionButtonContainer>
           </UserInfoSubContainer>
 
-          <UserInfoSubContainer>
-            <InfoContainer>
-              <InfoDesc>Recieved</InfoDesc>
-              <InfoBalance>
-                {pendingTokens ? pendingTokens : 0} STRING
-              </InfoBalance>
-            </InfoContainer>
-            <ActionButtonContainer>
-              <ActionButton
-                action={parseInt(pendingTokens) > 0}
-                disabled={parseInt(pendingTokens) <= 0}
-                onClick={() => {
-                  handleOpen("Claim", pendingTokens);
-                }}
-              >
-                <i>Claim</i>
-              </ActionButton>
-            </ActionButtonContainer>
-          </UserInfoSubContainer>
+          {!noClaim && (
+            <UserInfoSubContainer>
+              <InfoContainer>
+                <InfoDesc>Recieved</InfoDesc>
+                <InfoBalance>
+                  {pendingTokens ? pendingTokens : 0} STRING
+                </InfoBalance>
+              </InfoContainer>
+              <ActionButtonContainer>
+                <ActionButton
+                  action={parseInt(pendingTokens) > 0}
+                  disabled={parseInt(pendingTokens) <= 0}
+                  onClick={() => {
+                    handleOpen("Claim", pendingTokens);
+                  }}
+                >
+                  <i>Claim</i>
+                </ActionButton>
+              </ActionButtonContainer>
+            </UserInfoSubContainer>
+          )}
         </UserInfoContainer>
       </div>
     </>

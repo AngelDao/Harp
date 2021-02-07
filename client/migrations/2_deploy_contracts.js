@@ -1,8 +1,13 @@
 const StringToken = artifacts.require("StringToken");
+const gStringToken = artifacts.require("gStringToken");
+const LUSDToken = artifacts.require("LUSDToken");
 const TokenVesting = artifacts.require("TokenVesting");
 const LatestFarm = artifacts.require("LatestFarm");
 const LUSDLP = artifacts.require("LUSDLPToken");
 const ETHLP = artifacts.require("ETHLPToken");
+const StabilityPool = artifacts.require("StabilityPool");
+const LQTYToken = artifacts.require("LQTYToken");
+const StringStaking = artifacts.require("StringStaking");
 
 module.exports = async function (deployer, network, accounts) {
   // 2nd Ganache
@@ -39,6 +44,23 @@ module.exports = async function (deployer, network, accounts) {
 
   await deployer.deploy(LUSDLP, accounts[0], accounts[1]);
   await deployer.deploy(ETHLP, accounts[0], accounts[1]);
+  await deployer.deploy(LUSDToken, accounts[0], accounts[1]);
+  await deployer.deploy(LQTYToken, accounts[0], accounts[1]);
+  await deployer.deploy(gStringToken, owner);
+  const gstringToken = await gStringToken.deployed();
+  const lusdToken = await LUSDToken.deployed();
+  const lqtyToken = await LQTYToken.deployed();
+  await deployer.deploy(StabilityPool, lusdToken.address);
+  const stabilityPool = await StabilityPool.deployed();
+  await deployer.deploy(
+    StringStaking,
+    stringToken.address,
+    100,
+    stabilityPool.address,
+    lqtyToken.address,
+    gstringToken.address
+  );
+
   const ethLPToken = await ETHLP.deployed();
   const lusdLPToken = await LUSDLP.deployed();
   // 10e18 = 1000000000000000000
@@ -50,10 +72,20 @@ module.exports = async function (deployer, network, accounts) {
   //   stringToken.address,
   //   358974359000000000
   // );
-  await deployer.deploy(LatestFarm, stringToken.address, 100);
+  await deployer.deploy(
+    LatestFarm,
+    stringToken.address,
+    100,
+    stabilityPool.address,
+    lqtyToken.address,
+    lusdToken.address
+  );
 
   const farm = await LatestFarm.deployed();
+  const stringStaking = await StringStaking.deployed();
 
+  await gstringToken.addVestingAddress(stringStaking.address, { from: owner });
+  await stringToken.addVestingAddress(stringStaking.address, { from: owner });
   await stringToken.addVestingAddress(farm.address, { from: owner });
   await farm.add(80, ethLPToken.address, true);
   await farm.add(20, lusdLPToken.address, true);

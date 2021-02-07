@@ -23,3 +23,7 @@ export const Desc = styled.span`
   margin-top: 12.5px;
   margin-bottom: 12.5px;
 `;
+
+export const FarmContainer = styled.div`
+  margin-top: 0px;
+`;

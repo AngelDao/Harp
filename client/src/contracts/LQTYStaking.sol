@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.6.0 <0.8.0;
 
-import "./LUSDToken.sol";
+import "./LQTYToken.sol";
 
 contract LQTYStaking {
     struct UserInfo {
@@ -20,6 +20,6 @@ contract LQTYStaking {
     }
 
     function unstake(uint256 _amount) public {
-        lqtyToken.transfer(_amount, msg.sender);
+        lqtyToken.transfer(msg.sender, _amount);
     }
 }

@@ -36,19 +36,19 @@ const Farm = () => {
           setCollapsed({ ...collapsed, LUSD: false });
         }}
       />
-      <Title>STRING Pools</Title>
+      <Title>gSTRING Pools</Title>
       <Pool
         from={"Uniswap"}
         src={""}
-        currency1={"STRING"}
+        currency1={"gSTRING"}
         currency2={"ETH"}
         currencyLP={"UNI LP"}
         currencyEarned={"STRING"}
         collapsed={collapsed.stringETH}
-        LPTokensInWallet={userBalances.STRING_ETH_LP}
-        LPTokensAllowance={userAllowances.STRING_ETH_LP}
-        LPTokensStaked={farmBalances.userStaked.STRING_ETH_LP}
-        pendingTokens={farmBalances.userPending.STRING_ETH_LP}
+        LPTokensInWallet={userBalances.gSTRING_ETH_LP}
+        LPTokensAllowance={userAllowances.gSTRING_ETH_LP}
+        LPTokensStaked={farmBalances.userStaked.gSTRING_ETH_LP}
+        pendingTokens={farmBalances.userPending.gSTRING_ETH_LP}
         stringTokensAllowance={userAllowances.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, stringETH: true });
@@ -60,15 +60,15 @@ const Farm = () => {
       <Pool
         from={"Uniswap"}
         src={""}
-        currency1={"STRING"}
+        currency1={"gSTRING"}
         currency2={"LUSD"}
         currencyLP={"UNI LP"}
         currencyEarned={"STRING"}
         collapsed={collapsed.stringLUSD}
-        LPTokensInWallet={userBalances.STRING_LUSD_LP}
-        LPTokensAllowance={userAllowances.STRING_LUSD_LP}
-        LPTokensStaked={farmBalances.userStaked.STRING_LUSD_LP}
-        pendingTokens={farmBalances.userPending.STRING_LUSD_LP}
+        LPTokensInWallet={userBalances.gSTRING_LUSD_LP}
+        LPTokensAllowance={userAllowances.gSTRING_LUSD_LP}
+        LPTokensStaked={farmBalances.userStaked.gSTRING_LUSD_LP}
+        pendingTokens={farmBalances.userPending.gSTRING_LUSD_LP}
         stringTokensAllowance={userAllowances.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, stringLUSD: true });

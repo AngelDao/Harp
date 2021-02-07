@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "./StringToken.sol";
+import "./LQTYToken.sol";
 import "./StabilityPool.sol";
 
 contract LatestFarm is Ownable {
@@ -45,7 +46,6 @@ contract LatestFarm is Ownable {
     StringToken public stringToken;
     LQTYToken public lqtyToken;
     LUSDToken public lusdToken;
-    LQTYStaking public lqtyStaking;
     StabilityPool public stabilityPool;
     // Dev address.
     address public devaddr;
@@ -79,11 +79,9 @@ contract LatestFarm is Ownable {
         StringToken _string,
         uint256 _boostedBuffer,
         StabilityPool _stabPool,
-        LQTYStaking _lqtyStaking,
         LQTYToken _lqty,
         LUSDToken _lusd // uint256 _startBlock, // uint256 _endBlock
     ) {
-        lqtyStaking = _lqtyStaking;
         stabilityPool = _stabPool;
         stringToken = _string;
         lqtyToken = _lqty;
@@ -291,7 +289,7 @@ contract LatestFarm is Ownable {
             address(this),
             _amount
         );
-        stabilityPool.provide(_amount);
+        stabilityPool.provideToSP(_amount);
 
         user.amount = user.amount.add(_amount);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
@@ -384,10 +382,11 @@ contract LatestFarm is Ownable {
 
     function safeETHTransfer(address _to, uint256 _amount) internal {
         uint256 ethBal = address(msg.sender).balance;
+        address payable addr = msg.sender;
         if (_amount > ethBal) {
-            address(msg.sender).transfer(ethBal);
+            payable(addr).transfer(ethBal);
         } else {
-            address(msg.sender).transfer(_amount);
+            payable(addr).transfer(_amount);
         }
     }
 
@@ -428,17 +427,5 @@ contract LatestFarm is Ownable {
                 _user.lqtyRewardDebt
             );
         return lqtyRewardsToSend;
-    }
-
-    function _pendingLUSD(UserInfo storage _user, PoolInfo storage _pool)
-        internal
-        view
-        returns (uint256)
-    {
-        uint256 lusdRewardsToSend =
-            _user.amount.mul(_pool.accLUSDPerShare).div(1e12).sub(
-                _user.lusdRewardDebt
-            );
-        return lusdRewardsToSend;
     }
 }

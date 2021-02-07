@@ -13,8 +13,11 @@ import {
 import {
   fetchETHLPTokens,
   fetchFarm,
-  fetchLUSDLPTokens,
   fetchStringToken,
+  fetchLUSDLPTokens,
+  fetchLQTYToken,
+  fetchLUSDToken,
+  fetchgStringToken,
 } from "./utils/contractConnection";
 // import { setEventListeners } from "./utils/handleWallets.js/modalConfig";
 
@@ -51,17 +54,26 @@ function App() {
     const web3 = window.web3;
     // ;
     const networkId = await web3.eth.net.getId();
+
+    const [gstringToken, gSTRING] = await fetchgStringToken(
+      networkId,
+      web3,
+      address
+    );
+    const [lusdToken, LUSD] = await fetchLUSDToken(networkId, web3, address);
+    const [lqtyToken, LQTY] = await fetchLQTYToken(networkId, web3, address);
+
     const [stringToken, STRING] = await fetchStringToken(
       networkId,
       web3,
       address
     );
-    const [ETHLPToken, STRING_ETH_LP] = await fetchETHLPTokens(
+    const [ETHLPToken, gSTRING_ETH_LP] = await fetchETHLPTokens(
       networkId,
       web3,
       address
     );
-    const [LUSDLPToken, STRING_LUSD_LP] = await fetchLUSDLPTokens(
+    const [LUSDLPToken, gSTRING_LUSD_LP] = await fetchLUSDLPTokens(
       networkId,
       web3,
       address
@@ -76,8 +88,23 @@ function App() {
     );
     setFarmBalances(farmBalances);
     setUserAllowances(allowances);
-    setContracts({ stringToken, ETHLPToken, LUSDLPToken, farm });
-    setUserBalances({ STRING, STRING_ETH_LP, STRING_LUSD_LP });
+    setContracts({
+      stringToken,
+      ETHLPToken,
+      LUSDLPToken,
+      farm,
+      gstringToken,
+      lusdToken,
+      lqtyToken,
+    });
+    setUserBalances({
+      STRING,
+      gSTRING_ETH_LP,
+      gSTRING_LUSD_LP,
+      LQTY,
+      gSTRING,
+      LUSD,
+    });
   };
 
   const handlePricing = async () => {

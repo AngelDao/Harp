@@ -6,10 +6,10 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "./StringToken.sol";
 import "./LQTYToken.sol";
-import "./vStringToken.sol";
+import "./gStringToken.sol";
 import "./StabilityPool.sol";
 
-contract LatestFarm is Ownable {
+contract StringStaking is Ownable {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -34,16 +34,17 @@ contract LatestFarm is Ownable {
     // Info of each pool.
     struct PoolInfo {
         IERC20 lpToken; // Address of LP token contract.
+        uint256 lpTokenSupply;
         uint256 lastRewardBlock; // Last block number that SUSHIs distribution occurs.
         uint256 accStringPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
-        uint265 accLQTYPerShare;
+        uint256 accLQTYPerShare;
     }
 
     // The SUSHI TOKEN!
     StringToken public stringToken;
     LQTYToken public lqtyToken;
     StabilityPool public stabilityPool;
-    vStringToken public vstringToken;
+    gStringToken public gstringToken;
     // Dev address.
     address public devaddr;
     // Block number when bonus SUSHI period ends.
@@ -72,12 +73,12 @@ contract LatestFarm is Ownable {
         uint256 _boostedBuffer,
         StabilityPool _stabPool,
         LQTYToken _lqty,
-        vStringToken _vstringToken
+        gStringToken _gstringToken
     ) {
         stabilityPool = _stabPool;
         stringToken = _string;
         lqtyToken = _lqty;
-        vstringToken = _vstringToken;
+        gstringToken = _gstringToken;
         endBlock = block.number.add(2437500);
         startBlock = block.number;
         postBoostedBlock = block.number.add(_boostedBuffer);
@@ -85,8 +86,7 @@ contract LatestFarm is Ownable {
         pool = PoolInfo({
             lpToken: stringToken,
             lpTokenSupply: 0,
-            allocPoint: _allocPoint,
-            lastRewardBlock: lastRewardBlock,
+            lastRewardBlock: block.number,
             accStringPerShare: 0,
             accLQTYPerShare: 0
         });
@@ -119,10 +119,7 @@ contract LatestFarm is Ownable {
         if (block.number > pool.lastRewardBlock && lpSupply != 0) {
             uint256 multiplier =
                 getMultiplier(pool.lastRewardBlock, block.number);
-            uint256 stringReward =
-                multiplier.mul(stringPerBlock).mul(pool.allocPoint).div(
-                    totalAllocPoint
-                );
+            uint256 stringReward = multiplier.mul(stringPerBlock);
             accStringPerShare = accStringPerShare.add(
                 stringReward.mul(1e12).div(lpSupply)
             );
@@ -137,14 +134,6 @@ contract LatestFarm is Ownable {
         }
     }
 
-    // Update reward vairables for all pools. Be careful of gas spending!
-    function massUpdatePools() public {
-        uint256 length = poolInfo.length;
-        for (uint256 pid = 0; pid < length; ++pid) {
-            updatePool(pid);
-        }
-    }
-
     // Update reward variables of the given pool to be up-to-date.
     function updatePool() public {
         if (block.number <= pool.lastRewardBlock) {
@@ -156,10 +145,7 @@ contract LatestFarm is Ownable {
             return;
         }
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
-        uint256 stringReward =
-            multiplier.mul(stringPerBlock).mul(pool.allocPoint).div(
-                totalAllocPoint
-            );
+        uint256 stringReward = multiplier.mul(stringPerBlock);
         if (block.number < postBoostedBlock) {
             uint256 boostedReward = stringReward.mul(boostedMultiplier);
             stringToken.mintTo(address(this), boostedReward);
@@ -188,13 +174,7 @@ contract LatestFarm is Ownable {
 
         stabilityPool.withdrawETHGainToTrove(_hint);
 
-        uint256 ethAvailableRewards = address(this).balance;
         uint256 lqtyAvailableRewards = lqtyToken.balanceOf(address(this));
-        if (ethAvailableRewards > 0) {
-            pool.accETHPerShare = pool.accETHPerShare.add(
-                ethAvailableRewards.mul(1e12).div(lpSupply)
-            );
-        }
 
         if (lqtyAvailableRewards > 0) {
             pool.accLQTYPerShare = pool.accLQTYPerShare.add(
@@ -212,11 +192,11 @@ contract LatestFarm is Ownable {
     }
 
     // Deposit LP tokens to MasterChef for SUSHI allocation.
-    function deposit(uint256 _amount, _hint) public {
+    function deposit(uint256 _amount, address _hint) public {
         UserInfo storage user = userInfo[msg.sender];
         updatePool();
         updateSP(_hint);
-        uint256 cNotes = vstringToken.balanceOf(msg.sender);
+        uint256 cNotes = gstringToken.balanceOf(msg.sender);
         if (user.amount > 0) {
             uint256 pending = _pending(user, cNotes);
             uint256 pendingLQTY = _pendingLQTY(user, cNotes);
@@ -244,17 +224,17 @@ contract LatestFarm is Ownable {
         user.rewardDebt = debtAmount.mul(pool.accStringPerShare).div(1e12);
         user.lqtyRewardDebt = debtAmount.mul(pool.accLQTYPerShare).div(1e12);
         updateForFee(fee);
-        vstringToken.mintTo(msg.sender, depositAmount);
-        emit Deposit(msg.sender, _pid, _amount);
+        gstringToken.mintTo(msg.sender, depositAmount);
+        emit Deposit(msg.sender, _amount);
     }
 
     // Withdraw LP tokens from MasterChef.
-    function withdraw(uint256 _pid, uint256 _amount) public {
+    function withdraw(uint256 _amount, address _hint) public {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
         updatePool();
         updateSP(_hint);
-        uint256 cNotes = vstringToken.balanceOf(msg.sender);
+        uint256 cNotes = gstringToken.balanceOf(msg.sender);
         uint256 pending = _pending(user, cNotes);
         uint256 pendingLQTY = _pendingLQTY(user, cNotes);
         safeStringTransfer(msg.sender, pending);
@@ -269,11 +249,11 @@ contract LatestFarm is Ownable {
         }
 
         user.amount = user.amount.sub(redeemAmount);
-        vstringToken.burnFrom(msg.sender, redeemAmount);
+        gstringToken.burnFrom(msg.sender, redeemAmount);
         pool.lpToken.safeTransfer(address(msg.sender), redeemAmount);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
-        emit Withdraw(msg.sender, _pid, _amount);
+        emit Withdraw(msg.sender, _amount);
     }
 
     // Withdraw without caring about rewards. EMERGENCY ONLY.

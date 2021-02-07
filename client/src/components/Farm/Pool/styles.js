@@ -30,6 +30,9 @@ export const UserInfoContainer = styled.div`
   max-height: ${({ collapsed }) => (collapsed ? "0px" : "200px")};
   transition: max-height 0.4s linear;
   overflow: hidden;
+  justify-content: ${({ noClaim }) => {
+    return noClaim ? "space-around" : "space-between";
+  }};
 `;
 
 export const UserInfoSubContainer = styled.div`
@@ -73,6 +76,7 @@ export const StatContainer = styled.div`
 `;
 
 export const ContractLink = styled.a`
+  min-width: 125px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -170,7 +174,7 @@ export const ActionButton = styled.button`
     left top,
     color-stop(0.16, ${action ? "rgb(207, 207, 207)" : "rgb(93 93 93)"}),
     color-stop(0.79, ${action ? "rgb(252, 252, 252)" : "rgb(160 160 160)"}));`;
-  }}
+  }};
   background-image: ${({ action }) => {
     return `-moz-linear-gradient(
     center bottom,
@@ -207,7 +211,7 @@ export const ActionButtonContainer = styled.div`
 export const PairLogoContainer = styled.div`
   display: flex;
   position: relative;
-  width: 100px;
+  width: 100%;
   height: 30px;
   justify-content: center;
   align-items: center;

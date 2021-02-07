@@ -1,0 +1,1760 @@
+{
+  "contractName": "StabilityPool",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract LUSDToken",
+          "name": "_lusdToken",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "lusdToken",
+      "outputs": [
+        {
+          "internalType": "contract LUSDToken",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "userInfo",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "provideToSP",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdrawFromSP",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_hint",
+          "type": "address"
+        }
+      ],
+      "name": "withdrawETHGainToTrove",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract LUSDToken\",\"name\":\"_lusdToken\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"lusdToken\",\"outputs\":[{\"internalType\":\"contract LUSDToken\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"provideToSP\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_hint\",\"type\":\"address\"}],\"name\":\"withdrawETHGainToTrove\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"withdrawFromSP\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/danie/code/harp/client/src/contracts/StabilityPool.sol\":\"StabilityPool\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/danie/code/harp/client/src/contracts/LUSDToken.sol\":{\"keccak256\":\"0x40393b5d3af1c7b8ed8ebe52e4043d0c89e0818c074bf5ca3148e1225c14ec58\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://23327ad6109a4dfd503e289706cf36c3695b6fbd0f5c6bdcf35ce7641a547441\",\"dweb:/ipfs/QmUXoXacxGX5JWXKgjumVJZKdnZ1vtD2iZguitNkRU9fwK\"]},\"/C/Users/danie/code/harp/client/src/contracts/StabilityPool.sol\":{\"keccak256\":\"0xce43fbb0ee889484f465796fbcd1fc1b9dbc350e7355bcb8a1919ba42f851e8e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://dbe042bcbd1736bfa54ce7ce719d5e119c21a01c17627935c1b47f7396508cae\",\"dweb:/ipfs/QmbftDQRMyVDuEtg7VT7u9mkS9atE9njagCYhYULuFRgt4\"]},\"@openzeppelin/contracts/GSN/Context.sol\":{\"keccak256\":\"0x8d3cb350f04ff49cfb10aef08d87f19dcbaecc8027b0bed12f3275cd12f38cf0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ded47ec7c96750f9bd04bbbc84f659992d4ba901cb7b532a52cd468272cf378f\",\"dweb:/ipfs/QmfBrGtQP7rZEqEg6Wz6jh2N2Kukpj1z5v3CGWmAqrzm96\"]},\"@openzeppelin/contracts/math/SafeMath.sol\":{\"keccak256\":\"0x3b21f2c8d626de3b9925ae33e972d8bf5c8b1bffb3f4ee94daeed7d0679036e6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7f8d45329fecbf0836ad7543330c3ecd0f8d0ffa42d4016278c3eb2215fdcdfe\",\"dweb:/ipfs/QmXWLT7GcnHtA5NiD6MFi2CV3EWJY4wv5mLNnypqYDrxL3\"]},\"@openzeppelin/contracts/token/ERC20/ERC20.sol\":{\"keccak256\":\"0xcbd85c86627a47fd939f1f4ee3ba626575ff2a182e1804b29f5136394449b538\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://53c6a80c519bb9356aad28efa9a1ec31603860eb759d2dc57f545fcae1dd1aca\",\"dweb:/ipfs/QmfRS6TtMNUHhvgLHXK21qKNnpn2S7g2Yd1fKaHKyFiJsR\"]},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x5f02220344881ce43204ae4a6281145a67bc52c2bb1290a791857df3d19d78f5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://24427744bd3e6cb73c17010119af12a318289c0253a4d9acb8576c9fb3797b08\",\"dweb:/ipfs/QmTLDqpKRBuxGxRAmjgXt9AkXyACW3MtKzi7PYjm5iMfGC\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516104863803806104868339818101604052602081101561003357600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550506103f2806100946000396000f3fe608060405234801561001057600080fd5b50600436106100575760003560e01c80630b86273a1461005c5780631959a002146100ca5780632e54bf951461012257806378c77a2414610150578063b83f91a21461017e575b600080fd5b61009e6004803603602081101561007257600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506101b2565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61010c600480360360208110156100e057600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506101bc565b6040518082815260200191505060405180910390f35b61014e6004803603602081101561013857600080fd5b81019080803590602001909291905050506101da565b005b61017c6004803603602081101561016657600080fd5b81019080803590602001909291905050506102aa565b005b610186610398565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6000819050919050565b60016020528060005260406000206000915090508060000154905081565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb33836040518363ffffffff1660e01b8152600401808373ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b15801561026b57600080fd5b505af115801561027f573d6000803e3d6000fd5b505050506040513d602081101561029557600080fd5b81019080805190602001909291905050505050565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd3330846040518463ffffffff1660e01b8152600401808473ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b15801561035957600080fd5b505af115801561036d573d6000803e3d6000fd5b505050506040513d602081101561038357600080fd5b81019080805190602001909291905050505050565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff168156fea2646970667358221220df30c0b4d1ea286d3f76c0886dad8af67c79d52cdf7e3ed30f66cdb141f39a4c64736f6c63430007060033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100575760003560e01c80630b86273a1461005c5780631959a002146100ca5780632e54bf951461012257806378c77a2414610150578063b83f91a21461017e575b600080fd5b61009e6004803603602081101561007257600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506101b2565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61010c600480360360208110156100e057600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506101bc565b6040518082815260200191505060405180910390f35b61014e6004803603602081101561013857600080fd5b81019080803590602001909291905050506101da565b005b61017c6004803603602081101561016657600080fd5b81019080803590602001909291905050506102aa565b005b610186610398565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6000819050919050565b60016020528060005260406000206000915090508060000154905081565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb33836040518363ffffffff1660e01b8152600401808373ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b15801561026b57600080fd5b505af115801561027f573d6000803e3d6000fd5b505050506040513d602081101561029557600080fd5b81019080805190602001909291905050505050565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd3330846040518463ffffffff1660e01b8152600401808473ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b15801561035957600080fd5b505af115801561036d573d6000803e3d6000fd5b505050506040513d602081101561038357600080fd5b81019080805190602001909291905050505050565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff168156fea2646970667358221220df30c0b4d1ea286d3f76c0886dad8af67c79d52cdf7e3ed30f66cdb141f39a4c64736f6c63430007060033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "97:606:7:-:0;;;270:75;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;327:10;315:9;;:22;;;;;;;;;;;;;;;;;;270:75;97:606;;;;;;",
+  "deployedSourceMap": "97:606:7:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;597:103;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;217:44;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;483:106;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;353:122;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;184:26;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;597:103;660:7;687:5;680:12;;597:103;;;:::o;217:44::-;;;;;;;;;;;;;;;;;;;;;;:::o;483:106::-;542:9;;;;;;;;;;:18;;;561:10;573:7;542:39;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;483:106;:::o;353:122::-;409:9;;;;;;;;;;:22;;;432:10;452:4;459:7;409:58;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;353:122;:::o;184:26::-;;;;;;;;;;;;:::o",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\nimport \"./LUSDToken.sol\";\r\n\r\ncontract StabilityPool {\r\n    struct UserInfo {\r\n        uint256 amount;\r\n    }\r\n\r\n    LUSDToken public lusdToken;\r\n    mapping(address => UserInfo) public userInfo;\r\n\r\n    constructor(LUSDToken _lusdToken) {\r\n        lusdToken = _lusdToken;\r\n    }\r\n\r\n    function provideToSP(uint256 _amount) public {\r\n        lusdToken.transferFrom(msg.sender, address(this), _amount);\r\n    }\r\n\r\n    function withdrawFromSP(uint256 _amount) public {\r\n        lusdToken.transfer(msg.sender, _amount);\r\n    }\r\n\r\n    function withdrawETHGainToTrove(address _hint) public returns (address) {\r\n        return _hint;\r\n    }\r\n}\r\n",
+  "sourcePath": "C:\\Users\\danie\\code\\harp\\client\\src\\contracts\\StabilityPool.sol",
+  "ast": {
+    "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/StabilityPool.sol",
+    "exportedSymbols": {
+      "Context": [
+        3231
+      ],
+      "ERC20": [
+        4039
+      ],
+      "IERC20": [
+        4176
+      ],
+      "LUSDToken": [
+        156
+      ],
+      "SafeMath": [
+        3536
+      ],
+      "StabilityPool": [
+        1775
+      ]
+    },
+    "id": 1776,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1712,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0",
+          "<",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:31:7"
+      },
+      {
+        "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/LUSDToken.sol",
+        "file": "./LUSDToken.sol",
+        "id": 1713,
+        "nodeType": "ImportDirective",
+        "scope": 1776,
+        "sourceUnit": 157,
+        "src": "68:25:7",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 1775,
+        "linearizedBaseContracts": [
+          1775
+        ],
+        "name": "StabilityPool",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "StabilityPool.UserInfo",
+            "id": 1716,
+            "members": [
+              {
+                "constant": false,
+                "id": 1715,
+                "mutability": "mutable",
+                "name": "amount",
+                "nodeType": "VariableDeclaration",
+                "scope": 1716,
+                "src": "154:14:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 1714,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "154:7:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "UserInfo",
+            "nodeType": "StructDefinition",
+            "scope": 1775,
+            "src": "127:49:7",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "b83f91a2",
+            "id": 1718,
+            "mutability": "mutable",
+            "name": "lusdToken",
+            "nodeType": "VariableDeclaration",
+            "scope": 1775,
+            "src": "184:26:7",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_LUSDToken_$156",
+              "typeString": "contract LUSDToken"
+            },
+            "typeName": {
+              "id": 1717,
+              "name": "LUSDToken",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 156,
+              "src": "184:9:7",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_LUSDToken_$156",
+                "typeString": "contract LUSDToken"
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "1959a002",
+            "id": 1722,
+            "mutability": "mutable",
+            "name": "userInfo",
+            "nodeType": "VariableDeclaration",
+            "scope": 1775,
+            "src": "217:44:7",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_UserInfo_$1716_storage_$",
+              "typeString": "mapping(address => struct StabilityPool.UserInfo)"
+            },
+            "typeName": {
+              "id": 1721,
+              "keyType": {
+                "id": 1719,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "225:7:7",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "217:28:7",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_UserInfo_$1716_storage_$",
+                "typeString": "mapping(address => struct StabilityPool.UserInfo)"
+              },
+              "valueType": {
+                "id": 1720,
+                "name": "UserInfo",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 1716,
+                "src": "236:8:7",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_UserInfo_$1716_storage_ptr",
+                  "typeString": "struct StabilityPool.UserInfo"
+                }
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1731,
+              "nodeType": "Block",
+              "src": "304:41:7",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 1729,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 1727,
+                      "name": "lusdToken",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1718,
+                      "src": "315:9:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_LUSDToken_$156",
+                        "typeString": "contract LUSDToken"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 1728,
+                      "name": "_lusdToken",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1724,
+                      "src": "327:10:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_LUSDToken_$156",
+                        "typeString": "contract LUSDToken"
+                      }
+                    },
+                    "src": "315:22:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_LUSDToken_$156",
+                      "typeString": "contract LUSDToken"
+                    }
+                  },
+                  "id": 1730,
+                  "nodeType": "ExpressionStatement",
+                  "src": "315:22:7"
+                }
+              ]
+            },
+            "id": 1732,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1725,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1724,
+                  "mutability": "mutable",
+                  "name": "_lusdToken",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1732,
+                  "src": "282:20:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_LUSDToken_$156",
+                    "typeString": "contract LUSDToken"
+                  },
+                  "typeName": {
+                    "id": 1723,
+                    "name": "LUSDToken",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 156,
+                    "src": "282:9:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_LUSDToken_$156",
+                      "typeString": "contract LUSDToken"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "281:22:7"
+            },
+            "returnParameters": {
+              "id": 1726,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "304:0:7"
+            },
+            "scope": 1775,
+            "src": "270:75:7",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1749,
+              "nodeType": "Block",
+              "src": "398:77:7",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "expression": {
+                          "id": 1740,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4294967281,
+                          "src": "432:3:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 1741,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "src": "432:10:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      },
+                      {
+                        "arguments": [
+                          {
+                            "id": 1744,
+                            "name": "this",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4294967268,
+                            "src": "452:4:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_StabilityPool_$1775",
+                              "typeString": "contract StabilityPool"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_contract$_StabilityPool_$1775",
+                              "typeString": "contract StabilityPool"
+                            }
+                          ],
+                          "id": 1743,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "444:7:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_address_$",
+                            "typeString": "type(address)"
+                          },
+                          "typeName": {
+                            "id": 1742,
+                            "name": "address",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "444:7:7",
+                            "typeDescriptions": {}
+                          }
+                        },
+                        "id": 1745,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "444:13:7",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 1746,
+                        "name": "_amount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1734,
+                        "src": "459:7:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        },
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "id": 1737,
+                        "name": "lusdToken",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1718,
+                        "src": "409:9:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_LUSDToken_$156",
+                          "typeString": "contract LUSDToken"
+                        }
+                      },
+                      "id": 1739,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "transferFrom",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3737,
+                      "src": "409:22:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$_t_bool_$",
+                        "typeString": "function (address,address,uint256) external returns (bool)"
+                      }
+                    },
+                    "id": 1747,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "409:58:7",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 1748,
+                  "nodeType": "ExpressionStatement",
+                  "src": "409:58:7"
+                }
+              ]
+            },
+            "functionSelector": "78c77a24",
+            "id": 1750,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "provideToSP",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1735,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1734,
+                  "mutability": "mutable",
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1750,
+                  "src": "374:15:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1733,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "374:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "373:17:7"
+            },
+            "returnParameters": {
+              "id": 1736,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "398:0:7"
+            },
+            "scope": 1775,
+            "src": "353:122:7",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1763,
+              "nodeType": "Block",
+              "src": "531:58:7",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "expression": {
+                          "id": 1758,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4294967281,
+                          "src": "561:3:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 1759,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "src": "561:10:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      },
+                      {
+                        "id": 1760,
+                        "name": "_amount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1752,
+                        "src": "573:7:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "id": 1755,
+                        "name": "lusdToken",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1718,
+                        "src": "542:9:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_LUSDToken_$156",
+                          "typeString": "contract LUSDToken"
+                        }
+                      },
+                      "id": 1757,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "transfer",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3660,
+                      "src": "542:18:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_bool_$",
+                        "typeString": "function (address,uint256) external returns (bool)"
+                      }
+                    },
+                    "id": 1761,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "542:39:7",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 1762,
+                  "nodeType": "ExpressionStatement",
+                  "src": "542:39:7"
+                }
+              ]
+            },
+            "functionSelector": "2e54bf95",
+            "id": 1764,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "withdrawFromSP",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1753,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1752,
+                  "mutability": "mutable",
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1764,
+                  "src": "507:15:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1751,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "507:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "506:17:7"
+            },
+            "returnParameters": {
+              "id": 1754,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "531:0:7"
+            },
+            "scope": 1775,
+            "src": "483:106:7",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1773,
+              "nodeType": "Block",
+              "src": "669:31:7",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 1771,
+                    "name": "_hint",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 1766,
+                    "src": "687:5:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "functionReturnParameters": 1770,
+                  "id": 1772,
+                  "nodeType": "Return",
+                  "src": "680:12:7"
+                }
+              ]
+            },
+            "functionSelector": "0b86273a",
+            "id": 1774,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "withdrawETHGainToTrove",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1767,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1766,
+                  "mutability": "mutable",
+                  "name": "_hint",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1774,
+                  "src": "629:13:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1765,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "629:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "628:15:7"
+            },
+            "returnParameters": {
+              "id": 1770,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1769,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1774,
+                  "src": "660:7:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1768,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "660:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "659:9:7"
+            },
+            "scope": 1775,
+            "src": "597:103:7",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1776,
+        "src": "97:606:7"
+      }
+    ],
+    "src": "33:672:7"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/StabilityPool.sol",
+      "exportedSymbols": {
+        "Context": [
+          3231
+        ],
+        "ERC20": [
+          4039
+        ],
+        "IERC20": [
+          4176
+        ],
+        "LUSDToken": [
+          156
+        ],
+        "SafeMath": [
+          3536
+        ],
+        "StabilityPool": [
+          1775
+        ]
+      },
+      "license": "MIT"
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".0",
+            "<",
+            "0.8",
+            ".0"
+          ]
+        },
+        "id": 1712,
+        "name": "PragmaDirective",
+        "src": "33:31:7"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 157,
+          "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/LUSDToken.sol",
+          "file": "./LUSDToken.sol",
+          "scope": 1776,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 1713,
+        "name": "ImportDirective",
+        "src": "68:25:7"
+      },
+      {
+        "attributes": {
+          "abstract": false,
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            1775
+          ],
+          "name": "StabilityPool",
+          "scope": 1776
+        },
+        "children": [
+          {
+            "attributes": {
+              "canonicalName": "StabilityPool.UserInfo",
+              "name": "UserInfo",
+              "scope": 1775,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "mutability": "mutable",
+                  "name": "amount",
+                  "scope": 1716,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256",
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint256",
+                      "type": "uint256"
+                    },
+                    "id": 1714,
+                    "name": "ElementaryTypeName",
+                    "src": "154:7:7"
+                  }
+                ],
+                "id": 1715,
+                "name": "VariableDeclaration",
+                "src": "154:14:7"
+              }
+            ],
+            "id": 1716,
+            "name": "StructDefinition",
+            "src": "127:49:7"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "functionSelector": "b83f91a2",
+              "mutability": "mutable",
+              "name": "lusdToken",
+              "scope": 1775,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "contract LUSDToken",
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "LUSDToken",
+                  "referencedDeclaration": 156,
+                  "type": "contract LUSDToken"
+                },
+                "id": 1717,
+                "name": "UserDefinedTypeName",
+                "src": "184:9:7"
+              }
+            ],
+            "id": 1718,
+            "name": "VariableDeclaration",
+            "src": "184:26:7"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "functionSelector": "1959a002",
+              "mutability": "mutable",
+              "name": "userInfo",
+              "scope": 1775,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "mapping(address => struct StabilityPool.UserInfo)",
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "type": "mapping(address => struct StabilityPool.UserInfo)"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "type": "address"
+                    },
+                    "id": 1719,
+                    "name": "ElementaryTypeName",
+                    "src": "225:7:7"
+                  },
+                  {
+                    "attributes": {
+                      "name": "UserInfo",
+                      "referencedDeclaration": 1716,
+                      "type": "struct StabilityPool.UserInfo"
+                    },
+                    "id": 1720,
+                    "name": "UserDefinedTypeName",
+                    "src": "236:8:7"
+                  }
+                ],
+                "id": 1721,
+                "name": "Mapping",
+                "src": "217:28:7"
+              }
+            ],
+            "id": 1722,
+            "name": "VariableDeclaration",
+            "src": "217:44:7"
+          },
+          {
+            "attributes": {
+              "implemented": true,
+              "isConstructor": true,
+              "kind": "constructor",
+              "modifiers": [
+                null
+              ],
+              "name": "",
+              "scope": 1775,
+              "stateMutability": "nonpayable",
+              "virtual": false,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "mutability": "mutable",
+                      "name": "_lusdToken",
+                      "scope": 1732,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "contract LUSDToken",
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "LUSDToken",
+                          "referencedDeclaration": 156,
+                          "type": "contract LUSDToken"
+                        },
+                        "id": 1723,
+                        "name": "UserDefinedTypeName",
+                        "src": "282:9:7"
+                      }
+                    ],
+                    "id": 1724,
+                    "name": "VariableDeclaration",
+                    "src": "282:20:7"
+                  }
+                ],
+                "id": 1725,
+                "name": "ParameterList",
+                "src": "281:22:7"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 1726,
+                "name": "ParameterList",
+                "src": "304:0:7"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "contract LUSDToken"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 1718,
+                              "type": "contract LUSDToken",
+                              "value": "lusdToken"
+                            },
+                            "id": 1727,
+                            "name": "Identifier",
+                            "src": "315:9:7"
+                          },
+                          {
+                            "attributes": {
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 1724,
+                              "type": "contract LUSDToken",
+                              "value": "_lusdToken"
+                            },
+                            "id": 1728,
+                            "name": "Identifier",
+                            "src": "327:10:7"
+                          }
+                        ],
+                        "id": 1729,
+                        "name": "Assignment",
+                        "src": "315:22:7"
+                      }
+                    ],
+                    "id": 1730,
+                    "name": "ExpressionStatement",
+                    "src": "315:22:7"
+                  }
+                ],
+                "id": 1731,
+                "name": "Block",
+                "src": "304:41:7"
+              }
+            ],
+            "id": 1732,
+            "name": "FunctionDefinition",
+            "src": "270:75:7"
+          },
+          {
+            "attributes": {
+              "functionSelector": "78c77a24",
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "provideToSP",
+              "scope": 1775,
+              "stateMutability": "nonpayable",
+              "virtual": false,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "mutability": "mutable",
+                      "name": "_amount",
+                      "scope": 1750,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 1733,
+                        "name": "ElementaryTypeName",
+                        "src": "374:7:7"
+                      }
+                    ],
+                    "id": 1734,
+                    "name": "VariableDeclaration",
+                    "src": "374:15:7"
+                  }
+                ],
+                "id": 1735,
+                "name": "ParameterList",
+                "src": "373:17:7"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 1736,
+                "name": "ParameterList",
+                "src": "398:0:7"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "tryCall": false,
+                          "type": "bool",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address_payable",
+                                  "typeString": "address payable"
+                                },
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "transferFrom",
+                              "referencedDeclaration": 3737,
+                              "type": "function (address,address,uint256) external returns (bool)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 1718,
+                                  "type": "contract LUSDToken",
+                                  "value": "lusdToken"
+                                },
+                                "id": 1737,
+                                "name": "Identifier",
+                                "src": "409:9:7"
+                              }
+                            ],
+                            "id": 1739,
+                            "name": "MemberAccess",
+                            "src": "409:22:7"
+                          },
+                          {
+                            "attributes": {
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sender",
+                              "type": "address payable"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4294967281,
+                                  "type": "msg",
+                                  "value": "msg"
+                                },
+                                "id": 1740,
+                                "name": "Identifier",
+                                "src": "432:3:7"
+                              }
+                            ],
+                            "id": 1741,
+                            "name": "MemberAccess",
+                            "src": "432:10:7"
+                          },
+                          {
+                            "attributes": {
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "tryCall": false,
+                              "type": "address",
+                              "type_conversion": true
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_contract$_StabilityPool_$1775",
+                                      "typeString": "contract StabilityPool"
+                                    }
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "lValueRequested": false,
+                                  "type": "type(address)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "name": "address"
+                                    },
+                                    "id": 1742,
+                                    "name": "ElementaryTypeName",
+                                    "src": "444:7:7"
+                                  }
+                                ],
+                                "id": 1743,
+                                "name": "ElementaryTypeNameExpression",
+                                "src": "444:7:7"
+                              },
+                              {
+                                "attributes": {
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4294967268,
+                                  "type": "contract StabilityPool",
+                                  "value": "this"
+                                },
+                                "id": 1744,
+                                "name": "Identifier",
+                                "src": "452:4:7"
+                              }
+                            ],
+                            "id": 1745,
+                            "name": "FunctionCall",
+                            "src": "444:13:7"
+                          },
+                          {
+                            "attributes": {
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 1734,
+                              "type": "uint256",
+                              "value": "_amount"
+                            },
+                            "id": 1746,
+                            "name": "Identifier",
+                            "src": "459:7:7"
+                          }
+                        ],
+                        "id": 1747,
+                        "name": "FunctionCall",
+                        "src": "409:58:7"
+                      }
+                    ],
+                    "id": 1748,
+                    "name": "ExpressionStatement",
+                    "src": "409:58:7"
+                  }
+                ],
+                "id": 1749,
+                "name": "Block",
+                "src": "398:77:7"
+              }
+            ],
+            "id": 1750,
+            "name": "FunctionDefinition",
+            "src": "353:122:7"
+          },
+          {
+            "attributes": {
+              "functionSelector": "2e54bf95",
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "withdrawFromSP",
+              "scope": 1775,
+              "stateMutability": "nonpayable",
+              "virtual": false,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "mutability": "mutable",
+                      "name": "_amount",
+                      "scope": 1764,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 1751,
+                        "name": "ElementaryTypeName",
+                        "src": "507:7:7"
+                      }
+                    ],
+                    "id": 1752,
+                    "name": "VariableDeclaration",
+                    "src": "507:15:7"
+                  }
+                ],
+                "id": 1753,
+                "name": "ParameterList",
+                "src": "506:17:7"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 1754,
+                "name": "ParameterList",
+                "src": "531:0:7"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "tryCall": false,
+                          "type": "bool",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address_payable",
+                                  "typeString": "address payable"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "transfer",
+                              "referencedDeclaration": 3660,
+                              "type": "function (address,uint256) external returns (bool)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 1718,
+                                  "type": "contract LUSDToken",
+                                  "value": "lusdToken"
+                                },
+                                "id": 1755,
+                                "name": "Identifier",
+                                "src": "542:9:7"
+                              }
+                            ],
+                            "id": 1757,
+                            "name": "MemberAccess",
+                            "src": "542:18:7"
+                          },
+                          {
+                            "attributes": {
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sender",
+                              "type": "address payable"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4294967281,
+                                  "type": "msg",
+                                  "value": "msg"
+                                },
+                                "id": 1758,
+                                "name": "Identifier",
+                                "src": "561:3:7"
+                              }
+                            ],
+                            "id": 1759,
+                            "name": "MemberAccess",
+                            "src": "561:10:7"
+                          },
+                          {
+                            "attributes": {
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 1752,
+                              "type": "uint256",
+                              "value": "_amount"
+                            },
+                            "id": 1760,
+                            "name": "Identifier",
+                            "src": "573:7:7"
+                          }
+                        ],
+                        "id": 1761,
+                        "name": "FunctionCall",
+                        "src": "542:39:7"
+                      }
+                    ],
+                    "id": 1762,
+                    "name": "ExpressionStatement",
+                    "src": "542:39:7"
+                  }
+                ],
+                "id": 1763,
+                "name": "Block",
+                "src": "531:58:7"
+              }
+            ],
+            "id": 1764,
+            "name": "FunctionDefinition",
+            "src": "483:106:7"
+          },
+          {
+            "attributes": {
+              "functionSelector": "0b86273a",
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "withdrawETHGainToTrove",
+              "scope": 1775,
+              "stateMutability": "nonpayable",
+              "virtual": false,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "mutability": "mutable",
+                      "name": "_hint",
+                      "scope": 1774,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 1765,
+                        "name": "ElementaryTypeName",
+                        "src": "629:7:7"
+                      }
+                    ],
+                    "id": 1766,
+                    "name": "VariableDeclaration",
+                    "src": "629:13:7"
+                  }
+                ],
+                "id": 1767,
+                "name": "ParameterList",
+                "src": "628:15:7"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "mutability": "mutable",
+                      "name": "",
+                      "scope": 1774,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 1768,
+                        "name": "ElementaryTypeName",
+                        "src": "660:7:7"
+                      }
+                    ],
+                    "id": 1769,
+                    "name": "VariableDeclaration",
+                    "src": "660:7:7"
+                  }
+                ],
+                "id": 1770,
+                "name": "ParameterList",
+                "src": "659:9:7"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 1770
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "overloadedDeclarations": [
+                            null
+                          ],
+                          "referencedDeclaration": 1766,
+                          "type": "address",
+                          "value": "_hint"
+                        },
+                        "id": 1771,
+                        "name": "Identifier",
+                        "src": "687:5:7"
+                      }
+                    ],
+                    "id": 1772,
+                    "name": "Return",
+                    "src": "680:12:7"
+                  }
+                ],
+                "id": 1773,
+                "name": "Block",
+                "src": "669:31:7"
+              }
+            ],
+            "id": 1774,
+            "name": "FunctionDefinition",
+            "src": "597:103:7"
+          }
+        ],
+        "id": 1775,
+        "name": "ContractDefinition",
+        "src": "97:606:7"
+      }
+    ],
+    "id": 1776,
+    "name": "SourceUnit",
+    "src": "33:672:7"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.7.6+commit.7338295f.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xFA2495B02B784e390c10EF3bc1DEEB72f5a9875c",
+      "transactionHash": "0x22e3392f514258bc1ffb0e6ebe1ec659343bc504d25e259440769a79916ce128"
+    }
+  },
+  "schemaVersion": "3.3.3",
+  "updatedAt": "2021-02-04T16:48:26.895Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

@@ -2,7 +2,56 @@ import StringToken from "../abis/StringToken.json";
 import Farm from "../abis/LatestFarm.json";
 import TestETHLPToken from "../abis/ETHLPToken.json";
 import TestLUSDLPToken from "../abis/LUSDLPToken.json";
+import gStringToken from "../abis/gStringToken.json";
+import LQTYToken from "../abis/LQTYToken.json";
+import LUSDToken from "../abis/LUSDToken.json";
+import StakingPool from "../abis/StringStaking.json";
 import { fromWei, toDecimal } from "./truncateString";
+
+export const fetchgStringToken = async (networkId, web3, address) => {
+  const gstringTokenNetwork = gStringToken.networks[networkId];
+  //   ;
+  if (gstringTokenNetwork) {
+    const gstringToken = new web3.eth.Contract(
+      gStringToken.abi,
+      gstringTokenNetwork.address
+    );
+    const gSTRING = toDecimal(
+      fromWei(web3, await gstringToken.methods.balanceOf(address).call())
+    );
+    return [gstringToken, gSTRING];
+  }
+};
+
+export const fetchLUSDToken = async (networkId, web3, address) => {
+  const LUSDTokenNetwork = LUSDToken.networks[networkId];
+  //   ;
+  if (LUSDTokenNetwork) {
+    const lusdToken = new web3.eth.Contract(
+      LUSDToken.abi,
+      LUSDTokenNetwork.address
+    );
+    const LUSD = toDecimal(
+      fromWei(web3, await lusdToken.methods.balanceOf(address).call())
+    );
+    return [LUSDToken, LUSD];
+  }
+};
+
+export const fetchLQTYToken = async (networkId, web3, address) => {
+  const LQTYTokenNetwork = LQTYToken.networks[networkId];
+  //   ;
+  if (LQTYTokenNetwork) {
+    const lqtyToken = new web3.eth.Contract(
+      LQTYToken.abi,
+      LQTYTokenNetwork.address
+    );
+    const LQTY = toDecimal(
+      fromWei(web3, await lqtyToken.methods.balanceOf(address).call())
+    );
+    return [lqtyToken, LQTY];
+  }
+};
 
 export const fetchStringToken = async (networkId, web3, address) => {
   const stringTokenNetwork = StringToken.networks[networkId];
@@ -103,22 +152,22 @@ export const fetchFarm = async (
 
     const allowances = {
       STRING: allowancesSTRING,
-      STRING_ETH_LP: allowancesSTRING_ETH_LP,
-      STRING_LUSD_LP: allowancesSTRING_LUSD_LP,
+      gSTRING_ETH_LP: allowancesSTRING_ETH_LP,
+      gSTRING_LUSD_LP: allowancesSTRING_LUSD_LP,
     };
     const farmBalances = {
       isBoosted,
       userPending: {
-        STRING_ETH_LP: pendingSTRING_ETH_LP,
-        STRING_LUSD_LP: pendingSTRING_LUSD_LP,
+        gSTRING_ETH_LP: pendingSTRING_ETH_LP,
+        gSTRING_LUSD_LP: pendingSTRING_LUSD_LP,
       },
       userStaked: {
-        STRING_ETH_LP: userSTRING_ETH_LP,
-        STRING_LUSD_LP: userSTRING_LUSD_LP,
+        gSTRING_ETH_LP: userSTRING_ETH_LP,
+        gSTRING_LUSD_LP: userSTRING_LUSD_LP,
       },
       totalStaked: {
-        STRING_ETH_LP: farmSTRING_ETH_LP,
-        STRING_LUSD_LP: farmSTRING_LUSD_LP,
+        gSTRING_ETH_LP: farmSTRING_ETH_LP,
+        gSTRING_LUSD_LP: farmSTRING_LUSD_LP,
       },
     };
     return [farm, allowances, farmBalances];

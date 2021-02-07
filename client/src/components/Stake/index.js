@@ -1,34 +1,63 @@
-import React from "react";
-import { Desc, DescContainer, Title } from "./styles";
+import React, { useState, useContext } from "react";
+import Pool from "../Farm/Pool";
+import { FarmContainer, Title } from "./styles";
+import CredentialsContext from "../../context/credentialsContext";
 
 const Stake = () => {
+  const [collapsed, setCollapsed] = useState({
+    STRING: true,
+    LQTY: true,
+  });
+  const { userBalances, farmBalances, userAllowances } = useContext(
+    CredentialsContext
+  );
+
   return (
-    <div>
+    <FarmContainer>
       <Title>STRING</Title>
-      <DescContainer>
-        <Desc>
-          Harp is a{" "}
-          <i>
-            <b>decentralized financial instrument</b>
-          </i>
-          . It gives users the ability to borrow against collateral at the
-          lowest minimum collateralization ratio in the DeFi ecostystem,
-          utlizing the .
-        </Desc>
-      </DescContainer>
+      <Pool
+        noClaim
+        conditionalMargin
+        from={"Profit Sharing"}
+        src={""}
+        currency1={"STRING"}
+        currencyLP={"STRING"}
+        currencyEarned={["STRING", "LQTY"]}
+        collapsed={collapsed.STRING}
+        LPTokensInWallet={userBalances.STRING}
+        LPTokensAllowance={userAllowances.STRING}
+        LPTokensStaked={farmBalances.userStaked.STRING}
+        pendingTokens={farmBalances.userPending.STRING}
+        stringTokensAllowance={userAllowances.STRING}
+        collapse={() => {
+          setCollapsed({ ...collapsed, STRING: true });
+        }}
+        expand={() => {
+          setCollapsed({ ...collapsed, STRING: false });
+        }}
+      />
       <Title>LQTY</Title>
-      <DescContainer>
-        <Desc>
-          Harp is a{" "}
-          <i>
-            <b>decentralized financial instrument</b>
-          </i>
-          . It gives users the ability to borrow against collateral at the
-          lowest minimum collateralization ratio in the DeFi ecostystem,
-          utlizing the .
-        </Desc>
-      </DescContainer>
-    </div>
+      <Pool
+        noClaim
+        from={"Rewards"}
+        src={""}
+        currency1={"LQTY"}
+        currencyLP={"LQTY"}
+        currencyEarned={["LUSD", "ETH"]}
+        collapsed={collapsed.LQTY}
+        LPTokensInWallet={userBalances.LQTY}
+        LPTokensAllowance={userAllowances.LQTY}
+        LPTokensStaked={farmBalances.userStaked.LQTY}
+        pendingTokens={farmBalances.userPending.LQTY}
+        stringTokensAllowance={userAllowances.STRING}
+        collapse={() => {
+          setCollapsed({ ...collapsed, LQTY: true });
+        }}
+        expand={() => {
+          setCollapsed({ ...collapsed, LQTY: false });
+        }}
+      />
+    </FarmContainer>
   );
 };
 

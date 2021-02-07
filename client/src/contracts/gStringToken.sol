@@ -2,11 +2,13 @@
 pragma solidity >=0.6.0 <0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract vStringToken is ERC20Burnable {
-    constructor(address _owner, address _owner2)
-        ERC20Burnable("Voting String Token", "vSTRING")
-    {
+contract gStringToken is ERC20, ERC20Burnable {
+    mapping(address => bool) internal allowedMinters;
+    address public owner;
+
+    constructor(address _owner) ERC20("Goverance String Token", "gSTRING") {
         owner = _owner;
     }
 
