@@ -108,11 +108,7 @@ contract StringStaking is Ownable {
     }
 
     // View function to see pending SUSHIs on frontend.
-    function pendingString(uint256 _pid, address _user)
-        external
-        view
-        returns (uint256)
-    {
+    function pendingString(address _user) external view returns (uint256) {
         UserInfo storage user = userInfo[_user];
         uint256 accStringPerShare = pool.accStringPerShare;
         uint256 lpSupply = pool.lpToken.balanceOf(address(this));

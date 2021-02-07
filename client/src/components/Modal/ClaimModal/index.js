@@ -19,20 +19,25 @@ import { toWei, fromWei, toDecimal } from "../../../utils/truncateString";
 import CredentialsContext from "../../../context/credentialsContext";
 import { Pair } from "../../Farm/Pool/styles";
 
-const ActionModal = ({ open, close, balance, pair }) => {
+const ActionModal = ({ open, close, balance, pair, contract }) => {
   const {
-    contracts: { farm },
+    contracts: { farm, profitShare },
     address,
     reFetchData,
   } = useContext(CredentialsContext);
 
   const pool = {
-    "STRING/ETH": 0,
-    "STRING/LUSD": 1,
+    "gSTRING/ETH": 0,
+    "gSTRING/LUSD": 1,
+  };
+
+  const contractInstance = {
+    profitShare,
+    farm,
   };
 
   const handleClaim = async () => {
-    await farm.methods
+    await contractInstance[contract].methods
       .claim(pool[pair])
       .send({ from: address })
       .on("transactionHash", async () => {

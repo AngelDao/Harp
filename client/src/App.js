@@ -9,7 +9,7 @@ import {
   initialConnectForDataCollection,
   manualConnect,
   checkChain,
-} from "./utils/handleWallets.js/index";
+} from "./utils/handleWallets/index";
 import {
   fetchETHLPTokens,
   fetchFarm,
@@ -18,6 +18,7 @@ import {
   fetchLQTYToken,
   fetchLUSDToken,
   fetchgStringToken,
+  fetchProfitShare,
 } from "./utils/contractConnection";
 // import { setEventListeners } from "./utils/handleWallets.js/modalConfig";
 
@@ -31,6 +32,7 @@ function App() {
   const [userBalances, setUserBalances] = useState({});
   const [userAllowances, setUserAllowances] = useState({});
   const [farmBalances, setFarmBalances] = useState({});
+  const [profitShareBalances, setProfitShareBalances] = useState({});
   const [contracts, setContracts] = useState({});
   const [prices, setPrices] = useState({});
 
@@ -84,11 +86,25 @@ function App() {
       ETHLPToken,
       LUSDLPToken,
       stringToken,
+      address,
+      lusdToken
+    );
+
+    const [profitShare, psAllowances, psBalances] = await fetchProfitShare(
+      networkId,
+      web3,
+      stringToken,
       address
     );
+
     setFarmBalances(farmBalances);
-    setUserAllowances(allowances);
+    setProfitShareBalances(psBalances);
+    setUserAllowances({
+      farm: allowances,
+      profitShare: psAllowances,
+    });
     setContracts({
+      profitShare,
       stringToken,
       ETHLPToken,
       LUSDLPToken,
@@ -110,9 +126,9 @@ function App() {
   const handlePricing = async () => {
     const STRING = 0.1;
     // when all deposited $500mm tvl
-    const STRING_ETH_LP = 500;
-    const STRING_LUSD_LP = 500;
-    setPrices({ STRING, STRING_ETH_LP, STRING_LUSD_LP });
+    const gSTRING_ETH_LP = 500;
+    const gSTRING_LUSD_LP = 500;
+    setPrices({ STRING, gSTRING_ETH_LP, gSTRING_LUSD_LP });
   };
 
   const handleManualConnect = async () => {

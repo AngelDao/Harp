@@ -3,17 +3,7 @@ import CredentialsContext from "../../context/credentialsContext";
 import ActionsModal from "./ActionModal";
 import ClaimModal from "./ClaimModal";
 
-const Modal = ({ open, close, type, balance, allowance, pair }) => {
-  const {
-    contracts: { farm, stringToken, ETHLPToken, LUSDLPToken },
-    address,
-    setUserAllowances,
-    userAllowances,
-    web3DataProvider,
-    web3UserProvider,
-    reFetchData,
-  } = useContext(CredentialsContext);
-
+const Modal = ({ open, close, type, balance, allowance, pair, contract }) => {
   if (type === "Deposit" || type === "Withdraw") {
     return (
       <ActionsModal
@@ -23,11 +13,18 @@ const Modal = ({ open, close, type, balance, allowance, pair }) => {
         balance={balance}
         allowance={allowance}
         pair={pair}
+        contract={contract}
       />
     );
   } else if (type === "Claim") {
     return (
-      <ClaimModal open={open} close={close} balance={balance} pair={pair} />
+      <ClaimModal
+        open={open}
+        close={close}
+        balance={balance}
+        pair={pair}
+        contract={contract}
+      />
     );
   }
   return null;

@@ -18,6 +18,7 @@ const Farm = () => {
       <Title>Liquity Pools</Title>
       <Pool
         conditionalMargin
+        contract={"farm"}
         from={"Stability"}
         src={""}
         currency1={"LUSD"}
@@ -25,10 +26,10 @@ const Farm = () => {
         currencyEarned={["STRING", "ETH", "LQTY"]}
         collapsed={collapsed.LUSD}
         LPTokensInWallet={userBalances.LUSD}
-        LPTokensAllowance={userAllowances.LUSD}
+        LPTokensAllowance={userAllowances.farm.LUSD}
         LPTokensStaked={farmBalances.userStaked.LUSD}
         pendingTokens={farmBalances.userPending.LUSD}
-        stringTokensAllowance={userAllowances.STRING}
+        stringTokensAllowance={userAllowances.farm.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, LUSD: true });
         }}
@@ -39,6 +40,7 @@ const Farm = () => {
       <Title>gSTRING Pools</Title>
       <Pool
         from={"Uniswap"}
+        contract={"farm"}
         src={""}
         currency1={"gSTRING"}
         currency2={"ETH"}
@@ -46,10 +48,10 @@ const Farm = () => {
         currencyEarned={"STRING"}
         collapsed={collapsed.stringETH}
         LPTokensInWallet={userBalances.gSTRING_ETH_LP}
-        LPTokensAllowance={userAllowances.gSTRING_ETH_LP}
+        LPTokensAllowance={userAllowances.farm.gSTRING_ETH_LP}
         LPTokensStaked={farmBalances.userStaked.gSTRING_ETH_LP}
         pendingTokens={farmBalances.userPending.gSTRING_ETH_LP}
-        stringTokensAllowance={userAllowances.STRING}
+        stringTokensAllowance={userAllowances.farm.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, stringETH: true });
         }}
@@ -59,6 +61,7 @@ const Farm = () => {
       />
       <Pool
         from={"Uniswap"}
+        contract={"farm"}
         src={""}
         currency1={"gSTRING"}
         currency2={"LUSD"}
@@ -66,10 +69,10 @@ const Farm = () => {
         currencyEarned={"STRING"}
         collapsed={collapsed.stringLUSD}
         LPTokensInWallet={userBalances.gSTRING_LUSD_LP}
-        LPTokensAllowance={userAllowances.gSTRING_LUSD_LP}
+        LPTokensAllowance={userAllowances.farm.gSTRING_LUSD_LP}
         LPTokensStaked={farmBalances.userStaked.gSTRING_LUSD_LP}
         pendingTokens={farmBalances.userPending.gSTRING_LUSD_LP}
-        stringTokensAllowance={userAllowances.STRING}
+        stringTokensAllowance={userAllowances.farm.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, stringLUSD: true });
         }}

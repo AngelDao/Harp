@@ -49,6 +49,7 @@ const Pool = ({
   src,
   conditionalMargin,
   currencyLP,
+  contract,
 }) => {
   const { web3DataProvider, farmBalances, prices } = useContext(
     CredentialsContext
@@ -83,16 +84,16 @@ const Pool = ({
   const makeBN = (n) => {
     return new web3DataProvider.utils.BN(n);
   };
-  const pair = `${currency1}/${currency2}`;
+  const pair = currency2 ? `${currency1}/${currency2}` : currency1;
 
   const pairNames = {
-    "STRING/ETH": "STRING_ETH_LP",
-    "STRING/LUSD": "STRING_LUSD_LP",
+    "gSTRING/ETH": "gSTRING_ETH_LP",
+    "gSTRING/LUSD": "gSTRING_LUSD_LP",
   };
 
   const alloc = {
-    "STRING/ETH": 0.8,
-    "STRING/LUSD": 0.2,
+    "gSTRING/ETH": 0.8,
+    "gSTRING/LUSD": 0.2,
   };
 
   const logosMap = {
@@ -123,8 +124,6 @@ const Pool = ({
     yearlyAPY = (((dailyUSDReturn * 365) / pairTokensTVL) * 100).toFixed(2);
   }
 
-  // debugger;
-
   const margin = conditionalMargin ? (collapsed ? "0px" : "10px") : "35.5px";
 
   return (
@@ -136,6 +135,7 @@ const Pool = ({
         balance={balance && balance}
         allowance={allowance && allowance}
         pair={pair}
+        contract={contract}
       />
       <div style={{ marginTop: "12.5px", marginBottom: margin }}>
         <PoolContainer>

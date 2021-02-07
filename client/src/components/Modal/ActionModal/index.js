@@ -30,9 +30,24 @@ import { toWei, fromWei, toDecimal } from "../../../utils/truncateString";
 import CredentialsContext from "../../../context/credentialsContext";
 import { Pair } from "../../Farm/Pool/styles";
 
-const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
+const ActionModal = ({
+  open,
+  close,
+  type,
+  balance,
+  allowance,
+  pair,
+  contract,
+}) => {
   const {
-    contracts: { farm, stringToken, ETHLPToken, LUSDLPToken },
+    contracts: {
+      farm,
+      stringToken,
+      ETHLPToken,
+      LUSDLPToken,
+      lusdToken,
+      profitShare,
+    },
     address,
     setUserAllowances,
     userAllowances,
@@ -50,12 +65,19 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
     "gSTRING/ETH": ETHLPToken,
     "gSTRING/LUSD": LUSDLPToken,
     STRING: stringToken,
+    LUSD: lusdToken,
   };
 
   const pairNames = {
     "gSTRING/ETH": "gSTRING_ETH_LP",
     "gSTRING/LUSD": "gSTRING_LUSD_LP",
     STRING: "STRING",
+    LUSD: "LUSD",
+  };
+
+  const contractInstance = {
+    farm,
+    profitShare,
   };
 
   const [value, setValue] = useState(0);
@@ -93,9 +115,11 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
   };
 
   const handleApprove = async () => {
-    debugger;
+    const contractAddress =
+      contract === "farm" ? farm._address : profitShare._address;
+
     await token[pair].methods
-      .approve(farm._address, toWei(web3DataProvider, "10000000"))
+      .approve(contractAddress, toWei(web3DataProvider, "10000000"))
       .send({ from: address })
       .on("transactionHash", async () => {
         await reFetchData();
@@ -107,24 +131,62 @@ const ActionModal = ({ open, close, type, balance, allowance, pair }) => {
   };
 
   const handleDeposit = async () => {
-    try {
-      await farm.methods
-        .deposit(pool[pair], toWei(web3DataProvider, value.toString()))
-        .send({ from: address })
-        .on("transactionHash", async () => {
-          await reFetchData();
-        })
-        .on("receipt", async () => {
-          await reFetchData();
-        });
-    } catch (err) {
-      console.log(err.message);
+    const ctrct = contractInstance[contract];
+    const param1 =
+      contract === "farm" && pair !== "LUSD"
+        ? pool[pair]
+        : toWei(web3DataProvider, value.toString());
+
+    const param2 =
+      contract === "farm" && pair !== "LUSD"
+        ? toWei(web3DataProvider, value.toString())
+        : "hint ";
+
+    if (pair === "LUSD") {
+      try {
+        await ctrct.methods
+          .depositSP(param1, param2)
+          .send({ from: address })
+          .on("transactionHash", async () => {
+            await reFetchData();
+          })
+          .on("receipt", async () => {
+            await reFetchData();
+          });
+      } catch (err) {
+        console.log(err.message);
+      }
+    } else {
+      try {
+        await ctrct.methods
+          .deposit(param1, param2)
+          .send({ from: address })
+          .on("transactionHash", async () => {
+            await reFetchData();
+          })
+          .on("receipt", async () => {
+            await reFetchData();
+          });
+      } catch (err) {
+        console.log(err.message);
+      }
     }
   };
 
   const handleWithdraw = async () => {
-    await farm.methods
-      .withdraw(pool[pair], toWei(web3UserProvider, value.toString()))
+    const ctrct = contractInstance[contract];
+    const param1 =
+      contract === "farm" && pair !== "LUSD"
+        ? pool[pair]
+        : toWei(web3DataProvider, value.toString());
+
+    const param2 =
+      contract === "farm" && pair !== "LUSD"
+        ? toWei(web3DataProvider, value.toString())
+        : "hint ";
+
+    await ctrct.methods
+      .withdraw(param1, param2)
       .send({ from: address })
       .on("transactionHash", async () => {
         await reFetchData();

@@ -34,7 +34,7 @@ export const fetchLUSDToken = async (networkId, web3, address) => {
     const LUSD = toDecimal(
       fromWei(web3, await lusdToken.methods.balanceOf(address).call())
     );
-    return [LUSDToken, LUSD];
+    return [lusdToken, LUSD];
   }
 };
 
@@ -96,13 +96,64 @@ export const fetchLUSDLPTokens = async (networkId, web3, address) => {
   }
 };
 
+export const fetchProfitShare = async (
+  networkId,
+  web3,
+  stringToken,
+  address
+) => {
+  const psNetwork = StakingPool.networks[networkId];
+  if (psNetwork) {
+    const ps = new web3.eth.Contract(StakingPool.abi, psNetwork.address);
+
+    const allowancesSTRING = toDecimal(
+      fromWei(
+        web3,
+        await stringToken.methods.allowance(address, ps._address).call()
+      )
+    );
+
+    const isBoosted = await ps.methods.isBoosted().call();
+    const psSTRING = toDecimal(
+      fromWei(web3, await stringToken.methods.balanceOf(ps._address).call())
+    );
+    const pendingSTRING = toDecimal(
+      fromWei(web3, await ps.methods.pendingString(address).call())
+    );
+
+    const userSTRINGStaked = toDecimal(
+      fromWei(web3, (await ps.methods.userInfo(address).call()).amount)
+    );
+
+    const psAllowances = {
+      STRING: allowancesSTRING,
+    };
+
+    const psBalances = {
+      isBoosted,
+      userPending: {
+        STRING: pendingSTRING,
+      },
+      userStaked: {
+        STRING: userSTRINGStaked,
+      },
+      totalStaked: {
+        STRING: psSTRING,
+      },
+    };
+
+    return [ps, psAllowances, psBalances];
+  }
+};
+
 export const fetchFarm = async (
   networkId,
   web3,
   ETHLPToken,
   LUSDLPToken,
   stringToken,
-  address
+  address,
+  lusdToken
 ) => {
   const farmNetwork = Farm.networks[networkId];
   if (farmNetwork) {
@@ -137,6 +188,12 @@ export const fetchFarm = async (
         await stringToken.methods.allowance(address, farm._address).call()
       )
     );
+    const allowancesLUSD = toDecimal(
+      fromWei(
+        web3,
+        await lusdToken.methods.allowance(address, farm._address).call()
+      )
+    );
     const allowancesSTRING_ETH_LP = toDecimal(
       fromWei(
         web3,
@@ -154,6 +211,7 @@ export const fetchFarm = async (
       STRING: allowancesSTRING,
       gSTRING_ETH_LP: allowancesSTRING_ETH_LP,
       gSTRING_LUSD_LP: allowancesSTRING_LUSD_LP,
+      LUSD: allowancesLUSD,
     };
     const farmBalances = {
       isBoosted,

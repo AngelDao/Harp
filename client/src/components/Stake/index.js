@@ -16,6 +16,7 @@ const Stake = () => {
     <FarmContainer>
       <Title>STRING</Title>
       <Pool
+        contract={"profitShare"}
         noClaim
         conditionalMargin
         from={"Profit Sharing"}
@@ -25,10 +26,10 @@ const Stake = () => {
         currencyEarned={["STRING", "LQTY"]}
         collapsed={collapsed.STRING}
         LPTokensInWallet={userBalances.STRING}
-        LPTokensAllowance={userAllowances.STRING}
+        LPTokensAllowance={userAllowances.profitShare.STRING}
         LPTokensStaked={farmBalances.userStaked.STRING}
         pendingTokens={farmBalances.userPending.STRING}
-        stringTokensAllowance={userAllowances.STRING}
+        stringTokensAllowance={userAllowances.profitShare.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, STRING: true });
         }}
@@ -46,10 +47,10 @@ const Stake = () => {
         currencyEarned={["LUSD", "ETH"]}
         collapsed={collapsed.LQTY}
         LPTokensInWallet={userBalances.LQTY}
-        LPTokensAllowance={userAllowances.LQTY}
+        LPTokensAllowance={userAllowances.profitShare.LQTY}
         LPTokensStaked={farmBalances.userStaked.LQTY}
         pendingTokens={farmBalances.userPending.LQTY}
-        stringTokensAllowance={userAllowances.STRING}
+        stringTokensAllowance={userAllowances.profitShare.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, LQTY: true });
         }}
