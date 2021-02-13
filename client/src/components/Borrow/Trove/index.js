@@ -12,7 +12,14 @@ import { TroveFormContainer, TroveRow } from "./styles";
 import MasterStyles from "../../../utils/masterStyles";
 import CredentialsContext from "../../../context/credentialsContext";
 
-const Trove = ({}) => {
+const Trove = ({
+  trove,
+  setTrove,
+  ethPrice,
+  userBalances,
+  minDebt,
+  minRatio,
+}) => {
   const { web3DataProvider, farmBalances, prices } = useContext(
     CredentialsContext
   );
@@ -21,25 +28,7 @@ const Trove = ({}) => {
 
   // TODO: replace place holders
   const ethBalance = "10";
-  const lusdBalance = "1000";
-  const type = "ETH";
-
-  const [collateral, setCollateral] = useState(0);
-  const [debt, setDebt] = useState(0);
-  const [ratio, setRatio] = useState(0);
-  const [value, setValue] = useState(0);
-
-  const handleFocus = () => {
-    if (value === 0) {
-      setValue("");
-    }
-  };
-
-  const handleBlur = () => {
-    if (value === "") {
-      setValue(0);
-    }
-  };
+  const lusdBalance = userBalances.LUSD;
 
   const numberInputFieldProps = {
     borderRadius: "0%",
@@ -59,8 +48,6 @@ const Trove = ({}) => {
     backgroundColor: MasterStyles.background.secondaryMenu,
   };
 
-  // TODO: change the values on the inputs
-
   return (
     <>
       <TroveFormContainer>
@@ -73,14 +60,12 @@ const Trove = ({}) => {
                 </span>
               </FormLabel>
               <NumberInput
-                onBlur={(e) => console.log(e.target.value)}
-                onFocus={(e) => console.log(e.target.value)}
                 defaultValue={0}
                 min={0}
                 precision={2}
                 max={parseInt(ethBalance)}
-                value={collateral}
-                onChange={(str, num) => setCollateral(num)}
+                value={trove.collateral}
+                onChange={(str, num) => setTrove({ ...trove, collateral: num })}
                 {...numberInputProps}
               >
                 <NumberInputField {...numberInputFieldProps} />
@@ -100,15 +85,13 @@ const Trove = ({}) => {
                 </span>
               </FormLabel>
               <NumberInput
-                onBlur={handleBlur}
-                onFocus={handleFocus}
                 defaultValue={0}
                 min={0}
                 precision={2}
                 step={0.1}
                 max={parseInt(lusdBalance)}
-                value={debt}
-                onChange={(str, num) => setDebt(num)}
+                value={trove.debt}
+                onChange={(str, num) => setTrove({ ...trove, debt: num })}
                 {...numberInputProps}
               >
                 <NumberInputField {...numberInputFieldProps} />
@@ -128,12 +111,10 @@ const Trove = ({}) => {
                 </span>
               </FormLabel>
               <NumberInput
-                onBlur={handleBlur}
-                onFocus={handleFocus}
                 defaultValue={0}
                 precision={2}
                 max={parseInt(lusdBalance)}
-                value={ratio}
+                value={trove.ratio}
                 {...numberInputProps}
               >
                 <NumberInputField {...numberInputFieldProps} />
