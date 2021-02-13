@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import MasterStyles from "../../utils/masterStyles";
+import MasterStyles from "../../../utils/masterStyles";
 
 export const BorrowContainer = styled.div`
   margin-top: 0px;

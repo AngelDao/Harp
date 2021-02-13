@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import MasterStyles from "../../../utils/masterStyles";
 
-export const TroveContainer = styled.div`
+export const TroveFormContainer = styled.div`
   width: 100%;
   height: 100%;
   background: ${MasterStyles.background.menu};
   border: 3px solid black;
   padding: 10px 25px 10px 25px;
+  margin-bottom: 35.5px;
   flex-direction: column;
 `;
 

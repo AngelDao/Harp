@@ -1,16 +1,14 @@
 import React, { useState, useContext } from "react";
 import {
-  Input,
   FormControl,
   FormLabel,
-  FormHelperText,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react";
-import { TroveContainer, TroveRow, RowKey, CollapseButton } from "./styles";
+import { TroveFormContainer, TroveRow } from "./styles";
 import MasterStyles from "../../../utils/masterStyles";
 import CredentialsContext from "../../../context/credentialsContext";
 
@@ -26,21 +24,10 @@ const Trove = ({}) => {
   const lusdBalance = "1000";
   const type = "ETH";
 
-  const [collateral, setcollateral] = useState(0);
+  const [collateral, setCollateral] = useState(0);
   const [debt, setDebt] = useState(0);
   const [ratio, setRatio] = useState(0);
   const [value, setValue] = useState(0);
-
-  const handleChangeValue = (num) => {
-    let temp = num;
-    if (!num) {
-      temp = "";
-    }
-    if (num === 0) {
-      temp = 0;
-    }
-    setValue(temp);
-  };
 
   const handleFocus = () => {
     if (value === 0) {
@@ -76,7 +63,7 @@ const Trove = ({}) => {
 
   return (
     <>
-      <TroveContainer>
+      <TroveFormContainer>
         <div style={{ marginTop: "12.5px", marginBottom: "12.5px" }}>
           <FormControl id="collateral" pt={2}>
             <TroveRow>
@@ -86,14 +73,14 @@ const Trove = ({}) => {
                 </span>
               </FormLabel>
               <NumberInput
-                onBlur={handleBlur}
-                onFocus={handleFocus}
+                onBlur={(e) => console.log(e.target.value)}
+                onFocus={(e) => console.log(e.target.value)}
                 defaultValue={0}
                 min={0}
                 precision={2}
                 max={parseInt(ethBalance)}
-                value={value}
-                onChange={(str, num) => handleChangeValue(num)}
+                value={collateral}
+                onChange={(str, num) => setCollateral(num)}
                 {...numberInputProps}
               >
                 <NumberInputField {...numberInputFieldProps} />
@@ -120,8 +107,8 @@ const Trove = ({}) => {
                 precision={2}
                 step={0.1}
                 max={parseInt(lusdBalance)}
-                value={value}
-                onChange={(str, num) => handleChangeValue(num)}
+                value={debt}
+                onChange={(str, num) => setDebt(num)}
                 {...numberInputProps}
               >
                 <NumberInputField {...numberInputFieldProps} />
@@ -146,8 +133,7 @@ const Trove = ({}) => {
                 defaultValue={0}
                 precision={2}
                 max={parseInt(lusdBalance)}
-                value={value}
-                onChange={(str, num) => handleChangeValue(num)}
+                value={ratio}
                 {...numberInputProps}
               >
                 <NumberInputField {...numberInputFieldProps} />
@@ -155,7 +141,7 @@ const Trove = ({}) => {
             </TroveRow>
           </FormControl>
         </div>
-      </TroveContainer>
+      </TroveFormContainer>
     </>
   );
 };
