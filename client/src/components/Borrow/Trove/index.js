@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   FormControl,
   FormLabel,
@@ -27,14 +27,28 @@ const Trove = ({
 }) => {
   // TODO: actually use this value, give notification or change input field to provide user feedback
   const [ratioValidity, setRatioValidity] = useState();
+  const [buttonText, setButtonText] = useState();
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   // TODO: replace place holders
   const ethBalance = "10";
   const lusdBalance = userBalances.LUSD;
 
-  const { web3DataProvider, farmBalances, prices } = useContext(
-    CredentialsContext
-  );
-  const web3 = web3DataProvider;
+  // const { web3DataProvider, farmBalances, prices } = useContext(
+  //   CredentialsContext
+  // );
+  // const web3 = web3DataProvider;
+
+  // TODO: this only covers the cases if a trove hasn't been created
+  useEffect(() => {
+    let text = "";
+    if (trove.collateral > 0) text = `Deposit ${trove.collateral} ETH`;
+    if (trove.debt > minDebt) text += ` & Borrow ${trove.debt - minDebt} LUSD`;
+    if (trove.debt < minDebt)
+      text = "Need at least 10 LUSD for gas compensation";
+    if (trove.ratio < minRatio) text = "Collateral ratio must at least be 110%";
+
+    setButtonText(text);
+  }, [trove]);
 
   const handleRatioValidity = (ratio) => {
     if (ratio < minRatio) setRatioValidity(false);
@@ -42,7 +56,7 @@ const Trove = ({
   };
 
   const calculateRatio = (eth, lusd) => {
-    return (eth * ethPrice) / lusd;
+    return ((eth * ethPrice) / lusd) * 100;
   };
 
   const handleCollateralInput = (val) => {
@@ -148,13 +162,13 @@ const Trove = ({
 
         <ActionButtonContainer>
           <ActionButton
-            action={0 > 0}
-            disabled={0 <= 0}
+            action={!buttonDisabled}
+            disabled={buttonDisabled}
             onClick={() => {
               console.log("click");
             }}
           >
-            <i>Deposit</i>
+            <i>{buttonText}</i>
           </ActionButton>
         </ActionButtonContainer>
       </TroveFormContainer>

@@ -11,7 +11,7 @@ const Borrow = () => {
     ratio: 0,
   }); // TODO: replace w/ actual drove data
   const ethPrice = 1000; // TODO: replace with oracle
-  const minDebt = useState(10); // TODO: replace with minimum lusd debt
+  const minDebt = 10; // TODO: replace with minimum lusd debt
   const minRatio = 110; // collateral ratio must be above 110%
 
   const { web3DataProvider, farmBalances, prices, userBalances } = useContext(

@@ -63,7 +63,7 @@ export const ActionButton = styled.button`
   color: black;
   font-size: ${MasterStyles.fontSize.medium};
   background-color: #fcfcfc !important;
-  width: 100px;
+  width: 80%;
   height: 33px;
   font-style: italic;
   cursor: ${({ disabled }) => {
@@ -74,6 +74,6 @@ export const ActionButton = styled.button`
 export const ActionButtonContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: center;
   margin-top: 12.5px;
 `;
