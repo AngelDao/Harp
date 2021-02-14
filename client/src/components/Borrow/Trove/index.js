@@ -20,32 +20,36 @@ const Trove = ({
   minDebt,
   minRatio,
 }) => {
-  const { web3DataProvider, farmBalances, prices } = useContext(
-    CredentialsContext
-  );
-
-  const web3 = web3DataProvider;
-
+  // TODO: actually use this value, give notification or change input field to provide user feedback
+  const [ratioValidity, setRatioValidity] = useState();
   // TODO: replace place holders
   const ethBalance = "10";
   const lusdBalance = userBalances.LUSD;
 
+  const { web3DataProvider, farmBalances, prices } = useContext(
+    CredentialsContext
+  );
+  const web3 = web3DataProvider;
+
+  const handleRatioValidity = (ratio) => {
+    if (ratio < minRatio) setRatioValidity(false);
+    else setRatioValidity(true);
+  };
+
   const calculateRatio = (eth, lusd) => {
-    console.log("calculateRatio");
-    console.log(eth);
-    console.log(ethPrice);
-    console.log(lusd);
     return (eth * ethPrice) / lusd;
   };
 
   const handleCollateralInput = (val) => {
     const ratio = calculateRatio(val, trove.debt);
     setTrove({ ...trove, ratio: ratio, collateral: val });
+    handleRatioValidity(ratio);
   };
 
   const handleDebtInput = (val) => {
     const ratio = calculateRatio(trove.collateral, val);
     setTrove({ ...trove, ratio: ratio, debt: val });
+    handleRatioValidity(ratio);
   };
 
   const numberInputFieldProps = {
@@ -129,9 +133,7 @@ const Trove = ({
                 </span>
               </FormLabel>
               <NumberInput
-                defaultValue={0}
                 precision={2}
-                max={parseInt(lusdBalance)}
                 value={trove.ratio}
                 {...numberInputProps}
               >
