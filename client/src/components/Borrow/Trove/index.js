@@ -8,7 +8,12 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react";
-import { TroveFormContainer, TroveRow } from "./styles";
+import {
+  TroveFormContainer,
+  TroveRow,
+  ActionButton,
+  ActionButtonContainer,
+} from "./styles";
 import MasterStyles from "../../../utils/masterStyles";
 import CredentialsContext from "../../../context/credentialsContext";
 
@@ -73,75 +78,85 @@ const Trove = ({
   return (
     <>
       <TroveFormContainer>
-        <div style={{ marginTop: "12.5px", marginBottom: "12.5px" }}>
-          <FormControl id="collateral" pt={2}>
-            <TroveRow>
-              <FormLabel>
-                <span style={{ fontSize: MasterStyles.fontSize.large }}>
-                  Collateral [ETH]
-                </span>
-              </FormLabel>
-              <NumberInput
-                defaultValue={0}
-                min={0}
-                precision={2}
-                max={parseInt(ethBalance)}
-                value={trove.collateral}
-                onChange={(str, num) => handleCollateralInput(num)}
-                {...numberInputProps}
-              >
-                <NumberInputField {...numberInputFieldProps} />
-                <NumberInputStepper border="none">
-                  <NumberIncrementStepper border="none" />
-                  <NumberDecrementStepper border="none" />
-                </NumberInputStepper>
-              </NumberInput>
-            </TroveRow>
-          </FormControl>
+        <FormControl id="collateral" pt={2}>
+          <TroveRow>
+            <FormLabel>
+              <span style={{ fontSize: MasterStyles.fontSize.large }}>
+                Collateral [ETH]
+              </span>
+            </FormLabel>
+            <NumberInput
+              defaultValue={0}
+              min={0}
+              precision={2}
+              max={parseInt(ethBalance)}
+              value={trove.collateral}
+              onChange={(str, num) => handleCollateralInput(num)}
+              {...numberInputProps}
+            >
+              <NumberInputField {...numberInputFieldProps} />
+              <NumberInputStepper border="none">
+                <NumberIncrementStepper border="none" />
+                <NumberDecrementStepper border="none" />
+              </NumberInputStepper>
+            </NumberInput>
+          </TroveRow>
+        </FormControl>
 
-          <FormControl id="debt" pt={2}>
-            <TroveRow>
-              <FormLabel>
-                <span style={{ fontSize: MasterStyles.fontSize.large }}>
-                  Debt [LUSD]
-                </span>
-              </FormLabel>
-              <NumberInput
-                defaultValue={0}
-                min={0}
-                precision={2}
-                step={0.1}
-                max={parseInt(lusdBalance)}
-                value={trove.debt}
-                onChange={(str, num) => handleDebtInput(num)}
-                {...numberInputProps}
-              >
-                <NumberInputField {...numberInputFieldProps} />
-                <NumberInputStepper border="none">
-                  <NumberIncrementStepper border="none" />
-                  <NumberDecrementStepper border="none" />
-                </NumberInputStepper>
-              </NumberInput>
-            </TroveRow>
-          </FormControl>
+        <FormControl id="debt" pt={2}>
+          <TroveRow>
+            <FormLabel>
+              <span style={{ fontSize: MasterStyles.fontSize.large }}>
+                Debt [LUSD]
+              </span>
+            </FormLabel>
+            <NumberInput
+              defaultValue={0}
+              min={0}
+              precision={2}
+              step={0.1}
+              max={parseInt(lusdBalance)}
+              value={trove.debt}
+              onChange={(str, num) => handleDebtInput(num)}
+              {...numberInputProps}
+            >
+              <NumberInputField {...numberInputFieldProps} />
+              <NumberInputStepper border="none">
+                <NumberIncrementStepper border="none" />
+                <NumberDecrementStepper border="none" />
+              </NumberInputStepper>
+            </NumberInput>
+          </TroveRow>
+        </FormControl>
 
-          <FormControl id="ratio" pt={2}>
-            <TroveRow>
-              <FormLabel>
-                <span style={{ fontSize: MasterStyles.fontSize.large }}>
-                  Collateral Ratio
-                </span>
-              </FormLabel>
-              <NumberInput
-                precision={2}
-                value={trove.ratio}
-                {...numberInputProps}
-              >
-                <NumberInputField {...numberInputFieldProps} />
-              </NumberInput>
-            </TroveRow>
-          </FormControl>
-        </div>
+        <FormControl id="ratio" pt={2}>
+          <TroveRow>
+            <FormLabel>
+              <span style={{ fontSize: MasterStyles.fontSize.large }}>
+                Collateral Ratio
+              </span>
+            </FormLabel>
+            <NumberInput
+              precision={2}
+              value={trove.ratio}
+              {...numberInputProps}
+            >
+              <NumberInputField {...numberInputFieldProps} />
+            </NumberInput>
+          </TroveRow>
+        </FormControl>
+
+        <ActionButtonContainer>
+          <ActionButton
+            action={0 > 0}
+            disabled={0 <= 0}
+            onClick={() => {
+              console.log("click");
+            }}
+          >
+            <i>Deposit</i>
+          </ActionButton>
+        </ActionButtonContainer>
       </TroveFormContainer>
     </>
   );
