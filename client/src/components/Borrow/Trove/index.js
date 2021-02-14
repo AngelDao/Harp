@@ -30,6 +30,24 @@ const Trove = ({
   const ethBalance = "10";
   const lusdBalance = userBalances.LUSD;
 
+  const calculateRatio = (eth, lusd) => {
+    console.log("calculateRatio");
+    console.log(eth);
+    console.log(ethPrice);
+    console.log(lusd);
+    return (eth * ethPrice) / lusd;
+  };
+
+  const handleCollateralInput = (val) => {
+    const ratio = calculateRatio(val, trove.debt);
+    setTrove({ ...trove, ratio: ratio, collateral: val });
+  };
+
+  const handleDebtInput = (val) => {
+    const ratio = calculateRatio(trove.collateral, val);
+    setTrove({ ...trove, ratio: ratio, debt: val });
+  };
+
   const numberInputFieldProps = {
     borderRadius: "0%",
     border: "2px solid black",
@@ -65,7 +83,7 @@ const Trove = ({
                 precision={2}
                 max={parseInt(ethBalance)}
                 value={trove.collateral}
-                onChange={(str, num) => setTrove({ ...trove, collateral: num })}
+                onChange={(str, num) => handleCollateralInput(num)}
                 {...numberInputProps}
               >
                 <NumberInputField {...numberInputFieldProps} />
@@ -91,7 +109,7 @@ const Trove = ({
                 step={0.1}
                 max={parseInt(lusdBalance)}
                 value={trove.debt}
-                onChange={(str, num) => setTrove({ ...trove, debt: num })}
+                onChange={(str, num) => handleDebtInput(num)}
                 {...numberInputProps}
               >
                 <NumberInputField {...numberInputFieldProps} />
