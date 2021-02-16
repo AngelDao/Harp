@@ -1,12 +1,13 @@
-import StringToken from "../abis/StringToken.json";
-import Farm from "../abis/LatestFarm.json";
-import TestETHLPToken from "../abis/ETHLPToken.json";
-import TestLUSDLPToken from "../abis/LUSDLPToken.json";
-import gStringToken from "../abis/gStringToken.json";
-import LQTYToken from "../abis/LQTYToken.json";
-import LUSDToken from "../abis/LUSDToken.json";
-import StakingPool from "../abis/StringStaking.json";
-import { fromWei, toDecimal } from "./truncateString";
+import StringToken from "../../abis/StringToken.json";
+import Farm from "../../abis/LatestFarm.json";
+import TestETHLPToken from "../../abis/ETHLPToken.json";
+import TestLUSDLPToken from "../../abis/LUSDLPToken.json";
+import gStringToken from "../../abis/gStringToken.json";
+import LQTYToken from "../../abis/LQTYToken.json";
+import LUSDToken from "../../abis/LUSDToken.json";
+import StakingPool from "../../abis/StringStaking.json";
+import { fromWei, toDecimal } from "../truncateString";
+import { addresses } from "./addresses";
 
 export const fetchgStringToken = async (networkId, web3, address) => {
   const gstringTokenNetwork = gStringToken.networks[networkId];

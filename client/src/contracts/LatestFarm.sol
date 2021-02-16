@@ -40,6 +40,7 @@ contract LatestFarm is Ownable {
         uint256 accStringPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
         uint256 accETHPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
         uint256 accLQTYPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
+        uint256 accLUSDPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
     }
 
     // The SUSHI TOKEN!
@@ -115,7 +116,8 @@ contract LatestFarm is Ownable {
                 lastRewardBlock: lastRewardBlock,
                 accStringPerShare: 0,
                 accLQTYPerShare: 0,
-                accETHPerShare: 0
+                accETHPerShare: 0,
+                accLUSDPerShare: 0
             })
         );
     }
@@ -221,29 +223,30 @@ contract LatestFarm is Ownable {
         pool.lastRewardBlock = block.number;
     }
 
-    function updateSP(address _hint) public {
+    function updateSP() public {
         PoolInfo storage pool = poolInfo[2];
         if (block.number <= pool.lastRewardBlock) {
             return;
         }
-        uint256 lpSupply = pool.lpToken.balanceOf(address(this));
+        uint256 lpSupply =
+            stabilityPool.getCompoundedLUSDDeposit(address(this));
 
         if (lpSupply == 0) {
             return;
         }
 
-        stabilityPool.withdrawETHGainToTrove(_hint);
+        stabilityPool.withdrawFromSP(0);
 
         uint256 ethAvailableRewards = address(this).balance;
         uint256 lqtyAvailableRewards = lqtyToken.balanceOf(address(this));
         if (ethAvailableRewards > 0) {
-            pool.accETHPerShare = pool.accStringPerShare.add(
+            pool.accETHPerShare = pool.accETHPerShare.add(
                 ethAvailableRewards.mul(1e12).div(lpSupply)
             );
         }
 
         if (lqtyAvailableRewards > 0) {
-            pool.accLQTYPerShare = pool.accStringPerShare.add(
+            pool.accLQTYPerShare = pool.accLQTYPerShare.add(
                 lqtyAvailableRewards.mul(1e12).div(lpSupply)
             );
         }
@@ -269,10 +272,10 @@ contract LatestFarm is Ownable {
         emit Deposit(msg.sender, _pid, _amount);
     }
 
-    function depositSP(uint256 _amount, address _hint) public {
+    function depositSP(uint256 _amount) public {
         PoolInfo storage pool = poolInfo[2];
         UserInfo storage user = userInfo[2][msg.sender];
-        updateSP(_hint);
+        updateSP();
         updatePool(2);
 
         if (user.amount > 0) {
@@ -312,11 +315,11 @@ contract LatestFarm is Ownable {
         emit Withdraw(msg.sender, _pid, _amount);
     }
 
-    function withdrawSP(uint256 _amount, address _hint) public {
+    function withdrawSP(uint256 _amount) public {
         PoolInfo storage pool = poolInfo[2];
         UserInfo storage user = userInfo[2][msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
-        updateSP(_hint);
+        updateSP();
         updatePool(2);
         uint256 pendingETH = _pendingETH(user, pool);
         uint256 pendingLQTY = _pendingLQTY(user, pool);
@@ -338,6 +341,23 @@ contract LatestFarm is Ownable {
         updatePool(_pid);
         uint256 pending = _pending(user, pool);
         safeStringTransfer(msg.sender, pending);
+        user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
+        Claim(msg.sender, pending);
+    }
+
+    function claimSP() public {
+        PoolInfo storage pool = poolInfo[2];
+        UserInfo storage user = userInfo[2][msg.sender];
+        updateSP();
+        updatePool(2);
+        uint256 pendingETH = _pendingETH(user, pool);
+        uint256 pendingLQTY = _pendingLQTY(user, pool);
+        uint256 pending = _pending(user, pool);
+        safeStringTransfer(msg.sender, pending);
+        safeETHTransfer(msg.sender, pendingETH);
+        safeLQTYTransfer(msg.sender, pendingLQTY);
+        user.ethRewardDebt = user.amount.mul(pool.accETHPerShare).div(1e12);
+        user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         Claim(msg.sender, pending);
     }

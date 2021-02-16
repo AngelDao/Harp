@@ -158,7 +158,7 @@ contract StringStaking is Ownable {
         pool.lastRewardBlock = block.number;
     }
 
-    function updateSP(address _hint) public {
+    function updateSP() public {
         if (block.number <= pool.lastRewardBlock) {
             return;
         }
@@ -168,7 +168,7 @@ contract StringStaking is Ownable {
             return;
         }
 
-        stabilityPool.withdrawETHGainToTrove(_hint);
+        stabilityPool.withdrawFromSP(0);
 
         uint256 lqtyAvailableRewards = lqtyToken.balanceOf(address(this));
 
@@ -188,10 +188,10 @@ contract StringStaking is Ownable {
     }
 
     // Deposit LP tokens to MasterChef for SUSHI allocation.
-    function deposit(uint256 _amount, address _hint) public {
+    function deposit(uint256 _amount) public {
         UserInfo storage user = userInfo[msg.sender];
         updatePool();
-        updateSP(_hint);
+        updateSP();
         uint256 cNotes = gstringToken.balanceOf(msg.sender);
         if (user.amount > 0) {
             uint256 pending = _pending(user, cNotes);
@@ -225,11 +225,11 @@ contract StringStaking is Ownable {
     }
 
     // Withdraw LP tokens from MasterChef.
-    function withdraw(uint256 _amount, address _hint) public {
+    function withdraw(uint256 _amount) public {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
         updatePool();
-        updateSP(_hint);
+        updateSP();
         uint256 cNotes = gstringToken.balanceOf(msg.sender);
         uint256 pending = _pending(user, cNotes);
         uint256 pendingLQTY = _pendingLQTY(user, cNotes);

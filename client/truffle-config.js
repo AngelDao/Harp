@@ -24,12 +24,27 @@
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+const privateKey = "696dc65003f94f5b9a68def5d9b93ab6";
+const endpointUrl =
+  "https://kovan.infura.io/v3/79c78239e1fa4041aee93d386e5823a5";
+
 module.exports = {
   networks: {
     development: {
       host: "127.0.0.1",
       port: 7545,
       network_id: "*", // Match any network id
+    },
+    kovan: {
+      network_id: "42",
+      provider: function () {
+        return new HDWalletProvider(
+          "biology inch series welcome conduct nothing parade save salmon lyrics whisper gold",
+          //url to ethereum node
+          endpointUrl
+        );
+      },
     },
   },
   contracts_directory: "./src/contracts/",
