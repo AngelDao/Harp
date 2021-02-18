@@ -5,8 +5,6 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "./StringToken.sol";
-import "./LQTYToken.sol";
-import "./StabilityPool.sol";
 
 contract LatestFarm is Ownable {
     using SafeMath for uint256;
@@ -16,9 +14,6 @@ contract LatestFarm is Ownable {
     struct UserInfo {
         uint256 amount; // How many LP tokens the user has provided.
         uint256 rewardDebt; // Reward debt. See explanation below.
-        uint256 ethRewardDebt;
-        uint256 lqtyRewardDebt;
-        uint256 lusdRewardDebt;
         //
         // We do some fancy math here. Basically, any point in time, the amount of SUSHIs
         // entitled to a user but is pending to be distributed is:
@@ -38,16 +33,10 @@ contract LatestFarm is Ownable {
         uint256 allocPoint; // How many allocation points assigned to this pool. SUSHIs to distribute per block.
         uint256 lastRewardBlock; // Last block number that SUSHIs distribution occurs.
         uint256 accStringPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
-        uint256 accETHPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
-        uint256 accLQTYPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
-        uint256 accLUSDPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
     }
 
     // The SUSHI TOKEN!
     StringToken public stringToken;
-    LQTYToken public lqtyToken;
-    LUSDToken public lusdToken;
-    StabilityPool public stabilityPool;
     // Dev address.
     address public devaddr;
     // Block number when bonus SUSHI period ends.
@@ -76,17 +65,8 @@ contract LatestFarm is Ownable {
         uint256 amount
     );
 
-    constructor(
-        StringToken _string,
-        uint256 _boostedBuffer,
-        StabilityPool _stabPool,
-        LQTYToken _lqty,
-        LUSDToken _lusd // uint256 _startBlock, // uint256 _endBlock
-    ) {
-        stabilityPool = _stabPool;
+    constructor(StringToken _string, uint256 _boostedBuffer) {
         stringToken = _string;
-        lqtyToken = _lqty;
-        lusdToken = _lusd;
         endBlock = block.number.add(2437500);
         startBlock = block.number;
         postBoostedBlock = block.number.add(_boostedBuffer);
@@ -114,10 +94,7 @@ contract LatestFarm is Ownable {
                 lpToken: _lpToken,
                 allocPoint: _allocPoint,
                 lastRewardBlock: lastRewardBlock,
-                accStringPerShare: 0,
-                accLQTYPerShare: 0,
-                accETHPerShare: 0,
-                accLUSDPerShare: 0
+                accStringPerShare: 0
             })
         );
     }
@@ -223,36 +200,6 @@ contract LatestFarm is Ownable {
         pool.lastRewardBlock = block.number;
     }
 
-    function updateSP() public {
-        PoolInfo storage pool = poolInfo[2];
-        if (block.number <= pool.lastRewardBlock) {
-            return;
-        }
-        uint256 lpSupply =
-            stabilityPool.getCompoundedLUSDDeposit(address(this));
-
-        if (lpSupply == 0) {
-            return;
-        }
-
-        stabilityPool.withdrawFromSP(0);
-
-        uint256 ethAvailableRewards = address(this).balance;
-        uint256 lqtyAvailableRewards = lqtyToken.balanceOf(address(this));
-        if (ethAvailableRewards > 0) {
-            pool.accETHPerShare = pool.accETHPerShare.add(
-                ethAvailableRewards.mul(1e12).div(lpSupply)
-            );
-        }
-
-        if (lqtyAvailableRewards > 0) {
-            pool.accLQTYPerShare = pool.accLQTYPerShare.add(
-                lqtyAvailableRewards.mul(1e12).div(lpSupply)
-            );
-        }
-        pool.lastRewardBlock = block.number;
-    }
-
     // Deposit LP tokens to MasterChef for SUSHI allocation.
     function deposit(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
@@ -272,35 +219,6 @@ contract LatestFarm is Ownable {
         emit Deposit(msg.sender, _pid, _amount);
     }
 
-    function depositSP(uint256 _amount) public {
-        PoolInfo storage pool = poolInfo[2];
-        UserInfo storage user = userInfo[2][msg.sender];
-        updateSP();
-        updatePool(2);
-
-        if (user.amount > 0) {
-            uint256 pendingETH = _pendingETH(user, pool);
-            uint256 pendingLQTY = _pendingLQTY(user, pool);
-            uint256 pending = _pending(user, pool);
-            safeStringTransfer(msg.sender, pending);
-            safeETHTransfer(msg.sender, pendingETH);
-            safeLQTYTransfer(msg.sender, pendingLQTY);
-        }
-
-        pool.lpToken.safeTransferFrom(
-            address(msg.sender),
-            address(this),
-            _amount
-        );
-        stabilityPool.provideToSP(_amount);
-
-        user.amount = user.amount.add(_amount);
-        user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
-        user.ethRewardDebt = user.amount.mul(pool.accETHPerShare).div(1e12);
-        user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
-        emit Deposit(msg.sender, 2, _amount);
-    }
-
     // Withdraw LP tokens from MasterChef.
     function withdraw(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
@@ -315,49 +233,12 @@ contract LatestFarm is Ownable {
         emit Withdraw(msg.sender, _pid, _amount);
     }
 
-    function withdrawSP(uint256 _amount) public {
-        PoolInfo storage pool = poolInfo[2];
-        UserInfo storage user = userInfo[2][msg.sender];
-        require(user.amount >= _amount, "withdraw: not good");
-        updateSP();
-        updatePool(2);
-        uint256 pendingETH = _pendingETH(user, pool);
-        uint256 pendingLQTY = _pendingLQTY(user, pool);
-        uint256 pending = _pending(user, pool);
-        safeStringTransfer(msg.sender, pending);
-        safeETHTransfer(msg.sender, pendingETH);
-        safeLQTYTransfer(msg.sender, pendingLQTY);
-        user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
-        user.ethRewardDebt = user.amount.mul(pool.accETHPerShare).div(1e12);
-        user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
-        stabilityPool.withdrawFromSP(_amount);
-        pool.lpToken.safeTransfer(address(msg.sender), _amount);
-        emit Withdraw(msg.sender, 2, _amount);
-    }
-
     function claim(uint256 _pid) public {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
         updatePool(_pid);
         uint256 pending = _pending(user, pool);
         safeStringTransfer(msg.sender, pending);
-        user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
-        Claim(msg.sender, pending);
-    }
-
-    function claimSP() public {
-        PoolInfo storage pool = poolInfo[2];
-        UserInfo storage user = userInfo[2][msg.sender];
-        updateSP();
-        updatePool(2);
-        uint256 pendingETH = _pendingETH(user, pool);
-        uint256 pendingLQTY = _pendingLQTY(user, pool);
-        uint256 pending = _pending(user, pool);
-        safeStringTransfer(msg.sender, pending);
-        safeETHTransfer(msg.sender, pendingETH);
-        safeLQTYTransfer(msg.sender, pendingLQTY);
-        user.ethRewardDebt = user.amount.mul(pool.accETHPerShare).div(1e12);
-        user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         Claim(msg.sender, pending);
     }
@@ -382,34 +263,6 @@ contract LatestFarm is Ownable {
         }
     }
 
-    function safeLQTYTransfer(address _to, uint256 _amount) internal {
-        uint256 lqtyBal = lqtyToken.balanceOf(address(this));
-        if (_amount > lqtyBal) {
-            lqtyToken.transfer(_to, lqtyBal);
-        } else {
-            lqtyToken.transfer(_to, _amount);
-        }
-    }
-
-    function safeLUSDTransfer(address _to, uint256 _amount) internal {
-        uint256 lusdBal = lusdToken.balanceOf(address(this));
-        if (_amount > lusdBal) {
-            lusdToken.transfer(_to, lusdBal);
-        } else {
-            lusdToken.transfer(_to, _amount);
-        }
-    }
-
-    function safeETHTransfer(address _to, uint256 _amount) internal {
-        uint256 ethBal = address(msg.sender).balance;
-        address payable addr = msg.sender;
-        if (_amount > ethBal) {
-            payable(addr).transfer(ethBal);
-        } else {
-            payable(addr).transfer(_amount);
-        }
-    }
-
     function _pending(UserInfo storage _user, PoolInfo storage _pool)
         internal
         view
@@ -423,29 +276,5 @@ contract LatestFarm is Ownable {
             return rewardsToSend.mul(boostedMultiplier);
         }
         return rewardsToSend;
-    }
-
-    function _pendingETH(UserInfo storage _user, PoolInfo storage _pool)
-        internal
-        view
-        returns (uint256)
-    {
-        uint256 ethRewardsToSend =
-            _user.amount.mul(_pool.accETHPerShare).div(1e12).sub(
-                _user.ethRewardDebt
-            );
-        return ethRewardsToSend;
-    }
-
-    function _pendingLQTY(UserInfo storage _user, PoolInfo storage _pool)
-        internal
-        view
-        returns (uint256)
-    {
-        uint256 lqtyRewardsToSend =
-            _user.amount.mul(_pool.accLQTYPerShare).div(1e12).sub(
-                _user.lqtyRewardDebt
-            );
-        return lqtyRewardsToSend;
     }
 }

@@ -14,6 +14,7 @@ contract StabilityProxy {
     address public frontEnd;
     address public owner;
     IERC20 public lusdToken;
+    IERC20 public lqtyToken;
     StabilityPool public stabilityPool;
     StabilityFactory public stabilityFactory;
 
@@ -42,6 +43,7 @@ contract StabilityProxy {
         lusdToken.transferFrom(msg.sender, address(this), _amount);
         lusdBalance = lusdBalance.add(_amount);
         stabilityPool.provideToSP(_amount, frontEnd);
+        stabilityFactory.updateProxyBalance(lusdBalance);
     }
 
     function withdraw(uint256 _amount) public onlyOwner {
@@ -52,10 +54,14 @@ contract StabilityProxy {
         );
         stabilityPool.withdrawFromSP(_amount);
         _safeLUSDTransfer(owner, _amount);
+        stabilityFactory.updateProxyBalance(lusdBalance);
     }
 
     function claim() public onlyOwner {
+        _updateBalance();
         stabilityPool.withdrawFromSP(0);
+        _safeETHTransferAll(owner);
+        _safeLQTYTransferAll(owner);
     }
 
     function _safeLUSDTransfer(address _to, uint256 _amount) internal {
@@ -69,26 +75,14 @@ contract StabilityProxy {
         }
     }
 
-    function _safeETHTransfer(address _to, uint256 _amount) internal {
-        uint256 lusdBal = lusdToken.balanceOf(address(this));
-        if (_amount > lusdBal) {
-            lusdToken.transfer(_to, lusdBal);
-            lusdBalance = lusdBalance.sub(lusdBal);
-        } else {
-            lusdToken.transfer(_to, _amount);
-            lusdBalance = lusdBalance.sub(_amount);
-        }
+    function _safeETHTransferAll(address _to) internal {
+        uint256 ethBal = address(this).balance;
+        payable(_to).transfer(ethBal);
     }
 
-    function _safeLQTYTransfer(address _to, uint256 _amount) internal {
-        uint256 lusdBal = lusdToken.balanceOf(address(this));
-        if (_amount > lusdBal) {
-            lusdToken.transfer(_to, lusdBal);
-            lusdBalance = lusdBalance.sub(lusdBal);
-        } else {
-            lusdToken.transfer(_to, _amount);
-            lusdBalance = lusdBalance.sub(_amount);
-        }
+    function _safeLQTYTransferAll(address _to) internal {
+        uint256 lqtyBal = lqtyToken.balanceOf(address(this));
+        lqtyToken.transfer(_to, lqtyBal);
     }
 
     function _updateBalance() internal {
@@ -99,8 +93,8 @@ contract StabilityProxy {
             if (diff > 0) {
                 stabilityFactory.subtractLUSD(diff);
                 stabilityFactory.updateProxyBalance(currentBal);
-                stabilityFactory.claim();
             }
+            stabilityFactory.claim();
         }
         lusdBalance = currentBal;
     }
