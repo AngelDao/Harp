@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import Trove from "./Trove";
-import Details from "./Details";
 import { BorrowContainer, Title, TroveContainer } from "./styles";
 import CredentialsContext from "../../context/credentialsContext";
 
@@ -31,7 +30,6 @@ const Borrow = () => {
           minDebt={minDebt}
           minRatio={minRatio}
         />
-        <Details />
       </TroveContainer>
     </BorrowContainer>
   );

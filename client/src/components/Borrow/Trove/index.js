@@ -7,7 +7,9 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  Tooltip,
 } from "@chakra-ui/react";
+import { InfoIcon } from "@chakra-ui/icons";
 import {
   TroveFormContainer,
   TroveRow,
@@ -29,6 +31,7 @@ const Trove = ({
   const [ratioValidity, setRatioValidity] = useState();
   const [buttonText, setButtonText] = useState();
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [newTrove, setNewTrove] = useState(true);
   // TODO: replace place holders
   const ethBalance = "10";
   const lusdBalance = userBalances.LUSD;
@@ -38,14 +41,33 @@ const Trove = ({
   // );
   // const web3 = web3DataProvider;
 
+  // determine if the user has a trove open or not
+  useEffect(() => {
+    // setNewTrove(false);
+  }, [newTrove]);
+
   // TODO: this only covers the cases if a trove hasn't been created
   useEffect(() => {
     let text = "";
-    if (trove.collateral > 0) text = `Deposit ${trove.collateral} ETH`;
-    if (trove.debt > minDebt) text += ` & Borrow ${trove.debt - minDebt} LUSD`;
-    if (trove.debt < minDebt)
-      text = "Need at least 10 LUSD for gas compensation";
-    if (trove.ratio < minRatio) text = "Collateral ratio must at least be 110%";
+    if (newTrove) {
+      if (trove.collateral > 0) {
+        text = `Deposit ${trove.collateral} ETH`;
+        setButtonDisabled(false);
+      }
+      if (trove.debt > minDebt) {
+        text += ` & Borrow ${trove.debt - minDebt} LUSD`;
+      }
+      if (trove.debt < minDebt) {
+        text = "Need at least 10 LUSD for gas compensation";
+        setButtonDisabled(true);
+      }
+      if (trove.ratio < minRatio) {
+        text = "Collateral ratio must at least be 110%";
+        setButtonDisabled(true);
+      }
+    } else {
+      text = `Different text for existing trove`;
+    }
 
     setButtonText(text);
   }, [trove]);
@@ -69,6 +91,11 @@ const Trove = ({
     const ratio = calculateRatio(trove.collateral, val);
     setTrove({ ...trove, ratio: ratio, debt: val });
     handleRatioValidity(ratio);
+  };
+
+  const handleClick = () => {
+    console.log("click");
+    console.log(trove);
   };
 
   const numberInputFieldProps = {
@@ -95,9 +122,20 @@ const Trove = ({
         <FormControl id="collateral" pt={2}>
           <TroveRow>
             <FormLabel>
-              <span style={{ fontSize: MasterStyles.fontSize.large }}>
+              <span
+                style={{
+                  fontSize: MasterStyles.fontSize.large,
+                  paddingRight: "6px",
+                }}
+              >
                 Collateral [ETH]
               </span>
+              <Tooltip
+                label="The ETH you deposit to make LUSD loan"
+                placement="right"
+              >
+                <InfoIcon w={3} h={3} />
+              </Tooltip>
             </FormLabel>
             <NumberInput
               defaultValue={0}
@@ -120,9 +158,20 @@ const Trove = ({
         <FormControl id="debt" pt={2}>
           <TroveRow>
             <FormLabel>
-              <span style={{ fontSize: MasterStyles.fontSize.large }}>
+              <span
+                style={{
+                  fontSize: MasterStyles.fontSize.large,
+                  paddingRight: "6px",
+                }}
+              >
                 Debt [LUSD]
               </span>
+              <Tooltip
+                label="The LUSD you have borrowed from Liquity"
+                placement="right"
+              >
+                <InfoIcon w={3} h={3} />
+              </Tooltip>
             </FormLabel>
             <NumberInput
               defaultValue={0}
@@ -146,9 +195,20 @@ const Trove = ({
         <FormControl id="ratio" pt={2}>
           <TroveRow>
             <FormLabel>
-              <span style={{ fontSize: MasterStyles.fontSize.large }}>
+              <span
+                style={{
+                  fontSize: MasterStyles.fontSize.large,
+                  paddingRight: "6px",
+                }}
+              >
                 Collateral Ratio
               </span>
+              <Tooltip
+                label="Your Debt:Collateral ratio. If this falls below 110%, your collateral can be liquidated."
+                placement="right"
+              >
+                <InfoIcon w={3} h={3} />
+              </Tooltip>
             </FormLabel>
             <NumberInput
               precision={2}
@@ -164,9 +224,7 @@ const Trove = ({
           <ActionButton
             action={!buttonDisabled}
             disabled={buttonDisabled}
-            onClick={() => {
-              console.log("click");
-            }}
+            onClick={handleClick}
           >
             <i>{buttonText}</i>
           </ActionButton>
