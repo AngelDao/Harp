@@ -1,0 +1,467 @@
+{
+  "contractName": "IDefaultPool",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_newActivePoolAddress",
+          "type": "address"
+        }
+      ],
+      "name": "ActivePoolAddressChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_newDefaultPoolAddress",
+          "type": "address"
+        }
+      ],
+      "name": "DefaultPoolAddressChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_newBalance",
+          "type": "uint256"
+        }
+      ],
+      "name": "ETHBalanceUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "EtherSent",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_newBalance",
+          "type": "uint256"
+        }
+      ],
+      "name": "LUSDBalanceUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_newStabilityPoolAddress",
+          "type": "address"
+        }
+      ],
+      "name": "StabilityPoolAddressChanged",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "decreaseLUSDDebt",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getETH",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getLUSDDebt",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "increaseLUSDDebt",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "sendETHToActivePool",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_newActivePoolAddress\",\"type\":\"address\"}],\"name\":\"ActivePoolAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_newDefaultPoolAddress\",\"type\":\"address\"}],\"name\":\"DefaultPoolAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newBalance\",\"type\":\"uint256\"}],\"name\":\"ETHBalanceUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"EtherSent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newBalance\",\"type\":\"uint256\"}],\"name\":\"LUSDBalanceUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_newStabilityPoolAddress\",\"type\":\"address\"}],\"name\":\"StabilityPoolAddressChanged\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"decreaseLUSDDebt\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getETH\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLUSDDebt\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"increaseLUSDDebt\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"sendETHToActivePool\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/danie/code/harp/client/src/contracts/Interfaces/IDefaultPool.sol\":\"IDefaultPool\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/danie/code/harp/client/src/contracts/Interfaces/IDefaultPool.sol\":{\"keccak256\":\"0x9342d5e2435c46460a1a84606da7f83a6bef61f111ea2a7a91c89d7a5026946d\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cb2134b748d1ef1e8eca8b2f6e891ab2854946956dbc9b9ca0ed1e2bdffecf49\",\"dweb:/ipfs/QmXFA7BZzvqHxF5tBNLQYUFwu5z3FX3os1sLsco5tpt3fk\"]},\"/C/Users/danie/code/harp/client/src/contracts/Interfaces/IPool.sol\":{\"keccak256\":\"0xfd25ba1c81959cd5ecd79351647d60f9344a9c7b889270bfd3aa41fb8baf74d0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9195bbdaf6462898468b7a38f8d89d156adb38b3f966b647c56702c851627fdf\",\"dweb:/ipfs/QmRCH4yqhUshbfTFi7XGyDYdoDbQjwbRsUXvMNGEZzSYFd\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\nimport \"./IPool.sol\";\r\n\r\ninterface IDefaultPool is IPool {\r\n    function sendETHToActivePool(uint256 _amount) external;\r\n}\r\n",
+  "sourcePath": "C:\\Users\\danie\\code\\harp\\client\\src\\contracts\\Interfaces\\IDefaultPool.sol",
+  "ast": {
+    "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Interfaces/IDefaultPool.sol",
+    "exportedSymbols": {
+      "IDefaultPool": [
+        11868
+      ],
+      "IPool": [
+        12104
+      ]
+    },
+    "id": 11869,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 11859,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0",
+          "<",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "35:31:18"
+      },
+      {
+        "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Interfaces/IPool.sol",
+        "file": "./IPool.sol",
+        "id": 11860,
+        "nodeType": "ImportDirective",
+        "scope": 11869,
+        "sourceUnit": 12105,
+        "src": "70:21:18",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 11861,
+              "name": "IPool",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 12104,
+              "src": "121:5:18",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_IPool_$12104",
+                "typeString": "contract IPool"
+              }
+            },
+            "id": 11862,
+            "nodeType": "InheritanceSpecifier",
+            "src": "121:5:18"
+          }
+        ],
+        "contractDependencies": [
+          12104
+        ],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 11868,
+        "linearizedBaseContracts": [
+          11868,
+          12104
+        ],
+        "name": "IDefaultPool",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "be41205f",
+            "id": 11867,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "sendETHToActivePool",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 11865,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 11864,
+                  "mutability": "mutable",
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 11867,
+                  "src": "163:15:18",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 11863,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "163:7:18",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "162:17:18"
+            },
+            "returnParameters": {
+              "id": 11866,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "188:0:18"
+            },
+            "scope": 11868,
+            "src": "134:55:18",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 11869,
+        "src": "95:97:18"
+      }
+    ],
+    "src": "35:159:18"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Interfaces/IDefaultPool.sol",
+      "exportedSymbols": {
+        "IDefaultPool": [
+          11868
+        ],
+        "IPool": [
+          12104
+        ]
+      },
+      "license": "MIT"
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".0",
+            "<",
+            "0.8",
+            ".0"
+          ]
+        },
+        "id": 11859,
+        "name": "PragmaDirective",
+        "src": "35:31:18"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 12105,
+          "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Interfaces/IPool.sol",
+          "file": "./IPool.sol",
+          "scope": 11869,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 11860,
+        "name": "ImportDirective",
+        "src": "70:21:18"
+      },
+      {
+        "attributes": {
+          "abstract": false,
+          "contractDependencies": [
+            12104
+          ],
+          "contractKind": "interface",
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            11868,
+            12104
+          ],
+          "name": "IDefaultPool",
+          "scope": 11869
+        },
+        "children": [
+          {
+            "attributes": {},
+            "children": [
+              {
+                "attributes": {
+                  "name": "IPool",
+                  "referencedDeclaration": 12104,
+                  "type": "contract IPool"
+                },
+                "id": 11861,
+                "name": "UserDefinedTypeName",
+                "src": "121:5:18"
+              }
+            ],
+            "id": 11862,
+            "name": "InheritanceSpecifier",
+            "src": "121:5:18"
+          },
+          {
+            "attributes": {
+              "functionSelector": "be41205f",
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "sendETHToActivePool",
+              "scope": 11868,
+              "stateMutability": "nonpayable",
+              "virtual": false,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "mutability": "mutable",
+                      "name": "_amount",
+                      "scope": 11867,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 11863,
+                        "name": "ElementaryTypeName",
+                        "src": "163:7:18"
+                      }
+                    ],
+                    "id": 11864,
+                    "name": "VariableDeclaration",
+                    "src": "163:15:18"
+                  }
+                ],
+                "id": 11865,
+                "name": "ParameterList",
+                "src": "162:17:18"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 11866,
+                "name": "ParameterList",
+                "src": "188:0:18"
+              }
+            ],
+            "id": 11867,
+            "name": "FunctionDefinition",
+            "src": "134:55:18"
+          }
+        ],
+        "id": 11868,
+        "name": "ContractDefinition",
+        "src": "95:97:18"
+      }
+    ],
+    "id": 11869,
+    "name": "SourceUnit",
+    "src": "35:159:18"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.7.6+commit.7338295f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.3.3",
+  "updatedAt": "2021-02-19T17:09:09.252Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

@@ -1,15 +1,81 @@
+// // /* eslint-disable no-undef */
+// // LIQUITY
+
+// const SortedTroves = artifacts.require("./SortedTroves.sol")
+// const ActivePool = artifacts.require("./ActivePool.sol")
+// const DefaultPool = artifacts.require("./DefaultPool.sol")
+const StabilityPool = artifacts.require("StabilityPool.sol")
+// const TroveManager = artifacts.require("./TroveManager.sol")
+// const PriceFeed = artifacts.require("./PriceFeed.sol")
+const LUSDToken = artifacts.require("LUSDToken.sol")
+// const FunctionCaller = artifacts.require("./FunctionCaller.sol")
+// const BorrowerOperations = artifacts.require("./BorrowerOperations.sol")
+
+// const deploymentHelpers = require("../testUtils/truffleDeploymentHelpers.js")
+
+// const getAddresses = deploymentHelpers.getAddresses
+// const connectContracts = deploymentHelpers.connectContracts
+
+// HARP
 const StringToken = artifacts.require("StringToken");
 const gStringToken = artifacts.require("gStringToken");
-const LUSDToken = artifacts.require("LUSDToken");
 const TokenVesting = artifacts.require("TokenVesting");
 const LatestFarm = artifacts.require("LatestFarm");
 const LUSDLP = artifacts.require("LUSDLPToken");
 const ETHLP = artifacts.require("ETHLPToken");
-const StabilityPool = artifacts.require("StabilityPool");
 const LQTYToken = artifacts.require("LQTYToken");
 const StringStaking = artifacts.require("StringStaking");
 
+
 module.exports = async function (deployer, network, accounts) {
+  // // LIQUITY
+  // await deployer.deploy(BorrowerOperations)
+  // await deployer.deploy(PriceFeed)
+  //  await deployer.deploy(SortedTroves)
+  //  await deployer.deploy(TroveManager)
+  //  await deployer.deploy(ActivePool)
+  //  await deployer.deploy(StabilityPool)
+  //  await deployer.deploy(DefaultPool)
+  //  await deployer.deploy(LUSDToken)
+  //  await deployer.deploy(FunctionCaller)
+
+  // const borrowerOperations = await BorrowerOperations.deployed()
+  // const priceFeed = await PriceFeed.deployed()
+  //   const sortedTroves = await SortedTroves.deployed()
+  //   const troveManager = await TroveManager.deployed()
+  //   const activePool = await ActivePool.deployed()
+    const stabilityPool = await StabilityPool.deployed()
+  //   const defaultPool = await DefaultPool.deployed()
+    const lusdToken = await LUSDToken.deployed()
+  //   const functionCaller = await FunctionCaller.deployed()
+
+  //   const liquityContracts = {
+  //     borrowerOperations,
+  //     priceFeed,
+  //     lusdToken,
+  //     sortedTroves,
+  //     troveManager,
+  //     activePool,
+  //     stabilityPool,
+  //     defaultPool,
+  //     functionCaller
+  //   }
+
+  //   // Grab contract addresses
+  //   const liquityAddresses = getAddresses(liquityContracts)
+  //   console.log('deploy_contracts.js - Deployed contract addresses: \n')
+  //   console.log(liquityAddresses)
+  //   console.log('\n')
+
+  //   // Connect contracts to each other
+  //   await connectContracts(liquityContracts, liquityAddresses)
+
+
+
+
+
+
+  // HARP
   // 2nd Ganache
   // Token Contract
   const HarpDAOAddress = "0x0cbde7d648C1F51253d53ca1dB099030Fc35490a";
@@ -48,15 +114,12 @@ module.exports = async function (deployer, network, accounts) {
   await deployer.deploy(LQTYToken, accounts[0], accounts[1]);
   await deployer.deploy(gStringToken, owner);
   const gstringToken = await gStringToken.deployed();
-  const lusdToken = await LUSDToken.deployed();
+  // const lusdToken = await LUSDToken.deployed();
   const lqtyToken = await LQTYToken.deployed();
-  await deployer.deploy(StabilityPool, lusdToken.address);
-  const stabilityPool = await StabilityPool.deployed();
   await deployer.deploy(
     StringStaking,
     stringToken.address,
     100,
-    stabilityPool.address,
     lqtyToken.address,
     gstringToken.address
   );
@@ -76,10 +139,7 @@ module.exports = async function (deployer, network, accounts) {
     LatestFarm,
     stringToken.address,
     100,
-    stabilityPool.address,
-    lqtyToken.address,
-    lusdToken.address
-  );
+    );
 
   const farm = await LatestFarm.deployed();
   const stringStaking = await StringStaking.deployed();

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.11;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "./BaseMath.sol";
 import "./LiquityMath.sol";
@@ -8,25 +8,25 @@ import "../Interfaces/IActivePool.sol";
 import "../Interfaces/IDefaultPool.sol";
 import "../Interfaces/IPriceFeed.sol";
 
-/* 
-* Base contract for TroveManager, BorrowerOperations and StabilityPool. Contains global system constants and
-* common functions. 
-*/
+/*
+ * Base contract for TroveManager, BorrowerOperations and StabilityPool. Contains global system constants and
+ * common functions.
+ */
 contract LiquityBase is BaseMath {
-    using SafeMath for uint;
+    using TestSafeMath for uint256;
 
-    uint constant public _100pct = 1000000000000000000; // 1e18 == 100%
+    uint256 public constant _100pct = 1000000000000000000; // 1e18 == 100%
 
     // Minimum collateral ratio for individual troves
-    uint constant public MCR = 1100000000000000000; // 110%
+    uint256 public constant MCR = 1100000000000000000; // 110%
 
     // Critical system collateral ratio. If the system's total collateral ratio (TCR) falls below the CCR, Recovery Mode is triggered.
-    uint constant public CCR = 1500000000000000000; // 150%
+    uint256 public constant CCR = 1500000000000000000; // 150%
 
     // Amount of LUSD to be locked in gas pool on opening troves
-    uint constant public LUSD_GAS_COMPENSATION = 50e18;
+    uint256 public constant LUSD_GAS_COMPENSATION = 50e18;
 
-    uint constant public PERCENT_DIVISOR = 200; // dividing by 200 yields 0.5%
+    uint256 public constant PERCENT_DIVISOR = 200; // dividing by 200 yields 0.5%
 
     IActivePool public activePool;
 
@@ -37,55 +37,83 @@ contract LiquityBase is BaseMath {
     // --- Gas compensation functions ---
 
     // Returns the composite debt (drawn debt + gas compensation) of a trove, for the purpose of ICR calculation
-    function _getCompositeDebt(uint _debt) internal pure returns (uint) {
+    function _getCompositeDebt(uint256 _debt) internal pure returns (uint256) {
         return _debt.add(LUSD_GAS_COMPENSATION);
     }
 
-    function _getNetDebt(uint _debt) internal pure returns (uint) {
+    function _getNetDebt(uint256 _debt) internal pure returns (uint256) {
         return _debt.sub(LUSD_GAS_COMPENSATION);
     }
 
     // Return the amount of ETH to be drawn from a trove's collateral and sent as gas compensation.
-    function _getCollGasCompensation(uint _entireColl) internal pure returns (uint) {
+    function _getCollGasCompensation(uint256 _entireColl)
+        internal
+        pure
+        returns (uint256)
+    {
         return _entireColl / PERCENT_DIVISOR;
     }
 
-    function getEntireSystemColl() public view returns (uint entireSystemColl) {
-        uint activeColl = activePool.getETH();
-        uint liquidatedColl = defaultPool.getETH();
+    function getEntireSystemColl()
+        public
+        view
+        returns (uint256 entireSystemColl)
+    {
+        uint256 activeColl = activePool.getETH();
+        uint256 liquidatedColl = defaultPool.getETH();
 
         return activeColl.add(liquidatedColl);
     }
 
-    function getEntireSystemDebt() public view returns (uint entireSystemDebt) {
-        uint activeDebt = activePool.getLUSDDebt();
-        uint closedDebt = defaultPool.getLUSDDebt();
+    function getEntireSystemDebt()
+        public
+        view
+        returns (uint256 entireSystemDebt)
+    {
+        uint256 activeDebt = activePool.getLUSDDebt();
+        uint256 closedDebt = defaultPool.getLUSDDebt();
 
         return activeDebt.add(closedDebt);
     }
 
-    function _getTCR(uint _price) internal view returns (uint TCR) {
-        uint entireSystemColl = getEntireSystemColl();
-        uint entireSystemDebt = getEntireSystemDebt();
+    function _getTCR(uint256 _price) internal view returns (uint256 TCR) {
+        uint256 entireSystemColl = getEntireSystemColl();
+        uint256 entireSystemDebt = getEntireSystemDebt();
 
-        TCR = LiquityMath._computeCR(entireSystemColl, entireSystemDebt, _price);
+        TCR = LiquityMath._computeCR(
+            entireSystemColl,
+            entireSystemDebt,
+            _price
+        );
 
         return TCR;
     }
 
-    function _checkRecoveryMode(uint _price) internal view returns (bool) {
-        uint TCR = _getTCR(_price);
+    function _checkRecoveryMode(uint256 _price) internal view returns (bool) {
+        uint256 TCR = _getTCR(_price);
 
         return TCR < CCR;
     }
 
-    function _requireUserAcceptsFee(uint _fee, uint _amount, uint _maxFeePercentage) internal pure {
-        uint feePercentage = _fee.mul(DECIMAL_PRECISION).div(_amount);
-        require(feePercentage <= _maxFeePercentage, "Fee exceeded provided maximum");
+    function _requireUserAcceptsFee(
+        uint256 _fee,
+        uint256 _amount,
+        uint256 _maxFeePercentage
+    ) internal pure {
+        uint256 feePercentage = _fee.mul(DECIMAL_PRECISION).div(_amount);
+        require(
+            feePercentage <= _maxFeePercentage,
+            "Fee exceeded provided maximum"
+        );
     }
 
-    function _requireValidMaxFeePercentage(uint _maxFeePercentage) internal pure {
-        require(_maxFeePercentage >= 5e15 && _maxFeePercentage <= DECIMAL_PRECISION,
-         "Max fee percentage must be between 0.5% and 100%");
+    function _requireValidMaxFeePercentage(uint256 _maxFeePercentage)
+        internal
+        pure
+    {
+        require(
+            _maxFeePercentage >= 5e15 && _maxFeePercentage <= DECIMAL_PRECISION,
+            "Max fee percentage must be between 0.5% and 100%"
+        );
     }
 }

@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.11;
-
+pragma solidity >=0.6.0 <0.8.0;
 
 contract CheckContract {
     /**
@@ -13,7 +12,9 @@ contract CheckContract {
 
         uint256 size;
         // solhint-disable-next-line no-inline-assembly
-        assembly { size := extcodesize(_account) }
+        assembly {
+            size := extcodesize(_account)
+        }
         require(size > 0, "Account code size cannot be zero");
     }
 }

@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.11;
-
+pragma solidity >=0.6.0 <0.8.0;
 
 interface ICollSurplusPool {
-    event CollBalanceUpdated(address indexed _account, uint _newBalance);
-    event EtherSent(address _to, uint _amount);
-    event BorrowerOperationsAddressChanged(address _newBorrowerOperationsAddress);
+    event CollBalanceUpdated(address indexed _account, uint256 _newBalance);
+    event EtherSent(address _to, uint256 _amount);
+    event BorrowerOperationsAddressChanged(
+        address _newBorrowerOperationsAddress
+    );
     event TroveManagerAddressChanged(address _newTroveManagerAddress);
     event ActivePoolAddressChanged(address _newActivePoolAddress);
 
@@ -18,11 +19,11 @@ interface ICollSurplusPool {
         address _activePoolAddress
     ) external;
 
-    function getETH() external view returns (uint);
+    function getETH() external view returns (uint256);
 
-    function getCollateral(address _account) external view returns (uint);
+    function getCollateral(address _account) external view returns (uint256);
 
-    function accountSurplus(address _account, uint _amount) external;
+    function accountSurplus(address _account, uint256 _amount) external;
 
     function claimColl(address _account) external;
 }

@@ -1,11 +1,12 @@
 pragma solidity >=0.6.0 <0.8.0;
 
-import "@optionality.io/clone-factory/contracts/CloneFactory.sol";
+// import "@optionality.io/clone-factory/contracts/CloneFactory.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./StabilityProxy.sol";
+import "./StringToken.sol";
 
-contract StabilityFactory is CloneFactory {
+contract StabilityFactory {
     using SafeMath for uint256;
 
     struct PoolInfo {
@@ -14,7 +15,7 @@ contract StabilityFactory is CloneFactory {
     }
 
     struct UserProxy {
-        address proxyAddress;
+        StabilityProxy proxyAddress;
         uint256 amount;
         uint256 rewardDebt;
     }
@@ -26,8 +27,10 @@ contract StabilityFactory is CloneFactory {
     uint256 public totalLUSD;
     PoolInfo public pool;
     StringToken public stringToken;
+    StabilityPool public stabilityPool;
     IERC20 public lusdToken;
     uint256 public stringPerBlock = 1435897436000000000;
+    uint256 public endBlock;
     uint256 public postBoostedBlock;
     uint256 public constant boostedMultiplier = 5;
     bool public isBoosted = true;
@@ -44,13 +47,17 @@ contract StabilityFactory is CloneFactory {
         address _frontEnd,
         address _impli,
         IERC20 _lusdToken,
-        StringToken _stringToken
+        StringToken _stringToken,
+        uint256 _endBlock,
+        StabilityPool _stabilityPool
     ) {
         frontEnd = _frontEnd;
         impli = _impli;
         pool = PoolInfo({lastRewardBlock: block.number, accStringPerShare: 0});
         stringToken = _stringToken;
         lusdToken = _lusdToken;
+        endBlock = _endBlock;
+        stabilityPool = _stabilityPool;
     }
 
     function getMultiplier(uint256 _from, uint256 _to)
@@ -99,7 +106,7 @@ contract StabilityFactory is CloneFactory {
     }
 
     function claim(address _sender) public {
-        StabilityProxy storage proxy = userProxys[_sender];
+        UserProxy storage proxy = userProxys[_sender];
         uint256 pending = _pending(proxy.amount, proxy.rewardDebt);
         _safeStringTransfer(_sender, pending);
         proxy.rewardDebt = proxy.amount.mul(pool.accStringPerShare).div(1e12);
@@ -115,18 +122,19 @@ contract StabilityFactory is CloneFactory {
         update();
     }
 
-    function createStabilityProxy(uint256 _deposit) public {
-        address clone = createClone(impli);
-        StabilityProxy(clone).init(
-            msg.sender,
-            address(this),
-            _deposit,
-            frontEnd
-        );
-        UserProxy proxy =
+    function createStabilityProxy() public {
+        StabilityProxy clone =
+            new StabilityProxy(
+                msg.sender,
+                this,
+                frontEnd,
+                lusdToken,
+                stabilityPool
+            );
+        UserProxy memory proxy =
             UserProxy({proxyAddress: clone, amount: 0, rewardDebt: 0});
         userProxys[msg.sender] = proxy;
-        registeredClone[clone] = true;
+        registeredClone[address(clone)] = true;
     }
 
     function _pending(uint256 _amount, uint256 _rewardDebt)

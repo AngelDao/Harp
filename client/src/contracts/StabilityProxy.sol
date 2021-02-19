@@ -10,7 +10,6 @@ contract StabilityProxy {
     using SafeMath for uint256;
 
     uint256 public lusdBalance;
-    address public creator;
     address public frontEnd;
     address public owner;
     IERC20 public lusdToken;
@@ -25,13 +24,12 @@ contract StabilityProxy {
 
     constructor(
         address _owner,
-        address _factory,
+        StabilityFactory _factory,
         address _frontEnd,
         IERC20 _lusdToken,
         StabilityPool _stabilityPool
     ) {
         owner = _owner;
-        creator = _creator;
         lusdToken = _lusdToken;
         stabilityPool = _stabilityPool;
         frontEnd = _frontEnd;
@@ -94,7 +92,7 @@ contract StabilityProxy {
                 stabilityFactory.subtractLUSD(diff);
                 stabilityFactory.updateProxyBalance(currentBal);
             }
-            stabilityFactory.claim();
+            stabilityFactory.claim(owner);
         }
         lusdBalance = currentBal;
     }

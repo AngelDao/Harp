@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.11;
+pragma solidity >=0.6.0 <0.8.0;
 
 // uint128 addition and subtraction, with overflow protection.
 
@@ -11,7 +11,7 @@ library LiquitySafeMath128 {
 
         return c;
     }
-   
+
     function sub(uint128 a, uint128 b) internal pure returns (uint128) {
         require(b <= a, "LiquitySafeMath128: subtraction overflow");
         uint128 c = a - b;

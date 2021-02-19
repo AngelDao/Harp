@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.11;
+pragma solidity >=0.6.0 <0.8.0;
 
 // Common interface for the Trove Manager.
 interface IBorrowerOperations {
-
     // --- Events ---
 
     event TroveManagerAddressChanged(address _newTroveManagerAddress);
@@ -19,7 +18,7 @@ interface IBorrowerOperations {
 
     event CollSurplusPoolAddressChanged(address _collSurplusPoolAddress);
 
-    event PriceFeedAddressChanged(address  _newPriceFeedAddress);
+    event PriceFeedAddressChanged(address _newPriceFeedAddress);
 
     event SortedTrovesAddressChanged(address _sortedTrovesAddress);
 
@@ -42,23 +41,52 @@ interface IBorrowerOperations {
         address _lqtyStakingAddress
     ) external;
 
-    function openTrove(uint _maxFee, uint _LUSDAmount, address _upperHint, address _lowerHint) external payable;
+    function openTrove(
+        uint256 _maxFee,
+        uint256 _LUSDAmount,
+        address _upperHint,
+        address _lowerHint
+    ) external payable;
 
     function addColl(address _upperHint, address _lowerHint) external payable;
 
-    function moveETHGainToTrove(address _user, address _upperHint, address _lowerHint) external payable;
+    function moveETHGainToTrove(
+        address _user,
+        address _upperHint,
+        address _lowerHint
+    ) external payable;
 
-    function withdrawColl(uint _amount, address _upperHint, address _lowerHint) external;
+    function withdrawColl(
+        uint256 _amount,
+        address _upperHint,
+        address _lowerHint
+    ) external;
 
-    function withdrawLUSD(uint _maxFee, uint _amount, address _upperHint, address _lowerHint) external;
+    function withdrawLUSD(
+        uint256 _maxFee,
+        uint256 _amount,
+        address _upperHint,
+        address _lowerHint
+    ) external;
 
-    function repayLUSD(uint _amount, address _upperHint, address _lowerHint) external;
+    function repayLUSD(
+        uint256 _amount,
+        address _upperHint,
+        address _lowerHint
+    ) external;
 
     function closeTrove() external;
 
-    function adjustTrove(uint _maxFee, uint _collWithdrawal, uint _debtChange, bool isDebtIncrease, address _upperHint, address _lowerHint) external payable;
+    function adjustTrove(
+        uint256 _maxFee,
+        uint256 _collWithdrawal,
+        uint256 _debtChange,
+        bool isDebtIncrease,
+        address _upperHint,
+        address _lowerHint
+    ) external payable;
 
     function claimCollateral() external;
 
-    function getCompositeDebt(uint _debt) external pure returns (uint);
+    function getCompositeDebt(uint256 _debt) external pure returns (uint256);
 }
