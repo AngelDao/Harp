@@ -235,22 +235,62 @@ export const fetchFarm = async (
   }
 };
 
-
 export const fetchStabilityFactory = async (
   networkId,
   web3,
-  address
+  address,
+  lusdToken
 ) => {
   const SFNetwork = StabilityFactory.networks[networkId];
   if (SFNetwork) {
-    const stabilityFactory = new web3.eth.Contract(
+    const factory = new web3.eth.Contract(
       StabilityFactory.abi,
       SFNetwork.address
     );
 
-    const userProxy = await stabilityFactory.methods.userProxy(address).call()
-    const lusdBalance = await stabilityFactory.methods.totalLUSD().call()
-    debugger
-    return [stabilityFactory, userProxy, lusdBalance ];
+    debugger;
+    let userProxy = await factory.methods.userProxys(address).call();
+    if (
+      userProxy.proxyAddress === "0x0000000000000000000000000000000000000000"
+    ) {
+      userProxy = null;
+    }
+    const totalLUSD = toDecimal(
+      fromWei(web3, await factory.methods.totalLUSD().call())
+    );
+
+    let allowanceLUSD;
+    if (userProxy) {
+      allowanceLUSD = toDecimal(
+        fromWei(
+          web3,
+          await lusdToken.methods.allowance(address, factory._address).call()
+        )
+      );
+    } else {
+      allowanceLUSD = 0;
+    }
+
+    const isBoosted = await factory.methods.isBoosted().call();
+    const pendingSTRING = await factory.methods.pendingString().call();
+
+    const proxyAllowances = {
+      LUSD: allowanceLUSD,
+    };
+
+    const fyBalances = {
+      isBoosted,
+      userPending: {
+        STRING: pendingSTRING,
+      },
+      userStaked: {
+        STRING: userProxy ? userProxy.amount : 0,
+      },
+      totalStaked: {
+        STRING: totalLUSD,
+      },
+    };
+    debugger;
+    return [factory, userProxy, proxyAllowances, fyBalances];
   }
-}
+};

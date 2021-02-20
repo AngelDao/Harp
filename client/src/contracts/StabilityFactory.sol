@@ -60,6 +60,35 @@ contract StabilityFactory {
         stabilityPool = _stabilityPool;
     }
 
+    function pendingString(uint256 _pid, address _user)
+        external
+        view
+        returns (uint256)
+    {
+        UserInfo storage user = userInfo[_pid][_user];
+        uint256 accStringPerShare = pool.accStringPerShare;
+        uint256 lpSupply = pool.lpToken.balanceOf(address(this));
+        if (block.number > pool.lastRewardBlock && lpSupply != 0) {
+            uint256 multiplier =
+                getMultiplier(pool.lastRewardBlock, block.number);
+            uint256 stringReward =
+                multiplier.mul(stringPerBlock).mul(pool.allocPoint).div(
+                    totalAllocPoint
+                );
+            accStringPerShare = accStringPerShare.add(
+                stringReward.mul(1e12).div(lpSupply)
+            );
+        }
+        uint256 pending =
+            user.amount.mul(accStringPerShare).div(1e12).sub(user.rewardDebt);
+
+        if (isBoosted) {
+            return pending.mul(boostedMultiplier);
+        } else {
+            return pending;
+        }
+    }
+
     function getMultiplier(uint256 _from, uint256 _to)
         public
         view

@@ -34,6 +34,7 @@ function App() {
   const [userAllowances, setUserAllowances] = useState({});
   const [farmBalances, setFarmBalances] = useState({});
   const [profitShareBalances, setProfitShareBalances] = useState({});
+  const [factoryBalances, setFactoryBalances] = useState({});
   const [contracts, setContracts] = useState({});
   const [prices, setPrices] = useState({});
 
@@ -98,18 +99,24 @@ function App() {
       address
     );
 
-    const [factory, proxy, deposited] = await fetchStabilityFactory( networkId,
-      web3,
-      stringToken,
-      address)
+    const [
+      factory,
+      proxy,
+      proxyAllowance,
+      fyBalances,
+    ] = await fetchStabilityFactory(networkId, web3, address, lusdToken);
 
     setFarmBalances(farmBalances);
     setProfitShareBalances(psBalances);
+    setFactoryBalances(fyBalances);
     setUserAllowances({
       farm: allowances,
       profitShare: psAllowances,
+      proxy: proxyAllowance,
     });
     setContracts({
+      factory,
+      proxy,
       profitShare,
       stringToken,
       ETHLPToken,
