@@ -49,7 +49,7 @@ contract StringStaking is Ownable {
     // Block number when bonus SUSHI period ends.
     uint256 public endBlock;
     // SUSHI tokens created per block.
-    uint256 public stringPerBlock = 1435897436000000000;
+    uint256 public stringPerBlock = 230769230800000000;
     uint256 public postBoostedBlock;
     uint256 public constant boostedMultiplier = 5;
     bool public isBoosted = true;

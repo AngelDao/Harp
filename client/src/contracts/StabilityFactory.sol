@@ -30,7 +30,7 @@ contract StabilityFactory {
     StringToken public stringToken;
     IStabilityPool public stabilityPool;
     IERC20 public lusdToken;
-    uint256 public stringPerBlock = 1435897436000000000;
+    uint256 public stringPerBlock = 923076923100000000;
     uint256 public endBlock;
     uint256 public postBoostedBlock;
     uint256 public constant boostedMultiplier = 5;
@@ -60,27 +60,20 @@ contract StabilityFactory {
         stabilityPool = _stabilityPool;
     }
 
-    function pendingString(uint256 _pid, address _user)
-        external
-        view
-        returns (uint256)
-    {
-        UserInfo storage user = userInfo[_pid][_user];
+    function pendingString(address _user) external view returns (uint256) {
+        UserProxy storage proxy = userProxys[_user];
         uint256 accStringPerShare = pool.accStringPerShare;
-        uint256 lpSupply = pool.lpToken.balanceOf(address(this));
+        uint256 lpSupply = totalLUSD;
         if (block.number > pool.lastRewardBlock && lpSupply != 0) {
             uint256 multiplier =
                 getMultiplier(pool.lastRewardBlock, block.number);
-            uint256 stringReward =
-                multiplier.mul(stringPerBlock).mul(pool.allocPoint).div(
-                    totalAllocPoint
-                );
+            uint256 stringReward = multiplier.mul(stringPerBlock);
             accStringPerShare = accStringPerShare.add(
                 stringReward.mul(1e12).div(lpSupply)
             );
         }
         uint256 pending =
-            user.amount.mul(accStringPerShare).div(1e12).sub(user.rewardDebt);
+            proxy.amount.mul(accStringPerShare).div(1e12).sub(proxy.rewardDebt);
 
         if (isBoosted) {
             return pending.mul(boostedMultiplier);
