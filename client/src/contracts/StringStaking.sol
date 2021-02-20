@@ -5,7 +5,8 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "./StringToken.sol";
-import "./LQTYToken.sol";
+// import "./ILQTYToken.sol";
+import "./Interfaces/ILQTYToken.sol";
 import "./gStringToken.sol";
 
 contract StringStaking is Ownable {
@@ -41,7 +42,7 @@ contract StringStaking is Ownable {
 
     // The SUSHI TOKEN!
     StringToken public stringToken;
-    LQTYToken public lqtyToken;
+    ILQTYToken public lqtyToken;
     gStringToken public gstringToken;
     // Dev address.
     address public devaddr;
@@ -69,7 +70,7 @@ contract StringStaking is Ownable {
     constructor(
         StringToken _string,
         uint256 _boostedBuffer,
-        LQTYToken _lqty,
+        ILQTYToken _lqty,
         gStringToken _gstringToken
     ) {
         stringToken = _string;

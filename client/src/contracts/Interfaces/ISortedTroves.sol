@@ -7,7 +7,6 @@ interface ISortedTroves {
     // --- Events ---
 
     event SortedTrovesAddressChanged(address _sortedDoublyLLAddress);
-    event BorrowerOperationsAddressChanged(address _borrowerOperationsAddress);
 
     // --- Functions ---
 

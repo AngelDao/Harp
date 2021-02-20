@@ -10,7 +10,7 @@
   "sourceMap": "70:600:2:-:0;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "70:600:2:-:0;;;;;",
   "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\ncontract CheckContract {\r\n    /**\r\n     * Check that the account is an already deployed non-destroyed contract.\r\n     * See: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Address.sol#L12\r\n     */\r\n    function checkContract(address _account) internal view {\r\n        require(_account != address(0), \"Account cannot be zero address\");\r\n\r\n        uint256 size;\r\n        // solhint-disable-next-line no-inline-assembly\r\n        assembly {\r\n            size := extcodesize(_account)\r\n        }\r\n        require(size > 0, \"Account code size cannot be zero\");\r\n    }\r\n}\r\n",
-  "sourcePath": "C:\\Users\\danie\\code\\harp\\client\\src\\contracts\\Dependencies\\CheckContract.sol",
+  "sourcePath": "C:/Users/danie/code/harp/client/src/contracts/Dependencies/CheckContract.sol",
   "ast": {
     "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Dependencies/CheckContract.sol",
     "exportedSymbols": {
@@ -956,7 +956,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-02-19T17:09:09.045Z",
+  "updatedAt": "2021-02-20T20:38:07.946Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

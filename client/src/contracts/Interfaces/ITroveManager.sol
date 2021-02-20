@@ -30,8 +30,6 @@ interface ITroveManager {
 
     event LQTYStakingAddressChanged(address _lqtyStakingAddress);
 
-    event TroveCreated(address indexed _borrower, uint256 arrayIndex);
-
     event TroveUpdated(
         address indexed _borrower,
         uint256 _debt,

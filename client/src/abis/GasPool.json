@@ -1,0 +1,148 @@
+{
+  "contractName": "GasPool",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"The purpose of this contract is to hold LUSD tokens for gas compensation: https://github.com/liquity/dev#gas-compensation When a borrower opens a trove, an additional 10 LUSD debt is issued, and 10 LUSD is minted and sent to this contract. When a borrower closes their active trove, this gas compensation is refunded: 10 LUSD is burned from the this contract's balance, and the corresponding 10 LUSD debt on the trove is cancelled. See this issue for more context: https://github.com/liquity/dev/issues/186\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/danie/code/harp/client/src/contracts/GasPool.sol\":\"GasPool\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/danie/code/harp/client/src/contracts/GasPool.sol\":{\"keccak256\":\"0xbe0f5463703a839bbeb1ffd5d43bfdb3b35d878b26c5a8b5018525cd5f9597f3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://34e033fcf4af17463e5ea020af2b9c75ed09e87190560c17f395f060cc77dc88\",\"dweb:/ipfs/Qmd7eC8yENZg4ZXZVTDybkErhND3zQfnVFjxR3tBG37TSG\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea26469706673582212207926142be195109e445c5de3c4e813d5b38fae520412d6ffd62aa22af7abd45164736f6c63430007060033",
+  "deployedBytecode": "0x6080604052600080fdfea26469706673582212207926142be195109e445c5de3c4e813d5b38fae520412d6ffd62aa22af7abd45164736f6c63430007060033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "619:117:18:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "619:117:18:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\n/**\r\n * The purpose of this contract is to hold LUSD tokens for gas compensation:\r\n * https://github.com/liquity/dev#gas-compensation\r\n * When a borrower opens a trove, an additional 10 LUSD debt is issued,\r\n * and 10 LUSD is minted and sent to this contract.\r\n * When a borrower closes their active trove, this gas compensation is refunded:\r\n * 10 LUSD is burned from the this contract's balance, and the corresponding\r\n * 10 LUSD debt on the trove is cancelled.\r\n * See this issue for more context: https://github.com/liquity/dev/issues/186\r\n */\r\ncontract GasPool {\r\n    // do nothing, as the core contracts have permission to send to and burn from this address\r\n}\r\n",
+  "sourcePath": "C:/Users/danie/code/harp/client/src/contracts/GasPool.sol",
+  "ast": {
+    "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/GasPool.sol",
+    "exportedSymbols": {
+      "GasPool": [
+        14306
+      ]
+    },
+    "id": 14307,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 14304,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0",
+          "<",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "35:31:18"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 14305,
+          "nodeType": "StructuredDocumentation",
+          "src": "70:547:18",
+          "text": " The purpose of this contract is to hold LUSD tokens for gas compensation:\n https://github.com/liquity/dev#gas-compensation\n When a borrower opens a trove, an additional 10 LUSD debt is issued,\n and 10 LUSD is minted and sent to this contract.\n When a borrower closes their active trove, this gas compensation is refunded:\n 10 LUSD is burned from the this contract's balance, and the corresponding\n 10 LUSD debt on the trove is cancelled.\n See this issue for more context: https://github.com/liquity/dev/issues/186"
+        },
+        "fullyImplemented": true,
+        "id": 14306,
+        "linearizedBaseContracts": [
+          14306
+        ],
+        "name": "GasPool",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 14307,
+        "src": "619:117:18"
+      }
+    ],
+    "src": "35:703:18"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/GasPool.sol",
+      "exportedSymbols": {
+        "GasPool": [
+          14306
+        ]
+      },
+      "license": "MIT"
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".0",
+            "<",
+            "0.8",
+            ".0"
+          ]
+        },
+        "id": 14304,
+        "name": "PragmaDirective",
+        "src": "35:31:18"
+      },
+      {
+        "attributes": {
+          "abstract": false,
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            14306
+          ],
+          "name": "GasPool",
+          "nodes": [
+            null
+          ],
+          "scope": 14307
+        },
+        "children": [
+          {
+            "attributes": {
+              "text": " The purpose of this contract is to hold LUSD tokens for gas compensation:\n https://github.com/liquity/dev#gas-compensation\n When a borrower opens a trove, an additional 10 LUSD debt is issued,\n and 10 LUSD is minted and sent to this contract.\n When a borrower closes their active trove, this gas compensation is refunded:\n 10 LUSD is burned from the this contract's balance, and the corresponding\n 10 LUSD debt on the trove is cancelled.\n See this issue for more context: https://github.com/liquity/dev/issues/186"
+            },
+            "id": 14305,
+            "name": "StructuredDocumentation",
+            "src": "70:547:18"
+          }
+        ],
+        "id": 14306,
+        "name": "ContractDefinition",
+        "src": "619:117:18"
+      }
+    ],
+    "id": 14307,
+    "name": "SourceUnit",
+    "src": "35:703:18"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.7.6+commit.7338295f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.3.3",
+  "updatedAt": "2021-02-19T17:49:42.049Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "notice": "The purpose of this contract is to hold LUSD tokens for gas compensation: https://github.com/liquity/dev#gas-compensation When a borrower opens a trove, an additional 10 LUSD debt is issued, and 10 LUSD is minted and sent to this contract. When a borrower closes their active trove, this gas compensation is refunded: 10 LUSD is burned from the this contract's balance, and the corresponding 10 LUSD debt on the trove is cancelled. See this issue for more context: https://github.com/liquity/dev/issues/186",
+    "version": 1
+  }
+}

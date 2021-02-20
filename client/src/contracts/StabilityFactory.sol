@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./StabilityProxy.sol";
 import "./StringToken.sol";
+import "./Interfaces/IStabilityPool.sol";
 
 contract StabilityFactory {
     using SafeMath for uint256;
@@ -20,14 +21,14 @@ contract StabilityFactory {
         uint256 rewardDebt;
     }
 
-    address public impli;
+    // address public impli;
     address public frontEnd;
     mapping(address => UserProxy) public userProxys;
     mapping(address => bool) public registeredClone;
     uint256 public totalLUSD;
     PoolInfo public pool;
     StringToken public stringToken;
-    StabilityPool public stabilityPool;
+    IStabilityPool public stabilityPool;
     IERC20 public lusdToken;
     uint256 public stringPerBlock = 1435897436000000000;
     uint256 public endBlock;
@@ -45,18 +46,17 @@ contract StabilityFactory {
 
     constructor(
         address _frontEnd,
-        address _impli,
+        // address _impli,
         IERC20 _lusdToken,
         StringToken _stringToken,
-        uint256 _endBlock,
-        StabilityPool _stabilityPool
+        IStabilityPool _stabilityPool
     ) {
         frontEnd = _frontEnd;
-        impli = _impli;
+        // impli = _impli;
         pool = PoolInfo({lastRewardBlock: block.number, accStringPerShare: 0});
         stringToken = _stringToken;
         lusdToken = _lusdToken;
-        endBlock = _endBlock;
+        endBlock = block.number.add(2437500);
         stabilityPool = _stabilityPool;
     }
 

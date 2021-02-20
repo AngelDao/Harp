@@ -413,7 +413,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\n// Common interface for the Trove Manager.\r\ninterface IBorrowerOperations {\r\n    // --- Events ---\r\n\r\n    event TroveManagerAddressChanged(address _newTroveManagerAddress);\r\n\r\n    event ActivePoolAddressChanged(address _activePoolAddress);\r\n\r\n    event DefaultPoolAddressChanged(address _defaultPoolAddress);\r\n\r\n    event StabilityPoolAddressChanged(address _stabilityPoolAddress);\r\n\r\n    event GasPoolAddressChanged(address _gasPoolAddress);\r\n\r\n    event CollSurplusPoolAddressChanged(address _collSurplusPoolAddress);\r\n\r\n    event PriceFeedAddressChanged(address _newPriceFeedAddress);\r\n\r\n    event SortedTrovesAddressChanged(address _sortedTrovesAddress);\r\n\r\n    event LUSDTokenAddressChanged(address _lusdTokenAddress);\r\n\r\n    event LQTYStakingAddressChanged(address _lqtyStakingAddress);\r\n\r\n    // --- Functions ---\r\n\r\n    function setAddresses(\r\n        address _troveManagerAddress,\r\n        address _activePoolAddress,\r\n        address _defaultPoolAddress,\r\n        address _stabilityPoolAddress,\r\n        address _gasPoolAddress,\r\n        address _collSurplusPoolAddress,\r\n        address _priceFeedAddress,\r\n        address _sortedTrovesAddress,\r\n        address _lusdTokenAddress,\r\n        address _lqtyStakingAddress\r\n    ) external;\r\n\r\n    function openTrove(\r\n        uint256 _maxFee,\r\n        uint256 _LUSDAmount,\r\n        address _upperHint,\r\n        address _lowerHint\r\n    ) external payable;\r\n\r\n    function addColl(address _upperHint, address _lowerHint) external payable;\r\n\r\n    function moveETHGainToTrove(\r\n        address _user,\r\n        address _upperHint,\r\n        address _lowerHint\r\n    ) external payable;\r\n\r\n    function withdrawColl(\r\n        uint256 _amount,\r\n        address _upperHint,\r\n        address _lowerHint\r\n    ) external;\r\n\r\n    function withdrawLUSD(\r\n        uint256 _maxFee,\r\n        uint256 _amount,\r\n        address _upperHint,\r\n        address _lowerHint\r\n    ) external;\r\n\r\n    function repayLUSD(\r\n        uint256 _amount,\r\n        address _upperHint,\r\n        address _lowerHint\r\n    ) external;\r\n\r\n    function closeTrove() external;\r\n\r\n    function adjustTrove(\r\n        uint256 _maxFee,\r\n        uint256 _collWithdrawal,\r\n        uint256 _debtChange,\r\n        bool isDebtIncrease,\r\n        address _upperHint,\r\n        address _lowerHint\r\n    ) external payable;\r\n\r\n    function claimCollateral() external;\r\n\r\n    function getCompositeDebt(uint256 _debt) external pure returns (uint256);\r\n}\r\n",
-  "sourcePath": "C:\\Users\\danie\\code\\harp\\client\\src\\contracts\\Interfaces\\IBorrowerOperations.sol",
+  "sourcePath": "C:/Users/danie/code/harp/client/src/contracts/Interfaces/IBorrowerOperations.sol",
   "ast": {
     "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Interfaces/IBorrowerOperations.sol",
     "exportedSymbols": {
@@ -4103,7 +4103,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-02-19T17:09:09.247Z",
+  "updatedAt": "2021-02-20T20:38:08.172Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

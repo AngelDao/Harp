@@ -19,7 +19,8 @@ import {
   fetchLUSDToken,
   fetchgStringToken,
   fetchProfitShare,
-} from "./utils/contractConnection";
+  fetchStabilityFactory,
+} from "./utils/handleContracts/contractConnection";
 // import { setEventListeners } from "./utils/handleWallets.js/modalConfig";
 
 function App() {
@@ -96,6 +97,11 @@ function App() {
       stringToken,
       address
     );
+
+    const [factory, proxy, deposited] = await fetchStabilityFactory( networkId,
+      web3,
+      stringToken,
+      address)
 
     setFarmBalances(farmBalances);
     setProfitShareBalances(psBalances);

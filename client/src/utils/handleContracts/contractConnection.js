@@ -6,6 +6,8 @@ import gStringToken from "../../abis/gStringToken.json";
 import LQTYToken from "../../abis/LQTYToken.json";
 import LUSDToken from "../../abis/LUSDToken.json";
 import StakingPool from "../../abis/StringStaking.json";
+import StabilityFactory from "../../abis/StabilityFactory.json";
+import StabilityProxy from "../../abis/StabilityProxy.json";
 import { fromWei, toDecimal } from "../truncateString";
 import { addresses } from "./addresses";
 
@@ -232,3 +234,23 @@ export const fetchFarm = async (
     return [farm, allowances, farmBalances];
   }
 };
+
+
+export const fetchStabilityFactory = async (
+  networkId,
+  web3,
+  address
+) => {
+  const SFNetwork = StabilityFactory.networks[networkId];
+  if (SFNetwork) {
+    const stabilityFactory = new web3.eth.Contract(
+      StabilityFactory.abi,
+      SFNetwork.address
+    );
+
+    const userProxy = await stabilityFactory.methods.userProxy(address).call()
+    const lusdBalance = await stabilityFactory.methods.totalLUSD().call()
+    debugger
+    return [stabilityFactory, userProxy, lusdBalance ];
+  }
+}

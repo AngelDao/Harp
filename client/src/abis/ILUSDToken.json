@@ -522,7 +522,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\nimport \"../Dependencies/TestIERC20.sol\";\r\nimport \"../Dependencies/IERC2612.sol\";\r\n\r\ninterface ILUSDToken is TestIERC20, IERC2612 {\r\n    // --- Events ---\r\n    event LUSDTokenBalanceUpdated(address _user, uint256 _amount);\r\n    event TroveManagerAddressChanged(address _troveManagerAddress);\r\n    event StabilityPoolAddressChanged(address _newStabilityPoolAddress);\r\n    event BorrowerOperationsAddressChanged(\r\n        address _newBorrowerOperationsAddress\r\n    );\r\n\r\n    // --- Functions ---\r\n\r\n    function mint(address _account, uint256 _amount) external;\r\n\r\n    function burn(address _account, uint256 _amount) external;\r\n\r\n    function sendToPool(\r\n        address _sender,\r\n        address poolAddress,\r\n        uint256 _amount\r\n    ) external;\r\n\r\n    function returnFromPool(\r\n        address poolAddress,\r\n        address user,\r\n        uint256 _amount\r\n    ) external;\r\n}\r\n",
-  "sourcePath": "C:\\Users\\danie\\code\\harp\\client\\src\\contracts\\Interfaces\\ILUSDToken.sol",
+  "sourcePath": "C:/Users/danie/code/harp/client/src/contracts/Interfaces/ILUSDToken.sol",
   "ast": {
     "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Interfaces/ILUSDToken.sol",
     "exportedSymbols": {
@@ -1969,7 +1969,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-02-19T17:09:09.253Z",
+  "updatedAt": "2021-02-20T20:38:08.179Z",
   "devdoc": {
     "kind": "dev",
     "methods": {

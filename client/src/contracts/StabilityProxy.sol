@@ -3,7 +3,7 @@ pragma solidity >=0.6.0 <0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
-import "./StabilityPool.sol";
+import "./Interfaces/IStabilityPool.sol";
 import "./StabilityFactory.sol";
 
 contract StabilityProxy {
@@ -14,7 +14,7 @@ contract StabilityProxy {
     address public owner;
     IERC20 public lusdToken;
     IERC20 public lqtyToken;
-    StabilityPool public stabilityPool;
+    IStabilityPool public stabilityPool;
     StabilityFactory public stabilityFactory;
 
     modifier onlyOwner() {
@@ -27,7 +27,7 @@ contract StabilityProxy {
         StabilityFactory _factory,
         address _frontEnd,
         IERC20 _lusdToken,
-        StabilityPool _stabilityPool
+        IStabilityPool _stabilityPool
     ) {
         owner = _owner;
         lusdToken = _lusdToken;

@@ -1,21 +1,3 @@
-// // /* eslint-disable no-undef */
-// // LIQUITY
-
-// const SortedTroves = artifacts.require("./SortedTroves.sol")
-// const ActivePool = artifacts.require("./ActivePool.sol")
-// const DefaultPool = artifacts.require("./DefaultPool.sol")
-const StabilityPool = artifacts.require("StabilityPool.sol")
-// const TroveManager = artifacts.require("./TroveManager.sol")
-// const PriceFeed = artifacts.require("./PriceFeed.sol")
-const LUSDToken = artifacts.require("LUSDToken.sol")
-// const FunctionCaller = artifacts.require("./FunctionCaller.sol")
-// const BorrowerOperations = artifacts.require("./BorrowerOperations.sol")
-
-// const deploymentHelpers = require("../testUtils/truffleDeploymentHelpers.js")
-
-// const getAddresses = deploymentHelpers.getAddresses
-// const connectContracts = deploymentHelpers.connectContracts
-
 // HARP
 const StringToken = artifacts.require("StringToken");
 const gStringToken = artifacts.require("gStringToken");
@@ -25,61 +7,46 @@ const LUSDLP = artifacts.require("LUSDLPToken");
 const ETHLP = artifacts.require("ETHLPToken");
 const LQTYToken = artifacts.require("LQTYToken");
 const StringStaking = artifacts.require("StringStaking");
+const LUSDToken = artifacts.require("LUSDToken.sol");
+const StabilityFactory = artifacts.require("StabilityFactory.sol");
 
 
 module.exports = async function (deployer, network, accounts) {
-  // // LIQUITY
-  // await deployer.deploy(BorrowerOperations)
-  // await deployer.deploy(PriceFeed)
-  //  await deployer.deploy(SortedTroves)
-  //  await deployer.deploy(TroveManager)
-  //  await deployer.deploy(ActivePool)
-  //  await deployer.deploy(StabilityPool)
-  //  await deployer.deploy(DefaultPool)
-  //  await deployer.deploy(LUSDToken)
-  //  await deployer.deploy(FunctionCaller)
 
-  // const borrowerOperations = await BorrowerOperations.deployed()
-  // const priceFeed = await PriceFeed.deployed()
-  //   const sortedTroves = await SortedTroves.deployed()
-  //   const troveManager = await TroveManager.deployed()
-  //   const activePool = await ActivePool.deployed()
-    const stabilityPool = await StabilityPool.deployed()
-  //   const defaultPool = await DefaultPool.deployed()
-    const lusdToken = await LUSDToken.deployed()
-  //   const functionCaller = await FunctionCaller.deployed()
-
-  //   const liquityContracts = {
-  //     borrowerOperations,
-  //     priceFeed,
-  //     lusdToken,
-  //     sortedTroves,
-  //     troveManager,
-  //     activePool,
-  //     stabilityPool,
-  //     defaultPool,
-  //     functionCaller
-  //   }
-
-  //   // Grab contract addresses
-  //   const liquityAddresses = getAddresses(liquityContracts)
-  //   console.log('deploy_contracts.js - Deployed contract addresses: \n')
-  //   console.log(liquityAddresses)
-  //   console.log('\n')
-
-  //   // Connect contracts to each other
-  //   await connectContracts(liquityContracts, liquityAddresses)
-
-
-
-
-
+  const deploy = "kovan";
 
   // HARP
   // 2nd Ganache
   // Token Contract
   const HarpDAOAddress = "0x0cbde7d648C1F51253d53ca1dB099030Fc35490a";
   const owner = accounts[1];
+
+
+  const addr = {
+    kovan:{
+      stabilityPool:{address:"0xAE5D0922152CC75E220ECEA0A8758c5FE545F9B0"},
+      lqtyToken: {address:"0x386eBE55a61123Ff0f3fd10dA56DEb4E0Cf36590"},
+      lusdToken: {address:"0x9CCeF31d8375ec9d72fF376e50869152770E5c59"},
+    }
+  }
+  
+  await deployer.deploy(LUSDToken, accounts[0], accounts[1]);
+  await deployer.deploy(LQTYToken, accounts[0], accounts[1]);
+  
+  let lusdToken, lqtyToken, stabilityPool;
+  
+  
+  
+  
+  if(deploy === "kovan"){
+    lusdToken = addr.kovan.lusdToken
+    lqtyToken = addr.kovan.lqtyToken
+    stabilityPool =  addr.kovan.stabilityPool
+  }else if(deploy === "ganache"){
+    lusdToken = await LUSDToken.deployed();
+    lqtyToken = await LQTYToken.deployed();
+
+  }
   await deployer.deploy(
     StringToken,
     "ozString",
@@ -110,12 +77,8 @@ module.exports = async function (deployer, network, accounts) {
 
   await deployer.deploy(LUSDLP, accounts[0], accounts[1]);
   await deployer.deploy(ETHLP, accounts[0], accounts[1]);
-  await deployer.deploy(LUSDToken, accounts[0], accounts[1]);
-  await deployer.deploy(LQTYToken, accounts[0], accounts[1]);
   await deployer.deploy(gStringToken, owner);
   const gstringToken = await gStringToken.deployed();
-  // const lusdToken = await LUSDToken.deployed();
-  const lqtyToken = await LQTYToken.deployed();
   await deployer.deploy(
     StringStaking,
     stringToken.address,
@@ -149,4 +112,6 @@ module.exports = async function (deployer, network, accounts) {
   await stringToken.addVestingAddress(farm.address, { from: owner });
   await farm.add(80, ethLPToken.address, true);
   await farm.add(20, lusdLPToken.address, true);
+
+  await deployer.deploy(StabilityFactory, stringStaking.address, lusdToken.address, stringToken.address, stabilityPool.address)
 };
