@@ -188,6 +188,7 @@ function App() {
   }, [prices]);
 
   const credentials = {
+    profitShareBalances,
     web3DataProvider,
     setWeb3DataProvider,
     web3UserProvider,

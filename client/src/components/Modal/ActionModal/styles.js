@@ -19,6 +19,10 @@ export const HeaderContainer = styled.div`
   position: relative;
 `;
 
+export const GStringCap = styled.span`
+  font-size: ${MasterStyles.fontSize.small};
+`;
+
 export const CollapseButton = styled.a`
   font-size: ${MasterStyles.fontSize.small};
   cursor: pointer;

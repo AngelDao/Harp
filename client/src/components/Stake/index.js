@@ -8,9 +8,12 @@ const Stake = () => {
     STRING: true,
     LQTY: true,
   });
-  const { userBalances, farmBalances, userAllowances } = useContext(
-    CredentialsContext
-  );
+  const {
+    userBalances,
+    farmBalances,
+    userAllowances,
+    profitShareBalances,
+  } = useContext(CredentialsContext);
 
   return (
     <FarmContainer>
@@ -27,8 +30,8 @@ const Stake = () => {
         collapsed={collapsed.STRING}
         LPTokensInWallet={userBalances.STRING}
         LPTokensAllowance={userAllowances.profitShare.STRING}
-        LPTokensStaked={farmBalances.userStaked.STRING}
-        pendingTokens={farmBalances.userPending.STRING}
+        LPTokensStaked={profitShareBalances.userStaked.STRING}
+        pendingTokens={profitShareBalances.userPending.STRING}
         stringTokensAllowance={userAllowances.profitShare.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, STRING: true });

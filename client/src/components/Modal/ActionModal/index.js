@@ -24,6 +24,7 @@ import {
   AllowanceContainer,
   AllowanceText,
   ActionContainer,
+  GStringCap,
 } from "./styles";
 import MasterStyles from "../../../utils/masterStyles";
 import { toWei, fromWei, toDecimal } from "../../../utils/truncateString";
@@ -54,6 +55,7 @@ const ActionModal = ({
     web3DataProvider,
     web3UserProvider,
     reFetchData,
+    userBalances,
   } = useContext(CredentialsContext);
 
   const pool = {
@@ -111,7 +113,12 @@ const ActionModal = ({
   };
 
   const handleSetMax = () => {
-    setValue(parseFloat(balance));
+    const { gSTRING } = userBalances;
+    if (pair === "STRING" && type === "Withdraw") {
+      setValue(parseFloat(gSTRING));
+    } else {
+      setValue(parseFloat(balance));
+    }
   };
 
   const handleApprove = async () => {
@@ -156,6 +163,20 @@ const ActionModal = ({
       } catch (err) {
         console.log(err.message);
       }
+    } else if (contract === "profitShare") {
+      try {
+        await ctrct.methods
+          .deposit(param1)
+          .send({ from: address })
+          .on("transactionHash", async () => {
+            await reFetchData();
+          })
+          .on("receipt", async () => {
+            await reFetchData();
+          });
+      } catch (err) {
+        console.log(err.message);
+      }
     } else {
       try {
         await ctrct.methods
@@ -185,15 +206,31 @@ const ActionModal = ({
         ? toWei(web3DataProvider, value.toString())
         : "hint ";
 
-    await ctrct.methods
-      .withdraw(param1, param2)
-      .send({ from: address })
-      .on("transactionHash", async () => {
-        await reFetchData();
-      })
-      .on("receipt", async () => {
-        await reFetchData();
-      });
+    if (contract === "profitShare") {
+      try {
+        await ctrct.methods
+          .withdraw(param1)
+          .send({ from: address })
+          .on("transactionHash", async () => {
+            await reFetchData();
+          })
+          .on("receipt", async () => {
+            await reFetchData();
+          });
+      } catch (err) {
+        console.log(err.message);
+      }
+    } else {
+      await ctrct.methods
+        .withdraw(param1, param2)
+        .send({ from: address })
+        .on("transactionHash", async () => {
+          await reFetchData();
+        })
+        .on("receipt", async () => {
+          await reFetchData();
+        });
+    }
   };
 
   const handleAction = async () => {
@@ -209,6 +246,8 @@ const ActionModal = ({
   };
 
   const allowed = parseFloat(balance) < parseFloat(allowance);
+
+  const gSTRING = userBalances.gSTRING;
 
   return (
     <Modal
@@ -272,9 +311,9 @@ const ActionModal = ({
               onFocus={handleFocus}
               defaultValue={0}
               min={0}
-              precision={2}
+              precision={4}
               step={0.2}
-              max={parseInt(balance)}
+              max={parseFloat(balance)}
               value={value}
               inputMode="decimal"
               borderRadius="0%"
@@ -296,7 +335,18 @@ const ActionModal = ({
                 <NumberDecrementStepper border="none" />
               </NumberInputStepper>
             </NumberInput>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent:
+                  pair === "STRING" && type === "Withdraw"
+                    ? "space-between"
+                    : "flex-end",
+              }}
+            >
+              {pair === "STRING" && type === "Withdraw" && (
+                <GStringCap>gSTRING Cap: {gSTRING}</GStringCap>
+              )}
               <CollapseButton onClick={handleSetMax}>
                 + Max {type}
               </CollapseButton>

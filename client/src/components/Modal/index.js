@@ -26,6 +26,7 @@ const Modal = ({ open, close, type, balance, allowance, pair, contract }) => {
         contract={contract}
       />
     );
+  } else if (type === "DepositStringStaking") {
   }
   return null;
 };

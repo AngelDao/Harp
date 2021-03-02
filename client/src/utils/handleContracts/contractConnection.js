@@ -22,6 +22,7 @@ export const fetchgStringToken = async (networkId, web3, address) => {
     const gSTRING = toDecimal(
       fromWei(web3, await gstringToken.methods.balanceOf(address).call())
     );
+
     return [gstringToken, gSTRING];
   }
 };
@@ -127,6 +128,7 @@ export const fetchProfitShare = async (
     const userSTRINGStaked = toDecimal(
       fromWei(web3, (await ps.methods.userInfo(address).call()).amount)
     );
+    debugger;
 
     const psAllowances = {
       STRING: allowancesSTRING,
@@ -248,7 +250,6 @@ export const fetchStabilityFactory = async (
       SFNetwork.address
     );
 
-    debugger;
     let userProxy = await factory.methods.userProxys(address).call();
     if (
       userProxy.proxyAddress === "0x0000000000000000000000000000000000000000"
@@ -272,7 +273,7 @@ export const fetchStabilityFactory = async (
     }
 
     const isBoosted = await factory.methods.isBoosted().call();
-    const pendingSTRING = await factory.methods.pendingString().call();
+    const pendingSTRING = await factory.methods.pendingString(address).call();
 
     const proxyAllowances = {
       LUSD: allowanceLUSD,
@@ -290,7 +291,6 @@ export const fetchStabilityFactory = async (
         STRING: totalLUSD,
       },
     };
-    debugger;
     return [factory, userProxy, proxyAllowances, fyBalances];
   }
 };
