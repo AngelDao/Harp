@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable jest/valid-describe */
 const { assert } = require("chai");
+const timeMachine = require("ganache-time-traveler");
 
 const StringToken = artifacts.require("StringToken");
 const gStringTokenArt = artifacts.require("gStringToken");
@@ -17,9 +18,23 @@ const makeBN = (n) => {
   return new web3.utils.BN(n);
 };
 
+const advanceBlock = async (n) => {
+  for (let i = 0; i < n; i++) {
+    await timeMachine.advanceBlock();
+  }
+};
+
 contract("String Staking Test", (accounts) => {
   let stringToken, tokenVesting, gStringToken, stringStaking, lqtyToken;
-  before(async () => {
+  beforeEach(async () => {
+    let snapshot = await timeMachine.takeSnapshot();
+    snapshotId = snapshot["result"];
+  });
+
+  afterEach(async () => {
+    await timeMachine.revertToSnapshot(snapshotId);
+  });
+  beforeEach(async () => {
     const AngelDAOAddress = accounts[2];
     const HarpDAOAddress = accounts[1];
     const owner = accounts[3];
@@ -111,6 +126,42 @@ contract("String Staking Test", (accounts) => {
 
       assert.equal(tokens(depositedSTRING.sub(fee).toString()), gStringBal);
     });
-    it("Withdraw successfully", async () => {});
+
+    it("Withdraw successfully", async () => {
+      const depositer = accounts[0];
+      await stringToken.approve(stringStaking.address, tokens("2000"), {
+        from: depositer,
+      });
+      const stringBalFirst = (
+        await stringToken.balanceOf(depositer)
+      ).toString();
+      console.log(stringBalFirst);
+      await stringStaking.deposit(tokens("500"), { from: depositer });
+      const userFirst = await stringStaking.userInfo(depositer);
+      const contractString = await stringToken.balanceOf(stringStaking.address);
+      console.log(contractString.toString());
+      console.log(userFirst.amount.toString());
+      console.log(tokens("499.5"));
+      await advanceBlock(10);
+      await gStringToken.approve(stringStaking.address, tokens("2000"), {
+        from: depositer,
+      });
+      await stringStaking.withdraw(tokens("499.5"), { from: depositer });
+
+      // const gSTRINGBal = (await gStringToken.balanceOf(depositer)).toString();
+      const stringBal = (await stringToken.balanceOf(depositer)).toString();
+      const user = await stringStaking.userInfo(depositer);
+      const pool = await stringStaking.pool();
+      const rewardPerBlock = makeBN("230769230800000000");
+      const blocksCount = makeBN(12);
+      const boosted = makeBN(5);
+      const expectedRewards = rewardPerBlock.mul(blocksCount).mul(boosted);
+      const base = makeBN(tokens("1000"));
+
+      // assert.equal(gSTRINGBal, 0);
+      assert.equal(stringBal.toString(), base.add(expectedRewards).toString());
+      assert.equal(user.amount, 0);
+      assert.equal(pool.lpTokenSupply, 0);
+    });
   });
 });

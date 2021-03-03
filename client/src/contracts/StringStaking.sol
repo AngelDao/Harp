@@ -240,6 +240,7 @@ contract StringStaking is Ownable {
         }
 
         user.amount = user.amount.sub(redeemAmount);
+        pool.lpTokenSupply = pool.lpTokenSupply.sub(redeemAmount);
         gstringToken.burnFrom(msg.sender, redeemAmount);
         pool.lpToken.safeTransfer(address(msg.sender), redeemAmount);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
@@ -258,9 +259,10 @@ contract StringStaking is Ownable {
 
     // Safe sushi transfer function, just in case if rounding error causes pool to not have enough SUSHIs.
     function safeStringTransfer(address _to, uint256 _amount) internal {
-        uint256 stringBal = stringToken.balanceOf(address(this));
-        if (_amount > stringBal) {
-            stringToken.transfer(_to, stringBal);
+        uint256 totalString = stringToken.balanceOf(address(this));
+        uint256 rewardsBal = totalString.sub(pool.lpTokenSupply);
+        if (_amount > rewardsBal) {
+            stringToken.transfer(_to, rewardsBal);
         } else {
             stringToken.transfer(_to, _amount);
         }
