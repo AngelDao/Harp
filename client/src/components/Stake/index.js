@@ -30,6 +30,7 @@ const Stake = () => {
         collapsed={collapsed.STRING}
         LPTokensInWallet={userBalances.STRING}
         LPTokensAllowance={userAllowances.profitShare.STRING}
+        gSTRINGAllowance={userAllowances.profitShare.gSTRING}
         LPTokensStaked={profitShareBalances.userStaked.STRING}
         pendingTokens={profitShareBalances.userPending.STRING}
         stringTokensAllowance={userAllowances.profitShare.STRING}

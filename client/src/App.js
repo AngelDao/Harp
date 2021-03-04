@@ -59,7 +59,7 @@ function App() {
     // ;
     const networkId = await web3.eth.net.getId();
 
-    const [gstringToken, gSTRING] = await fetchgStringToken(
+    const [gStringToken, gSTRING] = await fetchgStringToken(
       networkId,
       web3,
       address
@@ -96,6 +96,7 @@ function App() {
       networkId,
       web3,
       stringToken,
+      gStringToken,
       address
     );
 
@@ -122,7 +123,7 @@ function App() {
       ETHLPToken,
       LUSDLPToken,
       farm,
-      gstringToken,
+      gStringToken,
       lusdToken,
       lqtyToken,
     });

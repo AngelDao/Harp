@@ -6,8 +6,6 @@ export const truncateAddress = (str, n) => {
 };
 
 export const fromWei = (web3, n) => {
-  let test = web3.utils.fromWei(n, "micro");
-  // ;
   return web3.utils.fromWei(n, "micro");
 };
 

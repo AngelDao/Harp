@@ -148,7 +148,7 @@ contract("String Staking Test", (accounts) => {
       });
       await stringStaking.withdraw(tokens("499.5"), { from: depositer });
 
-      // const gSTRINGBal = (await gStringToken.balanceOf(depositer)).toString();
+      const gSTRINGBal = (await gStringToken.balanceOf(depositer)).toString();
       const stringBal = (await stringToken.balanceOf(depositer)).toString();
       const user = await stringStaking.userInfo(depositer);
       const pool = await stringStaking.pool();
@@ -158,10 +158,60 @@ contract("String Staking Test", (accounts) => {
       const expectedRewards = rewardPerBlock.mul(blocksCount).mul(boosted);
       const base = makeBN(tokens("1000"));
 
-      // assert.equal(gSTRINGBal, 0);
+      assert.equal(gSTRINGBal, 0);
       assert.equal(stringBal.toString(), base.add(expectedRewards).toString());
       assert.equal(user.amount, 0);
       assert.equal(pool.lpTokenSupply, 0);
+    });
+
+    it("Top off", async () => {
+      const depositer = accounts[0];
+      await stringToken.approve(stringStaking.address, tokens("2000"), {
+        from: depositer,
+      });
+      await stringStaking.deposit(tokens("500"), { from: depositer });
+      await stringStaking.deposit(tokens("250"), { from: depositer });
+      await advanceBlock(10);
+      const denominator = makeBN(1000);
+      const depositedSTRING = makeBN(5000);
+      const fee = depositedSTRING.div(denominator);
+      const expectedBalance = depositedSTRING.sub(fee);
+
+      console.log(expectedBalance);
+
+      const STRINGPerShareMulti = makeBN("1000000000000");
+      console.log(STRINGPerShareMulti.toString());
+      console.log(fee.toString());
+      const expectedStringPerShare = fee
+        .mul(STRINGPerShareMulti)
+        .div(expectedBalance);
+
+      console.log(expectedBalance);
+      const gStringBal = (await gStringToken.balanceOf(depositer))
+        .mul(makeBN(10))
+        .toString();
+      const user = await stringStaking.userInfo(depositer);
+      const pool = await stringStaking.pool();
+
+      console.log(expectedBalance);
+      // assert.equal(
+      //   pool.lpTokenSupply.mul(makeBN(10)).toString(),
+      //   tokens(depositedSTRING.sub(fee).toString())
+      // );
+
+      // assert.equal(
+      //   pool.accStringPerShare.toString(),
+      //   expectedStringPerShare.toString()
+      // );
+
+      // assert.equal(
+      //   user.amount.mul(makeBN(10)).toString(),
+      //   tokens(depositedSTRING.sub(fee).toString())
+      // );
+      // assert.equal(user.rewardDebt, 0);
+      // assert.equal(user.lqtyRewardDebt, 0);
+
+      // assert.equal(tokens(depositedSTRING.sub(fee).toString()), gStringBal);
     });
   });
 });

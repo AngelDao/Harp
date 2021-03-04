@@ -39,6 +39,7 @@ const ActionModal = ({
   allowance,
   pair,
   contract,
+  gSTRINGAllowance,
 }) => {
   const {
     contracts: {
@@ -48,6 +49,7 @@ const ActionModal = ({
       LUSDLPToken,
       lusdToken,
       profitShare,
+      gStringToken,
     },
     address,
     setUserAllowances,
@@ -68,6 +70,7 @@ const ActionModal = ({
     "gSTRING/LUSD": LUSDLPToken,
     STRING: stringToken,
     LUSD: lusdToken,
+    gSTRING: gStringToken,
   };
 
   const pairNames = {
@@ -80,6 +83,7 @@ const ActionModal = ({
   const contractInstance = {
     farm,
     profitShare,
+    stabilityPool,
   };
 
   const [value, setValue] = useState(0);
@@ -125,8 +129,16 @@ const ActionModal = ({
     const contractAddress =
       contract === "farm" ? farm._address : profitShare._address;
 
-    await token[pair].methods
-      .approve(contractAddress, toWei(web3DataProvider, "10000000"))
+    let ctrct;
+
+    if (type === "Withdraw") {
+      ctrct = token["gSTRING"];
+    } else {
+      ctrct = token[pair];
+    }
+
+    await ctrct.methods
+      .approve(contractAddress, toWei(web3DataProvider, "10000000000000"))
       .send({ from: address })
       .on("transactionHash", async () => {
         await reFetchData();
@@ -245,7 +257,17 @@ const ActionModal = ({
     }
   };
 
-  const allowed = parseFloat(balance) < parseFloat(allowance);
+  let allowed;
+
+  if (pair === "STRING") {
+    const { gSTRING } = userBalances;
+
+    allowed =
+      parseFloat(balance) < parseFloat(allowance) &&
+      parseFloat(gSTRING) < parseFloat(gSTRINGAllowance);
+  } else {
+    allowed = parseFloat(balance) < parseFloat(allowance);
+  }
 
   const gSTRING = userBalances.gSTRING;
 

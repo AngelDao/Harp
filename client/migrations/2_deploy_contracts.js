@@ -11,7 +11,7 @@ const LUSDToken = artifacts.require("LUSDToken.sol");
 const StabilityFactory = artifacts.require("StabilityFactory.sol");
 
 module.exports = async function (deployer, network, accounts) {
-  const deploy = "kovan";
+  const deploy = "ganache";
 
   // HARP
   // 2nd Ganache
@@ -37,6 +37,7 @@ module.exports = async function (deployer, network, accounts) {
     lqtyToken = addr.kovan.lqtyToken;
     stabilityPool = addr.kovan.stabilityPool;
   } else if (deploy === "ganache") {
+    stabilityPool = addr.kovan.stabilityPool;
     lusdToken = await LUSDToken.deployed();
     lqtyToken = await LQTYToken.deployed();
   }

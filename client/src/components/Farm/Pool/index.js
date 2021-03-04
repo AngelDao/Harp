@@ -45,15 +45,19 @@ const Pool = ({
   LPTokensStaked,
   pendingTokens,
   LPTokensAllowance,
+  gSTRINGAllowance,
   from,
   src,
   conditionalMargin,
   currencyLP,
   contract,
 }) => {
-  const { web3DataProvider, farmBalances, prices } = useContext(
-    CredentialsContext
-  );
+  const {
+    web3DataProvider,
+    farmBalances,
+    prices,
+    profitShareBalances,
+  } = useContext(CredentialsContext);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("");
   const [balance, setBalance] = useState(0);
@@ -89,6 +93,7 @@ const Pool = ({
   const pairNames = {
     "gSTRING/ETH": "gSTRING_ETH_LP",
     "gSTRING/LUSD": "gSTRING_LUSD_LP",
+    STRING: "STRING",
   };
 
   const alloc = {
@@ -104,13 +109,24 @@ const Pool = ({
     ETH: ethLogo,
   };
 
+  let contractBal, rewardPerBlock;
+
+  if (pair === "STRING") {
+    contractBal = profitShareBalances;
+    rewardPerBlock = profitShareBalances.isBoosted
+      ? 0.2307692308 * 5
+      : 0.2307692308;
+  } else {
+    contractBal = farmBalances;
+    rewardPerBlock = farmBalances.isBoosted
+      ? 0.641025641 * 5 * alloc[pair]
+      : 0.641025641 * alloc[pair];
+  }
+
   const pairTokensTVL =
-    parseFloat(farmBalances.totalStaked[pairNames[pair]]) *
+    parseFloat(contractBal.totalStaked[pairNames[pair]]) *
     parseFloat(prices[pairNames[pair]]);
 
-  const rewardPerBlock = farmBalances.isBoosted
-    ? 1.435897436 * 5 * alloc[pair]
-    : 1.435897436 * alloc[pair];
   const blocksPerDay = 6500;
   // const year = 365;
   // const week = 7;
@@ -134,6 +150,7 @@ const Pool = ({
         type={type}
         balance={balance && balance}
         allowance={allowance && allowance}
+        gSTRINGAllowance={gSTRINGAllowance}
         pair={pair}
         contract={contract}
       />
@@ -211,8 +228,8 @@ const Pool = ({
             </InfoContainer>
             <ActionButtonContainer>
               <ActionButton
-                action={parseInt(LPTokensStaked) > 0}
-                disabled={parseInt(LPTokensStaked) <= 0}
+                action={parseFloat(LPTokensStaked) > 0}
+                disabled={parseFloat(LPTokensStaked) <= 0}
                 onClick={() => {
                   handleOpen("Withdraw", LPTokensStaked);
                 }}
@@ -231,8 +248,8 @@ const Pool = ({
             </InfoContainer>
             <ActionButtonContainer>
               <ActionButton
-                action={parseInt(LPTokensInWallet) > 0}
-                disabled={parseInt(LPTokensInWallet) <= 0}
+                action={parseFloat(LPTokensInWallet) > 0}
+                disabled={parseFloat(LPTokensInWallet) <= 0}
                 onClick={() => {
                   handleOpen("Deposit", LPTokensInWallet);
                 }}
@@ -252,8 +269,8 @@ const Pool = ({
               </InfoContainer>
               <ActionButtonContainer>
                 <ActionButton
-                  action={parseInt(pendingTokens) > 0}
-                  disabled={parseInt(pendingTokens) <= 0}
+                  action={parseFloat(pendingTokens) > 0}
+                  disabled={parseFloat(pendingTokens) <= 0}
                   onClick={() => {
                     handleOpen("Claim", pendingTokens);
                   }}

@@ -3,7 +3,16 @@ import CredentialsContext from "../../context/credentialsContext";
 import ActionsModal from "./ActionModal";
 import ClaimModal from "./ClaimModal";
 
-const Modal = ({ open, close, type, balance, allowance, pair, contract }) => {
+const Modal = ({
+  open,
+  close,
+  type,
+  balance,
+  allowance,
+  pair,
+  contract,
+  gSTRINGAllowance,
+}) => {
   if (type === "Deposit" || type === "Withdraw") {
     return (
       <ActionsModal
@@ -12,6 +21,7 @@ const Modal = ({ open, close, type, balance, allowance, pair, contract }) => {
         type={type}
         balance={balance}
         allowance={allowance}
+        gSTRINGAllowance={gSTRINGAllowance}
         pair={pair}
         contract={contract}
       />

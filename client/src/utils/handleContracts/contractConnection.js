@@ -104,6 +104,7 @@ export const fetchProfitShare = async (
   networkId,
   web3,
   stringToken,
+  gStringToken,
   address
 ) => {
   const psNetwork = StakingPool.networks[networkId];
@@ -114,6 +115,13 @@ export const fetchProfitShare = async (
       fromWei(
         web3,
         await stringToken.methods.allowance(address, ps._address).call()
+      )
+    );
+
+    const allowancesgSTRING = toDecimal(
+      fromWei(
+        web3,
+        await gStringToken.methods.allowance(address, ps._address).call()
       )
     );
 
@@ -128,10 +136,10 @@ export const fetchProfitShare = async (
     const userSTRINGStaked = toDecimal(
       fromWei(web3, (await ps.methods.userInfo(address).call()).amount)
     );
-    debugger;
 
     const psAllowances = {
       STRING: allowancesSTRING,
+      gSTRING: allowancesgSTRING,
     };
 
     const psBalances = {
