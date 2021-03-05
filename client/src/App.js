@@ -33,6 +33,7 @@ function App() {
   const [userBalances, setUserBalances] = useState({});
   const [userAllowances, setUserAllowances] = useState({});
   const [farmBalances, setFarmBalances] = useState({});
+  const [proxyBalances, setProxyBalances] = useState({});
   const [profitShareBalances, setProfitShareBalances] = useState({});
   const [factoryBalances, setFactoryBalances] = useState({});
   const [contracts, setContracts] = useState({});
@@ -105,11 +106,13 @@ function App() {
       proxy,
       proxyAllowance,
       fyBalances,
+      proxyBalances,
     ] = await fetchStabilityFactory(networkId, web3, address, lusdToken);
 
     setFarmBalances(farmBalances);
     setProfitShareBalances(psBalances);
     setFactoryBalances(fyBalances);
+    setProxyBalances(proxyBalances);
     setUserAllowances({
       farm: allowances,
       profitShare: psAllowances,
@@ -139,10 +142,11 @@ function App() {
 
   const handlePricing = async () => {
     const STRING = 0.1;
+    const LUSD = 1;
     // when all deposited $500mm tvl
     const gSTRING_ETH_LP = 500;
     const gSTRING_LUSD_LP = 500;
-    setPrices({ STRING, gSTRING_ETH_LP, gSTRING_LUSD_LP });
+    setPrices({ LUSD, STRING, gSTRING_ETH_LP, gSTRING_LUSD_LP });
   };
 
   const handleManualConnect = async () => {
@@ -190,6 +194,7 @@ function App() {
 
   const credentials = {
     profitShareBalances,
+    proxyBalances,
     web3DataProvider,
     setWeb3DataProvider,
     web3UserProvider,

@@ -263,6 +263,11 @@ export const fetchStabilityFactory = async (
       userProxy.proxyAddress === "0x0000000000000000000000000000000000000000"
     ) {
       userProxy = null;
+    } else {
+      userProxy = new web3.eth.Contract(
+        StabilityProxy.abi,
+        userProxy.proxyAddress
+      );
     }
     const totalLUSD = toDecimal(
       fromWei(web3, await factory.methods.totalLUSD().call())
@@ -287,18 +292,21 @@ export const fetchStabilityFactory = async (
       LUSD: allowanceLUSD,
     };
 
-    const fyBalances = {
-      isBoosted,
+    const proxyBalances = {
       userPending: {
         STRING: pendingSTRING,
       },
       userStaked: {
-        STRING: userProxy ? userProxy.amount : 0,
-      },
-      totalStaked: {
-        STRING: totalLUSD,
+        LUSD: userProxy ? userProxy.amount : 0,
       },
     };
-    return [factory, userProxy, proxyAllowances, fyBalances];
+
+    const fyBalances = {
+      isBoosted,
+      totalStaked: {
+        LUSD: totalLUSD,
+      },
+    };
+    return [factory, userProxy, proxyAllowances, fyBalances, proxyBalances];
   }
 };

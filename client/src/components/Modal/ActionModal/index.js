@@ -43,6 +43,7 @@ const ActionModal = ({
 }) => {
   const {
     contracts: {
+      proxy,
       farm,
       stringToken,
       ETHLPToken,
@@ -50,6 +51,7 @@ const ActionModal = ({
       lusdToken,
       profitShare,
       gStringToken,
+      factory,
     },
     address,
     setUserAllowances,
@@ -83,7 +85,8 @@ const ActionModal = ({
   const contractInstance = {
     farm,
     profitShare,
-    stabilityPool,
+    factory,
+    proxy,
   };
 
   const [value, setValue] = useState(0);
@@ -125,13 +128,33 @@ const ActionModal = ({
     }
   };
 
+  const handleDeployProxy = async () => {
+    factory.methods
+      .createStabilityProxy()
+      .send({ from: address })
+      .on("transactionHash", async () => {
+        await reFetchData();
+      })
+      .on("reciept", async () => {
+        await reFetchData();
+      });
+  };
+
   const handleApprove = async () => {
-    const contractAddress =
-      contract === "farm" ? farm._address : profitShare._address;
+    let contractAddress;
+    if (contract === "farm") {
+      contractAddress = farm._address;
+    } else if (contract === "factory") {
+      contractAddress = factory._address;
+    } else if (contract === "profitShare") {
+      contractAddress = profitShare._address;
+    }
 
     let ctrct;
 
-    if (type === "Withdraw") {
+    debugger;
+
+    if (type === "Withdraw" && contract === "profitShare") {
       ctrct = token["gSTRING"];
     } else {
       ctrct = token[pair];
@@ -150,32 +173,20 @@ const ActionModal = ({
   };
 
   const handleDeposit = async () => {
-    const ctrct = contractInstance[contract];
+    const ctrct =
+      contract === "factory"
+        ? contractInstance["proxy"]
+        : contractInstance[contract];
     const param1 =
       contract === "farm" && pair !== "LUSD"
         ? pool[pair]
         : toWei(web3DataProvider, value.toString());
 
-    const param2 =
-      contract === "farm" && pair !== "LUSD"
-        ? toWei(web3DataProvider, value.toString())
-        : "hint ";
+    const param2 = toWei(web3DataProvider, value.toString());
 
-    if (pair === "LUSD") {
-      try {
-        await ctrct.methods
-          .depositSP(param1, param2)
-          .send({ from: address })
-          .on("transactionHash", async () => {
-            await reFetchData();
-          })
-          .on("receipt", async () => {
-            await reFetchData();
-          });
-      } catch (err) {
-        console.log(err.message);
-      }
-    } else if (contract === "profitShare") {
+    debugger;
+
+    if (contract === "profitShare" || contract === "factory") {
       try {
         await ctrct.methods
           .deposit(param1)
@@ -207,18 +218,18 @@ const ActionModal = ({
   };
 
   const handleWithdraw = async () => {
-    const ctrct = contractInstance[contract];
+    const ctrct =
+      contract === "factory"
+        ? contractInstance["proxy"]
+        : contractInstance[contract];
     const param1 =
       contract === "farm" && pair !== "LUSD"
         ? pool[pair]
         : toWei(web3DataProvider, value.toString());
 
-    const param2 =
-      contract === "farm" && pair !== "LUSD"
-        ? toWei(web3DataProvider, value.toString())
-        : "hint ";
+    const param2 = toWei(web3DataProvider, value.toString());
 
-    if (contract === "profitShare") {
+    if (contract === "profitShare" || contract === "factory") {
       try {
         await ctrct.methods
           .withdraw(param1)
@@ -265,6 +276,9 @@ const ActionModal = ({
     allowed =
       parseFloat(balance) < parseFloat(allowance) &&
       parseFloat(gSTRING) < parseFloat(gSTRINGAllowance);
+  } else if (pair === "LUSD") {
+    allowed = proxy ? parseFloat(balance) < parseFloat(allowance) : false;
+    debugger;
   } else {
     allowed = parseFloat(balance) < parseFloat(allowance);
   }
@@ -374,6 +388,14 @@ const ActionModal = ({
               </CollapseButton>
             </div>
           </ModalBody>
+        ) : pair === "LUSD" && !proxy ? (
+          <ModalBody
+            borderTop="2px solid black"
+            padding="25px 24px"
+            textAlign="center"
+          >
+            <span>You must deploy a proxy on first time depositing</span>
+          </ModalBody>
         ) : (
           <ModalBody
             borderTop="2px solid black"
@@ -393,6 +415,14 @@ const ActionModal = ({
                   style={{ marginRight: "10px" }}
                 >
                   {type}
+                </ActionButton>
+              ) : pair === "LUSD" && !proxy ? (
+                <ActionButton
+                  onClick={handleDeployProxy}
+                  action={true}
+                  style={{ marginRight: "10px" }}
+                >
+                  Deploy
                 </ActionButton>
               ) : (
                 <ActionButton

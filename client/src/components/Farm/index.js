@@ -18,7 +18,7 @@ const Farm = () => {
       <Title>Liquity Pools</Title>
       <Pool
         conditionalMargin
-        contract={"farm"}
+        contract={"factory"}
         from={"Stability"}
         src={""}
         currency1={"LUSD"}
@@ -26,7 +26,7 @@ const Farm = () => {
         currencyEarned={["STRING", "ETH", "LQTY"]}
         collapsed={collapsed.LUSD}
         LPTokensInWallet={userBalances.LUSD}
-        LPTokensAllowance={userAllowances.farm.LUSD}
+        LPTokensAllowance={userAllowances.proxy.LUSD}
         LPTokensStaked={farmBalances.userStaked.LUSD}
         pendingTokens={farmBalances.userPending.LUSD}
         stringTokensAllowance={userAllowances.farm.STRING}
