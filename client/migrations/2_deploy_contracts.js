@@ -9,9 +9,10 @@ const LQTYToken = artifacts.require("LQTYToken");
 const StringStaking = artifacts.require("StringStaking");
 const LUSDToken = artifacts.require("LUSDToken.sol");
 const StabilityFactory = artifacts.require("StabilityFactory.sol");
+const { addresses } = require("../src/utils/handleContracts/addresses");
 
 module.exports = async function (deployer, network, accounts) {
-  const deploy = "ganache";
+  const deploy = "kovan";
 
   // HARP
   // 2nd Ganache
@@ -19,25 +20,17 @@ module.exports = async function (deployer, network, accounts) {
   const HarpDAOAddress = "0x0cbde7d648C1F51253d53ca1dB099030Fc35490a";
   const owner = accounts[1];
 
-  const addr = {
-    kovan: {
-      stabilityPool: { address: "0xAE5D0922152CC75E220ECEA0A8758c5FE545F9B0" },
-      lqtyToken: { address: "0x386eBE55a61123Ff0f3fd10dA56DEb4E0Cf36590" },
-      lusdToken: { address: "0x9CCeF31d8375ec9d72fF376e50869152770E5c59" },
-    },
-  };
-
   await deployer.deploy(LUSDToken, accounts[0], accounts[1]);
   await deployer.deploy(LQTYToken, accounts[0], accounts[1]);
 
   let lusdToken, lqtyToken, stabilityPool;
 
   if (deploy === "kovan") {
-    lusdToken = addr.kovan.lusdToken;
-    lqtyToken = addr.kovan.lqtyToken;
-    stabilityPool = addr.kovan.stabilityPool;
+    lusdToken = addresses.kovan.lusdToken;
+    lqtyToken = addresses.kovan.lqtyToken;
+    stabilityPool = addresses.kovan.stabilityPool;
   } else if (deploy === "ganache") {
-    stabilityPool = addr.kovan.stabilityPool;
+    stabilityPool = addresses.kovan.stabilityPool;
     lusdToken = await LUSDToken.deployed();
     lqtyToken = await LQTYToken.deployed();
   }

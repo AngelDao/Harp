@@ -19,8 +19,7 @@ import CredentialsContext from "../../context/credentialsContext";
 import { truncateAddress } from "../../utils/truncateString";
 
 const Home = () => {
-  const { isConnected, address } = useContext(CredentialsContext);
-  const [loading, setLoading] = useState(false);
+  const { isConnected, address, loading } = useContext(CredentialsContext);
 
   const connectionStatus = isConnected ? (
     <ConnectionContainer>

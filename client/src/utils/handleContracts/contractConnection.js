@@ -8,6 +8,8 @@ import LUSDToken from "../../abis/LUSDToken.json";
 import StakingPool from "../../abis/StringStaking.json";
 import StabilityFactory from "../../abis/StabilityFactory.json";
 import StabilityProxy from "../../abis/StabilityProxy.json";
+import KovanLUSDToken from "../../abis/KovanLUSDToken.json";
+import KovanLQTYToken from "../../abis/KovanLQTYToken.json";
 import { fromWei, toDecimal } from "../truncateString";
 import { addresses } from "./addresses";
 
@@ -33,7 +35,7 @@ export const fetchLUSDToken = async (networkId, web3, address) => {
   if (LUSDTokenNetwork) {
     const lusdToken = new web3.eth.Contract(
       LUSDToken.abi,
-      LUSDTokenNetwork.address
+      networkId === 41 ? addresses.kovan.lusdToken : LUSDTokenNetwork.address
     );
     const LUSD = toDecimal(
       fromWei(web3, await lusdToken.methods.balanceOf(address).call())
@@ -48,7 +50,7 @@ export const fetchLQTYToken = async (networkId, web3, address) => {
   if (LQTYTokenNetwork) {
     const lqtyToken = new web3.eth.Contract(
       LQTYToken.abi,
-      LQTYTokenNetwork.address
+      networkId === 41 ? addresses.kovan.lqtyToken : LQTYTokenNetwork.address
     );
     const LQTY = toDecimal(
       fromWei(web3, await lqtyToken.methods.balanceOf(address).call())

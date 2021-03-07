@@ -38,6 +38,7 @@ function App() {
   const [factoryBalances, setFactoryBalances] = useState({});
   const [contracts, setContracts] = useState({});
   const [prices, setPrices] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleOpenConnectModal = () => {
     setConnectModalVisible(false);
@@ -154,7 +155,8 @@ function App() {
       handleOpenConnectModal,
       address,
       connectModalVisible,
-      handleAccountchange
+      handleAccountchange,
+      setLoading
     );
 
     if (res) {
@@ -180,6 +182,7 @@ function App() {
       if (address && web3DataProvider) {
         await handleContractConnect();
         await handlePricing();
+        setLoading(false);
       }
     })();
   }, [address]);
@@ -215,6 +218,7 @@ function App() {
     contracts,
     reFetchData,
     prices,
+    loading,
   };
 
   return (

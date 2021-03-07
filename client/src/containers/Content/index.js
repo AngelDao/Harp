@@ -7,9 +7,9 @@ import Farm from "../../components/Farm";
 import FAQ from "../../components/FAQ";
 import Stake from "../../components/Stake";
 
-const Content = ({ location, loading }) => {
-  const { isConnected } = useContext(CredentialsContext);
-
+const Content = ({ location }) => {
+  const { isConnected, loading } = useContext(CredentialsContext);
+  // loading;
   if (loading) {
     return <Loader />;
   }

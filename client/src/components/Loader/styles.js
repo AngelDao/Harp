@@ -17,9 +17,13 @@ export const StyledText = styled.textarea`
   white-space: normal;
   resize: none;
   text-align: justify;
-  background-color: ${MasterStyles.background.app};
+  background: transparent;
+  // color: transparent;
   outline: none;
   border: none;
+  rows: 6;
+  cols: 25;
+  font-family: monospace !important;
   // -moz-text-align-last: center;
   // text-align-last: center;
 `;

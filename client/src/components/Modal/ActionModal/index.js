@@ -152,8 +152,6 @@ const ActionModal = ({
 
     let ctrct;
 
-    debugger;
-
     if (type === "Withdraw" && contract === "profitShare") {
       ctrct = token["gSTRING"];
     } else {
@@ -183,8 +181,6 @@ const ActionModal = ({
         : toWei(web3DataProvider, value.toString());
 
     const param2 = toWei(web3DataProvider, value.toString());
-
-    debugger;
 
     if (contract === "profitShare" || contract === "factory") {
       try {
@@ -278,7 +274,6 @@ const ActionModal = ({
       parseFloat(gSTRING) < parseFloat(gSTRINGAllowance);
   } else if (pair === "LUSD") {
     allowed = proxy ? parseFloat(balance) < parseFloat(allowance) : false;
-    debugger;
   } else {
     allowed = parseFloat(balance) < parseFloat(allowance);
   }

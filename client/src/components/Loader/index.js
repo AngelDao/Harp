@@ -12,6 +12,7 @@ import { rand } from "../../utils/randomNumbers";
 const Loader = () => {
   const [currentSpin, setSpin] = useState("");
   const [loaderStyle, setLoaderStyle] = useState(null);
+  const [animationSelection, setSelection] = useState(null);
   //   /\O    |    _O    |      O
   //   /\/   |   //|_   |     /_
   //  /\     |    |     |     |\
@@ -20,12 +21,16 @@ const Loader = () => {
 
   const handleLoading = () => {
     var spins = [
-      { animation: money, style: { w: "440px", h: "340px", fs: "20px" } },
-      { animation: boomerang, style: { w: "275px", h: "165px", fs: "25px" } },
+      { animation: money, style: { w: "440px", h: "440px", fs: "20px" } },
+      { animation: boomerang, style: { w: "285px", h: "190px", fs: "25px" } },
     ];
 
-    let spin = spins[rand(0, spins.length - 1)];
+    const num = rand(0, spins.length - 1);
+
+    const spin = spins[num];
     setLoaderStyle(spin.style);
+    setSelection(num);
+
     let i = 0;
 
     setInterval(function () {
@@ -51,7 +56,11 @@ const Loader = () => {
           fs={loaderStyle && loaderStyle.fs}
         ></StyledText>
       </LoadingContainer>
-      <LoadingText>
+      <LoadingText
+        style={{
+          marginTop: animationSelection === 1 ? "-95px" : "20px",
+        }}
+      >
         <i>LOADING</i>
       </LoadingText>
     </ComponentContainer>

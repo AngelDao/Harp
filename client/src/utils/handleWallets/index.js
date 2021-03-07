@@ -7,12 +7,13 @@ export const manualConnect = async (
   handleClose,
   address,
   visible,
-  handleAccountchange
+  handleAccountchange,
+  setLoading
 ) => {
   if (!address && !visible) {
     let res;
     try {
-      res = await login(handleClose, handleAccountchange);
+      res = await login(handleClose, handleAccountchange, setLoading);
     } catch (err) {
       console.log(err);
     }
