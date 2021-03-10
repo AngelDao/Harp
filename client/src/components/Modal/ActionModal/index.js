@@ -268,10 +268,15 @@ const ActionModal = ({
 
   if (pair === "STRING") {
     const { gSTRING } = userBalances;
+    debugger;
 
-    allowed =
-      parseFloat(balance) < parseFloat(allowance) &&
-      parseFloat(gSTRING) < parseFloat(gSTRINGAllowance);
+    if (type === "Deposit") {
+      allowed = parseFloat(balance) < parseFloat(allowance);
+    } else if (type === "Withdraw") {
+      allowed =
+        parseFloat(balance) < parseFloat(allowance) &&
+        parseFloat(gSTRING) < parseFloat(gSTRINGAllowance);
+    }
   } else if (pair === "LUSD") {
     allowed = proxy ? parseFloat(balance) < parseFloat(allowance) : false;
   } else {
