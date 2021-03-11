@@ -9,7 +9,7 @@ import {
 import MasterStyles from "../../utils/masterStyles";
 import { DescContainer, Title, SubTitle, ActionButton } from "./styles";
 
-const Borrow = () => {
+const Redeem = () => {
   const [memTrove, setTrove] = useState({
     collat: 0,
     debt: 0,
@@ -43,7 +43,7 @@ const Borrow = () => {
     <div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div style={{ width: "375px" }}>
-          <Title>Add To Trove</Title>
+          <Title>Redeem From Trove</Title>
           <DescContainer>
             <SubTitle>Borrow</SubTitle>
             <NumberInput
@@ -141,7 +141,7 @@ const Borrow = () => {
               justifyContent: "space-around",
             }}
           >
-            <ActionButton action>Add</ActionButton>
+            <ActionButton action>Redeem</ActionButton>
             <ActionButton action>Clear</ActionButton>
           </div>
         </div>
@@ -233,10 +233,8 @@ const Borrow = () => {
           </DescContainer>
         </div>
       </div>
-      <Title>All Troves</Title>
-      <DescContainer></DescContainer>
     </div>
   );
 };
 
-export default Borrow;
+export default Redeem;

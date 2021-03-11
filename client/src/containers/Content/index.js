@@ -7,6 +7,7 @@ import Farm from "../../components/Farm";
 import FAQ from "../../components/FAQ";
 import Stake from "../../components/Stake";
 import Borrow from "../../components/Borrow";
+import Redeem from "../../components/Redeem";
 
 const Content = ({ location }) => {
   const { isConnected, loading } = useContext(CredentialsContext);
@@ -23,7 +24,7 @@ const Content = ({ location }) => {
     <div>
       <Switch location={location}>
         <Route exact path="/borrow" component={Borrow} />
-        <Route exact path="/redeem" />
+        <Route exact path="/redeem" component={Redeem} />
         <Route exact path="/stake" component={Stake} />
         <Route exact path="/farm" component={Farm} />
         <Route exact path="/faq" component={FAQ} />
