@@ -39,6 +39,8 @@ const Borrow = () => {
     }
   };
 
+  const test = "";
+
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
