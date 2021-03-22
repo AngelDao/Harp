@@ -1,3 +1,3 @@
 # Harp
 
-**Decentralized Liquity Frontend with shared profit sharing**
+**Decentralized Liquity Frontend with shared profits and community governance**
