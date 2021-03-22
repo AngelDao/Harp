@@ -13,7 +13,7 @@ const Content = ({ location }) => {
   const { isConnected, loading } = useContext(CredentialsContext);
   // loading;
   if (loading) {
-    return <Loader />;
+    return <Loader status={"LOADING"} />;
   }
 
   if (!isConnected) {

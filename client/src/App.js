@@ -39,6 +39,7 @@ function App() {
   const [contracts, setContracts] = useState({});
   const [prices, setPrices] = useState({});
   const [loading, setLoading] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const handleOpenConnectModal = () => {
     setConnectModalVisible(false);
@@ -219,6 +220,8 @@ function App() {
     reFetchData,
     prices,
     loading,
+    sending,
+    setSending,
   };
 
   return (

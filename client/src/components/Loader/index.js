@@ -8,8 +8,9 @@ import {
 import { boomerang } from "./animations/boomerang";
 import { money } from "./animations/money";
 import { rand } from "../../utils/randomNumbers";
+import MasterStyles from "../../utils/masterStyles";
 
-const Loader = () => {
+const Loader = ({ status }) => {
   const [currentSpin, setSpin] = useState("");
   const [loaderStyle, setLoaderStyle] = useState(null);
   const [animationSelection, setSelection] = useState(null);
@@ -20,14 +21,20 @@ const Loader = () => {
   // LOL  LOL  |   LLOL   |  LOLLOL
 
   const handleLoading = () => {
-    var spins = [
-      { animation: money, style: { w: "440px", h: "440px", fs: "20px" } },
-      { animation: boomerang, style: { w: "285px", h: "190px", fs: "25px" } },
-    ];
+    var spins = {
+      LOADING: {
+        animation: money,
+        style: { w: "440px", h: "440px", fs: "20px" },
+      },
+      SENDING: {
+        animation: boomerang,
+        style: { w: "235px", h: "150px", fs: "18px" },
+      },
+    };
 
     const num = rand(0, spins.length - 1);
 
-    const spin = spins[num];
+    const spin = spins[status];
     setLoaderStyle(spin.style);
     setSelection(num);
 
@@ -47,8 +54,8 @@ const Loader = () => {
   });
 
   return (
-    <ComponentContainer>
-      <LoadingContainer>
+    <ComponentContainer style={{ marginTop: status === "SENDING" && "0px" }}>
+      <LoadingContainer status={status}>
         <StyledText
           value={currentSpin}
           w={loaderStyle && loaderStyle.w}
@@ -57,11 +64,12 @@ const Loader = () => {
         ></StyledText>
       </LoadingContainer>
       <LoadingText
+        status={status}
         style={{
-          marginTop: animationSelection === 1 ? "-95px" : "20px",
+          marginTop: status === "SENDING" ? "-15px" : "20px",
         }}
       >
-        <i>LOADING</i>
+        <i>{status}</i>
       </LoadingText>
     </ComponentContainer>
   );

@@ -30,6 +30,8 @@ import MasterStyles from "../../../utils/masterStyles";
 import { toWei, fromWei, toDecimal } from "../../../utils/truncateString";
 import CredentialsContext from "../../../context/credentialsContext";
 import { Pair } from "../../Farm/Pool/styles";
+import Loader from "../../Loader";
+import Body from "./body";
 
 const ActionModal = ({
   open,
@@ -60,6 +62,9 @@ const ActionModal = ({
     web3UserProvider,
     reFetchData,
     userBalances,
+    profitShareBalances,
+    sending,
+    setSending,
   } = useContext(CredentialsContext);
 
   const pool = {
@@ -161,10 +166,12 @@ const ActionModal = ({
     await ctrct.methods
       .approve(contractAddress, toWei(web3DataProvider, "10000000000000"))
       .send({ from: address })
+      .on("sent", async () => {})
       .on("transactionHash", async () => {
-        await reFetchData();
+        setSending(true);
       })
       .on("receipt", async () => {
+        setSending(false);
         await reFetchData();
       });
     close();
@@ -187,10 +194,14 @@ const ActionModal = ({
         await ctrct.methods
           .deposit(param1)
           .send({ from: address })
+          .once("sent", async () => {
+            // debugger;
+          })
           .on("transactionHash", async () => {
-            await reFetchData();
+            setSending(true);
           })
           .on("receipt", async () => {
+            setSending(false);
             await reFetchData();
           });
       } catch (err) {
@@ -201,10 +212,12 @@ const ActionModal = ({
         await ctrct.methods
           .deposit(param1, param2)
           .send({ from: address })
+          .once("sent", async () => {})
           .on("transactionHash", async () => {
-            await reFetchData();
+            setSending(true);
           })
           .on("receipt", async () => {
+            setSending(false);
             await reFetchData();
           });
       } catch (err) {
@@ -222,18 +235,22 @@ const ActionModal = ({
       contract === "farm" && pair !== "LUSD"
         ? pool[pair]
         : toWei(web3DataProvider, value.toString());
-
+    const temp = userBalances;
+    const temp2 = profitShareBalances;
     const param2 = toWei(web3DataProvider, value.toString());
+    debugger;
 
     if (contract === "profitShare" || contract === "factory") {
       try {
         await ctrct.methods
           .withdraw(param1)
           .send({ from: address })
+          .on("sent", async () => {})
           .on("transactionHash", async () => {
-            await reFetchData();
+            setSending(true);
           })
           .on("receipt", async () => {
+            setSending(false);
             await reFetchData();
           });
       } catch (err) {
@@ -243,10 +260,12 @@ const ActionModal = ({
       await ctrct.methods
         .withdraw(param1, param2)
         .send({ from: address })
+        .on("sent", async () => {})
         .on("transactionHash", async () => {
-          await reFetchData();
+          setSending(true);
         })
         .on("receipt", async () => {
+          setSending(false);
           await reFetchData();
         });
     }
@@ -268,7 +287,6 @@ const ActionModal = ({
 
   if (pair === "STRING") {
     const { gSTRING } = userBalances;
-    debugger;
 
     if (type === "Deposit") {
       allowed = parseFloat(balance) < parseFloat(allowance);
@@ -326,117 +344,64 @@ const ActionModal = ({
             />
           </CloseContainer>
         </HeaderContainer>
-        {allowed ? (
-          <ModalBody borderTop="2px solid black">
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: "10px",
-              }}
-            >
-              <span style={{ fontSize: MasterStyles.fontSize.small }}>
-                Amount to {type}
-              </span>
-              <span style={{ fontSize: MasterStyles.fontSize.small }}>
-                Available: {balance}
-              </span>
-            </div>
-            <NumberInput
-              onBlur={handleBlur}
-              onFocus={handleFocus}
-              defaultValue={0}
-              min={0}
-              precision={4}
-              step={0.2}
-              max={parseFloat(balance)}
-              value={value}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              onChange={(str, num) => handleChangeValue(num)}
-              outline="none"
-              backgroundColor={MasterStyles.background.secondaryMenu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.secondaryMenu}
-              />
-              <NumberInputStepper border="none">
-                <NumberIncrementStepper border="none" />
-                <NumberDecrementStepper border="none" />
-              </NumberInputStepper>
-            </NumberInput>
-            <div
-              style={{
-                display: "flex",
-                justifyContent:
-                  pair === "STRING" && type === "Withdraw"
-                    ? "space-between"
-                    : "flex-end",
-              }}
-            >
-              {pair === "STRING" && type === "Withdraw" && (
-                <GStringCap>gSTRING Cap: {gSTRING}</GStringCap>
-              )}
-              <CollapseButton onClick={handleSetMax}>
-                + Max {type}
-              </CollapseButton>
-            </div>
-          </ModalBody>
-        ) : pair === "LUSD" && !proxy ? (
+        {sending ? (
           <ModalBody
             borderTop="2px solid black"
             padding="25px 24px"
             textAlign="center"
           >
-            <span>You must deploy a proxy on first time depositing</span>
+            <Loader status={"SENDING"} />
           </ModalBody>
         ) : (
-          <ModalBody
-            borderTop="2px solid black"
-            padding="25px 24px"
-            textAlign="center"
-          >
-            <span>You must approve the farm in order to use it</span>
-          </ModalBody>
+          <Body
+            pair={pair}
+            handleBlur={handleBlur}
+            handleSetMax={handleSetMax}
+            allowed={allowed}
+            type={type}
+            balance={balance}
+            handleFocus={handleFocus}
+            value={value}
+            handleChangeValue={handleChangeValue}
+            gSTRING={gSTRING}
+            proxy={proxy}
+          />
         )}
+
         <ModalFooter paddingTop="0px">
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <ActionContainer>
-              {allowed ? (
-                <ActionButton
-                  onClick={handleAction}
-                  action={true}
-                  style={{ marginRight: "10px" }}
-                >
-                  {type}
+            {!sending && (
+              <ActionContainer>
+                {allowed ? (
+                  <ActionButton
+                    onClick={handleAction}
+                    action={true}
+                    style={{ marginRight: "10px" }}
+                  >
+                    {type}
+                  </ActionButton>
+                ) : pair === "LUSD" && !proxy ? (
+                  <ActionButton
+                    onClick={handleDeployProxy}
+                    action={true}
+                    style={{ marginRight: "10px" }}
+                  >
+                    Deploy
+                  </ActionButton>
+                ) : (
+                  <ActionButton
+                    onClick={handleApprove}
+                    action={true}
+                    style={{ marginRight: "10px" }}
+                  >
+                    Approve
+                  </ActionButton>
+                )}
+                <ActionButton action={true} onClick={handleClose}>
+                  Cancel
                 </ActionButton>
-              ) : pair === "LUSD" && !proxy ? (
-                <ActionButton
-                  onClick={handleDeployProxy}
-                  action={true}
-                  style={{ marginRight: "10px" }}
-                >
-                  Deploy
-                </ActionButton>
-              ) : (
-                <ActionButton
-                  onClick={handleApprove}
-                  action={true}
-                  style={{ marginRight: "10px" }}
-                >
-                  Approve
-                </ActionButton>
-              )}
-              <ActionButton action={true} onClick={handleClose}>
-                Cancel
-              </ActionButton>
-            </ActionContainer>
+              </ActionContainer>
+            )}
           </div>
         </ModalFooter>
       </ModalContent>

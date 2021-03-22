@@ -20,6 +20,10 @@ export const toDecimal = (n) => {
     return "0";
   }
 
+  if (temp.length <= 2) {
+    return "0";
+  }
+
   const end = temp.substr(temp.length - 6, 4);
   const diff = temp.substr(temp.length - 6, 6);
   const start = temp.replace(diff, "");

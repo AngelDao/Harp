@@ -3,11 +3,11 @@ import MasterStyles from "../../utils/masterStyles";
 
 export const LoadingContainer = styled.div`
   width: 100%;
-  height: 350px;
+  height: ${({ status }) => (status === "SENDING" ? "150px" : "350px")};
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: ${({ status }) => (status === "SENDING" ? "0px" : "20px")};
 `;
 
 export const StyledText = styled.textarea`
@@ -35,7 +35,10 @@ export const ComponentContainer = styled.div`
 `;
 
 export const LoadingText = styled.span`
-  font-size: ${MasterStyles.fontSize.veryLarge};
+  font-size: ${({ status }) =>
+    status === "SENDING"
+      ? MasterStyles.fontSize.large
+      : MasterStyles.fontSize.veryLarge};
   font-style: italic;
   text-align: center;
 `;

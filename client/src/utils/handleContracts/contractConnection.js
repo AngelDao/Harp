@@ -135,6 +135,9 @@ export const fetchProfitShare = async (
       fromWei(web3, await ps.methods.pendingString(address).call())
     );
 
+    // const ammount = (await ps.methods.userInfo(address).call()).amount;
+    // const trnced = fromWei(web3, ammount);
+    // debugger;
     const userSTRINGStaked = toDecimal(
       fromWei(web3, (await ps.methods.userInfo(address).call()).amount)
     );
