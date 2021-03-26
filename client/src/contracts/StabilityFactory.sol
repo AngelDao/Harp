@@ -23,6 +23,7 @@ contract StabilityFactory {
 
     // address public impli;
     address public frontEnd;
+    address public creator;
     mapping(address => UserProxy) public userProxys;
     mapping(address => bool) public registeredClone;
     uint256 public totalLUSD;
@@ -43,6 +44,10 @@ contract StabilityFactory {
         );
         _;
     }
+    modifier onlyCreator() {
+        require(msg.sender == creator, "only creator can call this method");
+        _;
+    }
 
     constructor(
         address _frontEnd,
@@ -58,6 +63,7 @@ contract StabilityFactory {
         lusdToken = _lusdToken;
         endBlock = block.number.add(2437500);
         stabilityPool = _stabilityPool;
+        creator = msg.sender;
     }
 
     function pendingString(address _user) external view returns (uint256) {

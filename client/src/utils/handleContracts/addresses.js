@@ -1,4 +1,4 @@
-export const addresses = {
+const addresses = {
   kovan: {
     ETHLPToken: "0x1554C6daFa1804a46049d334bD874D83eDc93A26",
     LUSDLPToken: "0x4A5a39c9daF69498bD98D1907Ce280C631830580",
@@ -20,10 +20,12 @@ export const addresses = {
     lqtyStaking: "0xdb456329498CBDbb3Fa63f9Bc2792088ce8b933A",
     priceFeed: "0x695D363cAE328b0fEb4ae9cCA0edb944Dbd3A8B7",
     sortedTroves: "0x185516227183022a5cCd77F9D7086072BDB80462",
-    stabilityPool: "0x36b36Ca96F72C6C7DA242d0fE5acB9B5cA502662",
+    stabilityPool: "0x5D0992f3F7Be325870bf0854392035f7CF35260B",
     gasPool: "0x0dDD62FDD127C82D18A238CE0a8a659C2e67e233",
-    lusdToken: "0xF4440e2cBC5D253DE6CAB01d7dC9E353B8eF7488",
-    lqtyToken: "0x15f3a2f77Ca25C134958160fDB11ADFe6E0C187E",
+    lusdToken: "0xc1a8a2b90b1f4eae4f46d3b9b31f3cd392dae377",
+    lqtyToken: "0xB2e3FE46688Dc9aC3a99983066d057E461cbD887",
     multiTroveGetter: "0xB46FbAd4a8C50CD54ebef1856658DC23e74DcBBE",
   },
 };
+
+module.exports = { addresses }

@@ -8,6 +8,7 @@ import "./StringToken.sol";
 // import "./ILQTYToken.sol";
 import "./Interfaces/ILQTYToken.sol";
 import "./gStringToken.sol";
+import "./Interfaces/IStabilityPool.sol";
 
 contract StringStaking is Ownable {
     using SafeMath for uint256;
@@ -46,6 +47,7 @@ contract StringStaking is Ownable {
     gStringToken public gstringToken;
     // Dev address.
     address public devaddr;
+    address public creator;
     // Block number when bonus SUSHI period ends.
     uint256 public endBlock;
     // SUSHI tokens created per block.
@@ -67,11 +69,17 @@ contract StringStaking is Ownable {
     event Withdraw(address indexed user, uint256 amount);
     event EmergencyWithdraw(address indexed user, uint256 amount);
 
+    modifier onlyCreator() {
+        require(msg.sender == creator, "only creator can call this method");
+        _;
+    }
+
     constructor(
         StringToken _string,
         uint256 _boostedBuffer,
         ILQTYToken _lqty,
-        gStringToken _gstringToken
+        gStringToken _gstringToken,
+        IStabilityPool _stabilityPool
     ) {
         stringToken = _string;
         lqtyToken = _lqty;
@@ -79,7 +87,8 @@ contract StringStaking is Ownable {
         endBlock = block.number.add(2437500);
         startBlock = block.number;
         postBoostedBlock = block.number.add(_boostedBuffer);
-
+        stabilityPool = _stabilityPool;
+        creator = msg.sender;
         pool = PoolInfo({
             lpToken: stringToken,
             lpTokenSupply: 0,
@@ -87,6 +96,10 @@ contract StringStaking is Ownable {
             accStringPerShare: 0,
             accLQTYPerShare: 0
         });
+    }
+
+    function registerIt(uint256 _kickBack) public onlyCreator {
+        stabilityPool.registerFrontEnd(_kickBack);
     }
 
     // Return reward multiplier over the given _from to _to block.

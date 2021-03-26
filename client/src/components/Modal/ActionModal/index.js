@@ -43,6 +43,9 @@ const ActionModal = ({
   contract,
   gSTRINGAllowance,
 }) => {
+
+  console.log(contract)
+
   const {
     contracts: {
       proxy,
@@ -138,9 +141,10 @@ const ActionModal = ({
       .createStabilityProxy()
       .send({ from: address })
       .on("transactionHash", async () => {
-        await reFetchData();
+        setSending(true);
       })
       .on("reciept", async () => {
+        setSending(true);
         await reFetchData();
       });
   };
@@ -149,7 +153,9 @@ const ActionModal = ({
     let contractAddress;
     if (contract === "farm") {
       contractAddress = farm._address;
-    } else if (contract === "factory") {
+    } else if (contract === "factory" && proxy) {
+      contractAddress = proxy._address
+    } else if (contract === "factory" && !proxy) {
       contractAddress = factory._address;
     } else if (contract === "profitShare") {
       contractAddress = profitShare._address;
@@ -166,7 +172,7 @@ const ActionModal = ({
     await ctrct.methods
       .approve(contractAddress, toWei(web3DataProvider, "10000000000000"))
       .send({ from: address })
-      .on("sent", async () => {})
+      .on("sent", async () => { })
       .on("transactionHash", async () => {
         setSending(true);
       })
@@ -212,7 +218,7 @@ const ActionModal = ({
         await ctrct.methods
           .deposit(param1, param2)
           .send({ from: address })
-          .once("sent", async () => {})
+          .once("sent", async () => { })
           .on("transactionHash", async () => {
             setSending(true);
           })
@@ -245,7 +251,7 @@ const ActionModal = ({
         await ctrct.methods
           .withdraw(param1)
           .send({ from: address })
-          .on("sent", async () => {})
+          .on("sent", async () => { })
           .on("transactionHash", async () => {
             setSending(true);
           })
@@ -260,7 +266,7 @@ const ActionModal = ({
       await ctrct.methods
         .withdraw(param1, param2)
         .send({ from: address })
-        .on("sent", async () => {})
+        .on("sent", async () => { })
         .on("transactionHash", async () => {
           setSending(true);
         })

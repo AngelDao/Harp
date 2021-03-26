@@ -13,6 +13,11 @@ const Farm = () => {
     CredentialsContext
   );
 
+  console.log(userAllowances)
+  console.log(userAllowances)
+  console.log(userAllowances)
+  console.log(userAllowances)
+
   return (
     <FarmContainer>
       <Title>Liquity Pools</Title>

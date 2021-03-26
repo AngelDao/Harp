@@ -26,6 +26,9 @@ module.exports = async function (deployer, network, accounts) {
   let lusdToken, lqtyToken, stabilityPool;
 
   if (deploy === "kovan") {
+    console.log(addresses)
+    console.log(addresses)
+    console.log(addresses)
     lusdToken = addresses.kovan.lusdToken;
     lqtyToken = addresses.kovan.lqtyToken;
     stabilityPool = addresses.kovan.stabilityPool;
@@ -70,7 +73,7 @@ module.exports = async function (deployer, network, accounts) {
     StringStaking,
     stringToken.address,
     100,
-    lqtyToken.address,
+    lqtyToken,
     gstringToken.address
   );
 
@@ -99,8 +102,8 @@ module.exports = async function (deployer, network, accounts) {
   await deployer.deploy(
     StabilityFactory,
     stringStaking.address,
-    lusdToken.address,
+    lusdToken,
     stringToken.address,
-    stabilityPool.address
+    stabilityPool
   );
 };

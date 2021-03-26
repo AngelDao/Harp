@@ -3,13 +3,11 @@ import Farm from "../../abis/LatestFarm.json";
 import TestETHLPToken from "../../abis/ETHLPToken.json";
 import TestLUSDLPToken from "../../abis/LUSDLPToken.json";
 import gStringToken from "../../abis/gStringToken.json";
-import LQTYToken from "../../abis/LQTYToken.json";
-import LUSDToken from "../../abis/LUSDToken.json";
+import LQTYToken from "../../abis/ILQTYToken.json";
+import LUSDToken from "../../abis/ILUSDToken.json";
 import StakingPool from "../../abis/StringStaking.json";
 import StabilityFactory from "../../abis/StabilityFactory.json";
 import StabilityProxy from "../../abis/StabilityProxy.json";
-import KovanLUSDToken from "../../abis/KovanLUSDToken.json";
-import KovanLQTYToken from "../../abis/KovanLQTYToken.json";
 import { fromWei, toDecimal } from "../truncateString";
 import { addresses } from "./addresses";
 
@@ -31,11 +29,20 @@ export const fetchgStringToken = async (networkId, web3, address) => {
 
 export const fetchLUSDToken = async (networkId, web3, address) => {
   const LUSDTokenNetwork = LUSDToken.networks[networkId];
-  //   ;
-  if (LUSDTokenNetwork) {
+  if (networkId === 42) {
     const lusdToken = new web3.eth.Contract(
       LUSDToken.abi,
-      networkId === 41 ? addresses.kovan.lusdToken : LUSDTokenNetwork.address
+      addresses.kovan.lusdToken
+    );
+    const LUSD = toDecimal(
+      fromWei(web3, await lusdToken.methods.balanceOf(address).call())
+    );
+    return [lusdToken, LUSD];
+  }
+  else if (LUSDTokenNetwork) {
+    const lusdToken = new web3.eth.Contract(
+      LUSDToken.abi,
+      LUSDTokenNetwork.address
     );
     const LUSD = toDecimal(
       fromWei(web3, await lusdToken.methods.balanceOf(address).call())
@@ -44,13 +51,23 @@ export const fetchLUSDToken = async (networkId, web3, address) => {
   }
 };
 
+
 export const fetchLQTYToken = async (networkId, web3, address) => {
   const LQTYTokenNetwork = LQTYToken.networks[networkId];
-  //   ;
-  if (LQTYTokenNetwork) {
+  if (networkId === 42) {
     const lqtyToken = new web3.eth.Contract(
       LQTYToken.abi,
-      networkId === 41 ? addresses.kovan.lqtyToken : LQTYTokenNetwork.address
+      addresses.kovan.lqtyToken
+    );
+    const LQTY = toDecimal(
+      fromWei(web3, await lqtyToken.methods.balanceOf(address).call())
+    );
+    return [lqtyToken, LQTY];
+  }
+  else if (LQTYTokenNetwork) {
+    const lqtyToken = new web3.eth.Contract(
+      LQTYToken.abi,
+      LQTYTokenNetwork.address
     );
     const LQTY = toDecimal(
       fromWei(web3, await lqtyToken.methods.balanceOf(address).call())
@@ -137,7 +154,6 @@ export const fetchProfitShare = async (
 
     // const ammount = (await ps.methods.userInfo(address).call()).amount;
     // const trnced = fromWei(web3, ammount);
-    // debugger;
     const userSTRINGStaked = toDecimal(
       fromWei(web3, (await ps.methods.userInfo(address).call()).amount)
     );
@@ -283,7 +299,7 @@ export const fetchStabilityFactory = async (
       allowanceLUSD = toDecimal(
         fromWei(
           web3,
-          await lusdToken.methods.allowance(address, factory._address).call()
+          await lusdToken.methods.allowance(address, userProxy._address).call()
         )
       );
     } else {
@@ -312,6 +328,7 @@ export const fetchStabilityFactory = async (
         LUSD: totalLUSD,
       },
     };
+    debugger
     return [factory, userProxy, proxyAllowances, fyBalances, proxyBalances];
   }
 };
