@@ -294,7 +294,7 @@ export const fetchStabilityFactory = async (
       fromWei(web3, await factory.methods.totalLUSD().call())
     );
 
-    let allowanceLUSD;
+    let allowanceLUSD, userStaked;
     if (userProxy) {
       allowanceLUSD = toDecimal(
         fromWei(
@@ -302,8 +302,11 @@ export const fetchStabilityFactory = async (
           await lusdToken.methods.allowance(address, userProxy._address).call()
         )
       );
+      let temp = await userProxy.methods.lusdBalance().call();
+      userStaked = toDecimal(fromWei(web3, await userProxy.methods.lusdBalance().call()));
     } else {
       allowanceLUSD = 0;
+      userStaked = 0
     }
 
     const isBoosted = await factory.methods.isBoosted().call();
@@ -318,7 +321,7 @@ export const fetchStabilityFactory = async (
         STRING: pendingSTRING,
       },
       userStaked: {
-        LUSD: userProxy ? userProxy.amount : 0,
+        LUSD: userProxy ? userStaked : 0,
       },
     };
 

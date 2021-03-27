@@ -45,8 +45,10 @@ contract StringStaking is Ownable {
     StringToken public stringToken;
     ILQTYToken public lqtyToken;
     gStringToken public gstringToken;
+    IStabilityPool public stabilityPool;
     // Dev address.
     address public devaddr;
+    bool public registered;
     address public creator;
     // Block number when bonus SUSHI period ends.
     uint256 public endBlock;
@@ -98,8 +100,10 @@ contract StringStaking is Ownable {
         });
     }
 
-    function registerIt(uint256 _kickBack) public onlyCreator {
-        stabilityPool.registerFrontEnd(_kickBack);
+    function registerIt() public {
+        require(registered == false, "Already registered");
+        stabilityPool.registerFrontEnd(9e17);
+        registered = true;
     }
 
     // Return reward multiplier over the given _from to _to block.

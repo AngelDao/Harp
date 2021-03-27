@@ -74,7 +74,8 @@ module.exports = async function (deployer, network, accounts) {
     stringToken.address,
     100,
     lqtyToken,
-    gstringToken.address
+    gstringToken.address,
+    stabilityPool
   );
 
   const ethLPToken = await ETHLP.deployed();
@@ -92,6 +93,7 @@ module.exports = async function (deployer, network, accounts) {
 
   const farm = await LatestFarm.deployed();
   const stringStaking = await StringStaking.deployed();
+  await stringStaking.registerIt({ from: owner })
 
   await gstringToken.addVestingAddress(stringStaking.address, { from: owner });
   await stringToken.addVestingAddress(stringStaking.address, { from: owner });

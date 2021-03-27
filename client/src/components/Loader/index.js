@@ -24,7 +24,7 @@ const Loader = ({ status }) => {
     var spins = {
       LOADING: {
         animation: money,
-        style: { w: "440px", h: "440px", fs: "20px" },
+        style: { w: "490px", h: "440px", fs: "20px" },
       },
       SENDING: {
         animation: boomerang,

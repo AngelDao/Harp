@@ -39,6 +39,7 @@ contract StabilityProxy {
     function deposit(uint256 _amount) public onlyOwner {
         _updateBalance();
         lusdToken.transferFrom(msg.sender, address(this), _amount);
+        stabilityFactory.addLUSD(_amount);
         lusdBalance = lusdBalance.add(_amount);
         stabilityPool.provideToSP(_amount, frontEnd);
         stabilityFactory.updateProxyBalance(lusdBalance);

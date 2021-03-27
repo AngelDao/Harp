@@ -144,7 +144,7 @@ const ActionModal = ({
         setSending(true);
       })
       .on("reciept", async () => {
-        setSending(true);
+        setSending(false);
         await reFetchData();
       });
   };

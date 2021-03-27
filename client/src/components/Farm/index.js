@@ -9,14 +9,9 @@ const Farm = () => {
     stringLUSD: true,
     LUSD: true,
   });
-  const { userBalances, farmBalances, userAllowances } = useContext(
+  const { userBalances, farmBalances, userAllowances, proxyBalances } = useContext(
     CredentialsContext
   );
-
-  console.log(userAllowances)
-  console.log(userAllowances)
-  console.log(userAllowances)
-  console.log(userAllowances)
 
   return (
     <FarmContainer>
@@ -32,8 +27,8 @@ const Farm = () => {
         collapsed={collapsed.LUSD}
         LPTokensInWallet={userBalances.LUSD}
         LPTokensAllowance={userAllowances.proxy.LUSD}
-        LPTokensStaked={farmBalances.userStaked.LUSD}
-        pendingTokens={farmBalances.userPending.LUSD}
+        LPTokensStaked={proxyBalances.userStaked.LUSD}
+        pendingTokens={proxyBalances.userPending.LUSD}
         stringTokensAllowance={userAllowances.farm.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, LUSD: true });
