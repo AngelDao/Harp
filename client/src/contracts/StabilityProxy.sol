@@ -40,7 +40,10 @@ contract StabilityProxy {
     }
 
     function deposit(uint256 _amount) public onlyOwner {
-        _updateBalance();
+        stabilityFactory.update();
+        if (lusdBalance > 0) {
+            _updateBalance();
+        }
         lusdToken.transferFrom(msg.sender, address(this), _amount);
         stabilityFactory.addLUSD(_amount);
         lusdBalance = lusdBalance.add(_amount);
@@ -50,11 +53,12 @@ contract StabilityProxy {
     }
 
     function withdraw(uint256 _amount) public onlyOwner {
-        _updateBalance();
         require(
             _amount <= lusdBalance,
             "Withdraw is for more than balance amount"
         );
+        stabilityFactory.update();
+        _updateBalance();
         stabilityPool.withdrawFromSP(_amount);
         _safeLUSDTransfer(owner, _amount);
         stabilityFactory.updateProxyBalance(lusdBalance, owner);
@@ -62,6 +66,7 @@ contract StabilityProxy {
     }
 
     function claim() public onlyOwner {
+        stabilityFactory.update();
         _updateBalance();
         stabilityPool.withdrawFromSP(0);
         _safeETHTransferAll(owner);

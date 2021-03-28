@@ -103,7 +103,6 @@ contract StabilityFactory {
         public
         isRegClone
     {
-        claim(_owner);
         UserProxy storage proxy = userProxys[_owner];
         proxy.amount = _amount;
         proxy.rewardDebt = proxy.amount.mul(pool.accStringPerShare).div(1e12);
@@ -146,12 +145,10 @@ contract StabilityFactory {
 
     function addLUSD(uint256 _newAddition) public isRegClone {
         totalLUSD = totalLUSD.add(_newAddition);
-        update();
     }
 
     function subtractLUSD(uint256 _newSubtract) public isRegClone {
         totalLUSD = totalLUSD.sub(_newSubtract);
-        update();
     }
 
     function createStabilityProxy() public {
