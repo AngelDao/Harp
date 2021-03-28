@@ -103,7 +103,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"domainSeparator\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"nonces\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"permit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"permitTypeHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"version\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Interface of the ERC2612 standard as defined in the EIP. Adds the {permit} method, which can be used to change one's {IERC20-allowance} without having to send a transaction, by signing a message. This allows users to spend tokens without having to hold Ether. See https://eips.ethereum.org/EIPS/eip-2612. Code adapted from https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2237/\",\"kind\":\"dev\",\"methods\":{\"nonces(address)\":{\"details\":\"Returns the current ERC2612 nonce for `owner`. This value must be included whenever a signature is generated for {permit}. Every successful call to {permit} increases `owner`'s nonce by one. This prevents a signature from being used multiple times. `owner` can limit the time a Permit is valid for by setting `deadline` to a value in the near future. The deadline argument can be set to uint(-1) to create Permits that effectively never expire.\"},\"permit(address,address,uint256,uint256,uint8,bytes32,bytes32)\":{\"details\":\"Sets `amount` as the allowance of `spender` over `owner`'s tokens, given `owner`'s signed approval. IMPORTANT: The same issues {IERC20-approve} has related to transaction ordering also apply here. Emits an {Approval} event. Requirements: - `owner` cannot be the zero address. - `spender` cannot be the zero address. - `deadline` must be a timestamp in the future. - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner` over the EIP712-formatted function arguments. - the signature must use ``owner``'s current nonce (see {nonces}). For more information on the signature format, see the https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP section].\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/danie/code/harp/client/src/contracts/Dependencies/IERC2612.sol\":\"IERC2612\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/danie/code/harp/client/src/contracts/Dependencies/IERC2612.sol\":{\"keccak256\":\"0x36050dbfa4566fb86c551677cb0578f45a70984a47504a561d53f44b8376b532\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ef1ea362c5c108c8d6053884217a4007065c25bf4834aba9e09cdbe636a0fee8\",\"dweb:/ipfs/QmYvDYB6SZ9K6eiWFydf76A3WpdvJUrn4sTtgB8FcYEWLC\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"domainSeparator\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"nonces\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"permit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"permitTypeHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"version\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Interface of the ERC2612 standard as defined in the EIP. Adds the {permit} method, which can be used to change one's {IERC20-allowance} without having to send a transaction, by signing a message. This allows users to spend tokens without having to hold Ether. See https://eips.ethereum.org/EIPS/eip-2612. Code adapted from https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2237/\",\"kind\":\"dev\",\"methods\":{\"nonces(address)\":{\"details\":\"Returns the current ERC2612 nonce for `owner`. This value must be included whenever a signature is generated for {permit}. Every successful call to {permit} increases `owner`'s nonce by one. This prevents a signature from being used multiple times. `owner` can limit the time a Permit is valid for by setting `deadline` to a value in the near future. The deadline argument can be set to uint(-1) to create Permits that effectively never expire.\"},\"permit(address,address,uint256,uint256,uint8,bytes32,bytes32)\":{\"details\":\"Sets `amount` as the allowance of `spender` over `owner`'s tokens, given `owner`'s signed approval. IMPORTANT: The same issues {IERC20-approve} has related to transaction ordering also apply here. Emits an {Approval} event. Requirements: - `owner` cannot be the zero address. - `spender` cannot be the zero address. - `deadline` must be a timestamp in the future. - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner` over the EIP712-formatted function arguments. - the signature must use ``owner``'s current nonce (see {nonces}). For more information on the signature format, see the https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP section].\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/dannywarrick/code/harp/client/src/contracts/Dependencies/IERC2612.sol\":\"IERC2612\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/dannywarrick/code/harp/client/src/contracts/Dependencies/IERC2612.sol\":{\"keccak256\":\"0x2aa2616073cbfc8cd4c5030d28634e21f9166e080321117e5ad8792577ca80db\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://97dcca2d9e87f72a0a7541c3957293d0c4fd061b4124ede86e04b6271bac2cd1\",\"dweb:/ipfs/QmZTnVbCsHzwG4XGBY13tSaRKFYDnxrq1MXYoVWHSLNscg\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -111,10 +111,10 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\n/**\r\n * @dev Interface of the ERC2612 standard as defined in the EIP.\r\n *\r\n * Adds the {permit} method, which can be used to change one's\r\n * {IERC20-allowance} without having to send a transaction, by signing a\r\n * message. This allows users to spend tokens without having to hold Ether.\r\n *\r\n * See https://eips.ethereum.org/EIPS/eip-2612.\r\n *\r\n * Code adapted from https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2237/\r\n */\r\ninterface IERC2612 {\r\n    /**\r\n     * @dev Sets `amount` as the allowance of `spender` over `owner`'s tokens,\r\n     * given `owner`'s signed approval.\r\n     *\r\n     * IMPORTANT: The same issues {IERC20-approve} has related to transaction\r\n     * ordering also apply here.\r\n     *\r\n     * Emits an {Approval} event.\r\n     *\r\n     * Requirements:\r\n     *\r\n     * - `owner` cannot be the zero address.\r\n     * - `spender` cannot be the zero address.\r\n     * - `deadline` must be a timestamp in the future.\r\n     * - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner`\r\n     * over the EIP712-formatted function arguments.\r\n     * - the signature must use ``owner``'s current nonce (see {nonces}).\r\n     *\r\n     * For more information on the signature format, see the\r\n     * https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP\r\n     * section].\r\n     */\r\n    function permit(\r\n        address owner,\r\n        address spender,\r\n        uint256 amount,\r\n        uint256 deadline,\r\n        uint8 v,\r\n        bytes32 r,\r\n        bytes32 s\r\n    ) external;\r\n\r\n    /**\r\n     * @dev Returns the current ERC2612 nonce for `owner`. This value must be\r\n     * included whenever a signature is generated for {permit}.\r\n     *\r\n     * Every successful call to {permit} increases `owner`'s nonce by one. This\r\n     * prevents a signature from being used multiple times.\r\n     *\r\n     * `owner` can limit the time a Permit is valid for by setting `deadline` to\r\n     * a value in the near future. The deadline argument can be set to uint(-1) to\r\n     * create Permits that effectively never expire.\r\n     */\r\n    function nonces(address owner) external view returns (uint256);\r\n\r\n    function version() external view returns (string memory);\r\n\r\n    function permitTypeHash() external view returns (bytes32);\r\n\r\n    function domainSeparator() external view returns (bytes32);\r\n}\r\n",
-  "sourcePath": "C:\\Users\\danie\\code\\harp\\client\\src\\contracts\\Dependencies\\IERC2612.sol",
+  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity >=0.6.0 <0.8.0;\n\n/**\n * @dev Interface of the ERC2612 standard as defined in the EIP.\n *\n * Adds the {permit} method, which can be used to change one's\n * {IERC20-allowance} without having to send a transaction, by signing a\n * message. This allows users to spend tokens without having to hold Ether.\n *\n * See https://eips.ethereum.org/EIPS/eip-2612.\n *\n * Code adapted from https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2237/\n */\ninterface IERC2612 {\n    /**\n     * @dev Sets `amount` as the allowance of `spender` over `owner`'s tokens,\n     * given `owner`'s signed approval.\n     *\n     * IMPORTANT: The same issues {IERC20-approve} has related to transaction\n     * ordering also apply here.\n     *\n     * Emits an {Approval} event.\n     *\n     * Requirements:\n     *\n     * - `owner` cannot be the zero address.\n     * - `spender` cannot be the zero address.\n     * - `deadline` must be a timestamp in the future.\n     * - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner`\n     * over the EIP712-formatted function arguments.\n     * - the signature must use ``owner``'s current nonce (see {nonces}).\n     *\n     * For more information on the signature format, see the\n     * https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP\n     * section].\n     */\n    function permit(\n        address owner,\n        address spender,\n        uint256 amount,\n        uint256 deadline,\n        uint8 v,\n        bytes32 r,\n        bytes32 s\n    ) external;\n\n    /**\n     * @dev Returns the current ERC2612 nonce for `owner`. This value must be\n     * included whenever a signature is generated for {permit}.\n     *\n     * Every successful call to {permit} increases `owner`'s nonce by one. This\n     * prevents a signature from being used multiple times.\n     *\n     * `owner` can limit the time a Permit is valid for by setting `deadline` to\n     * a value in the near future. The deadline argument can be set to uint(-1) to\n     * create Permits that effectively never expire.\n     */\n    function nonces(address owner) external view returns (uint256);\n\n    function version() external view returns (string memory);\n\n    function permitTypeHash() external view returns (bytes32);\n\n    function domainSeparator() external view returns (bytes32);\n}\n",
+  "sourcePath": "/Users/dannywarrick/code/harp/client/src/contracts/Dependencies/IERC2612.sol",
   "ast": {
-    "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Dependencies/IERC2612.sol",
+    "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/Dependencies/IERC2612.sol",
     "exportedSymbols": {
       "IERC2612": [
         127
@@ -136,7 +136,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "35:31:3"
+        "src": "33:31:3"
       },
       {
         "abstract": false,
@@ -146,7 +146,7 @@
         "documentation": {
           "id": 85,
           "nodeType": "StructuredDocumentation",
-          "src": "70:438:3",
+          "src": "66:428:3",
           "text": " @dev Interface of the ERC2612 standard as defined in the EIP.\n Adds the {permit} method, which can be used to change one's\n {IERC20-allowance} without having to send a transaction, by signing a\n message. This allows users to spend tokens without having to hold Ether.\n See https://eips.ethereum.org/EIPS/eip-2612.\n Code adapted from https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2237/"
         },
         "fullyImplemented": false,
@@ -161,7 +161,7 @@
             "documentation": {
               "id": 86,
               "nodeType": "StructuredDocumentation",
-              "src": "536:855:3",
+              "src": "520:834:3",
               "text": " @dev Sets `amount` as the allowance of `spender` over `owner`'s tokens,\n given `owner`'s signed approval.\n IMPORTANT: The same issues {IERC20-approve} has related to transaction\n ordering also apply here.\n Emits an {Approval} event.\n Requirements:\n - `owner` cannot be the zero address.\n - `spender` cannot be the zero address.\n - `deadline` must be a timestamp in the future.\n - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner`\n over the EIP712-formatted function arguments.\n - the signature must use ``owner``'s current nonce (see {nonces}).\n For more information on the signature format, see the\n https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP\n section]."
             },
             "functionSelector": "d505accf",
@@ -182,7 +182,7 @@
                   "name": "owner",
                   "nodeType": "VariableDeclaration",
                   "scope": 103,
-                  "src": "1423:13:3",
+                  "src": "1384:13:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -193,7 +193,7 @@
                     "id": 87,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1423:7:3",
+                    "src": "1384:7:3",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -209,7 +209,7 @@
                   "name": "spender",
                   "nodeType": "VariableDeclaration",
                   "scope": 103,
-                  "src": "1447:15:3",
+                  "src": "1407:15:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -220,7 +220,7 @@
                     "id": 89,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1447:7:3",
+                    "src": "1407:7:3",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -236,7 +236,7 @@
                   "name": "amount",
                   "nodeType": "VariableDeclaration",
                   "scope": 103,
-                  "src": "1473:14:3",
+                  "src": "1432:14:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -247,7 +247,7 @@
                     "id": 91,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1473:7:3",
+                    "src": "1432:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -262,7 +262,7 @@
                   "name": "deadline",
                   "nodeType": "VariableDeclaration",
                   "scope": 103,
-                  "src": "1498:16:3",
+                  "src": "1456:16:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -273,7 +273,7 @@
                     "id": 93,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1498:7:3",
+                    "src": "1456:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -288,7 +288,7 @@
                   "name": "v",
                   "nodeType": "VariableDeclaration",
                   "scope": 103,
-                  "src": "1525:7:3",
+                  "src": "1482:7:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -299,7 +299,7 @@
                     "id": 95,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1525:5:3",
+                    "src": "1482:5:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -314,7 +314,7 @@
                   "name": "r",
                   "nodeType": "VariableDeclaration",
                   "scope": 103,
-                  "src": "1543:9:3",
+                  "src": "1499:9:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -325,7 +325,7 @@
                     "id": 97,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1543:7:3",
+                    "src": "1499:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -340,7 +340,7 @@
                   "name": "s",
                   "nodeType": "VariableDeclaration",
                   "scope": 103,
-                  "src": "1563:9:3",
+                  "src": "1518:9:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -351,7 +351,7 @@
                     "id": 99,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1563:7:3",
+                    "src": "1518:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -360,16 +360,16 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1412:167:3"
+              "src": "1374:159:3"
             },
             "returnParameters": {
               "id": 102,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1588:0:3"
+              "src": "1542:0:3"
             },
             "scope": 127,
-            "src": "1397:192:3",
+            "src": "1359:184:3",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
@@ -378,7 +378,7 @@
             "documentation": {
               "id": 104,
               "nodeType": "StructuredDocumentation",
-              "src": "1597:534:3",
+              "src": "1549:524:3",
               "text": " @dev Returns the current ERC2612 nonce for `owner`. This value must be\n included whenever a signature is generated for {permit}.\n Every successful call to {permit} increases `owner`'s nonce by one. This\n prevents a signature from being used multiple times.\n `owner` can limit the time a Permit is valid for by setting `deadline` to\n a value in the near future. The deadline argument can be set to uint(-1) to\n create Permits that effectively never expire."
             },
             "functionSelector": "7ecebe00",
@@ -399,7 +399,7 @@
                   "name": "owner",
                   "nodeType": "VariableDeclaration",
                   "scope": 111,
-                  "src": "2153:13:3",
+                  "src": "2094:13:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -410,7 +410,7 @@
                     "id": 105,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2153:7:3",
+                    "src": "2094:7:3",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -420,7 +420,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2152:15:3"
+              "src": "2093:15:3"
             },
             "returnParameters": {
               "id": 110,
@@ -433,7 +433,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 111,
-                  "src": "2191:7:3",
+                  "src": "2132:7:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -444,7 +444,7 @@
                     "id": 108,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2191:7:3",
+                    "src": "2132:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -453,10 +453,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2190:9:3"
+              "src": "2131:9:3"
             },
             "scope": 127,
-            "src": "2137:63:3",
+            "src": "2078:63:3",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
@@ -473,7 +473,7 @@
               "id": 112,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "2224:2:3"
+              "src": "2163:2:3"
             },
             "returnParameters": {
               "id": 115,
@@ -486,7 +486,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 116,
-                  "src": "2250:13:3",
+                  "src": "2189:13:3",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -497,7 +497,7 @@
                     "id": 113,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2250:6:3",
+                    "src": "2189:6:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -506,10 +506,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2249:15:3"
+              "src": "2188:15:3"
             },
             "scope": 127,
-            "src": "2208:57:3",
+            "src": "2147:57:3",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
@@ -526,7 +526,7 @@
               "id": 117,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "2296:2:3"
+              "src": "2233:2:3"
             },
             "returnParameters": {
               "id": 120,
@@ -539,7 +539,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 121,
-                  "src": "2322:7:3",
+                  "src": "2259:7:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -550,7 +550,7 @@
                     "id": 118,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2322:7:3",
+                    "src": "2259:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -559,10 +559,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2321:9:3"
+              "src": "2258:9:3"
             },
             "scope": 127,
-            "src": "2273:58:3",
+            "src": "2210:58:3",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
@@ -579,7 +579,7 @@
               "id": 122,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "2363:2:3"
+              "src": "2298:2:3"
             },
             "returnParameters": {
               "id": 125,
@@ -592,7 +592,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 126,
-                  "src": "2389:7:3",
+                  "src": "2324:7:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -603,7 +603,7 @@
                     "id": 123,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2389:7:3",
+                    "src": "2324:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -612,24 +612,24 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2388:9:3"
+              "src": "2323:9:3"
             },
             "scope": 127,
-            "src": "2339:59:3",
+            "src": "2274:59:3",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
         "scope": 128,
-        "src": "510:1891:3"
+        "src": "495:1840:3"
       }
     ],
-    "src": "35:2368:3"
+    "src": "33:2303:3"
   },
   "legacyAST": {
     "attributes": {
-      "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Dependencies/IERC2612.sol",
+      "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/Dependencies/IERC2612.sol",
       "exportedSymbols": {
         "IERC2612": [
           127
@@ -652,7 +652,7 @@
         },
         "id": 84,
         "name": "PragmaDirective",
-        "src": "35:31:3"
+        "src": "33:31:3"
       },
       {
         "attributes": {
@@ -678,7 +678,7 @@
             },
             "id": 85,
             "name": "StructuredDocumentation",
-            "src": "70:438:3"
+            "src": "66:428:3"
           },
           {
             "attributes": {
@@ -702,7 +702,7 @@
                 },
                 "id": 86,
                 "name": "StructuredDocumentation",
-                "src": "536:855:3"
+                "src": "520:834:3"
               },
               {
                 "children": [
@@ -726,12 +726,12 @@
                         },
                         "id": 87,
                         "name": "ElementaryTypeName",
-                        "src": "1423:7:3"
+                        "src": "1384:7:3"
                       }
                     ],
                     "id": 88,
                     "name": "VariableDeclaration",
-                    "src": "1423:13:3"
+                    "src": "1384:13:3"
                   },
                   {
                     "attributes": {
@@ -753,12 +753,12 @@
                         },
                         "id": 89,
                         "name": "ElementaryTypeName",
-                        "src": "1447:7:3"
+                        "src": "1407:7:3"
                       }
                     ],
                     "id": 90,
                     "name": "VariableDeclaration",
-                    "src": "1447:15:3"
+                    "src": "1407:15:3"
                   },
                   {
                     "attributes": {
@@ -779,12 +779,12 @@
                         },
                         "id": 91,
                         "name": "ElementaryTypeName",
-                        "src": "1473:7:3"
+                        "src": "1432:7:3"
                       }
                     ],
                     "id": 92,
                     "name": "VariableDeclaration",
-                    "src": "1473:14:3"
+                    "src": "1432:14:3"
                   },
                   {
                     "attributes": {
@@ -805,12 +805,12 @@
                         },
                         "id": 93,
                         "name": "ElementaryTypeName",
-                        "src": "1498:7:3"
+                        "src": "1456:7:3"
                       }
                     ],
                     "id": 94,
                     "name": "VariableDeclaration",
-                    "src": "1498:16:3"
+                    "src": "1456:16:3"
                   },
                   {
                     "attributes": {
@@ -831,12 +831,12 @@
                         },
                         "id": 95,
                         "name": "ElementaryTypeName",
-                        "src": "1525:5:3"
+                        "src": "1482:5:3"
                       }
                     ],
                     "id": 96,
                     "name": "VariableDeclaration",
-                    "src": "1525:7:3"
+                    "src": "1482:7:3"
                   },
                   {
                     "attributes": {
@@ -857,12 +857,12 @@
                         },
                         "id": 97,
                         "name": "ElementaryTypeName",
-                        "src": "1543:7:3"
+                        "src": "1499:7:3"
                       }
                     ],
                     "id": 98,
                     "name": "VariableDeclaration",
-                    "src": "1543:9:3"
+                    "src": "1499:9:3"
                   },
                   {
                     "attributes": {
@@ -883,17 +883,17 @@
                         },
                         "id": 99,
                         "name": "ElementaryTypeName",
-                        "src": "1563:7:3"
+                        "src": "1518:7:3"
                       }
                     ],
                     "id": 100,
                     "name": "VariableDeclaration",
-                    "src": "1563:9:3"
+                    "src": "1518:9:3"
                   }
                 ],
                 "id": 101,
                 "name": "ParameterList",
-                "src": "1412:167:3"
+                "src": "1374:159:3"
               },
               {
                 "attributes": {
@@ -904,12 +904,12 @@
                 "children": [],
                 "id": 102,
                 "name": "ParameterList",
-                "src": "1588:0:3"
+                "src": "1542:0:3"
               }
             ],
             "id": 103,
             "name": "FunctionDefinition",
-            "src": "1397:192:3"
+            "src": "1359:184:3"
           },
           {
             "attributes": {
@@ -933,7 +933,7 @@
                 },
                 "id": 104,
                 "name": "StructuredDocumentation",
-                "src": "1597:534:3"
+                "src": "1549:524:3"
               },
               {
                 "children": [
@@ -957,17 +957,17 @@
                         },
                         "id": 105,
                         "name": "ElementaryTypeName",
-                        "src": "2153:7:3"
+                        "src": "2094:7:3"
                       }
                     ],
                     "id": 106,
                     "name": "VariableDeclaration",
-                    "src": "2153:13:3"
+                    "src": "2094:13:3"
                   }
                 ],
                 "id": 107,
                 "name": "ParameterList",
-                "src": "2152:15:3"
+                "src": "2093:15:3"
               },
               {
                 "children": [
@@ -990,22 +990,22 @@
                         },
                         "id": 108,
                         "name": "ElementaryTypeName",
-                        "src": "2191:7:3"
+                        "src": "2132:7:3"
                       }
                     ],
                     "id": 109,
                     "name": "VariableDeclaration",
-                    "src": "2191:7:3"
+                    "src": "2132:7:3"
                   }
                 ],
                 "id": 110,
                 "name": "ParameterList",
-                "src": "2190:9:3"
+                "src": "2131:9:3"
               }
             ],
             "id": 111,
             "name": "FunctionDefinition",
-            "src": "2137:63:3"
+            "src": "2078:63:3"
           },
           {
             "attributes": {
@@ -1032,7 +1032,7 @@
                 "children": [],
                 "id": 112,
                 "name": "ParameterList",
-                "src": "2224:2:3"
+                "src": "2163:2:3"
               },
               {
                 "children": [
@@ -1055,22 +1055,22 @@
                         },
                         "id": 113,
                         "name": "ElementaryTypeName",
-                        "src": "2250:6:3"
+                        "src": "2189:6:3"
                       }
                     ],
                     "id": 114,
                     "name": "VariableDeclaration",
-                    "src": "2250:13:3"
+                    "src": "2189:13:3"
                   }
                 ],
                 "id": 115,
                 "name": "ParameterList",
-                "src": "2249:15:3"
+                "src": "2188:15:3"
               }
             ],
             "id": 116,
             "name": "FunctionDefinition",
-            "src": "2208:57:3"
+            "src": "2147:57:3"
           },
           {
             "attributes": {
@@ -1097,7 +1097,7 @@
                 "children": [],
                 "id": 117,
                 "name": "ParameterList",
-                "src": "2296:2:3"
+                "src": "2233:2:3"
               },
               {
                 "children": [
@@ -1120,22 +1120,22 @@
                         },
                         "id": 118,
                         "name": "ElementaryTypeName",
-                        "src": "2322:7:3"
+                        "src": "2259:7:3"
                       }
                     ],
                     "id": 119,
                     "name": "VariableDeclaration",
-                    "src": "2322:7:3"
+                    "src": "2259:7:3"
                   }
                 ],
                 "id": 120,
                 "name": "ParameterList",
-                "src": "2321:9:3"
+                "src": "2258:9:3"
               }
             ],
             "id": 121,
             "name": "FunctionDefinition",
-            "src": "2273:58:3"
+            "src": "2210:58:3"
           },
           {
             "attributes": {
@@ -1162,7 +1162,7 @@
                 "children": [],
                 "id": 122,
                 "name": "ParameterList",
-                "src": "2363:2:3"
+                "src": "2298:2:3"
               },
               {
                 "children": [
@@ -1185,40 +1185,40 @@
                         },
                         "id": 123,
                         "name": "ElementaryTypeName",
-                        "src": "2389:7:3"
+                        "src": "2324:7:3"
                       }
                     ],
                     "id": 124,
                     "name": "VariableDeclaration",
-                    "src": "2389:7:3"
+                    "src": "2324:7:3"
                   }
                 ],
                 "id": 125,
                 "name": "ParameterList",
-                "src": "2388:9:3"
+                "src": "2323:9:3"
               }
             ],
             "id": 126,
             "name": "FunctionDefinition",
-            "src": "2339:59:3"
+            "src": "2274:59:3"
           }
         ],
         "id": 127,
         "name": "ContractDefinition",
-        "src": "510:1891:3"
+        "src": "495:1840:3"
       }
     ],
     "id": 128,
     "name": "SourceUnit",
-    "src": "35:2368:3"
+    "src": "33:2303:3"
   },
   "compiler": {
     "name": "solc",
     "version": "0.7.6+commit.7338295f.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.3",
-  "updatedAt": "2021-03-28T20:31:58.980Z",
+  "schemaVersion": "3.3.4",
+  "updatedAt": "2021-03-28T21:39:38.040Z",
   "devdoc": {
     "details": "Interface of the ERC2612 standard as defined in the EIP. Adds the {permit} method, which can be used to change one's {IERC20-allowance} without having to send a transaction, by signing a message. This allows users to spend tokens without having to hold Ether. See https://eips.ethereum.org/EIPS/eip-2612. Code adapted from https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2237/",
     "kind": "dev",

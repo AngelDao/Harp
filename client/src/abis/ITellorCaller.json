@@ -31,7 +31,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_requestId\",\"type\":\"uint256\"}],\"name\":\"getTellorCurrentValue\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/danie/code/harp/client/src/contracts/Interfaces/ITellorCaller.sol\":\"ITellorCaller\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/danie/code/harp/client/src/contracts/Interfaces/ITellorCaller.sol\":{\"keccak256\":\"0xc3357a4a3475be66ba38d3184e5fd863f9654d4554e4a2bbde973ec6dff0bcbb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://90cc3b5ed5c485cad0b359f67bfc76096f294958b12c3c030511c0fc90f23d87\",\"dweb:/ipfs/QmNyPjep6B3wyAeyY5CuGBQdCecvvR76wTt4PzTrHfg7Wx\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_requestId\",\"type\":\"uint256\"}],\"name\":\"getTellorCurrentValue\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ITellorCaller.sol\":\"ITellorCaller\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ITellorCaller.sol\":{\"keccak256\":\"0xbabb9c9533a023276dbd8234ac435a6590e60f23872a44cc7623f906258ead26\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://09012883f8bf28d79d3d011660afd618714efeb641c703960dfc5633c7addb21\",\"dweb:/ipfs/QmZWqAk92zLTs2dMUg5qnyBBzUKdeXM4paW8SEf5Drwz8M\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -39,10 +39,10 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\ninterface ITellorCaller {\r\n    function getTellorCurrentValue(uint256 _requestId)\r\n        external\r\n        view\r\n        returns (\r\n            bool,\r\n            uint256,\r\n            uint256\r\n        );\r\n}\r\n",
-  "sourcePath": "C:\\Users\\danie\\code\\harp\\client\\src\\contracts\\Interfaces\\ITellorCaller.sol",
+  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity >=0.6.0 <0.8.0;\n\ninterface ITellorCaller {\n    function getTellorCurrentValue(uint256 _requestId)\n        external\n        view\n        returns (\n            bool,\n            uint256,\n            uint256\n        );\n}\n",
+  "sourcePath": "/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ITellorCaller.sol",
   "ast": {
-    "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Interfaces/ITellorCaller.sol",
+    "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ITellorCaller.sol",
     "exportedSymbols": {
       "ITellorCaller": [
         12509
@@ -64,7 +64,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "35:31:28"
+        "src": "33:31:28"
       },
       {
         "abstract": false,
@@ -98,7 +98,7 @@
                   "name": "_requestId",
                   "nodeType": "VariableDeclaration",
                   "scope": 12508,
-                  "src": "132:18:28",
+                  "src": "127:18:28",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -109,7 +109,7 @@
                     "id": 12498,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "132:7:28",
+                    "src": "127:7:28",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -118,7 +118,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "131:20:28"
+              "src": "126:20:28"
             },
             "returnParameters": {
               "id": 12507,
@@ -131,7 +131,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 12508,
-                  "src": "216:4:28",
+                  "src": "207:4:28",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -142,7 +142,7 @@
                     "id": 12501,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "216:4:28",
+                    "src": "207:4:28",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -157,7 +157,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 12508,
-                  "src": "235:7:28",
+                  "src": "225:7:28",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -168,7 +168,7 @@
                     "id": 12503,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "235:7:28",
+                    "src": "225:7:28",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -183,7 +183,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 12508,
-                  "src": "257:7:28",
+                  "src": "246:7:28",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -194,7 +194,7 @@
                     "id": 12505,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "257:7:28",
+                    "src": "246:7:28",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -203,24 +203,24 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "201:74:28"
+              "src": "193:70:28"
             },
             "scope": 12509,
-            "src": "101:175:28",
+            "src": "96:168:28",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
         "scope": 12510,
-        "src": "70:209:28"
+        "src": "66:200:28"
       }
     ],
-    "src": "35:246:28"
+    "src": "33:234:28"
   },
   "legacyAST": {
     "attributes": {
-      "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Interfaces/ITellorCaller.sol",
+      "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ITellorCaller.sol",
       "exportedSymbols": {
         "ITellorCaller": [
           12509
@@ -243,7 +243,7 @@
         },
         "id": 12497,
         "name": "PragmaDirective",
-        "src": "35:31:28"
+        "src": "33:31:28"
       },
       {
         "attributes": {
@@ -300,17 +300,17 @@
                         },
                         "id": 12498,
                         "name": "ElementaryTypeName",
-                        "src": "132:7:28"
+                        "src": "127:7:28"
                       }
                     ],
                     "id": 12499,
                     "name": "VariableDeclaration",
-                    "src": "132:18:28"
+                    "src": "127:18:28"
                   }
                 ],
                 "id": 12500,
                 "name": "ParameterList",
-                "src": "131:20:28"
+                "src": "126:20:28"
               },
               {
                 "children": [
@@ -333,12 +333,12 @@
                         },
                         "id": 12501,
                         "name": "ElementaryTypeName",
-                        "src": "216:4:28"
+                        "src": "207:4:28"
                       }
                     ],
                     "id": 12502,
                     "name": "VariableDeclaration",
-                    "src": "216:4:28"
+                    "src": "207:4:28"
                   },
                   {
                     "attributes": {
@@ -359,12 +359,12 @@
                         },
                         "id": 12503,
                         "name": "ElementaryTypeName",
-                        "src": "235:7:28"
+                        "src": "225:7:28"
                       }
                     ],
                     "id": 12504,
                     "name": "VariableDeclaration",
-                    "src": "235:7:28"
+                    "src": "225:7:28"
                   },
                   {
                     "attributes": {
@@ -385,40 +385,40 @@
                         },
                         "id": 12505,
                         "name": "ElementaryTypeName",
-                        "src": "257:7:28"
+                        "src": "246:7:28"
                       }
                     ],
                     "id": 12506,
                     "name": "VariableDeclaration",
-                    "src": "257:7:28"
+                    "src": "246:7:28"
                   }
                 ],
                 "id": 12507,
                 "name": "ParameterList",
-                "src": "201:74:28"
+                "src": "193:70:28"
               }
             ],
             "id": 12508,
             "name": "FunctionDefinition",
-            "src": "101:175:28"
+            "src": "96:168:28"
           }
         ],
         "id": 12509,
         "name": "ContractDefinition",
-        "src": "70:209:28"
+        "src": "66:200:28"
       }
     ],
     "id": 12510,
     "name": "SourceUnit",
-    "src": "35:246:28"
+    "src": "33:234:28"
   },
   "compiler": {
     "name": "solc",
     "version": "0.7.6+commit.7338295f.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.3",
-  "updatedAt": "2021-03-28T20:31:59.422Z",
+  "schemaVersion": "3.3.4",
+  "updatedAt": "2021-03-28T21:39:38.184Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
