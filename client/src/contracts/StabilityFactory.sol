@@ -61,6 +61,7 @@ contract StabilityFactory {
         pool = PoolInfo({lastRewardBlock: block.number, accStringPerShare: 0});
         stringToken = _stringToken;
         lusdToken = _lusdToken;
+        lqtyToken = _lqtyToken;
         endBlock = block.number.add(2437500);
         stabilityPool = _stabilityPool;
     }
@@ -160,6 +161,7 @@ contract StabilityFactory {
                 this,
                 frontEnd,
                 lusdToken,
+                lqtyToken,
                 stabilityPool
             );
         UserProxy memory proxy =

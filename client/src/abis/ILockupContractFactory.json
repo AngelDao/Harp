@@ -65,7 +65,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_lqtyTokenAddress\",\"type\":\"address\"}],\"name\":\"LQTYTokenAddressSet\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_beneficiary\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_unlockTime\",\"type\":\"uint256\"}],\"name\":\"deployLockupContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_addr\",\"type\":\"address\"}],\"name\":\"isRegisteredLockup\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_lqtyTokenAddress\",\"type\":\"address\"}],\"name\":\"setLQTYTokenAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/danie/code/harp/client/src/contracts/Interfaces/ILockupContractFactory.sol\":\"ILockupContractFactory\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/danie/code/harp/client/src/contracts/Interfaces/ILockupContractFactory.sol\":{\"keccak256\":\"0xa6a20e7c38de0e56c1d0a5772720fd00eb31bc1e2e39d21959d61d71a4c00cd1\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://566002aede263f970612207b80237a5ab170996b666e54dbc55a78b01e004621\",\"dweb:/ipfs/Qmf63w3iuNuSPCAx6pcAxRuV5g4mCECCrs2iSHtfNCPZWx\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_lqtyTokenAddress\",\"type\":\"address\"}],\"name\":\"LQTYTokenAddressSet\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_beneficiary\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_unlockTime\",\"type\":\"uint256\"}],\"name\":\"deployLockupContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_addr\",\"type\":\"address\"}],\"name\":\"isRegisteredLockup\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_lqtyTokenAddress\",\"type\":\"address\"}],\"name\":\"setLQTYTokenAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ILockupContractFactory.sol\":\"ILockupContractFactory\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ILockupContractFactory.sol\":{\"keccak256\":\"0xc082f55715b121bea8b7b666935dd3c39444eacb4e99c963f773b9a666728082\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://5834f362cd38faa91900f860feb0b1d1d75ff94f5464bf13366631c037cdff3e\",\"dweb:/ipfs/QmeReZVdtzChNDE4J26MgyynmBaAcTxnhpbof7LC2pFzR4\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -73,10 +73,10 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\ninterface ILockupContractFactory {\r\n    // --- Events ---\r\n\r\n    event LQTYTokenAddressSet(address _lqtyTokenAddress);\r\n\r\n    // --- Functions ---\r\n\r\n    function setLQTYTokenAddress(address _lqtyTokenAddress) external;\r\n\r\n    function deployLockupContract(address _beneficiary, uint256 _unlockTime)\r\n        external;\r\n\r\n    function isRegisteredLockup(address _addr) external view returns (bool);\r\n}\r\n",
-  "sourcePath": "C:/Users/danie/code/harp/client/src/contracts/Interfaces/ILockupContractFactory.sol",
+  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity >=0.6.0 <0.8.0;\n\ninterface ILockupContractFactory {\n    // --- Events ---\n\n    event LQTYTokenAddressSet(address _lqtyTokenAddress);\n\n    // --- Functions ---\n\n    function setLQTYTokenAddress(address _lqtyTokenAddress) external;\n\n    function deployLockupContract(address _beneficiary, uint256 _unlockTime)\n        external;\n\n    function isRegisteredLockup(address _addr) external view returns (bool);\n}\n",
+  "sourcePath": "/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ILockupContractFactory.sol",
   "ast": {
-    "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Interfaces/ILockupContractFactory.sol",
+    "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ILockupContractFactory.sol",
     "exportedSymbols": {
       "ILockupContractFactory": [
         12055
@@ -98,7 +98,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "35:31:22"
+        "src": "33:31:22"
       },
       {
         "abstract": false,
@@ -130,7 +130,7 @@
                   "name": "_lqtyTokenAddress",
                   "nodeType": "VariableDeclaration",
                   "scope": 12035,
-                  "src": "161:25:22",
+                  "src": "154:25:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -141,7 +141,7 @@
                     "id": 12032,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "161:7:22",
+                    "src": "154:7:22",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -151,9 +151,9 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "160:27:22"
+              "src": "153:27:22"
             },
-            "src": "135:53:22"
+            "src": "128:53:22"
           },
           {
             "functionSelector": "19d08303",
@@ -174,7 +174,7 @@
                   "name": "_lqtyTokenAddress",
                   "nodeType": "VariableDeclaration",
                   "scope": 12040,
-                  "src": "253:25:22",
+                  "src": "242:25:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -185,7 +185,7 @@
                     "id": 12036,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "253:7:22",
+                    "src": "242:7:22",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -195,16 +195,16 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "252:27:22"
+              "src": "241:27:22"
             },
             "returnParameters": {
               "id": 12039,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "288:0:22"
+              "src": "277:0:22"
             },
             "scope": 12055,
-            "src": "224:65:22",
+            "src": "213:65:22",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
@@ -228,7 +228,7 @@
                   "name": "_beneficiary",
                   "nodeType": "VariableDeclaration",
                   "scope": 12047,
-                  "src": "327:20:22",
+                  "src": "314:20:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -239,7 +239,7 @@
                     "id": 12041,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "327:7:22",
+                    "src": "314:7:22",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -255,7 +255,7 @@
                   "name": "_unlockTime",
                   "nodeType": "VariableDeclaration",
                   "scope": 12047,
-                  "src": "349:19:22",
+                  "src": "336:19:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -266,7 +266,7 @@
                     "id": 12043,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "349:7:22",
+                    "src": "336:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -275,16 +275,16 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "326:43:22"
+              "src": "313:43:22"
             },
             "returnParameters": {
               "id": 12046,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "387:0:22"
+              "src": "373:0:22"
             },
             "scope": 12055,
-            "src": "297:91:22",
+            "src": "284:90:22",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
@@ -308,7 +308,7 @@
                   "name": "_addr",
                   "nodeType": "VariableDeclaration",
                   "scope": 12054,
-                  "src": "424:13:22",
+                  "src": "408:13:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -319,7 +319,7 @@
                     "id": 12048,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "424:7:22",
+                    "src": "408:7:22",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -329,7 +329,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "423:15:22"
+              "src": "407:15:22"
             },
             "returnParameters": {
               "id": 12053,
@@ -342,7 +342,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 12054,
-                  "src": "462:4:22",
+                  "src": "446:4:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -353,7 +353,7 @@
                     "id": 12051,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "462:4:22",
+                    "src": "446:4:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -362,24 +362,24 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "461:6:22"
+              "src": "445:6:22"
             },
             "scope": 12055,
-            "src": "396:72:22",
+            "src": "380:72:22",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
         "scope": 12056,
-        "src": "70:401:22"
+        "src": "66:388:22"
       }
     ],
-    "src": "35:438:22"
+    "src": "33:422:22"
   },
   "legacyAST": {
     "attributes": {
-      "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Interfaces/ILockupContractFactory.sol",
+      "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ILockupContractFactory.sol",
       "exportedSymbols": {
         "ILockupContractFactory": [
           12055
@@ -402,7 +402,7 @@
         },
         "id": 12031,
         "name": "PragmaDirective",
-        "src": "35:31:22"
+        "src": "33:31:22"
       },
       {
         "attributes": {
@@ -451,22 +451,22 @@
                         },
                         "id": 12032,
                         "name": "ElementaryTypeName",
-                        "src": "161:7:22"
+                        "src": "154:7:22"
                       }
                     ],
                     "id": 12033,
                     "name": "VariableDeclaration",
-                    "src": "161:25:22"
+                    "src": "154:25:22"
                   }
                 ],
                 "id": 12034,
                 "name": "ParameterList",
-                "src": "160:27:22"
+                "src": "153:27:22"
               }
             ],
             "id": 12035,
             "name": "EventDefinition",
-            "src": "135:53:22"
+            "src": "128:53:22"
           },
           {
             "attributes": {
@@ -506,17 +506,17 @@
                         },
                         "id": 12036,
                         "name": "ElementaryTypeName",
-                        "src": "253:7:22"
+                        "src": "242:7:22"
                       }
                     ],
                     "id": 12037,
                     "name": "VariableDeclaration",
-                    "src": "253:25:22"
+                    "src": "242:25:22"
                   }
                 ],
                 "id": 12038,
                 "name": "ParameterList",
-                "src": "252:27:22"
+                "src": "241:27:22"
               },
               {
                 "attributes": {
@@ -527,12 +527,12 @@
                 "children": [],
                 "id": 12039,
                 "name": "ParameterList",
-                "src": "288:0:22"
+                "src": "277:0:22"
               }
             ],
             "id": 12040,
             "name": "FunctionDefinition",
-            "src": "224:65:22"
+            "src": "213:65:22"
           },
           {
             "attributes": {
@@ -572,12 +572,12 @@
                         },
                         "id": 12041,
                         "name": "ElementaryTypeName",
-                        "src": "327:7:22"
+                        "src": "314:7:22"
                       }
                     ],
                     "id": 12042,
                     "name": "VariableDeclaration",
-                    "src": "327:20:22"
+                    "src": "314:20:22"
                   },
                   {
                     "attributes": {
@@ -598,17 +598,17 @@
                         },
                         "id": 12043,
                         "name": "ElementaryTypeName",
-                        "src": "349:7:22"
+                        "src": "336:7:22"
                       }
                     ],
                     "id": 12044,
                     "name": "VariableDeclaration",
-                    "src": "349:19:22"
+                    "src": "336:19:22"
                   }
                 ],
                 "id": 12045,
                 "name": "ParameterList",
-                "src": "326:43:22"
+                "src": "313:43:22"
               },
               {
                 "attributes": {
@@ -619,12 +619,12 @@
                 "children": [],
                 "id": 12046,
                 "name": "ParameterList",
-                "src": "387:0:22"
+                "src": "373:0:22"
               }
             ],
             "id": 12047,
             "name": "FunctionDefinition",
-            "src": "297:91:22"
+            "src": "284:90:22"
           },
           {
             "attributes": {
@@ -664,17 +664,17 @@
                         },
                         "id": 12048,
                         "name": "ElementaryTypeName",
-                        "src": "424:7:22"
+                        "src": "408:7:22"
                       }
                     ],
                     "id": 12049,
                     "name": "VariableDeclaration",
-                    "src": "424:13:22"
+                    "src": "408:13:22"
                   }
                 ],
                 "id": 12050,
                 "name": "ParameterList",
-                "src": "423:15:22"
+                "src": "407:15:22"
               },
               {
                 "children": [
@@ -697,40 +697,40 @@
                         },
                         "id": 12051,
                         "name": "ElementaryTypeName",
-                        "src": "462:4:22"
+                        "src": "446:4:22"
                       }
                     ],
                     "id": 12052,
                     "name": "VariableDeclaration",
-                    "src": "462:4:22"
+                    "src": "446:4:22"
                   }
                 ],
                 "id": 12053,
                 "name": "ParameterList",
-                "src": "461:6:22"
+                "src": "445:6:22"
               }
             ],
             "id": 12054,
             "name": "FunctionDefinition",
-            "src": "396:72:22"
+            "src": "380:72:22"
           }
         ],
         "id": 12055,
         "name": "ContractDefinition",
-        "src": "70:401:22"
+        "src": "66:388:22"
       }
     ],
     "id": 12056,
     "name": "SourceUnit",
-    "src": "35:438:22"
+    "src": "33:422:22"
   },
   "compiler": {
     "name": "solc",
     "version": "0.7.6+commit.7338295f.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.3",
-  "updatedAt": "2021-03-28T15:18:28.024Z",
+  "schemaVersion": "3.3.4",
+  "updatedAt": "2021-03-28T17:58:06.903Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
