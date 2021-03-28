@@ -28,7 +28,7 @@ const Farm = () => {
         LPTokensInWallet={userBalances.LUSD}
         LPTokensAllowance={userAllowances.proxy.LUSD}
         LPTokensStaked={proxyBalances.userStaked.LUSD}
-        pendingTokens={proxyBalances.userPending.LUSD}
+        pendingTokens={proxyBalances.userPending.STRING}
         stringTokensAllowance={userAllowances.farm.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, LUSD: true });

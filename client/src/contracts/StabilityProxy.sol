@@ -22,6 +22,9 @@ contract StabilityProxy {
         _;
     }
 
+    event Deposit(address indexed user, uint256 amount);
+    event Withdraw(address indexed user, uint256 amount);
+
     constructor(
         address _owner,
         StabilityFactory _factory,
@@ -42,7 +45,8 @@ contract StabilityProxy {
         stabilityFactory.addLUSD(_amount);
         lusdBalance = lusdBalance.add(_amount);
         stabilityPool.provideToSP(_amount, frontEnd);
-        stabilityFactory.updateProxyBalance(lusdBalance);
+        stabilityFactory.updateProxyBalance(lusdBalance, owner);
+        emit Deposit(msg.sender, _amount);
     }
 
     function withdraw(uint256 _amount) public onlyOwner {
@@ -53,7 +57,8 @@ contract StabilityProxy {
         );
         stabilityPool.withdrawFromSP(_amount);
         _safeLUSDTransfer(owner, _amount);
-        stabilityFactory.updateProxyBalance(lusdBalance);
+        stabilityFactory.updateProxyBalance(lusdBalance, owner);
+        emit Withdraw(msg.sender, _amount);
     }
 
     function claim() public onlyOwner {
@@ -68,20 +73,26 @@ contract StabilityProxy {
         if (_amount > lusdBal) {
             lusdToken.transfer(_to, lusdBal);
             lusdBalance = lusdBalance.sub(lusdBal);
+            stabilityFactory.subtractLUSD(lusdBal);
         } else {
             lusdToken.transfer(_to, _amount);
             lusdBalance = lusdBalance.sub(_amount);
+            stabilityFactory.subtractLUSD(_amount);
         }
     }
 
     function _safeETHTransferAll(address _to) internal {
         uint256 ethBal = address(this).balance;
-        payable(_to).transfer(ethBal);
+        if (ethBal > 0) {
+            payable(_to).transfer(ethBal);
+        }
     }
 
     function _safeLQTYTransferAll(address _to) internal {
         uint256 lqtyBal = lqtyToken.balanceOf(address(this));
-        lqtyToken.transfer(_to, lqtyBal);
+        if (lqtyBal > 0) {
+            lqtyToken.transfer(_to, lqtyBal);
+        }
     }
 
     function _updateBalance() internal {
@@ -91,7 +102,7 @@ contract StabilityProxy {
             uint256 diff = lusdBalance.sub(currentBal);
             if (diff > 0) {
                 stabilityFactory.subtractLUSD(diff);
-                stabilityFactory.updateProxyBalance(currentBal);
+                stabilityFactory.updateProxyBalance(currentBal, owner);
             }
             stabilityFactory.claim(owner);
         }

@@ -21,7 +21,7 @@ import { Pair } from "../../Farm/Pool/styles";
 
 const ActionModal = ({ open, close, balance, pair, contract }) => {
   const {
-    contracts: { farm, profitShare },
+    contracts: { farm, profitShare, proxy },
     address,
     reFetchData,
   } = useContext(CredentialsContext);
@@ -34,18 +34,33 @@ const ActionModal = ({ open, close, balance, pair, contract }) => {
   const contractInstance = {
     profitShare,
     farm,
+    factory:proxy
   };
 
   const handleClaim = async () => {
-    await contractInstance[contract].methods
-      .claim(pool[pair])
-      .send({ from: address })
-      .on("transactionHash", async () => {
-        await reFetchData();
-      })
-      .on("receipt", async () => {
-        await reFetchData();
-      });
+    
+    if(pair === "LUSD"){
+      debugger
+      await contractInstance[contract].methods
+        .claim()
+        .send({ from: address })
+        .on("transactionHash", async () => {
+          await reFetchData();
+        })
+        .on("receipt", async () => {
+          await reFetchData();
+        });
+    }else{
+      await contractInstance[contract].methods
+        .claim(pool[pair])
+        .send({ from: address })
+        .on("transactionHash", async () => {
+          await reFetchData();
+        })
+        .on("receipt", async () => {
+          await reFetchData();
+        });
+    }
     close();
   };
 

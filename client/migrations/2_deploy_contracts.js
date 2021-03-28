@@ -108,4 +108,8 @@ module.exports = async function (deployer, network, accounts) {
     stringToken.address,
     stabilityPool
   );
+
+  const sf = await StabilityFactory.deployed()
+
+  await stringToken.addVestingAddress(sf.address, { from: owner })
 };

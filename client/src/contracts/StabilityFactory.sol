@@ -44,6 +44,9 @@ contract StabilityFactory {
         _;
     }
 
+    event Claim(address indexed who, uint256 amountClaimed);
+    event Deploy(address indexed who, address indexed proxy);
+
     constructor(
         address _frontEnd,
         // address _impli,
@@ -96,8 +99,14 @@ contract StabilityFactory {
         }
     }
 
-    function updateProxyBalance(uint256 _amount) public isRegClone {
-        userProxys[msg.sender].amount = _amount;
+    function updateProxyBalance(uint256 _amount, address _owner)
+        public
+        isRegClone
+    {
+        claim(_owner);
+        UserProxy storage proxy = userProxys[_owner];
+        proxy.amount = _amount;
+        proxy.rewardDebt = proxy.amount.mul(pool.accStringPerShare).div(1e12);
     }
 
     function update() public {
@@ -132,6 +141,7 @@ contract StabilityFactory {
         uint256 pending = _pending(proxy.amount, proxy.rewardDebt);
         _safeStringTransfer(_sender, pending);
         proxy.rewardDebt = proxy.amount.mul(pool.accStringPerShare).div(1e12);
+        emit Claim(_sender, pending);
     }
 
     function addLUSD(uint256 _newAddition) public isRegClone {
@@ -157,6 +167,7 @@ contract StabilityFactory {
             UserProxy({proxyAddress: clone, amount: 0, rewardDebt: 0});
         userProxys[msg.sender] = proxy;
         registeredClone[address(clone)] = true;
+        emit Deploy(msg.sender, address(clone));
     }
 
     function _pending(uint256 _amount, uint256 _rewardDebt)
