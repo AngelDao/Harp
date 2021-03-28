@@ -456,7 +456,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_communityIssuanceAddress\",\"type\":\"address\"}],\"name\":\"CommunityIssuanceAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_lqtyStakingAddress\",\"type\":\"address\"}],\"name\":\"LQTYStakingAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_lockupContractFactoryAddress\",\"type\":\"address\"}],\"name\":\"LockupContractFactoryAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"domainSeparator\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDeploymentStartTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLpRewardsEntitlement\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"nonces\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"permit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"permitTypeHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_sender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"sendToLQTYStaking\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"version\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"allowance(address,address)\":{\"details\":\"Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called.\"},\"approve(address,uint256)\":{\"details\":\"Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.\"},\"balanceOf(address)\":{\"details\":\"Returns the amount of tokens owned by `account`.\"},\"nonces(address)\":{\"details\":\"Returns the current ERC2612 nonce for `owner`. This value must be included whenever a signature is generated for {permit}. Every successful call to {permit} increases `owner`'s nonce by one. This prevents a signature from being used multiple times. `owner` can limit the time a Permit is valid for by setting `deadline` to a value in the near future. The deadline argument can be set to uint(-1) to create Permits that effectively never expire.\"},\"permit(address,address,uint256,uint256,uint8,bytes32,bytes32)\":{\"details\":\"Sets `amount` as the allowance of `spender` over `owner`'s tokens, given `owner`'s signed approval. IMPORTANT: The same issues {IERC20-approve} has related to transaction ordering also apply here. Emits an {Approval} event. Requirements: - `owner` cannot be the zero address. - `spender` cannot be the zero address. - `deadline` must be a timestamp in the future. - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner` over the EIP712-formatted function arguments. - the signature must use ``owner``'s current nonce (see {nonces}). For more information on the signature format, see the https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP section].\"},\"totalSupply()\":{\"details\":\"Returns the amount of tokens in existence.\"},\"transfer(address,uint256)\":{\"details\":\"Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.\"},\"transferFrom(address,address,uint256)\":{\"details\":\"Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism. `amount` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ILQTYToken.sol\":\"ILQTYToken\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/dannywarrick/code/harp/client/src/contracts/Dependencies/IERC2612.sol\":{\"keccak256\":\"0x2aa2616073cbfc8cd4c5030d28634e21f9166e080321117e5ad8792577ca80db\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://97dcca2d9e87f72a0a7541c3957293d0c4fd061b4124ede86e04b6271bac2cd1\",\"dweb:/ipfs/QmZTnVbCsHzwG4XGBY13tSaRKFYDnxrq1MXYoVWHSLNscg\"]},\"/Users/dannywarrick/code/harp/client/src/contracts/Dependencies/TestIERC20.sol\":{\"keccak256\":\"0xde8f75b2639e7f7eb37fbcffa194f930f8d69421d8e4eb0dca1aa050f3dc7679\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2f5ddd7342e308c450403b6787e25c3ddf07fc676365fb27c37002648fd43ba0\",\"dweb:/ipfs/QmWacY1brDDQamn7i8yARug4TDgErCyLYPwqSi6TqBfWQi\"]},\"/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ILQTYToken.sol\":{\"keccak256\":\"0xb6829d35a4b2ea8b4f9ec46be1c92eb4523f2b9a33feb2202283525a905452e9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cd559d1ffd1e6495ea2c3b35ddf2ff0c45fba4010c450e94e6f557439da5021e\",\"dweb:/ipfs/QmZ6ExYaekgDMQWYqRJyA7zAoLHHGFEJhwG54RTUwPS7o2\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_communityIssuanceAddress\",\"type\":\"address\"}],\"name\":\"CommunityIssuanceAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_lqtyStakingAddress\",\"type\":\"address\"}],\"name\":\"LQTYStakingAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_lockupContractFactoryAddress\",\"type\":\"address\"}],\"name\":\"LockupContractFactoryAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"domainSeparator\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDeploymentStartTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLpRewardsEntitlement\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"nonces\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"permit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"permitTypeHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_sender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"sendToLQTYStaking\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"version\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"allowance(address,address)\":{\"details\":\"Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called.\"},\"approve(address,uint256)\":{\"details\":\"Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.\"},\"balanceOf(address)\":{\"details\":\"Returns the amount of tokens owned by `account`.\"},\"nonces(address)\":{\"details\":\"Returns the current ERC2612 nonce for `owner`. This value must be included whenever a signature is generated for {permit}. Every successful call to {permit} increases `owner`'s nonce by one. This prevents a signature from being used multiple times. `owner` can limit the time a Permit is valid for by setting `deadline` to a value in the near future. The deadline argument can be set to uint(-1) to create Permits that effectively never expire.\"},\"permit(address,address,uint256,uint256,uint8,bytes32,bytes32)\":{\"details\":\"Sets `amount` as the allowance of `spender` over `owner`'s tokens, given `owner`'s signed approval. IMPORTANT: The same issues {IERC20-approve} has related to transaction ordering also apply here. Emits an {Approval} event. Requirements: - `owner` cannot be the zero address. - `spender` cannot be the zero address. - `deadline` must be a timestamp in the future. - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner` over the EIP712-formatted function arguments. - the signature must use ``owner``'s current nonce (see {nonces}). For more information on the signature format, see the https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP section].\"},\"totalSupply()\":{\"details\":\"Returns the amount of tokens in existence.\"},\"transfer(address,uint256)\":{\"details\":\"Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.\"},\"transferFrom(address,address,uint256)\":{\"details\":\"Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism. `amount` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/danie/code/harp/client/src/contracts/Interfaces/ILQTYToken.sol\":\"ILQTYToken\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/danie/code/harp/client/src/contracts/Dependencies/IERC2612.sol\":{\"keccak256\":\"0x36050dbfa4566fb86c551677cb0578f45a70984a47504a561d53f44b8376b532\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ef1ea362c5c108c8d6053884217a4007065c25bf4834aba9e09cdbe636a0fee8\",\"dweb:/ipfs/QmYvDYB6SZ9K6eiWFydf76A3WpdvJUrn4sTtgB8FcYEWLC\"]},\"/C/Users/danie/code/harp/client/src/contracts/Dependencies/TestIERC20.sol\":{\"keccak256\":\"0x9c0bfe31d3c1bc58ed006c6232bfb987bdd80d6336b496643d11b0a066ce6713\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://212d83017c80eafdb6011dd514b4fa8b5a8e16aa4e34c934a3bf1f9d06e3abf5\",\"dweb:/ipfs/QmRb3KumcaiL53j5ku3c77Wzz2fhp85hr9fjK87NzuWnts\"]},\"/C/Users/danie/code/harp/client/src/contracts/Interfaces/ILQTYToken.sol\":{\"keccak256\":\"0xe72f802a8e6e7218d5794232698d853b8f3225a4d1c688095a9e91a36e88e3ff\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9c057d9be45b6a5a4c1f40aebf1bb8fe6f4359e6e3066381d3c4aa16e934cff4\",\"dweb:/ipfs/QmP9WrnnpMEizhwZxkkdsrrhjRqNtDtqB1cniisg4tkhaR\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -464,27 +464,27 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity >=0.6.0 <0.8.0;\n\nimport \"../Dependencies/TestIERC20.sol\";\nimport \"../Dependencies/IERC2612.sol\";\n\ninterface ILQTYToken is TestIERC20, IERC2612 {\n    // --- Events ---\n\n    event CommunityIssuanceAddressSet(address _communityIssuanceAddress);\n\n    event LQTYStakingAddressSet(address _lqtyStakingAddress);\n\n    event LockupContractFactoryAddressSet(\n        address _lockupContractFactoryAddress\n    );\n\n    // --- Functions ---\n\n    function sendToLQTYStaking(address _sender, uint256 _amount) external;\n\n    function getDeploymentStartTime() external view returns (uint256);\n\n    function getLpRewardsEntitlement() external view returns (uint256);\n}\n",
-  "sourcePath": "/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ILQTYToken.sol",
+  "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\nimport \"../Dependencies/TestIERC20.sol\";\r\nimport \"../Dependencies/IERC2612.sol\";\r\n\r\ninterface ILQTYToken is TestIERC20, IERC2612 {\r\n    // --- Events ---\r\n\r\n    event CommunityIssuanceAddressSet(address _communityIssuanceAddress);\r\n\r\n    event LQTYStakingAddressSet(address _lqtyStakingAddress);\r\n\r\n    event LockupContractFactoryAddressSet(\r\n        address _lockupContractFactoryAddress\r\n    );\r\n\r\n    // --- Functions ---\r\n\r\n    function sendToLQTYStaking(address _sender, uint256 _amount) external;\r\n\r\n    function getDeploymentStartTime() external view returns (uint256);\r\n\r\n    function getLpRewardsEntitlement() external view returns (uint256);\r\n}\r\n",
+  "sourcePath": "C:\\Users\\danie\\code\\harp\\client\\src\\contracts\\Interfaces\\ILQTYToken.sol",
   "ast": {
-    "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ILQTYToken.sol",
+    "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Interfaces/ILQTYToken.sol",
     "exportedSymbols": {
       "IERC2612": [
         127
       ],
       "ILQTYToken": [
-        11970
+        12023
       ],
       "TestIERC20": [
         1418
       ]
     },
-    "id": 11971,
+    "id": 12024,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 11934,
+        "id": 11987,
         "literals": [
           "solidity",
           ">=",
@@ -495,27 +495,27 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:31:20"
+        "src": "35:31:21"
       },
       {
-        "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/Dependencies/TestIERC20.sol",
+        "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Dependencies/TestIERC20.sol",
         "file": "../Dependencies/TestIERC20.sol",
-        "id": 11935,
+        "id": 11988,
         "nodeType": "ImportDirective",
-        "scope": 11971,
+        "scope": 12024,
         "sourceUnit": 1419,
-        "src": "66:40:20",
+        "src": "70:40:21",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/Dependencies/IERC2612.sol",
+        "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Dependencies/IERC2612.sol",
         "file": "../Dependencies/IERC2612.sol",
-        "id": 11936,
+        "id": 11989,
         "nodeType": "ImportDirective",
-        "scope": 11971,
+        "scope": 12024,
         "sourceUnit": 128,
-        "src": "107:38:20",
+        "src": "112:38:21",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -524,35 +524,35 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 11937,
+              "id": 11990,
               "name": "TestIERC20",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 1418,
-              "src": "171:10:20",
+              "src": "178:10:21",
               "typeDescriptions": {
                 "typeIdentifier": "t_contract$_TestIERC20_$1418",
                 "typeString": "contract TestIERC20"
               }
             },
-            "id": 11938,
+            "id": 11991,
             "nodeType": "InheritanceSpecifier",
-            "src": "171:10:20"
+            "src": "178:10:21"
           },
           {
             "baseName": {
-              "id": 11939,
+              "id": 11992,
               "name": "IERC2612",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 127,
-              "src": "183:8:20",
+              "src": "190:8:21",
               "typeDescriptions": {
                 "typeIdentifier": "t_contract$_IERC2612_$127",
                 "typeString": "contract IERC2612"
               }
             },
-            "id": 11940,
+            "id": 11993,
             "nodeType": "InheritanceSpecifier",
-            "src": "183:8:20"
+            "src": "190:8:21"
           }
         ],
         "contractDependencies": [
@@ -561,9 +561,9 @@
         ],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 11970,
+        "id": 12023,
         "linearizedBaseContracts": [
-          11970,
+          12023,
           127,
           1418
         ],
@@ -572,22 +572,22 @@
         "nodes": [
           {
             "anonymous": false,
-            "id": 11944,
+            "id": 11997,
             "name": "CommunityIssuanceAddressSet",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 11943,
+              "id": 11996,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11942,
+                  "id": 11995,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "_communityIssuanceAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11944,
-                  "src": "255:33:20",
+                  "scope": 11997,
+                  "src": "265:33:21",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -595,10 +595,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11941,
+                    "id": 11994,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "255:7:20",
+                    "src": "265:7:21",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -608,28 +608,28 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "254:35:20"
+              "src": "264:35:21"
             },
-            "src": "221:69:20"
+            "src": "231:69:21"
           },
           {
             "anonymous": false,
-            "id": 11948,
+            "id": 12001,
             "name": "LQTYStakingAddressSet",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 11947,
+              "id": 12000,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11946,
+                  "id": 11999,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "_lqtyStakingAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11948,
-                  "src": "324:27:20",
+                  "scope": 12001,
+                  "src": "336:27:21",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -637,10 +637,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11945,
+                    "id": 11998,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "324:7:20",
+                    "src": "336:7:21",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -650,28 +650,28 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "323:29:20"
+              "src": "335:29:21"
             },
-            "src": "296:57:20"
+            "src": "308:57:21"
           },
           {
             "anonymous": false,
-            "id": 11952,
+            "id": 12005,
             "name": "LockupContractFactoryAddressSet",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 11951,
+              "id": 12004,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11950,
+                  "id": 12003,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "_lockupContractFactoryAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11952,
-                  "src": "406:37:20",
+                  "scope": 12005,
+                  "src": "421:37:21",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -679,10 +679,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11949,
+                    "id": 12002,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "406:7:20",
+                    "src": "421:7:21",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -692,30 +692,30 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "396:53:20"
+              "src": "410:55:21"
             },
-            "src": "359:91:20"
+            "src": "373:93:21"
           },
           {
             "functionSelector": "f3a2568b",
-            "id": 11959,
+            "id": 12012,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "sendToLQTYStaking",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11957,
+              "id": 12010,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11954,
+                  "id": 12007,
                   "mutability": "mutable",
                   "name": "_sender",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11959,
-                  "src": "509:15:20",
+                  "scope": 12012,
+                  "src": "529:15:21",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -723,10 +723,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 11953,
+                    "id": 12006,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "509:7:20",
+                    "src": "529:7:21",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -737,12 +737,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 11956,
+                  "id": 12009,
                   "mutability": "mutable",
                   "name": "_amount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11959,
-                  "src": "526:15:20",
+                  "scope": 12012,
+                  "src": "546:15:21",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -750,10 +750,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 11955,
+                    "id": 12008,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "526:7:20",
+                    "src": "546:7:21",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -762,46 +762,46 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "508:34:20"
+              "src": "528:34:21"
             },
             "returnParameters": {
-              "id": 11958,
+              "id": 12011,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "551:0:20"
+              "src": "571:0:21"
             },
-            "scope": 11970,
-            "src": "482:70:20",
+            "scope": 12023,
+            "src": "502:70:21",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "functionSelector": "3c84b7c2",
-            "id": 11964,
+            "id": 12017,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getDeploymentStartTime",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11960,
+              "id": 12013,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "589:2:20"
+              "src": "611:2:21"
             },
             "returnParameters": {
-              "id": 11963,
+              "id": 12016,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11962,
+                  "id": 12015,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11964,
-                  "src": "615:7:20",
+                  "scope": 12017,
+                  "src": "637:7:21",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -809,10 +809,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 11961,
+                    "id": 12014,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "615:7:20",
+                    "src": "637:7:21",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -821,40 +821,40 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "614:9:20"
+              "src": "636:9:21"
             },
-            "scope": 11970,
-            "src": "558:66:20",
+            "scope": 12023,
+            "src": "580:66:21",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           },
           {
             "functionSelector": "974f5590",
-            "id": 11969,
+            "id": 12022,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getLpRewardsEntitlement",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11965,
+              "id": 12018,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "662:2:20"
+              "src": "686:2:21"
             },
             "returnParameters": {
-              "id": 11968,
+              "id": 12021,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 11967,
+                  "id": 12020,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 11969,
-                  "src": "688:7:20",
+                  "scope": 12022,
+                  "src": "712:7:21",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -862,10 +862,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 11966,
+                    "id": 12019,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "688:7:20",
+                    "src": "712:7:21",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -874,30 +874,30 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "687:9:20"
+              "src": "711:9:21"
             },
-            "scope": 11970,
-            "src": "630:67:20",
+            "scope": 12023,
+            "src": "654:67:21",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 11971,
-        "src": "147:552:20"
+        "scope": 12024,
+        "src": "154:570:21"
       }
     ],
-    "src": "33:667:20"
+    "src": "35:691:21"
   },
   "legacyAST": {
     "attributes": {
-      "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/Interfaces/ILQTYToken.sol",
+      "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Interfaces/ILQTYToken.sol",
       "exportedSymbols": {
         "IERC2612": [
           127
         ],
         "ILQTYToken": [
-          11970
+          12023
         ],
         "TestIERC20": [
           1418
@@ -918,39 +918,39 @@
             ".0"
           ]
         },
-        "id": 11934,
+        "id": 11987,
         "name": "PragmaDirective",
-        "src": "33:31:20"
+        "src": "35:31:21"
       },
       {
         "attributes": {
           "SourceUnit": 1419,
-          "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/Dependencies/TestIERC20.sol",
+          "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Dependencies/TestIERC20.sol",
           "file": "../Dependencies/TestIERC20.sol",
-          "scope": 11971,
+          "scope": 12024,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 11935,
+        "id": 11988,
         "name": "ImportDirective",
-        "src": "66:40:20"
+        "src": "70:40:21"
       },
       {
         "attributes": {
           "SourceUnit": 128,
-          "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/Dependencies/IERC2612.sol",
+          "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/Dependencies/IERC2612.sol",
           "file": "../Dependencies/IERC2612.sol",
-          "scope": 11971,
+          "scope": 12024,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 11936,
+        "id": 11989,
         "name": "ImportDirective",
-        "src": "107:38:20"
+        "src": "112:38:21"
       },
       {
         "attributes": {
@@ -962,12 +962,12 @@
           "contractKind": "interface",
           "fullyImplemented": false,
           "linearizedBaseContracts": [
-            11970,
+            12023,
             127,
             1418
           ],
           "name": "ILQTYToken",
-          "scope": 11971
+          "scope": 12024
         },
         "children": [
           {
@@ -979,14 +979,14 @@
                   "referencedDeclaration": 1418,
                   "type": "contract TestIERC20"
                 },
-                "id": 11937,
+                "id": 11990,
                 "name": "UserDefinedTypeName",
-                "src": "171:10:20"
+                "src": "178:10:21"
               }
             ],
-            "id": 11938,
+            "id": 11991,
             "name": "InheritanceSpecifier",
-            "src": "171:10:20"
+            "src": "178:10:21"
           },
           {
             "attributes": {},
@@ -997,14 +997,14 @@
                   "referencedDeclaration": 127,
                   "type": "contract IERC2612"
                 },
-                "id": 11939,
+                "id": 11992,
                 "name": "UserDefinedTypeName",
-                "src": "183:8:20"
+                "src": "190:8:21"
               }
             ],
-            "id": 11940,
+            "id": 11993,
             "name": "InheritanceSpecifier",
-            "src": "183:8:20"
+            "src": "190:8:21"
           },
           {
             "attributes": {
@@ -1020,7 +1020,7 @@
                       "indexed": false,
                       "mutability": "mutable",
                       "name": "_communityIssuanceAddress",
-                      "scope": 11944,
+                      "scope": 11997,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -1033,24 +1033,24 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 11941,
+                        "id": 11994,
                         "name": "ElementaryTypeName",
-                        "src": "255:7:20"
+                        "src": "265:7:21"
                       }
                     ],
-                    "id": 11942,
+                    "id": 11995,
                     "name": "VariableDeclaration",
-                    "src": "255:33:20"
+                    "src": "265:33:21"
                   }
                 ],
-                "id": 11943,
+                "id": 11996,
                 "name": "ParameterList",
-                "src": "254:35:20"
+                "src": "264:35:21"
               }
             ],
-            "id": 11944,
+            "id": 11997,
             "name": "EventDefinition",
-            "src": "221:69:20"
+            "src": "231:69:21"
           },
           {
             "attributes": {
@@ -1066,7 +1066,7 @@
                       "indexed": false,
                       "mutability": "mutable",
                       "name": "_lqtyStakingAddress",
-                      "scope": 11948,
+                      "scope": 12001,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -1079,24 +1079,24 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 11945,
+                        "id": 11998,
                         "name": "ElementaryTypeName",
-                        "src": "324:7:20"
+                        "src": "336:7:21"
                       }
                     ],
-                    "id": 11946,
+                    "id": 11999,
                     "name": "VariableDeclaration",
-                    "src": "324:27:20"
+                    "src": "336:27:21"
                   }
                 ],
-                "id": 11947,
+                "id": 12000,
                 "name": "ParameterList",
-                "src": "323:29:20"
+                "src": "335:29:21"
               }
             ],
-            "id": 11948,
+            "id": 12001,
             "name": "EventDefinition",
-            "src": "296:57:20"
+            "src": "308:57:21"
           },
           {
             "attributes": {
@@ -1112,7 +1112,7 @@
                       "indexed": false,
                       "mutability": "mutable",
                       "name": "_lockupContractFactoryAddress",
-                      "scope": 11952,
+                      "scope": 12005,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -1125,24 +1125,24 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 11949,
+                        "id": 12002,
                         "name": "ElementaryTypeName",
-                        "src": "406:7:20"
+                        "src": "421:7:21"
                       }
                     ],
-                    "id": 11950,
+                    "id": 12003,
                     "name": "VariableDeclaration",
-                    "src": "406:37:20"
+                    "src": "421:37:21"
                   }
                 ],
-                "id": 11951,
+                "id": 12004,
                 "name": "ParameterList",
-                "src": "396:53:20"
+                "src": "410:55:21"
               }
             ],
-            "id": 11952,
+            "id": 12005,
             "name": "EventDefinition",
-            "src": "359:91:20"
+            "src": "373:93:21"
           },
           {
             "attributes": {
@@ -1154,7 +1154,7 @@
                 null
               ],
               "name": "sendToLQTYStaking",
-              "scope": 11970,
+              "scope": 12023,
               "stateMutability": "nonpayable",
               "virtual": false,
               "visibility": "external"
@@ -1167,7 +1167,7 @@
                       "constant": false,
                       "mutability": "mutable",
                       "name": "_sender",
-                      "scope": 11959,
+                      "scope": 12012,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -1180,21 +1180,21 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 11953,
+                        "id": 12006,
                         "name": "ElementaryTypeName",
-                        "src": "509:7:20"
+                        "src": "529:7:21"
                       }
                     ],
-                    "id": 11954,
+                    "id": 12007,
                     "name": "VariableDeclaration",
-                    "src": "509:15:20"
+                    "src": "529:15:21"
                   },
                   {
                     "attributes": {
                       "constant": false,
                       "mutability": "mutable",
                       "name": "_amount",
-                      "scope": 11959,
+                      "scope": 12012,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1206,19 +1206,19 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 11955,
+                        "id": 12008,
                         "name": "ElementaryTypeName",
-                        "src": "526:7:20"
+                        "src": "546:7:21"
                       }
                     ],
-                    "id": 11956,
+                    "id": 12009,
                     "name": "VariableDeclaration",
-                    "src": "526:15:20"
+                    "src": "546:15:21"
                   }
                 ],
-                "id": 11957,
+                "id": 12010,
                 "name": "ParameterList",
-                "src": "508:34:20"
+                "src": "528:34:21"
               },
               {
                 "attributes": {
@@ -1227,14 +1227,14 @@
                   ]
                 },
                 "children": [],
-                "id": 11958,
+                "id": 12011,
                 "name": "ParameterList",
-                "src": "551:0:20"
+                "src": "571:0:21"
               }
             ],
-            "id": 11959,
+            "id": 12012,
             "name": "FunctionDefinition",
-            "src": "482:70:20"
+            "src": "502:70:21"
           },
           {
             "attributes": {
@@ -1246,7 +1246,7 @@
                 null
               ],
               "name": "getDeploymentStartTime",
-              "scope": 11970,
+              "scope": 12023,
               "stateMutability": "view",
               "virtual": false,
               "visibility": "external"
@@ -1259,9 +1259,9 @@
                   ]
                 },
                 "children": [],
-                "id": 11960,
+                "id": 12013,
                 "name": "ParameterList",
-                "src": "589:2:20"
+                "src": "611:2:21"
               },
               {
                 "children": [
@@ -1270,7 +1270,7 @@
                       "constant": false,
                       "mutability": "mutable",
                       "name": "",
-                      "scope": 11964,
+                      "scope": 12017,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1282,24 +1282,24 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 11961,
+                        "id": 12014,
                         "name": "ElementaryTypeName",
-                        "src": "615:7:20"
+                        "src": "637:7:21"
                       }
                     ],
-                    "id": 11962,
+                    "id": 12015,
                     "name": "VariableDeclaration",
-                    "src": "615:7:20"
+                    "src": "637:7:21"
                   }
                 ],
-                "id": 11963,
+                "id": 12016,
                 "name": "ParameterList",
-                "src": "614:9:20"
+                "src": "636:9:21"
               }
             ],
-            "id": 11964,
+            "id": 12017,
             "name": "FunctionDefinition",
-            "src": "558:66:20"
+            "src": "580:66:21"
           },
           {
             "attributes": {
@@ -1311,7 +1311,7 @@
                 null
               ],
               "name": "getLpRewardsEntitlement",
-              "scope": 11970,
+              "scope": 12023,
               "stateMutability": "view",
               "virtual": false,
               "visibility": "external"
@@ -1324,9 +1324,9 @@
                   ]
                 },
                 "children": [],
-                "id": 11965,
+                "id": 12018,
                 "name": "ParameterList",
-                "src": "662:2:20"
+                "src": "686:2:21"
               },
               {
                 "children": [
@@ -1335,7 +1335,7 @@
                       "constant": false,
                       "mutability": "mutable",
                       "name": "",
-                      "scope": 11969,
+                      "scope": 12022,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1347,42 +1347,42 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 11966,
+                        "id": 12019,
                         "name": "ElementaryTypeName",
-                        "src": "688:7:20"
+                        "src": "712:7:21"
                       }
                     ],
-                    "id": 11967,
+                    "id": 12020,
                     "name": "VariableDeclaration",
-                    "src": "688:7:20"
+                    "src": "712:7:21"
                   }
                 ],
-                "id": 11968,
+                "id": 12021,
                 "name": "ParameterList",
-                "src": "687:9:20"
+                "src": "711:9:21"
               }
             ],
-            "id": 11969,
+            "id": 12022,
             "name": "FunctionDefinition",
-            "src": "630:67:20"
+            "src": "654:67:21"
           }
         ],
-        "id": 11970,
+        "id": 12023,
         "name": "ContractDefinition",
-        "src": "147:552:20"
+        "src": "154:570:21"
       }
     ],
-    "id": 11971,
+    "id": 12024,
     "name": "SourceUnit",
-    "src": "33:667:20"
+    "src": "35:691:21"
   },
   "compiler": {
     "name": "solc",
     "version": "0.7.6+commit.7338295f.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.4",
-  "updatedAt": "2021-03-28T17:58:06.901Z",
+  "schemaVersion": "3.3.3",
+  "updatedAt": "2021-03-28T20:31:59.342Z",
   "devdoc": {
     "kind": "dev",
     "methods": {

@@ -71,44 +71,44 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract LQTYToken\",\"name\":\"_lqtyToken\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"lqtyToken\",\"outputs\":[{\"internalType\":\"contract LQTYToken\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"stake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"unstake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/dannywarrick/code/harp/client/src/contracts/LQTYStaking.sol\":\"LQTYStaking\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/dannywarrick/code/harp/client/src/contracts/LQTYStaking.sol\":{\"keccak256\":\"0x08f04e54b3ded1f9ea3e92639045b417c14950ee566edf1d850dd92c83498096\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a48dfe3a490ee9e9fd41344a8eb937fca628df4903d8e4fcf836018887ebada3\",\"dweb:/ipfs/QmTV2QrJxFUKiacddEKkgSt99SdiLH4MyGA3XGTGbutZZX\"]},\"/Users/dannywarrick/code/harp/client/src/contracts/LQTYToken.sol\":{\"keccak256\":\"0x91985c3828ada4288d6856da38dedefe62d8bca51808fe25fcfcfa8175e24686\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e16f2f947c61b1d7218b7841745f7aeef950811c0781f127c550323dece485e8\",\"dweb:/ipfs/QmYQq2V1uvQC5RgB1YdC6RMiXikRS1Lopm3y7dwMFJv1s5\"]},\"@openzeppelin/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xcc78a17dd88fa5a2edc60c8489e2f405c0913b377216a5b26b35656b2d0dab52\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://526dc85e1f9b9b45830e202568d267d93dde7a4fcccf4ad7798dadcd92304d3c\",\"dweb:/ipfs/QmaoXMB972J3cSDLtBq3xBo4jLwqD2uzXTwujtSPqkYVhR\"]},\"@openzeppelin/contracts/token/ERC20/ERC20.sol\":{\"keccak256\":\"0xca0c2396dbeb3503b51abf4248ebf77a1461edad513c01529df51850a012bee3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://991b44ff44e0496e8554a90f4c0512c28faed45104d40430019f3c67ea67740e\",\"dweb:/ipfs/Qmc3nRapVbcctELoZS5qe17zLkFB3bETBfwzCTMF1CSuGE\"]},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x5f02220344881ce43204ae4a6281145a67bc52c2bb1290a791857df3d19d78f5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://24427744bd3e6cb73c17010119af12a318289c0253a4d9acb8576c9fb3797b08\",\"dweb:/ipfs/QmTLDqpKRBuxGxRAmjgXt9AkXyACW3MtKzi7PYjm5iMfGC\"]},\"@openzeppelin/contracts/utils/Context.sol\":{\"keccak256\":\"0x8d3cb350f04ff49cfb10aef08d87f19dcbaecc8027b0bed12f3275cd12f38cf0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ded47ec7c96750f9bd04bbbc84f659992d4ba901cb7b532a52cd468272cf378f\",\"dweb:/ipfs/QmfBrGtQP7rZEqEg6Wz6jh2N2Kukpj1z5v3CGWmAqrzm96\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b506040516104033803806104038339818101604052602081101561003357600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505061036f806100946000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c80631959a002146100515780631f7af3c3146100a95780632e17de78146100dd578063a694fc3a1461010b575b600080fd5b6100936004803603602081101561006757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610139565b6040518082815260200191505060405180910390f35b6100b1610157565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610109600480360360208110156100f357600080fd5b810190808035906020019092919050505061017b565b005b6101376004803603602081101561012157600080fd5b810190808035906020019092919050505061024b565b005b60016020528060005260406000206000915090508060000154905081565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb33836040518363ffffffff1660e01b8152600401808373ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b15801561020c57600080fd5b505af1158015610220573d6000803e3d6000fd5b505050506040513d602081101561023657600080fd5b81019080805190602001909291905050505050565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd3330846040518463ffffffff1660e01b8152600401808473ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b1580156102fa57600080fd5b505af115801561030e573d6000803e3d6000fd5b505050506040513d602081101561032457600080fd5b8101908080519060200190929190505050505056fea2646970667358221220bd39f5016ccbaad7a1213d4a098bc3836fc7b33624e1e52608f5046f129f07f164736f6c63430007060033",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061004c5760003560e01c80631959a002146100515780631f7af3c3146100a95780632e17de78146100dd578063a694fc3a1461010b575b600080fd5b6100936004803603602081101561006757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610139565b6040518082815260200191505060405180910390f35b6100b1610157565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610109600480360360208110156100f357600080fd5b810190808035906020019092919050505061017b565b005b6101376004803603602081101561012157600080fd5b810190808035906020019092919050505061024b565b005b60016020528060005260406000206000915090508060000154905081565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb33836040518363ffffffff1660e01b8152600401808373ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b15801561020c57600080fd5b505af1158015610220573d6000803e3d6000fd5b505050506040513d602081101561023657600080fd5b81019080805190602001909291905050505050565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd3330846040518463ffffffff1660e01b8152600401808473ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b1580156102fa57600080fd5b505af115801561030e573d6000803e3d6000fd5b505050506040513d602081101561032457600080fd5b8101908080519060200190929190505050505056fea2646970667358221220bd39f5016ccbaad7a1213d4a098bc3836fc7b33624e1e52608f5046f129f07f164736f6c63430007060033",
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract LQTYToken\",\"name\":\"_lqtyToken\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"lqtyToken\",\"outputs\":[{\"internalType\":\"contract LQTYToken\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"stake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"unstake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/danie/code/harp/client/src/contracts/LQTYStaking.sol\":\"LQTYStaking\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/danie/code/harp/client/src/contracts/LQTYStaking.sol\":{\"keccak256\":\"0xef0c25b47b1c0707a098cc8706788c5df75dc4c6f9a257e438a990dbd3a30047\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d496658a7307d6d40c8cd5aa5d2270113ef28fd5eb7fc9addbcb34915e1da27b\",\"dweb:/ipfs/QmYt8kjpFUmJmdhvGNHBgvp5RNiBs5tmYyJYUaPNHTHwbC\"]},\"/C/Users/danie/code/harp/client/src/contracts/LQTYToken.sol\":{\"keccak256\":\"0x832011a1836bc28c576d38e1c5872f33e79db0120aaa94efa846d1b1c7b8e265\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://81dbbacd0ac6daf04e249b7bcd80a4fda866cb98c59fd107c9c43ce208542fa0\",\"dweb:/ipfs/Qmf5eRFPCfVqwJPek5h93bmwwiRV1hCzqY6ebxbjAD3oEx\"]},\"@openzeppelin/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xcc78a17dd88fa5a2edc60c8489e2f405c0913b377216a5b26b35656b2d0dab52\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://526dc85e1f9b9b45830e202568d267d93dde7a4fcccf4ad7798dadcd92304d3c\",\"dweb:/ipfs/QmaoXMB972J3cSDLtBq3xBo4jLwqD2uzXTwujtSPqkYVhR\"]},\"@openzeppelin/contracts/token/ERC20/ERC20.sol\":{\"keccak256\":\"0xca0c2396dbeb3503b51abf4248ebf77a1461edad513c01529df51850a012bee3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://991b44ff44e0496e8554a90f4c0512c28faed45104d40430019f3c67ea67740e\",\"dweb:/ipfs/Qmc3nRapVbcctELoZS5qe17zLkFB3bETBfwzCTMF1CSuGE\"]},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x5f02220344881ce43204ae4a6281145a67bc52c2bb1290a791857df3d19d78f5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://24427744bd3e6cb73c17010119af12a318289c0253a4d9acb8576c9fb3797b08\",\"dweb:/ipfs/QmTLDqpKRBuxGxRAmjgXt9AkXyACW3MtKzi7PYjm5iMfGC\"]},\"@openzeppelin/contracts/utils/Context.sol\":{\"keccak256\":\"0x8d3cb350f04ff49cfb10aef08d87f19dcbaecc8027b0bed12f3275cd12f38cf0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ded47ec7c96750f9bd04bbbc84f659992d4ba901cb7b532a52cd468272cf378f\",\"dweb:/ipfs/QmfBrGtQP7rZEqEg6Wz6jh2N2Kukpj1z5v3CGWmAqrzm96\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516104033803806104038339818101604052602081101561003357600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505061036f806100946000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c80631959a002146100515780631f7af3c3146100a95780632e17de78146100dd578063a694fc3a1461010b575b600080fd5b6100936004803603602081101561006757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610139565b6040518082815260200191505060405180910390f35b6100b1610157565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610109600480360360208110156100f357600080fd5b810190808035906020019092919050505061017b565b005b6101376004803603602081101561012157600080fd5b810190808035906020019092919050505061024b565b005b60016020528060005260406000206000915090508060000154905081565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb33836040518363ffffffff1660e01b8152600401808373ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b15801561020c57600080fd5b505af1158015610220573d6000803e3d6000fd5b505050506040513d602081101561023657600080fd5b81019080805190602001909291905050505050565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd3330846040518463ffffffff1660e01b8152600401808473ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b1580156102fa57600080fd5b505af115801561030e573d6000803e3d6000fd5b505050506040513d602081101561032457600080fd5b8101908080519060200190929190505050505056fea2646970667358221220bf22b4b12a629886d6f4e33c1b62a59a009fca8b7d40e65fca0933c27694e19a64736f6c63430007060033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061004c5760003560e01c80631959a002146100515780631f7af3c3146100a95780632e17de78146100dd578063a694fc3a1461010b575b600080fd5b6100936004803603602081101561006757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610139565b6040518082815260200191505060405180910390f35b6100b1610157565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610109600480360360208110156100f357600080fd5b810190808035906020019092919050505061017b565b005b6101376004803603602081101561012157600080fd5b810190808035906020019092919050505061024b565b005b60016020528060005260406000206000915090508060000154905081565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb33836040518363ffffffff1660e01b8152600401808373ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b15801561020c57600080fd5b505af1158015610220573d6000803e3d6000fd5b505050506040513d602081101561023657600080fd5b81019080805190602001909291905050505050565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd3330846040518463ffffffff1660e01b8152600401808473ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b1580156102fa57600080fd5b505af115801561030e573d6000803e3d6000fd5b505050506040513d602081101561032457600080fd5b8101908080519060200190929190505050505056fea2646970667358221220bf22b4b12a629886d6f4e33c1b62a59a009fca8b7d40e65fca0933c27694e19a64736f6c63430007060033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
-  "sourceMap": "92:461:29:-:0;;;255:73;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;311:10;299:9;;:22;;;;;;;;;;;;;;;;;;255:73;92:461;;;;;;",
-  "deployedSourceMap": "92:461:29:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;204:44;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;172:26;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;454:97;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;334:114;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;204:44;;;;;;;;;;;;;;;;;;;;;;:::o;172:26::-;;;;;;;;;;;;:::o;454:97::-;505:9;;;;;;;;;;:18;;;524:10;536:7;505:39;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;454:97;:::o;334:114::-;383:9;;;;;;;;;;:22;;;406:10;426:4;433:7;383:58;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;334:114;:::o",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.6.0 <0.8.0;\n\nimport \"./LQTYToken.sol\";\n\ncontract LQTYStaking {\n    struct UserInfo {\n        uint256 amount;\n    }\n\n    LQTYToken public lqtyToken;\n    mapping(address => UserInfo) public userInfo;\n\n    constructor(LQTYToken _lqtyToken) {\n        lqtyToken = _lqtyToken;\n    }\n\n    function stake(uint256 _amount) public {\n        lqtyToken.transferFrom(msg.sender, address(this), _amount);\n    }\n\n    function unstake(uint256 _amount) public {\n        lqtyToken.transfer(msg.sender, _amount);\n    }\n}\n",
-  "sourcePath": "/Users/dannywarrick/code/harp/client/src/contracts/LQTYStaking.sol",
+  "sourceMap": "97:480:30:-:0;;;268:75;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;325:10;313:9;;:22;;;;;;;;;;;;;;;;;;268:75;97:480;;;;;;",
+  "deployedSourceMap": "97:480:30:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;215:44;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;182:26;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;475:99;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;351:116;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;215:44;;;;;;;;;;;;;;;;;;;;;;:::o;182:26::-;;;;;;;;;;;;:::o;475:99::-;527:9;;;;;;;;;;:18;;;546:10;558:7;527:39;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;475:99;:::o;351:116::-;401:9;;;;;;;;;;:22;;;424:10;444:4;451:7;401:58;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;351:116;:::o",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\nimport \"./LQTYToken.sol\";\r\n\r\ncontract LQTYStaking {\r\n    struct UserInfo {\r\n        uint256 amount;\r\n    }\r\n\r\n    LQTYToken public lqtyToken;\r\n    mapping(address => UserInfo) public userInfo;\r\n\r\n    constructor(LQTYToken _lqtyToken) {\r\n        lqtyToken = _lqtyToken;\r\n    }\r\n\r\n    function stake(uint256 _amount) public {\r\n        lqtyToken.transferFrom(msg.sender, address(this), _amount);\r\n    }\r\n\r\n    function unstake(uint256 _amount) public {\r\n        lqtyToken.transfer(msg.sender, _amount);\r\n    }\r\n}\r\n",
+  "sourcePath": "C:/Users/danie/code/harp/client/src/contracts/LQTYStaking.sol",
   "ast": {
-    "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/LQTYStaking.sol",
+    "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/LQTYStaking.sol",
     "exportedSymbols": {
       "Context": [
-        17953
+        18006
       ],
       "ERC20": [
-        17284
+        17337
       ],
       "IERC20": [
-        17421
+        17474
       ],
       "LQTYStaking": [
-        12839
+        12892
       ],
       "LQTYToken": [
-        12857
+        12910
       ],
       "SafeMath": [
-        16781
+        16834
       ]
     },
-    "id": 12840,
+    "id": 12893,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 12786,
+        "id": 12839,
         "literals": [
           "solidity",
           ">=",
@@ -119,16 +119,16 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "32:31:29"
+        "src": "33:31:30"
       },
       {
-        "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/LQTYToken.sol",
+        "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/LQTYToken.sol",
         "file": "./LQTYToken.sol",
-        "id": 12787,
+        "id": 12840,
         "nodeType": "ImportDirective",
-        "scope": 12840,
-        "sourceUnit": 12858,
-        "src": "65:25:29",
+        "scope": 12893,
+        "sourceUnit": 12911,
+        "src": "68:25:30",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -138,25 +138,25 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 12839,
+        "id": 12892,
         "linearizedBaseContracts": [
-          12839
+          12892
         ],
         "name": "LQTYStaking",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "LQTYStaking.UserInfo",
-            "id": 12790,
+            "id": 12843,
             "members": [
               {
                 "constant": false,
-                "id": 12789,
+                "id": 12842,
                 "mutability": "mutable",
                 "name": "amount",
                 "nodeType": "VariableDeclaration",
-                "scope": 12790,
-                "src": "145:14:29",
+                "scope": 12843,
+                "src": "152:14:30",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -164,10 +164,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 12788,
+                  "id": 12841,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "145:7:29",
+                  "src": "152:7:30",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -178,33 +178,33 @@
             ],
             "name": "UserInfo",
             "nodeType": "StructDefinition",
-            "scope": 12839,
-            "src": "119:47:29",
+            "scope": 12892,
+            "src": "125:49:30",
             "visibility": "public"
           },
           {
             "constant": false,
             "functionSelector": "1f7af3c3",
-            "id": 12792,
+            "id": 12845,
             "mutability": "mutable",
             "name": "lqtyToken",
             "nodeType": "VariableDeclaration",
-            "scope": 12839,
-            "src": "172:26:29",
+            "scope": 12892,
+            "src": "182:26:30",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_LQTYToken_$12857",
+              "typeIdentifier": "t_contract$_LQTYToken_$12910",
               "typeString": "contract LQTYToken"
             },
             "typeName": {
-              "id": 12791,
+              "id": 12844,
               "name": "LQTYToken",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 12857,
-              "src": "172:9:29",
+              "referencedDeclaration": 12910,
+              "src": "182:9:30",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_LQTYToken_$12857",
+                "typeIdentifier": "t_contract$_LQTYToken_$12910",
                 "typeString": "contract LQTYToken"
               }
             },
@@ -213,44 +213,44 @@
           {
             "constant": false,
             "functionSelector": "1959a002",
-            "id": 12796,
+            "id": 12849,
             "mutability": "mutable",
             "name": "userInfo",
             "nodeType": "VariableDeclaration",
-            "scope": 12839,
-            "src": "204:44:29",
+            "scope": 12892,
+            "src": "215:44:30",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_UserInfo_$12790_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_UserInfo_$12843_storage_$",
               "typeString": "mapping(address => struct LQTYStaking.UserInfo)"
             },
             "typeName": {
-              "id": 12795,
+              "id": 12848,
               "keyType": {
-                "id": 12793,
+                "id": 12846,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "212:7:29",
+                "src": "223:7:30",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "204:28:29",
+              "src": "215:28:30",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_UserInfo_$12790_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_UserInfo_$12843_storage_$",
                 "typeString": "mapping(address => struct LQTYStaking.UserInfo)"
               },
               "valueType": {
-                "id": 12794,
+                "id": 12847,
                 "name": "UserInfo",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 12790,
-                "src": "223:8:29",
+                "referencedDeclaration": 12843,
+                "src": "234:8:30",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_UserInfo_$12790_storage_ptr",
+                  "typeIdentifier": "t_struct$_UserInfo_$12843_storage_ptr",
                   "typeString": "struct LQTYStaking.UserInfo"
                 }
               }
@@ -259,137 +259,137 @@
           },
           {
             "body": {
-              "id": 12805,
+              "id": 12858,
               "nodeType": "Block",
-              "src": "289:39:29",
+              "src": "302:41:30",
               "statements": [
                 {
                   "expression": {
-                    "id": 12803,
+                    "id": 12856,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 12801,
+                      "id": 12854,
                       "name": "lqtyToken",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 12792,
-                      "src": "299:9:29",
+                      "referencedDeclaration": 12845,
+                      "src": "313:9:30",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_LQTYToken_$12857",
+                        "typeIdentifier": "t_contract$_LQTYToken_$12910",
                         "typeString": "contract LQTYToken"
                       }
                     },
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 12802,
+                      "id": 12855,
                       "name": "_lqtyToken",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 12798,
-                      "src": "311:10:29",
+                      "referencedDeclaration": 12851,
+                      "src": "325:10:30",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_LQTYToken_$12857",
+                        "typeIdentifier": "t_contract$_LQTYToken_$12910",
                         "typeString": "contract LQTYToken"
                       }
                     },
-                    "src": "299:22:29",
+                    "src": "313:22:30",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_LQTYToken_$12857",
+                      "typeIdentifier": "t_contract$_LQTYToken_$12910",
                       "typeString": "contract LQTYToken"
                     }
                   },
-                  "id": 12804,
+                  "id": 12857,
                   "nodeType": "ExpressionStatement",
-                  "src": "299:22:29"
+                  "src": "313:22:30"
                 }
               ]
             },
-            "id": 12806,
+            "id": 12859,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 12799,
+              "id": 12852,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 12798,
+                  "id": 12851,
                   "mutability": "mutable",
                   "name": "_lqtyToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 12806,
-                  "src": "267:20:29",
+                  "scope": 12859,
+                  "src": "280:20:30",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_LQTYToken_$12857",
+                    "typeIdentifier": "t_contract$_LQTYToken_$12910",
                     "typeString": "contract LQTYToken"
                   },
                   "typeName": {
-                    "id": 12797,
+                    "id": 12850,
                     "name": "LQTYToken",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 12857,
-                    "src": "267:9:29",
+                    "referencedDeclaration": 12910,
+                    "src": "280:9:30",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_LQTYToken_$12857",
+                      "typeIdentifier": "t_contract$_LQTYToken_$12910",
                       "typeString": "contract LQTYToken"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "266:22:29"
+              "src": "279:22:30"
             },
             "returnParameters": {
-              "id": 12800,
+              "id": 12853,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "289:0:29"
+              "src": "302:0:30"
             },
-            "scope": 12839,
-            "src": "255:73:29",
+            "scope": 12892,
+            "src": "268:75:30",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 12823,
+              "id": 12876,
               "nodeType": "Block",
-              "src": "373:75:29",
+              "src": "390:77:30",
               "statements": [
                 {
                   "expression": {
                     "arguments": [
                       {
                         "expression": {
-                          "id": 12814,
+                          "id": 12867,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 4294967281,
-                          "src": "406:3:29",
+                          "src": "424:3:30",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
                             "typeString": "msg"
                           }
                         },
-                        "id": 12815,
+                        "id": 12868,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "sender",
                         "nodeType": "MemberAccess",
-                        "src": "406:10:29",
+                        "src": "424:10:30",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address_payable",
                           "typeString": "address payable"
@@ -398,14 +398,14 @@
                       {
                         "arguments": [
                           {
-                            "id": 12818,
+                            "id": 12871,
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 4294967268,
-                            "src": "426:4:29",
+                            "src": "444:4:30",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_LQTYStaking_$12839",
+                              "typeIdentifier": "t_contract$_LQTYStaking_$12892",
                               "typeString": "contract LQTYStaking"
                             }
                           }
@@ -413,30 +413,30 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_LQTYStaking_$12839",
+                              "typeIdentifier": "t_contract$_LQTYStaking_$12892",
                               "typeString": "contract LQTYStaking"
                             }
                           ],
-                          "id": 12817,
+                          "id": 12870,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "lValueRequested": false,
                           "nodeType": "ElementaryTypeNameExpression",
-                          "src": "418:7:29",
+                          "src": "436:7:30",
                           "typeDescriptions": {
                             "typeIdentifier": "t_type$_t_address_$",
                             "typeString": "type(address)"
                           },
                           "typeName": {
-                            "id": 12816,
+                            "id": 12869,
                             "name": "address",
                             "nodeType": "ElementaryTypeName",
-                            "src": "418:7:29",
+                            "src": "436:7:30",
                             "typeDescriptions": {}
                           }
                         },
-                        "id": 12819,
+                        "id": 12872,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -444,7 +444,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "418:13:29",
+                        "src": "436:13:30",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -452,12 +452,12 @@
                         }
                       },
                       {
-                        "id": 12820,
+                        "id": 12873,
                         "name": "_amount",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 12808,
-                        "src": "433:7:29",
+                        "referencedDeclaration": 12861,
+                        "src": "451:7:30",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -480,32 +480,32 @@
                         }
                       ],
                       "expression": {
-                        "id": 12811,
+                        "id": 12864,
                         "name": "lqtyToken",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 12792,
-                        "src": "383:9:29",
+                        "referencedDeclaration": 12845,
+                        "src": "401:9:30",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_LQTYToken_$12857",
+                          "typeIdentifier": "t_contract$_LQTYToken_$12910",
                           "typeString": "contract LQTYToken"
                         }
                       },
-                      "id": 12813,
+                      "id": 12866,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "transferFrom",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 16982,
-                      "src": "383:22:29",
+                      "referencedDeclaration": 17035,
+                      "src": "401:22:30",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$_t_bool_$",
                         "typeString": "function (address,address,uint256) external returns (bool)"
                       }
                     },
-                    "id": 12821,
+                    "id": 12874,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -513,38 +513,38 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "383:58:29",
+                    "src": "401:58:30",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "id": 12822,
+                  "id": 12875,
                   "nodeType": "ExpressionStatement",
-                  "src": "383:58:29"
+                  "src": "401:58:30"
                 }
               ]
             },
             "functionSelector": "a694fc3a",
-            "id": 12824,
+            "id": 12877,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "stake",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 12809,
+              "id": 12862,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 12808,
+                  "id": 12861,
                   "mutability": "mutable",
                   "name": "_amount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 12824,
-                  "src": "349:15:29",
+                  "scope": 12877,
+                  "src": "366:15:30",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -552,10 +552,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 12807,
+                    "id": 12860,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "349:7:29",
+                    "src": "366:7:30",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -564,62 +564,62 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "348:17:29"
+              "src": "365:17:30"
             },
             "returnParameters": {
-              "id": 12810,
+              "id": 12863,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "373:0:29"
+              "src": "390:0:30"
             },
-            "scope": 12839,
-            "src": "334:114:29",
+            "scope": 12892,
+            "src": "351:116:30",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 12837,
+              "id": 12890,
               "nodeType": "Block",
-              "src": "495:56:29",
+              "src": "516:58:30",
               "statements": [
                 {
                   "expression": {
                     "arguments": [
                       {
                         "expression": {
-                          "id": 12832,
+                          "id": 12885,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 4294967281,
-                          "src": "524:3:29",
+                          "src": "546:3:30",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
                             "typeString": "msg"
                           }
                         },
-                        "id": 12833,
+                        "id": 12886,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "sender",
                         "nodeType": "MemberAccess",
-                        "src": "524:10:29",
+                        "src": "546:10:30",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address_payable",
                           "typeString": "address payable"
                         }
                       },
                       {
-                        "id": 12834,
+                        "id": 12887,
                         "name": "_amount",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 12826,
-                        "src": "536:7:29",
+                        "referencedDeclaration": 12879,
+                        "src": "558:7:30",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -638,32 +638,32 @@
                         }
                       ],
                       "expression": {
-                        "id": 12829,
+                        "id": 12882,
                         "name": "lqtyToken",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 12792,
-                        "src": "505:9:29",
+                        "referencedDeclaration": 12845,
+                        "src": "527:9:30",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_LQTYToken_$12857",
+                          "typeIdentifier": "t_contract$_LQTYToken_$12910",
                           "typeString": "contract LQTYToken"
                         }
                       },
-                      "id": 12831,
+                      "id": 12884,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "transfer",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 16905,
-                      "src": "505:18:29",
+                      "referencedDeclaration": 16958,
+                      "src": "527:18:30",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_bool_$",
                         "typeString": "function (address,uint256) external returns (bool)"
                       }
                     },
-                    "id": 12835,
+                    "id": 12888,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -671,38 +671,38 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "505:39:29",
+                    "src": "527:39:30",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "id": 12836,
+                  "id": 12889,
                   "nodeType": "ExpressionStatement",
-                  "src": "505:39:29"
+                  "src": "527:39:30"
                 }
               ]
             },
             "functionSelector": "2e17de78",
-            "id": 12838,
+            "id": 12891,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "unstake",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 12827,
+              "id": 12880,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 12826,
+                  "id": 12879,
                   "mutability": "mutable",
                   "name": "_amount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 12838,
-                  "src": "471:15:29",
+                  "scope": 12891,
+                  "src": "492:15:30",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -710,10 +710,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 12825,
+                    "id": 12878,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "471:7:29",
+                    "src": "492:7:30",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -722,48 +722,48 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "470:17:29"
+              "src": "491:17:30"
             },
             "returnParameters": {
-              "id": 12828,
+              "id": 12881,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "495:0:29"
+              "src": "516:0:30"
             },
-            "scope": 12839,
-            "src": "454:97:29",
+            "scope": 12892,
+            "src": "475:99:30",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 12840,
-        "src": "92:461:29"
+        "scope": 12893,
+        "src": "97:480:30"
       }
     ],
-    "src": "32:522:29"
+    "src": "33:546:30"
   },
   "legacyAST": {
     "attributes": {
-      "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/LQTYStaking.sol",
+      "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/LQTYStaking.sol",
       "exportedSymbols": {
         "Context": [
-          17953
+          18006
         ],
         "ERC20": [
-          17284
+          17337
         ],
         "IERC20": [
-          17421
+          17474
         ],
         "LQTYStaking": [
-          12839
+          12892
         ],
         "LQTYToken": [
-          12857
+          12910
         ],
         "SafeMath": [
-          16781
+          16834
         ]
       },
       "license": "MIT"
@@ -781,24 +781,24 @@
             ".0"
           ]
         },
-        "id": 12786,
+        "id": 12839,
         "name": "PragmaDirective",
-        "src": "32:31:29"
+        "src": "33:31:30"
       },
       {
         "attributes": {
-          "SourceUnit": 12858,
-          "absolutePath": "/Users/dannywarrick/code/harp/client/src/contracts/LQTYToken.sol",
+          "SourceUnit": 12911,
+          "absolutePath": "/C/Users/danie/code/harp/client/src/contracts/LQTYToken.sol",
           "file": "./LQTYToken.sol",
-          "scope": 12840,
+          "scope": 12893,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 12787,
+        "id": 12840,
         "name": "ImportDirective",
-        "src": "65:25:29"
+        "src": "68:25:30"
       },
       {
         "attributes": {
@@ -812,17 +812,17 @@
           "contractKind": "contract",
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            12839
+            12892
           ],
           "name": "LQTYStaking",
-          "scope": 12840
+          "scope": 12893
         },
         "children": [
           {
             "attributes": {
               "canonicalName": "LQTYStaking.UserInfo",
               "name": "UserInfo",
-              "scope": 12839,
+              "scope": 12892,
               "visibility": "public"
             },
             "children": [
@@ -831,7 +831,7 @@
                   "constant": false,
                   "mutability": "mutable",
                   "name": "amount",
-                  "scope": 12790,
+                  "scope": 12843,
                   "stateVariable": false,
                   "storageLocation": "default",
                   "type": "uint256",
@@ -843,19 +843,19 @@
                       "name": "uint256",
                       "type": "uint256"
                     },
-                    "id": 12788,
+                    "id": 12841,
                     "name": "ElementaryTypeName",
-                    "src": "145:7:29"
+                    "src": "152:7:30"
                   }
                 ],
-                "id": 12789,
+                "id": 12842,
                 "name": "VariableDeclaration",
-                "src": "145:14:29"
+                "src": "152:14:30"
               }
             ],
-            "id": 12790,
+            "id": 12843,
             "name": "StructDefinition",
-            "src": "119:47:29"
+            "src": "125:49:30"
           },
           {
             "attributes": {
@@ -863,7 +863,7 @@
               "functionSelector": "1f7af3c3",
               "mutability": "mutable",
               "name": "lqtyToken",
-              "scope": 12839,
+              "scope": 12892,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "contract LQTYToken",
@@ -873,17 +873,17 @@
               {
                 "attributes": {
                   "name": "LQTYToken",
-                  "referencedDeclaration": 12857,
+                  "referencedDeclaration": 12910,
                   "type": "contract LQTYToken"
                 },
-                "id": 12791,
+                "id": 12844,
                 "name": "UserDefinedTypeName",
-                "src": "172:9:29"
+                "src": "182:9:30"
               }
             ],
-            "id": 12792,
+            "id": 12845,
             "name": "VariableDeclaration",
-            "src": "172:26:29"
+            "src": "182:26:30"
           },
           {
             "attributes": {
@@ -891,7 +891,7 @@
               "functionSelector": "1959a002",
               "mutability": "mutable",
               "name": "userInfo",
-              "scope": 12839,
+              "scope": 12892,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "mapping(address => struct LQTYStaking.UserInfo)",
@@ -908,29 +908,29 @@
                       "name": "address",
                       "type": "address"
                     },
-                    "id": 12793,
+                    "id": 12846,
                     "name": "ElementaryTypeName",
-                    "src": "212:7:29"
+                    "src": "223:7:30"
                   },
                   {
                     "attributes": {
                       "name": "UserInfo",
-                      "referencedDeclaration": 12790,
+                      "referencedDeclaration": 12843,
                       "type": "struct LQTYStaking.UserInfo"
                     },
-                    "id": 12794,
+                    "id": 12847,
                     "name": "UserDefinedTypeName",
-                    "src": "223:8:29"
+                    "src": "234:8:30"
                   }
                 ],
-                "id": 12795,
+                "id": 12848,
                 "name": "Mapping",
-                "src": "204:28:29"
+                "src": "215:28:30"
               }
             ],
-            "id": 12796,
+            "id": 12849,
             "name": "VariableDeclaration",
-            "src": "204:44:29"
+            "src": "215:44:30"
           },
           {
             "attributes": {
@@ -941,7 +941,7 @@
                 null
               ],
               "name": "",
-              "scope": 12839,
+              "scope": 12892,
               "stateMutability": "nonpayable",
               "virtual": false,
               "visibility": "public"
@@ -954,7 +954,7 @@
                       "constant": false,
                       "mutability": "mutable",
                       "name": "_lqtyToken",
-                      "scope": 12806,
+                      "scope": 12859,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "contract LQTYToken",
@@ -964,22 +964,22 @@
                       {
                         "attributes": {
                           "name": "LQTYToken",
-                          "referencedDeclaration": 12857,
+                          "referencedDeclaration": 12910,
                           "type": "contract LQTYToken"
                         },
-                        "id": 12797,
+                        "id": 12850,
                         "name": "UserDefinedTypeName",
-                        "src": "267:9:29"
+                        "src": "280:9:30"
                       }
                     ],
-                    "id": 12798,
+                    "id": 12851,
                     "name": "VariableDeclaration",
-                    "src": "267:20:29"
+                    "src": "280:20:30"
                   }
                 ],
-                "id": 12799,
+                "id": 12852,
                 "name": "ParameterList",
-                "src": "266:22:29"
+                "src": "279:22:30"
               },
               {
                 "attributes": {
@@ -988,9 +988,9 @@
                   ]
                 },
                 "children": [],
-                "id": 12800,
+                "id": 12853,
                 "name": "ParameterList",
-                "src": "289:0:29"
+                "src": "302:0:30"
               },
               {
                 "children": [
@@ -1011,46 +1011,46 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 12792,
+                              "referencedDeclaration": 12845,
                               "type": "contract LQTYToken",
                               "value": "lqtyToken"
                             },
-                            "id": 12801,
+                            "id": 12854,
                             "name": "Identifier",
-                            "src": "299:9:29"
+                            "src": "313:9:30"
                           },
                           {
                             "attributes": {
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 12798,
+                              "referencedDeclaration": 12851,
                               "type": "contract LQTYToken",
                               "value": "_lqtyToken"
                             },
-                            "id": 12802,
+                            "id": 12855,
                             "name": "Identifier",
-                            "src": "311:10:29"
+                            "src": "325:10:30"
                           }
                         ],
-                        "id": 12803,
+                        "id": 12856,
                         "name": "Assignment",
-                        "src": "299:22:29"
+                        "src": "313:22:30"
                       }
                     ],
-                    "id": 12804,
+                    "id": 12857,
                     "name": "ExpressionStatement",
-                    "src": "299:22:29"
+                    "src": "313:22:30"
                   }
                 ],
-                "id": 12805,
+                "id": 12858,
                 "name": "Block",
-                "src": "289:39:29"
+                "src": "302:41:30"
               }
             ],
-            "id": 12806,
+            "id": 12859,
             "name": "FunctionDefinition",
-            "src": "255:73:29"
+            "src": "268:75:30"
           },
           {
             "attributes": {
@@ -1062,7 +1062,7 @@
                 null
               ],
               "name": "stake",
-              "scope": 12839,
+              "scope": 12892,
               "stateMutability": "nonpayable",
               "virtual": false,
               "visibility": "public"
@@ -1075,7 +1075,7 @@
                       "constant": false,
                       "mutability": "mutable",
                       "name": "_amount",
-                      "scope": 12824,
+                      "scope": 12877,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1087,19 +1087,19 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 12807,
+                        "id": 12860,
                         "name": "ElementaryTypeName",
-                        "src": "349:7:29"
+                        "src": "366:7:30"
                       }
                     ],
-                    "id": 12808,
+                    "id": 12861,
                     "name": "VariableDeclaration",
-                    "src": "349:15:29"
+                    "src": "366:15:30"
                   }
                 ],
-                "id": 12809,
+                "id": 12862,
                 "name": "ParameterList",
-                "src": "348:17:29"
+                "src": "365:17:30"
               },
               {
                 "attributes": {
@@ -1108,9 +1108,9 @@
                   ]
                 },
                 "children": [],
-                "id": 12810,
+                "id": 12863,
                 "name": "ParameterList",
-                "src": "373:0:29"
+                "src": "390:0:30"
               },
               {
                 "children": [
@@ -1152,7 +1152,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "transferFrom",
-                              "referencedDeclaration": 16982,
+                              "referencedDeclaration": 17035,
                               "type": "function (address,address,uint256) external returns (bool)"
                             },
                             "children": [
@@ -1161,18 +1161,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 12792,
+                                  "referencedDeclaration": 12845,
                                   "type": "contract LQTYToken",
                                   "value": "lqtyToken"
                                 },
-                                "id": 12811,
+                                "id": 12864,
                                 "name": "Identifier",
-                                "src": "383:9:29"
+                                "src": "401:9:30"
                               }
                             ],
-                            "id": 12813,
+                            "id": 12866,
                             "name": "MemberAccess",
-                            "src": "383:22:29"
+                            "src": "401:22:30"
                           },
                           {
                             "attributes": {
@@ -1193,14 +1193,14 @@
                                   "type": "msg",
                                   "value": "msg"
                                 },
-                                "id": 12814,
+                                "id": 12867,
                                 "name": "Identifier",
-                                "src": "406:3:29"
+                                "src": "424:3:30"
                               }
                             ],
-                            "id": 12815,
+                            "id": 12868,
                             "name": "MemberAccess",
-                            "src": "406:10:29"
+                            "src": "424:10:30"
                           },
                           {
                             "attributes": {
@@ -1221,7 +1221,7 @@
                                 "attributes": {
                                   "argumentTypes": [
                                     {
-                                      "typeIdentifier": "t_contract$_LQTYStaking_$12839",
+                                      "typeIdentifier": "t_contract$_LQTYStaking_$12892",
                                       "typeString": "contract LQTYStaking"
                                     }
                                   ],
@@ -1236,14 +1236,14 @@
                                     "attributes": {
                                       "name": "address"
                                     },
-                                    "id": 12816,
+                                    "id": 12869,
                                     "name": "ElementaryTypeName",
-                                    "src": "418:7:29"
+                                    "src": "436:7:30"
                                   }
                                 ],
-                                "id": 12817,
+                                "id": 12870,
                                 "name": "ElementaryTypeNameExpression",
-                                "src": "418:7:29"
+                                "src": "436:7:30"
                               },
                               {
                                 "attributes": {
@@ -1254,47 +1254,47 @@
                                   "type": "contract LQTYStaking",
                                   "value": "this"
                                 },
-                                "id": 12818,
+                                "id": 12871,
                                 "name": "Identifier",
-                                "src": "426:4:29"
+                                "src": "444:4:30"
                               }
                             ],
-                            "id": 12819,
+                            "id": 12872,
                             "name": "FunctionCall",
-                            "src": "418:13:29"
+                            "src": "436:13:30"
                           },
                           {
                             "attributes": {
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 12808,
+                              "referencedDeclaration": 12861,
                               "type": "uint256",
                               "value": "_amount"
                             },
-                            "id": 12820,
+                            "id": 12873,
                             "name": "Identifier",
-                            "src": "433:7:29"
+                            "src": "451:7:30"
                           }
                         ],
-                        "id": 12821,
+                        "id": 12874,
                         "name": "FunctionCall",
-                        "src": "383:58:29"
+                        "src": "401:58:30"
                       }
                     ],
-                    "id": 12822,
+                    "id": 12875,
                     "name": "ExpressionStatement",
-                    "src": "383:58:29"
+                    "src": "401:58:30"
                   }
                 ],
-                "id": 12823,
+                "id": 12876,
                 "name": "Block",
-                "src": "373:75:29"
+                "src": "390:77:30"
               }
             ],
-            "id": 12824,
+            "id": 12877,
             "name": "FunctionDefinition",
-            "src": "334:114:29"
+            "src": "351:116:30"
           },
           {
             "attributes": {
@@ -1306,7 +1306,7 @@
                 null
               ],
               "name": "unstake",
-              "scope": 12839,
+              "scope": 12892,
               "stateMutability": "nonpayable",
               "virtual": false,
               "visibility": "public"
@@ -1319,7 +1319,7 @@
                       "constant": false,
                       "mutability": "mutable",
                       "name": "_amount",
-                      "scope": 12838,
+                      "scope": 12891,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -1331,19 +1331,19 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 12825,
+                        "id": 12878,
                         "name": "ElementaryTypeName",
-                        "src": "471:7:29"
+                        "src": "492:7:30"
                       }
                     ],
-                    "id": 12826,
+                    "id": 12879,
                     "name": "VariableDeclaration",
-                    "src": "471:15:29"
+                    "src": "492:15:30"
                   }
                 ],
-                "id": 12827,
+                "id": 12880,
                 "name": "ParameterList",
-                "src": "470:17:29"
+                "src": "491:17:30"
               },
               {
                 "attributes": {
@@ -1352,9 +1352,9 @@
                   ]
                 },
                 "children": [],
-                "id": 12828,
+                "id": 12881,
                 "name": "ParameterList",
-                "src": "495:0:29"
+                "src": "516:0:30"
               },
               {
                 "children": [
@@ -1392,7 +1392,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "transfer",
-                              "referencedDeclaration": 16905,
+                              "referencedDeclaration": 16958,
                               "type": "function (address,uint256) external returns (bool)"
                             },
                             "children": [
@@ -1401,18 +1401,18 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 12792,
+                                  "referencedDeclaration": 12845,
                                   "type": "contract LQTYToken",
                                   "value": "lqtyToken"
                                 },
-                                "id": 12829,
+                                "id": 12882,
                                 "name": "Identifier",
-                                "src": "505:9:29"
+                                "src": "527:9:30"
                               }
                             ],
-                            "id": 12831,
+                            "id": 12884,
                             "name": "MemberAccess",
-                            "src": "505:18:29"
+                            "src": "527:18:30"
                           },
                           {
                             "attributes": {
@@ -1433,65 +1433,65 @@
                                   "type": "msg",
                                   "value": "msg"
                                 },
-                                "id": 12832,
+                                "id": 12885,
                                 "name": "Identifier",
-                                "src": "524:3:29"
+                                "src": "546:3:30"
                               }
                             ],
-                            "id": 12833,
+                            "id": 12886,
                             "name": "MemberAccess",
-                            "src": "524:10:29"
+                            "src": "546:10:30"
                           },
                           {
                             "attributes": {
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 12826,
+                              "referencedDeclaration": 12879,
                               "type": "uint256",
                               "value": "_amount"
                             },
-                            "id": 12834,
+                            "id": 12887,
                             "name": "Identifier",
-                            "src": "536:7:29"
+                            "src": "558:7:30"
                           }
                         ],
-                        "id": 12835,
+                        "id": 12888,
                         "name": "FunctionCall",
-                        "src": "505:39:29"
+                        "src": "527:39:30"
                       }
                     ],
-                    "id": 12836,
+                    "id": 12889,
                     "name": "ExpressionStatement",
-                    "src": "505:39:29"
+                    "src": "527:39:30"
                   }
                 ],
-                "id": 12837,
+                "id": 12890,
                 "name": "Block",
-                "src": "495:56:29"
+                "src": "516:58:30"
               }
             ],
-            "id": 12838,
+            "id": 12891,
             "name": "FunctionDefinition",
-            "src": "454:97:29"
+            "src": "475:99:30"
           }
         ],
-        "id": 12839,
+        "id": 12892,
         "name": "ContractDefinition",
-        "src": "92:461:29"
+        "src": "97:480:30"
       }
     ],
-    "id": 12840,
+    "id": 12893,
     "name": "SourceUnit",
-    "src": "32:522:29"
+    "src": "33:546:30"
   },
   "compiler": {
     "name": "solc",
     "version": "0.7.6+commit.7338295f.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.4",
-  "updatedAt": "2021-03-28T17:58:06.910Z",
+  "schemaVersion": "3.3.3",
+  "updatedAt": "2021-03-28T20:31:59.450Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

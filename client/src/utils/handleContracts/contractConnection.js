@@ -5,6 +5,7 @@ import TestLUSDLPToken from "../../abis/LUSDLPToken.json";
 import gStringToken from "../../abis/gStringToken.json";
 import LQTYToken from "../../abis/ILQTYToken.json";
 import LUSDToken from "../../abis/ILUSDToken.json";
+import IERC20 from "../../abis/IERC20.json";
 import StakingPool from "../../abis/StringStaking.json";
 import StabilityFactory from "../../abis/StabilityFactory.json";
 import StabilityProxy from "../../abis/StabilityProxy.json";
@@ -90,7 +91,16 @@ export const fetchStringToken = async (networkId, web3, address) => {
 
 export const fetchETHLPTokens = async (networkId, web3, address) => {
   const ETHLPnetwork = TestETHLPToken.networks[networkId];
-  if (ETHLPnetwork) {
+  if (networkId === 42) {
+    const ETHLPToken = new web3.eth.Contract(
+      IERC20.abi,
+      addresses.kovan.ethLPToken
+    );
+    const STRING_ETH_LP = toDecimal(
+      fromWei(web3, await ETHLPToken.methods.balanceOf(address).call())
+    );
+    return [ETHLPToken, STRING_ETH_LP];
+  } else if (ETHLPnetwork) {
     const ETHLPToken = new web3.eth.Contract(
       TestETHLPToken.abi,
       ETHLPnetwork.address
@@ -104,7 +114,16 @@ export const fetchETHLPTokens = async (networkId, web3, address) => {
 
 export const fetchLUSDLPTokens = async (networkId, web3, address) => {
   const LUSDLPnetwork = TestLUSDLPToken.networks[networkId];
-  if (LUSDLPnetwork) {
+  if (networkId === 42) {
+    const LUSDLPToken = new web3.eth.Contract(
+      IERC20.abi,
+      addresses.kovan.lusdLPToken
+    );
+    const STRING_LUSD_LP = toDecimal(
+      fromWei(web3, await LUSDLPToken.methods.balanceOf(address).call())
+    );
+    return [LUSDLPToken, STRING_LUSD_LP];
+  } else if (LUSDLPnetwork) {
     const LUSDLPToken = new web3.eth.Contract(
       TestLUSDLPToken.abi,
       LUSDLPnetwork.address

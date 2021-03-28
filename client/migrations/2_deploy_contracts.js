@@ -3,12 +3,13 @@ const StringToken = artifacts.require("StringToken");
 const gStringToken = artifacts.require("gStringToken");
 const TokenVesting = artifacts.require("TokenVesting");
 const LatestFarm = artifacts.require("LatestFarm");
-const LUSDLP = artifacts.require("LUSDLPToken");
-const ETHLP = artifacts.require("ETHLPToken");
-const LQTYToken = artifacts.require("LQTYToken");
+// const LUSDLP = artifacts.require("LUSDLPToken");
+// const ETHLP = artifacts.require("ETHLPToken");
+// const LQTYToken = artifacts.require("LQTYToken");
 const StringStaking = artifacts.require("StringStaking");
-const LUSDToken = artifacts.require("LUSDToken.sol");
+// const LUSDToken = artifacts.require("LUSDToken.sol");
 const StabilityFactory = artifacts.require("StabilityFactory.sol");
+// const UniFactory = artifacts.require("IUniswapv2Factory.sol");
 const { addresses } = require("../src/utils/handleContracts/addresses");
 
 module.exports = async function (deployer, network, accounts) {
@@ -32,16 +33,10 @@ module.exports = async function (deployer, network, accounts) {
     stabilityPool = addresses.kovan.stabilityPool;
   } else if (deploy === "ganache") {
     stabilityPool = addresses.kovan.stabilityPool;
-    lusdToken = await LUSDToken.deployed();
-    lqtyToken = await LQTYToken.deployed();
+    // lusdToken = await LUSDToken.deployed();
+    // lqtyToken = await LQTYToken.deployed();
   }
-  await deployer.deploy(
-    StringToken,
-    "ozString",
-    "ozSTRING",
-    HarpDAOAddress,
-    owner
-  );
+  await deployer.deploy(StringToken, "String", "STRING", HarpDAOAddress, owner);
   const stringToken = await StringToken.deployed();
 
   // 3rd Ganache
@@ -80,22 +75,16 @@ module.exports = async function (deployer, network, accounts) {
   //const lusdLPToken = await LUSDLP.deployed();
   // 10e18 = 1000000000000000000
   //   base reward per block = 0.358974359
-  // await deployer.deploy(
-  //   Farm,
-  //   ethLPToken.address,
-  //   lusdLPToken.address,
-  //   stringToken.address,
-  //   358974359000000000
-  // );
-  //await deployer.deploy(LatestFarm, stringToken.address, 100);
 
-  //const farm = await LatestFarm.deployed();
+  await deployer.deploy(LatestFarm, stringToken.address, 100);
+
+  const farm = await LatestFarm.deployed();
   const stringStaking = await StringStaking.deployed();
   await stringStaking.registerIt({ from: owner });
 
   await gstringToken.addVestingAddress(stringStaking.address, { from: owner });
   await stringToken.addVestingAddress(stringStaking.address, { from: owner });
-  //await stringToken.addVestingAddress(farm.address, { from: owner });
+  await stringToken.addVestingAddress(farm.address, { from: owner });
   //await farm.add(80, ethLPToken.address, true);
   //await farm.add(20, lusdLPToken.address, true);
 

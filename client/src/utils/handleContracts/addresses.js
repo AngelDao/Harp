@@ -1,31 +1,11 @@
 const addresses = {
   kovan: {
-    ETHLPToken: "0x1554C6daFa1804a46049d334bD874D83eDc93A26",
-    LUSDLPToken: "0x4A5a39c9daF69498bD98D1907Ce280C631830580",
-    TokenVesting: "0x380FCF613Ca1Ddb706e3c676cb319B4450Ad065B",
-    StringToken: "0x17106252Da04aCB35Bbd42f4E87dF84c505720Ce",
-    gStringToken: "0x1d8bdea4c59D06139AAa1Eb48561BFf7d968Ca84",
-    LQTYToken: "0x4A5a39c9daF69498bD98D1907Ce280C631830580",
-    LatestFarm: "0xBbAeDacDD0Df9Ae0CbF2091128420E86a9536a6C",
-    StringStaking: "0xAAC5efd302e410A40B2274549e1BF104dc82cFd0",
-    // actual Liquity Kovan
-    activePool: "0x71985097143C98451150F99bB1645e41427193E3",
-    borrowerOperations: "0xc2061F1208A244F52F65F80007e87B0cD79162fb",
-    troveManager: "0x9cC282817caF11e72d55f327176D8EA225297428",
-    collSurplusPool: "0x6832775C5eD45F727a8Ee6a31c9e7BB570F17241",
-    communityIssuance: "0x0eAd0b98B13b69C431626ac433aFE6dc41D1247D",
-    defaultPool: "0x8e8cC302A7df2a9098f1129997d9e78F75F1DFEf",
-    hintHelpers: "0x92de8F6b0Ed641b840A550797545FE784b5133C9",
-    lockupContractFactory: "0x38e3218E19A454a08c8712aad5B1180aa2ED5024",
-    lqtyStaking: "0xdb456329498CBDbb3Fa63f9Bc2792088ce8b933A",
-    priceFeed: "0x695D363cAE328b0fEb4ae9cCA0edb944Dbd3A8B7",
-    sortedTroves: "0x185516227183022a5cCd77F9D7086072BDB80462",
     stabilityPool: "0x5D0992f3F7Be325870bf0854392035f7CF35260B",
-    gasPool: "0x0dDD62FDD127C82D18A238CE0a8a659C2e67e233",
     lusdToken: "0xc1a8a2b90b1f4eae4f46d3b9b31f3cd392dae377",
     lqtyToken: "0xB2e3FE46688Dc9aC3a99983066d057E461cbD887",
-    multiTroveGetter: "0xB46FbAd4a8C50CD54ebef1856658DC23e74DcBBE",
+    ethLPToken: "0xa6e54998b897765c39ae032a5d88034fbaca088c",
+    lusdLPToken: "0x4f64459ae112a40c509b3ead00c343a260bd9155",
   },
 };
 
-module.exports = { addresses }
+module.exports = { addresses };
