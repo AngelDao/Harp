@@ -26,8 +26,11 @@
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const privateKey = "696dc65003f94f5b9a68def5d9b93ab6";
+// project1 79c78239e1fa4041aee93d386e5823a5
+// project2 be434ccc734c4c369cf2dd65485dbf3e
+// project3 1161cdc1e4e143649ab82b0037230ac1
 const endpointUrl =
-  "https://kovan.infura.io/v3/79c78239e1fa4041aee93d386e5823a5";
+  "https://kovan.infura.io/v3/1161cdc1e4e143649ab82b0037230ac1";
 
 module.exports = {
   networks: {

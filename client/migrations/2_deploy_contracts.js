@@ -19,7 +19,7 @@ module.exports = async function (deployer, network, accounts) {
   // Token Contract
   const HarpDAOAddress = "0x0cbde7d648C1F51253d53ca1dB099030Fc35490a";
   const owner = accounts[1];
-  console.log(owner)
+  console.log(owner);
 
   //await deployer.deploy(LUSDToken, accounts[0], accounts[1]);
   //await deployer.deploy(LQTYToken, accounts[0], accounts[1]);
@@ -91,7 +91,7 @@ module.exports = async function (deployer, network, accounts) {
 
   //const farm = await LatestFarm.deployed();
   const stringStaking = await StringStaking.deployed();
-  await stringStaking.registerIt({ from: owner })
+  await stringStaking.registerIt({ from: owner });
 
   await gstringToken.addVestingAddress(stringStaking.address, { from: owner });
   await stringToken.addVestingAddress(stringStaking.address, { from: owner });
@@ -103,11 +103,12 @@ module.exports = async function (deployer, network, accounts) {
     StabilityFactory,
     stringStaking.address,
     lusdToken,
+    lqtyToken,
     stringToken.address,
     stabilityPool
   );
 
-  const sf = await StabilityFactory.deployed()
+  const sf = await StabilityFactory.deployed();
 
-  await stringToken.addVestingAddress(sf.address, { from: owner })
+  await stringToken.addVestingAddress(sf.address, { from: owner });
 };

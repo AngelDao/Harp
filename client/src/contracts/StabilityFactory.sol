@@ -30,6 +30,7 @@ contract StabilityFactory {
     StringToken public stringToken;
     IStabilityPool public stabilityPool;
     IERC20 public lusdToken;
+    IERC20 public lqtyToken;
     uint256 public stringPerBlock = 923076923100000000;
     uint256 public endBlock;
     uint256 public postBoostedBlock;
@@ -51,6 +52,7 @@ contract StabilityFactory {
         address _frontEnd,
         // address _impli,
         IERC20 _lusdToken,
+        IERC20 _lqtyToken,
         StringToken _stringToken,
         IStabilityPool _stabilityPool
     ) {

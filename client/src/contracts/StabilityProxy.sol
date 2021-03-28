@@ -30,10 +30,12 @@ contract StabilityProxy {
         StabilityFactory _factory,
         address _frontEnd,
         IERC20 _lusdToken,
+        IERC20 _lqtyToken,
         IStabilityPool _stabilityPool
     ) {
         owner = _owner;
         lusdToken = _lusdToken;
+        lqtyToken = _lqtyToken;
         stabilityPool = _stabilityPool;
         frontEnd = _frontEnd;
         stabilityFactory = _factory;
