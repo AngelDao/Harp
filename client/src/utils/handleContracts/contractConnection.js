@@ -38,8 +38,7 @@ export const fetchLUSDToken = async (networkId, web3, address) => {
       fromWei(web3, await lusdToken.methods.balanceOf(address).call())
     );
     return [lusdToken, LUSD];
-  }
-  else if (LUSDTokenNetwork) {
+  } else if (LUSDTokenNetwork) {
     const lusdToken = new web3.eth.Contract(
       LUSDToken.abi,
       LUSDTokenNetwork.address
@@ -50,7 +49,6 @@ export const fetchLUSDToken = async (networkId, web3, address) => {
     return [lusdToken, LUSD];
   }
 };
-
 
 export const fetchLQTYToken = async (networkId, web3, address) => {
   const LQTYTokenNetwork = LQTYToken.networks[networkId];
@@ -63,8 +61,7 @@ export const fetchLQTYToken = async (networkId, web3, address) => {
       fromWei(web3, await lqtyToken.methods.balanceOf(address).call())
     );
     return [lqtyToken, LQTY];
-  }
-  else if (LQTYTokenNetwork) {
+  } else if (LQTYTokenNetwork) {
     const lqtyToken = new web3.eth.Contract(
       LQTYToken.abi,
       LQTYTokenNetwork.address
@@ -278,39 +275,43 @@ export const fetchStabilityFactory = async (
       StabilityFactory.abi,
       SFNetwork.address
     );
-    
+
     let userProxy = await factory.methods.userProxys(address).call();
     if (
       userProxy.proxyAddress === "0x0000000000000000000000000000000000000000"
-      ) {
-        userProxy = null;
-      } else {
-        userProxy = new web3.eth.Contract(
-          StabilityProxy.abi,
-          userProxy.proxyAddress
-          );
-        }
-        const totalLUSD = toDecimal(
-          fromWei(web3, await factory.methods.totalLUSD().call())
-          );
-          
-          let allowanceLUSD, userStaked;
-          if (userProxy) {
-            allowanceLUSD = toDecimal(
-              fromWei(
-                web3,
-                await lusdToken.methods.allowance(address, userProxy._address).call()
-                )
-                );
-                let temp = await userProxy.methods.lusdBalance().call();
-                userStaked = toDecimal(fromWei(web3, await userProxy.methods.lusdBalance().call()));
-              } else {
-                allowanceLUSD = 0;
-                userStaked = 0
-              }
-              
-              const isBoosted = await factory.methods.isBoosted().call();
-              const pendingSTRING = toDecimal(fromWei(web3,await factory.methods.pendingString(address).call()));
+    ) {
+      userProxy = null;
+    } else {
+      userProxy = new web3.eth.Contract(
+        StabilityProxy.abi,
+        userProxy.proxyAddress
+      );
+    }
+    const totalLUSD = toDecimal(
+      fromWei(web3, await factory.methods.totalLUSD().call())
+    );
+
+    let allowanceLUSD, userStaked;
+    if (userProxy) {
+      allowanceLUSD = toDecimal(
+        fromWei(
+          web3,
+          await lusdToken.methods.allowance(address, userProxy._address).call()
+        )
+      );
+      let temp = await userProxy.methods.lusdBalance().call();
+      userStaked = toDecimal(
+        fromWei(web3, await userProxy.methods.lusdBalance().call())
+      );
+    } else {
+      allowanceLUSD = 0;
+      userStaked = 0;
+    }
+
+    const isBoosted = await factory.methods.isBoosted().call();
+    const pendingSTRING = toDecimal(
+      fromWei(web3, await factory.methods.pendingString(address).call())
+    );
     const proxyAllowances = {
       LUSD: allowanceLUSD,
     };

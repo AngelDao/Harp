@@ -61,39 +61,39 @@ function App() {
     const web3 = window.web3;
     // ;
     const networkId = await web3.eth.net.getId();
-    
+
     const [gStringToken, gSTRING] = await fetchgStringToken(
       networkId,
       web3,
       address
-      );
-      const [lusdToken, LUSD] = await fetchLUSDToken(networkId, web3, address);
-      const [lqtyToken, LQTY] = await fetchLQTYToken(networkId, web3, address);
-      
-      const [stringToken, STRING] = await fetchStringToken(
-        networkId,
-        web3,
-        address
-        );
-        const [ETHLPToken, gSTRING_ETH_LP] = await fetchETHLPTokens(
-          networkId,
-          web3,
-          address
-          );
-          const [LUSDLPToken, gSTRING_LUSD_LP] = await fetchLUSDLPTokens(
-            networkId,
-            web3,
-            address
-            );
-            const [farm, allowances, farmBalances] = await fetchFarm(
-              networkId,
-              web3,
-              ETHLPToken,
-              LUSDLPToken,
-              stringToken,
-              address,
-              lusdToken
-              );
+    );
+    const [lusdToken, LUSD] = await fetchLUSDToken(networkId, web3, address);
+    const [lqtyToken, LQTY] = await fetchLQTYToken(networkId, web3, address);
+
+    const [stringToken, STRING] = await fetchStringToken(
+      networkId,
+      web3,
+      address
+    );
+    const [ETHLPToken, gSTRING_ETH_LP] = await fetchETHLPTokens(
+      networkId,
+      web3,
+      address
+    );
+    const [LUSDLPToken, gSTRING_LUSD_LP] = await fetchLUSDLPTokens(
+      networkId,
+      web3,
+      address
+    );
+    const [farm, allowances, farmBalances] = await fetchFarm(
+      networkId,
+      web3,
+      ETHLPToken,
+      LUSDLPToken,
+      stringToken,
+      address,
+      lusdToken
+    );
 
     const [profitShare, psAllowances, psBalances] = await fetchProfitShare(
       networkId,
