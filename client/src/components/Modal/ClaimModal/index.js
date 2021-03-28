@@ -40,7 +40,6 @@ const ActionModal = ({ open, close, balance, pair, contract }) => {
   const handleClaim = async () => {
     
     if(pair === "LUSD"){
-      debugger
       await contractInstance[contract].methods
         .claim()
         .send({ from: address })
