@@ -99,9 +99,10 @@ export const fetchETHLPTokens = async (networkId, web3, address) => {
       await ETHLPToken.methods.balanceOf(address).call()
     );
     debugger;
-    const STRING_ETH_LP = toDecimal(
-      fromWei(web3, await ETHLPToken.methods.balanceOf(address).call())
-    );
+     const STRING_ETH_LP = 0
+    //const STRING_ETH_LP = toDecimal(
+    //  fromWei(web3, await ETHLPToken.methods.balanceOf(address).call())
+    //);
     return [ETHLPToken, STRING_ETH_LP];
   }
 };
@@ -112,9 +113,11 @@ export const fetchLUSDLPTokens = async (networkId, web3, address) => {
       IERC20.abi,
       addresses.kovan.lusdLPToken
     );
-    const STRING_LUSD_LP = toDecimal(
-      fromWei(web3, await LUSDLPToken.methods.balanceOf(address).call())
-    );
+    //const STRING_LUSD_LP = toDecimal(
+     // fromWei(web3, await LUSDLPToken.methods.balanceOf(address).call())
+    //);
+    const STRING_LUSD_LP = 0
+    
     return [LUSDLPToken, STRING_LUSD_LP];
   }
 };
