@@ -1,6 +1,11 @@
 import Web3 from "web3";
 
-const launchModal = async (handleClose, handleAccountchange, setLoading) => {
+const launchModal = async (
+  handleClose,
+  handleAccountchange,
+  handleUnsupported,
+  setLoading
+) => {
   const [
     WalletConnectProvider,
     Portis,
@@ -24,45 +29,45 @@ const launchModal = async (handleClose, handleAccountchange, setLoading) => {
       },
       package: null,
     },
-    walletconnect: {
-      package: WalletConnectProvider.default,
-      options: {
-        infuraId: process.env.REACT_APP_INFURA_ID,
-      },
-      display: {
-        description: "Scan with a wallet to connect",
-      },
-    },
-    fortmatic: {
-      package: Fortmatic.default,
-      options: {
-        key: process.env.REACT_APP_FORTMATIC_KEY,
-      },
-      display: {
-        description: "Connect with your Fortmatic account",
-      },
-    },
-    torus: {
-      package: Torus.default,
-      display: {
-        description: "Connect with your Torus account",
-      },
-    },
-    portis: {
-      package: Portis.default,
-      options: {
-        id: process.env.REACT_APP_PORTIS_ID,
-      },
-      display: {
-        description: "Connect with your Portis account",
-      },
-    },
-    authereum: {
-      package: Authereum.default,
-      display: {
-        description: "Connect with your Authereum account",
-      },
-    },
+    // walletconnect: {
+    //   package: WalletConnectProvider.default,
+    //   options: {
+    //     infuraId: process.env.REACT_APP_INFURA_ID,
+    //   },
+    //   display: {
+    //     description: "Scan with a wallet to connect",
+    //   },
+    // },
+    // fortmatic: {
+    //   package: Fortmatic.default,
+    //   options: {
+    //     key: process.env.REACT_APP_FORTMATIC_KEY,
+    //   },
+    //   display: {
+    //     description: "Connect with your Fortmatic account",
+    //   },
+    // },
+    // torus: {
+    //   package: Torus.default,
+    //   display: {
+    //     description: "Connect with your Torus account",
+    //   },
+    // },
+    // portis: {
+    //   package: Portis.default,
+    //   options: {
+    //     id: process.env.REACT_APP_PORTIS_ID,
+    //   },
+    //   display: {
+    //     description: "Connect with your Portis account",
+    //   },
+    // },
+    // authereum: {
+    //   package: Authereum.default,
+    //   display: {
+    //     description: "Connect with your Authereum account",
+    //   },
+    // },
   };
 
   const web3Modal = new Web3Modal.default({
@@ -80,13 +85,19 @@ const launchModal = async (handleClose, handleAccountchange, setLoading) => {
   //   handleClose();
   // });
   const provider = await web3Modal.connect();
-  setEventListeners(provider, handleAccountchange, setLoading);
+  setEventListeners(
+    provider,
+    handleAccountchange,
+    handleUnsupported,
+    setLoading
+  );
   return provider;
 };
 
 export const setEventListeners = (
   instance,
   handleAccountchange,
+  handleUnsupported,
   setLoading
 ) => {
   instance
@@ -101,13 +112,20 @@ export const setEventListeners = (
     })
     .on("chainChanged", (log) => {
       console.log("chainChanged", log);
+      handleUnsupported(log);
     });
 };
 
-export const login = async (handleClose, handleAccountchange, setLoading) => {
+export const login = async (
+  handleClose,
+  handleAccountchange,
+  handleUnsupported,
+  setLoading
+) => {
   const provider = await launchModal(
     handleClose,
     handleAccountchange,
+    handleUnsupported,
     setLoading
   );
   setLoading(true);

@@ -96,6 +96,12 @@ export const fetchETHLPTokens = async (networkId, web3, address) => {
       IERC20.abi,
       addresses.kovan.ethLPToken
     );
+
+    const temp = fromWei(
+      web3,
+      await ETHLPToken.methods.balanceOf(address).call()
+    );
+    debugger;
     const STRING_ETH_LP = toDecimal(
       fromWei(web3, await ETHLPToken.methods.balanceOf(address).call())
     );
@@ -145,13 +151,14 @@ export const fetchProfitShare = async (
   const psNetwork = StakingPool.networks[networkId];
   if (psNetwork) {
     const ps = new web3.eth.Contract(StakingPool.abi, psNetwork.address);
-
+    debugger;
     const allowancesSTRING = toDecimal(
       fromWei(
         web3,
         await stringToken.methods.allowance(address, ps._address).call()
       )
     );
+    debugger;
 
     const allowancesgSTRING = toDecimal(
       fromWei(
@@ -159,20 +166,25 @@ export const fetchProfitShare = async (
         await gStringToken.methods.allowance(address, ps._address).call()
       )
     );
+    debugger;
 
     const isBoosted = await ps.methods.isBoosted().call();
+    debugger;
     const psSTRING = toDecimal(
       fromWei(web3, await stringToken.methods.balanceOf(ps._address).call())
     );
-    const pendingSTRING = toDecimal(
-      fromWei(web3, await ps.methods.pendingString(address).call())
-    );
+    debugger;
+    // const pendingSTRING = toDecimal(
+    //   fromWei(web3, await ps.methods.pendingString(address).call())
+    // );
+    debugger;
 
     // const ammount = (await ps.methods.userInfo(address).call()).amount;
     // const trnced = fromWei(web3, ammount);
     const userSTRINGStaked = toDecimal(
       fromWei(web3, (await ps.methods.userInfo(address).call()).amount)
     );
+    debugger;
 
     const psAllowances = {
       STRING: allowancesSTRING,
@@ -182,7 +194,7 @@ export const fetchProfitShare = async (
     const psBalances = {
       isBoosted,
       userPending: {
-        STRING: pendingSTRING,
+        STRING: 0,
       },
       userStaked: {
         STRING: userSTRINGStaked,
@@ -215,21 +227,26 @@ export const fetchFarm = async (
     const farmSTRING_LUSD_LP = toDecimal(
       fromWei(web3, await LUSDLPToken.methods.balanceOf(farm._address).call())
     );
+
     const userSTRING_ETH_LP = toDecimal(
       fromWei(web3, (await farm.methods.userInfo(0, address).call()).amount)
     );
     // ;
+    // const pendingSTRING_ETH_LP = 0;
     const pendingSTRING_ETH_LP = toDecimal(
       fromWei(web3, await farm.methods.pendingString(0, address).call())
     );
 
+    // const pendingSTRING_LUSD_LP = 0;
     const pendingSTRING_LUSD_LP = toDecimal(
       fromWei(web3, await farm.methods.pendingString(1, address).call())
     );
 
+    // const userSTRING_LUSD_LP = 0;
     const userSTRING_LUSD_LP = toDecimal(
       fromWei(web3, (await farm.methods.userInfo(1, address).call()).amount)
     );
+
     const isBoosted = await farm.methods.isBoosted().call();
 
     const allowancesSTRING = toDecimal(

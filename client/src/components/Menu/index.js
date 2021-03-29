@@ -15,32 +15,14 @@ const Menu = ({ location }) => {
     setCurrentH(c);
   };
 
+  useEffect(() => {
+    setCurrent(location.pathname.split("/")[1]);
+  }, [location.pathname]);
+
   return (
     <MenuContainer>
       <EffectContainer>
         <ItemContainer>
-          <StyledLink to="/borrow">
-            <Item
-              onMouseLeave={() => handleHover("")}
-              onMouseOver={() => handleHover("borrow")}
-              onClick={() => handleClick("borrow")}
-              current={current === "borrow"}
-              hover={currentH === "borrow"}
-            >
-              Borrow
-            </Item>
-          </StyledLink>
-          <StyledLink to="/redeem">
-            <Item
-              onMouseLeave={() => handleHover("")}
-              onMouseOver={() => handleHover("redeem")}
-              onClick={() => handleClick("redeem")}
-              current={current === "redeem"}
-              hover={currentH === "redeem"}
-            >
-              Redeem
-            </Item>
-          </StyledLink>
           <StyledLink to="/stake">
             <Item
               onMouseLeave={() => handleHover("")}
@@ -61,6 +43,28 @@ const Menu = ({ location }) => {
               hover={currentH === "farm"}
             >
               Farm
+            </Item>
+          </StyledLink>
+          <StyledLink to="/borrow">
+            <Item
+              onMouseLeave={() => handleHover("")}
+              onMouseOver={() => handleHover("borrow")}
+              onClick={() => handleClick("borrow")}
+              current={current === "borrow"}
+              hover={currentH === "borrow"}
+            >
+              Borrow
+            </Item>
+          </StyledLink>
+          <StyledLink to="/redeem">
+            <Item
+              onMouseLeave={() => handleHover("")}
+              onMouseOver={() => handleHover("redeem")}
+              onClick={() => handleClick("redeem")}
+              current={current === "redeem"}
+              hover={currentH === "redeem"}
+            >
+              Redeem
             </Item>
           </StyledLink>
           <StyledLink to="/faq">

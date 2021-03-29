@@ -39,6 +39,7 @@ function App() {
   const [contracts, setContracts] = useState({});
   const [prices, setPrices] = useState({});
   const [loading, setLoading] = useState(false);
+  const [unsupported, setUnsupported] = useState(false);
   const [sending, setSending] = useState(false);
 
   const handleOpenConnectModal = () => {
@@ -54,6 +55,16 @@ function App() {
     // await reFetchData();
   };
 
+  const handleUnsupported = (code) => {
+    debugger;
+    if (code === "0x2a") {
+      setUnsupported(false);
+    } else {
+      setUnsupported(true);
+      setLoading(false);
+    }
+  };
+
   const handleContractConnect = async () => {
     let w = web3DataProvider;
     let w2 = window.web3;
@@ -67,24 +78,30 @@ function App() {
       web3,
       address
     );
+    // debugger;
     const [lusdToken, LUSD] = await fetchLUSDToken(networkId, web3, address);
+    // debugger;
     const [lqtyToken, LQTY] = await fetchLQTYToken(networkId, web3, address);
+    // debugger;
 
     const [stringToken, STRING] = await fetchStringToken(
       networkId,
       web3,
       address
     );
+    // debugger;
     const [ETHLPToken, gSTRING_ETH_LP] = await fetchETHLPTokens(
       networkId,
       web3,
       address
     );
+    // debugger;
     const [LUSDLPToken, gSTRING_LUSD_LP] = await fetchLUSDLPTokens(
       networkId,
       web3,
       address
     );
+    // debugger;
     const [farm, allowances, farmBalances] = await fetchFarm(
       networkId,
       web3,
@@ -94,6 +111,7 @@ function App() {
       address,
       lusdToken
     );
+    // debugger;
 
     const [profitShare, psAllowances, psBalances] = await fetchProfitShare(
       networkId,
@@ -102,6 +120,7 @@ function App() {
       gStringToken,
       address
     );
+    // debugger;
 
     const [
       factory,
@@ -110,6 +129,8 @@ function App() {
       fyBalances,
       proxyBalances,
     ] = await fetchStabilityFactory(networkId, web3, address, lusdToken);
+
+    // debugger;
     setFarmBalances(farmBalances);
     setProfitShareBalances(psBalances);
     setFactoryBalances(fyBalances);
@@ -156,14 +177,16 @@ function App() {
       address,
       connectModalVisible,
       handleAccountchange,
+      handleUnsupported,
       setLoading
     );
 
     if (res) {
       setWeb3UserProvider(res[0]);
+      handleUnsupported(res[0].currentProvider.chainId);
       setAddress(res[1]);
+      // await checkChain(res[0], toast);
       // setIsContractConnected(true);
-      await checkChain(res[0], toast);
     }
   };
 
@@ -179,7 +202,7 @@ function App() {
         setWeb3DataProvider(dataInstance);
       }
       // fetch app data
-      if (address && web3DataProvider) {
+      if (address && web3DataProvider && !unsupported) {
         await handleContractConnect();
         await handlePricing();
         setLoading(false);
@@ -196,6 +219,7 @@ function App() {
   }, [prices]);
 
   const credentials = {
+    factoryBalances,
     profitShareBalances,
     proxyBalances,
     web3DataProvider,
@@ -221,6 +245,7 @@ function App() {
     loading,
     sending,
     setSending,
+    unsupported,
   };
 
   return (

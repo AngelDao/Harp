@@ -3,11 +3,12 @@ import { ComponentContainer, StyledButton } from "./styles";
 import CredentialsContext from "../../context/credentialsContext";
 
 const DisconnectScreen = () => {
-  const { handleManualConnect } = useContext(CredentialsContext);
+  const { handleManualConnect, setAddress } = useContext(CredentialsContext);
 
   const handleClick = async () => {
     console.log("log");
     try {
+      setAddress(0);
       await handleManualConnect();
     } catch (err) {
       console.log(err);

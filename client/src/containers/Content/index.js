@@ -10,10 +10,26 @@ import Borrow from "../../components/Borrow";
 import Redeem from "../../components/Redeem";
 
 const Content = ({ location }) => {
-  const { isConnected, loading } = useContext(CredentialsContext);
+  const { isConnected, loading, unsupported } = useContext(CredentialsContext);
   // loading;
   if (loading) {
     return <Loader status={"LOADING"} />;
+  }
+
+  if (unsupported) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "400px",
+        }}
+      >
+        <span>Chain not supported, change chain to Kovan</span>
+      </div>
+    );
   }
 
   if (!isConnected) {
@@ -28,8 +44,8 @@ const Content = ({ location }) => {
         <Route exact path="/stake" component={Stake} />
         <Route exact path="/farm" component={Farm} />
         <Route exact path="/faq" component={FAQ} />
-        <Route exact path="*">
-          <Redirect to="/borrow" />
+        <Route>
+          <Redirect to="/stake" />
         </Route>
       </Switch>
     </div>

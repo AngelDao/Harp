@@ -125,7 +125,7 @@ contract StringStaking is Ownable {
     function pendingString(address _user) external view returns (uint256) {
         UserInfo storage user = userInfo[_user];
         uint256 accStringPerShare = pool.accStringPerShare;
-        uint256 lpSupply = pool.lpToken.balanceOf(address(this));
+        uint256 lpSupply = pool.lpTokenSupply;
         if (block.number > pool.lastRewardBlock && lpSupply != 0) {
             uint256 multiplier =
                 getMultiplier(pool.lastRewardBlock, block.number);

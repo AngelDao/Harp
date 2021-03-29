@@ -40,201 +40,215 @@ const Redeem = () => {
   };
 
   return (
-    <div>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div style={{ width: "375px" }}>
-          <Title>Redeem From Trove</Title>
-          <DescContainer>
-            <SubTitle>Borrow</SubTitle>
-            <NumberInput
-              onBlur={() => handleBlur("debt")}
-              onFocus={() => handleFocus("debt")}
-              defaultValue={0}
-              min={0}
-              precision={4}
-              step={0.2}
-              //   max={parseFloat(memTrove.debt)}
-              value={memTrove.debt}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              onChange={(str, num) => handleChangeValue("debt", num)}
-              outline="none"
-              backgroundColor={MasterStyles.background.secondaryMenu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.secondaryMenu}
-              />
-              <NumberInputStepper border="none">
-                <NumberIncrementStepper border="none" />
-                <NumberDecrementStepper border="none" />
-              </NumberInputStepper>
-            </NumberInput>
-            <SubTitle style={{ marginTop: "10px" }}>Collateral</SubTitle>
-            <NumberInput
-              onBlur={() => handleBlur("collat")}
-              onFocus={() => handleFocus("collat")}
-              defaultValue={0}
-              min={0}
-              precision={4}
-              step={0.2}
-              //   max={parseFloat(memTrove.debt)}
-              value={memTrove.collat}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              onChange={(str, num) => handleChangeValue("collat", num)}
-              outline="none"
-              backgroundColor={MasterStyles.background.secondaryMenu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.secondaryMenu}
-              />
-              <NumberInputStepper border="none">
-                <NumberIncrementStepper border="none" />
-                <NumberDecrementStepper border="none" />
-              </NumberInputStepper>
-            </NumberInput>
-            <SubTitle style={{ marginTop: "10px" }}>
-              Collateralization Ratio
-            </SubTitle>
-            <NumberInput
-              defaultValue={0}
-              min={0}
-              precision={4}
-              step={0.2}
-              //   max={parseFloat(memTrove.debt)}
-              value={memTrove.cRatio}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              isReadOnly
-              //   onChange={(str, num) => handleChangeValue("cRatio", num)}
-              outline="none"
-              cursor="pointer"
-              backgroundColor={MasterStyles.background.secondaryMenu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.secondaryMenu}
-              />
-            </NumberInput>
-          </DescContainer>
-          <div
-            style={{
-              marginBottom: "20px",
-              display: "flex",
-              justifyContent: "space-around",
-            }}
-          >
-            <ActionButton action>Redeem</ActionButton>
-            <ActionButton action>Clear</ActionButton>
-          </div>
-        </div>
-        <div style={{ width: "300px" }}>
-          <Title>My Trove</Title>
-          <DescContainer>
-            <SubTitle>Borrow</SubTitle>
-            <NumberInput
-              //   onBlur={() => handleBlur("debt")}
-              //   onFocus={() => handleFocus("debt")}
-              isReadOnly
-              defaultValue={0}
-              min={0}
-              precision={4}
-              step={0.2}
-              //   max={parseFloat(memTrove.debt)}
-              value={memTrove.debt}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              //   onChange={(str, num) => handleChangeValue("debt", num)}
-              outline="none"
-              backgroundColor={MasterStyles.background.menu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.menu}
-              />
-            </NumberInput>
-            <SubTitle style={{ marginTop: "10px" }}>Collateral</SubTitle>
-            <NumberInput
-              //   onBlur={() => handleBlur("collat")}
-              //   onFocus={() => handleFocus("collat")}
-              defaultValue={0}
-              min={0}
-              isReadOnly
-              precision={4}
-              step={0.2}
-              //   max={parseFloat(memTrove.debt)}
-              value={memTrove.collat}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              //   onChange={(str, num) => handleChangeValue("collat", num)}
-              outline="none"
-              backgroundColor={MasterStyles.background.menu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.menu}
-              />
-            </NumberInput>
-            <SubTitle style={{ marginTop: "10px" }}>
-              Collateralization Ratio
-            </SubTitle>
-            <NumberInput
-              defaultValue={0}
-              min={0}
-              precision={4}
-              step={0.2}
-              //   max={parseFloat(memTrove.debt)}
-              value={memTrove.cRatio}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              isReadOnly
-              //   onChange={(str, num) => handleChangeValue("cRatio", num)}
-              outline="none"
-              cursor="pointer"
-              backgroundColor={MasterStyles.background.menu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.menu}
-              />
-            </NumberInput>
-          </DescContainer>
-        </div>
-      </div>
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "400px",
+      }}
+    >
+      <span style={{ fontSize: MasterStyles.fontSize.veryLarge }}>soon™</span>
     </div>
   );
+
+  // return (
+  //   <div>
+  //     <div style={{ display: "flex", justifyContent: "space-between" }}>
+  //       <div style={{ width: "375px" }}>
+  //         <Title>Redeem From Trove</Title>
+  //         <DescContainer>
+  //           <SubTitle>Borrow</SubTitle>
+  //           <NumberInput
+  //             onBlur={() => handleBlur("debt")}
+  //             onFocus={() => handleFocus("debt")}
+  //             defaultValue={0}
+  //             min={0}
+  //             precision={4}
+  //             step={0.2}
+  //             //   max={parseFloat(memTrove.debt)}
+  //             value={memTrove.debt}
+  //             inputMode="decimal"
+  //             borderRadius="0%"
+  //             borderColor="black"
+  //             focusBorderColor="black"
+  //             onChange={(str, num) => handleChangeValue("debt", num)}
+  //             outline="none"
+  //             backgroundColor={MasterStyles.background.secondaryMenu}
+  //           >
+  //             <NumberInputField
+  //               borderRadius="0%"
+  //               border="2px solid black"
+  //               outline="none"
+  //               _hover={{ borderColor: "black" }}
+  //               backgroundColor={MasterStyles.background.secondaryMenu}
+  //             />
+  //             <NumberInputStepper border="none">
+  //               <NumberIncrementStepper border="none" />
+  //               <NumberDecrementStepper border="none" />
+  //             </NumberInputStepper>
+  //           </NumberInput>
+  //           <SubTitle style={{ marginTop: "10px" }}>Collateral</SubTitle>
+  //           <NumberInput
+  //             onBlur={() => handleBlur("collat")}
+  //             onFocus={() => handleFocus("collat")}
+  //             defaultValue={0}
+  //             min={0}
+  //             precision={4}
+  //             step={0.2}
+  //             //   max={parseFloat(memTrove.debt)}
+  //             value={memTrove.collat}
+  //             inputMode="decimal"
+  //             borderRadius="0%"
+  //             borderColor="black"
+  //             focusBorderColor="black"
+  //             onChange={(str, num) => handleChangeValue("collat", num)}
+  //             outline="none"
+  //             backgroundColor={MasterStyles.background.secondaryMenu}
+  //           >
+  //             <NumberInputField
+  //               borderRadius="0%"
+  //               border="2px solid black"
+  //               outline="none"
+  //               _hover={{ borderColor: "black" }}
+  //               backgroundColor={MasterStyles.background.secondaryMenu}
+  //             />
+  //             <NumberInputStepper border="none">
+  //               <NumberIncrementStepper border="none" />
+  //               <NumberDecrementStepper border="none" />
+  //             </NumberInputStepper>
+  //           </NumberInput>
+  //           <SubTitle style={{ marginTop: "10px" }}>
+  //             Collateralization Ratio
+  //           </SubTitle>
+  //           <NumberInput
+  //             defaultValue={0}
+  //             min={0}
+  //             precision={4}
+  //             step={0.2}
+  //             //   max={parseFloat(memTrove.debt)}
+  //             value={memTrove.cRatio}
+  //             inputMode="decimal"
+  //             borderRadius="0%"
+  //             borderColor="black"
+  //             focusBorderColor="black"
+  //             isReadOnly
+  //             //   onChange={(str, num) => handleChangeValue("cRatio", num)}
+  //             outline="none"
+  //             cursor="pointer"
+  //             backgroundColor={MasterStyles.background.secondaryMenu}
+  //           >
+  //             <NumberInputField
+  //               borderRadius="0%"
+  //               border="2px solid black"
+  //               outline="none"
+  //               _hover={{ borderColor: "black" }}
+  //               backgroundColor={MasterStyles.background.secondaryMenu}
+  //             />
+  //           </NumberInput>
+  //         </DescContainer>
+  //         <div
+  //           style={{
+  //             marginBottom: "20px",
+  //             display: "flex",
+  //             justifyContent: "space-around",
+  //           }}
+  //         >
+  //           <ActionButton action>Redeem</ActionButton>
+  //           <ActionButton action>Clear</ActionButton>
+  //         </div>
+  //       </div>
+  //       <div style={{ width: "300px" }}>
+  //         <Title>My Trove</Title>
+  //         <DescContainer>
+  //           <SubTitle>Borrow</SubTitle>
+  //           <NumberInput
+  //             //   onBlur={() => handleBlur("debt")}
+  //             //   onFocus={() => handleFocus("debt")}
+  //             isReadOnly
+  //             defaultValue={0}
+  //             min={0}
+  //             precision={4}
+  //             step={0.2}
+  //             //   max={parseFloat(memTrove.debt)}
+  //             value={memTrove.debt}
+  //             inputMode="decimal"
+  //             borderRadius="0%"
+  //             borderColor="black"
+  //             focusBorderColor="black"
+  //             //   onChange={(str, num) => handleChangeValue("debt", num)}
+  //             outline="none"
+  //             backgroundColor={MasterStyles.background.menu}
+  //           >
+  //             <NumberInputField
+  //               borderRadius="0%"
+  //               border="2px solid black"
+  //               outline="none"
+  //               _hover={{ borderColor: "black" }}
+  //               backgroundColor={MasterStyles.background.menu}
+  //             />
+  //           </NumberInput>
+  //           <SubTitle style={{ marginTop: "10px" }}>Collateral</SubTitle>
+  //           <NumberInput
+  //             //   onBlur={() => handleBlur("collat")}
+  //             //   onFocus={() => handleFocus("collat")}
+  //             defaultValue={0}
+  //             min={0}
+  //             isReadOnly
+  //             precision={4}
+  //             step={0.2}
+  //             //   max={parseFloat(memTrove.debt)}
+  //             value={memTrove.collat}
+  //             inputMode="decimal"
+  //             borderRadius="0%"
+  //             borderColor="black"
+  //             focusBorderColor="black"
+  //             //   onChange={(str, num) => handleChangeValue("collat", num)}
+  //             outline="none"
+  //             backgroundColor={MasterStyles.background.menu}
+  //           >
+  //             <NumberInputField
+  //               borderRadius="0%"
+  //               border="2px solid black"
+  //               outline="none"
+  //               _hover={{ borderColor: "black" }}
+  //               backgroundColor={MasterStyles.background.menu}
+  //             />
+  //           </NumberInput>
+  //           <SubTitle style={{ marginTop: "10px" }}>
+  //             Collateralization Ratio
+  //           </SubTitle>
+  //           <NumberInput
+  //             defaultValue={0}
+  //             min={0}
+  //             precision={4}
+  //             step={0.2}
+  //             //   max={parseFloat(memTrove.debt)}
+  //             value={memTrove.cRatio}
+  //             inputMode="decimal"
+  //             borderRadius="0%"
+  //             borderColor="black"
+  //             focusBorderColor="black"
+  //             isReadOnly
+  //             //   onChange={(str, num) => handleChangeValue("cRatio", num)}
+  //             outline="none"
+  //             cursor="pointer"
+  //             backgroundColor={MasterStyles.background.menu}
+  //           >
+  //             <NumberInputField
+  //               borderRadius="0%"
+  //               border="2px solid black"
+  //               outline="none"
+  //               _hover={{ borderColor: "black" }}
+  //               backgroundColor={MasterStyles.background.menu}
+  //             />
+  //           </NumberInput>
+  //         </DescContainer>
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 };
 
 export default Redeem;

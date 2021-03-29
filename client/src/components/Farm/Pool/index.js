@@ -57,6 +57,8 @@ const Pool = ({
     farmBalances,
     prices,
     profitShareBalances,
+    factoryBalances,
+    setSending,
   } = useContext(CredentialsContext);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("");
@@ -79,6 +81,7 @@ const Pool = ({
   };
 
   const handleClose = () => {
+    setSending(false);
     setType("");
     setOpen(false);
     setBalance(0);
@@ -94,6 +97,7 @@ const Pool = ({
     "gSTRING/ETH": "gSTRING_ETH_LP",
     "gSTRING/LUSD": "gSTRING_LUSD_LP",
     STRING: "STRING",
+    LUSD: "LUSD",
   };
 
   const alloc = {
@@ -116,6 +120,9 @@ const Pool = ({
     rewardPerBlock = profitShareBalances.isBoosted
       ? 0.2307692308 * 5
       : 0.2307692308;
+  } else if (pair === "LUSD") {
+    contractBal = factoryBalances;
+    rewardPerBlock = factoryBalances.isBoosted ? 0.9230769231 * 5 : 9230769231;
   } else {
     contractBal = farmBalances;
     rewardPerBlock = farmBalances.isBoosted
