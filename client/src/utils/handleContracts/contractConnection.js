@@ -99,10 +99,10 @@ export const fetchETHLPTokens = async (networkId, web3, address) => {
       await ETHLPToken.methods.balanceOf(address).call()
     );
     debugger;
-     const STRING_ETH_LP = 0
-    //const STRING_ETH_LP = toDecimal(
-    //  fromWei(web3, await ETHLPToken.methods.balanceOf(address).call())
-    //);
+    // const STRING_ETH_LP = 0;
+    const STRING_ETH_LP = toDecimal(
+      fromWei(web3, await ETHLPToken.methods.balanceOf(address).call())
+    );
     return [ETHLPToken, STRING_ETH_LP];
   }
 };
@@ -113,11 +113,11 @@ export const fetchLUSDLPTokens = async (networkId, web3, address) => {
       IERC20.abi,
       addresses.kovan.lusdLPToken
     );
-    //const STRING_LUSD_LP = toDecimal(
-     // fromWei(web3, await LUSDLPToken.methods.balanceOf(address).call())
-    //);
-    const STRING_LUSD_LP = 0
-    
+    const STRING_LUSD_LP = toDecimal(
+      fromWei(web3, await LUSDLPToken.methods.balanceOf(address).call())
+    );
+    // const STRING_LUSD_LP = 0;
+
     return [LUSDLPToken, STRING_LUSD_LP];
   }
 };
@@ -132,14 +132,14 @@ export const fetchProfitShare = async (
   const psNetwork = StakingPool.networks[networkId];
   if (psNetwork) {
     const ps = new web3.eth.Contract(StakingPool.abi, psNetwork.address);
-    debugger;
+    // debugger;
     const allowancesSTRING = toDecimal(
       fromWei(
         web3,
         await stringToken.methods.allowance(address, ps._address).call()
       )
     );
-    debugger;
+    // debugger;
 
     const allowancesgSTRING = toDecimal(
       fromWei(
@@ -147,25 +147,25 @@ export const fetchProfitShare = async (
         await gStringToken.methods.allowance(address, ps._address).call()
       )
     );
-    debugger;
+    // debugger;
 
     const isBoosted = await ps.methods.isBoosted().call();
-    debugger;
+    // debugger;
     const psSTRING = toDecimal(
       fromWei(web3, await stringToken.methods.balanceOf(ps._address).call())
     );
-    debugger;
+    // debugger;
     // const pendingSTRING = toDecimal(
     //   fromWei(web3, await ps.methods.pendingString(address).call())
     // );
-    debugger;
+    // debugger;
 
     // const ammount = (await ps.methods.userInfo(address).call()).amount;
     // const trnced = fromWei(web3, ammount);
     const userSTRINGStaked = toDecimal(
       fromWei(web3, (await ps.methods.userInfo(address).call()).amount)
     );
-    debugger;
+    // debugger;
 
     const psAllowances = {
       STRING: allowancesSTRING,

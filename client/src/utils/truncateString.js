@@ -27,6 +27,18 @@ export const toDecimal = (n) => {
   if (temp.length <= 3) {
     return `.000${temp[0]}`;
   }
+  if (temp.length <= 4) {
+    return `.00${temp[0] + temp[1]}`;
+  }
+  if (temp.length <= 5) {
+    return `.0${temp[0] + temp[1] + temp[2]}`;
+  }
+  if (temp.length <= 6) {
+    return `.${temp[0] + temp[1] + temp[2] + temp[3]}`;
+  }
+  if (temp.length <= 7) {
+    return `${temp[0]}.${+temp[1] + temp[2] + temp[3] + temp[4]}`;
+  }
 
   const end = temp.substr(temp.length - 6, 4);
   const diff = temp.substr(temp.length - 6, 6);

@@ -32,6 +32,7 @@ import ethLogo from "../../../assets/eth1.png";
 import stringLogo from "../../../assets/string1.png";
 import liquityLogo from "../../../assets/liq.svg";
 import uniswapLogo from "../../../assets/uniswap2.svg";
+import { addresses } from "../../../utils/handleContracts/addresses";
 
 const Pool = ({
   noClaim,
@@ -113,6 +114,14 @@ const Pool = ({
     ETH: ethLogo,
   };
 
+  const links = {
+    LUSD: `https://kovan.etherscan.io/address/${addresses.kovan.stabilityPool}`,
+    LQTY: `https://kovan.etherscan.io/address/${addresses.kovan.lqtyStaking}`,
+    STRING: `https://kovan.etherscan.io/address/0xba593297bec35f3162f37ab2f27774a826aa6153`,
+    "gSTRING/ETH": `https://kovan.etherscan.io/address/${addresses.kovan.ethLPToken}`,
+    "gSTRING/LUSD": `https://kovan.etherscan.io/address${addresses.kovan.lusdLPToken}`,
+  };
+
   let contractBal, rewardPerBlock;
 
   if (pair === "STRING") {
@@ -164,7 +173,7 @@ const Pool = ({
       <div style={{ marginTop: "12.5px", marginBottom: margin }}>
         <PoolContainer>
           <PairContainer>
-            <ContractLink>
+            <ContractLink href={links[pair]} target="_blank">
               <DEX>{from}</DEX>
               <Pair>{currency2 ? `${currency1}/${currency2}` : currency1}</Pair>
               <PairLogoContainer>
