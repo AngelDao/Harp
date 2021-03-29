@@ -22,9 +22,6 @@ module.exports = async function (deployer, network, accounts) {
   const owner = accounts[1];
   console.log(owner);
 
-  //await deployer.deploy(LUSDToken, accounts[0], accounts[1]);
-  //await deployer.deploy(LQTYToken, accounts[0], accounts[1]);
-
   let lusdToken, lqtyToken, stabilityPool;
 
   if (deploy === "kovan") {
@@ -39,8 +36,6 @@ module.exports = async function (deployer, network, accounts) {
   await deployer.deploy(StringToken, "String", "STRING", HarpDAOAddress, owner);
   const stringToken = await StringToken.deployed();
 
-  // 3rd Ganache
-  // Vesting Contract
   const AngelDAOAddress = accounts[2];
   const years = 365 * 2;
   await deployer.deploy(
@@ -55,11 +50,6 @@ module.exports = async function (deployer, network, accounts) {
 
   await stringToken.addVestingAddress(vestingAddress, { from: owner });
 
-  // 1st Ganache
-  // Farm Deployments
-
-  //await deployer.deploy(LUSDLP, accounts[0], accounts[1]);
-  //await deployer.deploy(ETHLP, accounts[0], accounts[1]);
   await deployer.deploy(gStringToken, owner);
   const gstringToken = await gStringToken.deployed();
   await deployer.deploy(
@@ -71,11 +61,6 @@ module.exports = async function (deployer, network, accounts) {
     stabilityPool
   );
 
-  //const ethLPToken = await ETHLP.deployed();
-  //const lusdLPToken = await LUSDLP.deployed();
-  // 10e18 = 1000000000000000000
-  //   base reward per block = 0.358974359
-
   await deployer.deploy(LatestFarm, stringToken.address, 100);
 
   const farm = await LatestFarm.deployed();
@@ -85,8 +70,6 @@ module.exports = async function (deployer, network, accounts) {
   await gstringToken.addVestingAddress(stringStaking.address, { from: owner });
   await stringToken.addVestingAddress(stringStaking.address, { from: owner });
   await stringToken.addVestingAddress(farm.address, { from: owner });
-  //await farm.add(80, ethLPToken.address, true);
-  //await farm.add(20, lusdLPToken.address, true);
 
   await deployer.deploy(
     StabilityFactory,

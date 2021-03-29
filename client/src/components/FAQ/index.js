@@ -14,7 +14,7 @@ const FAQ = () => {
           </i>
           . It incentivizes staking of the native tokens for the{" "}
           <Link href="https://www.liquity.org/" target="_blank">
-            Liquity Proptocol
+            Liquity Protocol
           </Link>
           . Specifically the LUSD token inside the Stability Pool.
         </Desc>
