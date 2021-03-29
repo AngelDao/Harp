@@ -12,13 +12,11 @@ const FAQ = () => {
           <i>
             <b>decentralized financial instrument</b>
           </i>
-          . It gives users the ability to borrow against collateral at the
-          lowest minimum collateralization ratio in the DeFi ecostystem,
-          utlizing the{" "}
+          . It incentivizes staking of the native tokens for the{" "}
           <Link href="https://www.liquity.org/" target="_blank">
             Liquity Proptocol
           </Link>
-          .
+          . Specifically the LUSD token inside the Stability Pool.
         </Desc>
         <HR />
       </DescContainer>
@@ -27,15 +25,31 @@ const FAQ = () => {
       <DescContainer>
         <HR />
         <Desc>
-          STRING is an erc20 token launched by HarpDAO, a subsidiary of{" "}
+          STRING is an erc20 token launched by HarpDAO, an incubation of{" "}
           <Link href="https://www.angeldao.org/" target="_blank">
             AngelDAO
           </Link>
-          . The token will initially be used as governance token for votes on
-          further integrations accross the the Ethereum DeFi ecosystem and
-          future cross-chain developments with the Liquity Protocol. It is
-          planned to introduce further token uses such as profit sharing,
-          burning, bundleing, and time locking, in Q2.
+          . The token utility is to be an incentive for Liquity participation
+          via the Harp frontend. By staking STRING you can earn in the frontends
+          kick back based on your portion staked in the Profit Share Pool and
+          the amount of LUSD staked in the Stability Pool using our frontend
+          tag.
+        </Desc>
+        <HR />
+      </DescContainer>
+
+      <Title>gSTRING Token</Title>
+      <DescContainer>
+        <HR />
+        <Desc>
+          gSTRING is the Harp governance token. It can only be earned via
+          staking STRING into the Profit Share Pool. It is minted 1:1 to the
+          amount of STRING staked after deposit fees. Profit Share Pool withdraw
+          amounts will require an equal amount of gSTRING in the wallet to the
+          withdraw amount requested, gSTRING is burnt 1:1 with the amount of
+          STRING withdrawn from the Profit Share Pool. gSTRING will be used to
+          vote on HarpDAO proposals and is meant to act as proof of
+          participation mechanism.
         </Desc>
         <HR />
       </DescContainer>

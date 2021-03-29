@@ -5,6 +5,7 @@ const addresses = {
     lqtyToken: "0xB2e3FE46688Dc9aC3a99983066d057E461cbD887",
     ethLPToken: "0x1810016dc7a6ff69dd0de0a1eacf79aa86752114",
     lusdLPToken: "0x103cc22b0bf45f759aa7f40188231aea5f83076e",
+    lqtyStaking: "0xdb456329498CBDbb3Fa63f9Bc2792088ce8b933A",
   },
 };
 
