@@ -45,6 +45,7 @@ const Pool = ({
   LPTokensInWallet,
   LPTokensStaked,
   pendingTokens,
+  secondPendingTokens,
   LPTokensAllowance,
   gSTRINGAllowance,
   from,
@@ -228,9 +229,9 @@ const Pool = ({
             <Desc>APY</Desc>
           </DescContainer>
           <StatContainer>
-            <Stat>{dailyAPY ? dailyAPY : "--"}%</Stat>
-            <Stat>{weeklyAPY ? weeklyAPY : "--"}%</Stat>
-            <Stat>{yearlyAPY ? yearlyAPY : "--"}%</Stat>
+            <Stat>{dailyAPY ? dailyAPY : "∞"}%</Stat>
+            <Stat>{weeklyAPY ? weeklyAPY : "∞"}%</Stat>
+            <Stat>{yearlyAPY ? yearlyAPY : "∞"}%</Stat>
           </StatContainer>
         </PoolContainer>
         <CollapseButtonContainer>{viewButton}</CollapseButtonContainer>
@@ -279,9 +280,20 @@ const Pool = ({
             <UserInfoSubContainer>
               <InfoContainer>
                 <InfoDesc>Recieved</InfoDesc>
-                <InfoBalance>
-                  {pendingTokens ? pendingTokens : 0} STRING
-                </InfoBalance>
+                {currencyLP !== "LQTY" ? (
+                  <InfoBalance>
+                    {pendingTokens ? pendingTokens : 0} STRING
+                  </InfoBalance>
+                ) : (
+                  <>
+                    <InfoBalance lqty>
+                      {pendingTokens ? pendingTokens : 0} ETH
+                    </InfoBalance>
+                    <InfoBalance lqty>
+                      {pendingTokens ? secondPendingTokens : 0} LUSD
+                    </InfoBalance>
+                  </>
+                )}
               </InfoContainer>
               <ActionButtonContainer>
                 <ActionButton

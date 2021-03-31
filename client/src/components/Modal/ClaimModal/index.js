@@ -34,12 +34,24 @@ const ActionModal = ({ open, close, balance, pair, contract }) => {
   const contractInstance = {
     profitShare,
     farm,
-    factory:proxy
+    factory: proxy,
   };
 
   const handleClaim = async () => {
-    
-    if(pair === "LUSD"){
+    if (pair === "LQTY") {
+      await contractInstance[contract].methods
+        .unstake(0)
+        .send({ from: address })
+        .on("transactionHash", async () => {
+          await reFetchData();
+        })
+        .on("receipt", async () => {
+          await reFetchData();
+        });
+      return;
+    }
+
+    if (pair === "LUSD") {
       await contractInstance[contract].methods
         .claim()
         .send({ from: address })
@@ -49,7 +61,7 @@ const ActionModal = ({ open, close, balance, pair, contract }) => {
         .on("receipt", async () => {
           await reFetchData();
         });
-    }else{
+    } else {
       await contractInstance[contract].methods
         .claim(pool[pair])
         .send({ from: address })

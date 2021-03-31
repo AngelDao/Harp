@@ -13,6 +13,7 @@ const Stake = () => {
     farmBalances,
     userAllowances,
     profitShareBalances,
+    rewardsBalances,
   } = useContext(CredentialsContext);
 
   return (
@@ -43,18 +44,18 @@ const Stake = () => {
       />
       <Title>LQTY</Title>
       <Pool
-        noClaim
         from={"Rewards"}
+        contract={"rewards"}
         src={""}
         currency1={"LQTY"}
         currencyLP={"LQTY"}
         currencyEarned={["LUSD", "ETH"]}
         collapsed={collapsed.LQTY}
         LPTokensInWallet={userBalances.LQTY}
-        LPTokensAllowance={userAllowances.profitShare.LQTY}
-        LPTokensStaked={farmBalances.userStaked.LQTY}
-        pendingTokens={farmBalances.userPending.LQTY}
-        stringTokensAllowance={userAllowances.profitShare.STRING}
+        LPTokensAllowance={userAllowances.rewards.LQTY}
+        LPTokensStaked={rewardsBalances.userStaked.LQTY}
+        pendingTokens={rewardsBalances.userPending.ETH}
+        secondPendingTokens={rewardsBalances.userPending.LUSD}
         collapse={() => {
           setCollapsed({ ...collapsed, LQTY: true });
         }}

@@ -20,6 +20,7 @@ import {
   fetchgStringToken,
   fetchProfitShare,
   fetchStabilityFactory,
+  fetchRewards,
 } from "./utils/handleContracts/contractConnection";
 // import { setEventListeners } from "./utils/handleWallets.js/modalConfig";
 
@@ -36,6 +37,7 @@ function App() {
   const [proxyBalances, setProxyBalances] = useState({});
   const [profitShareBalances, setProfitShareBalances] = useState({});
   const [factoryBalances, setFactoryBalances] = useState({});
+  const [rewardsBalances, setRewardsBalances] = useState({});
   const [contracts, setContracts] = useState({});
   const [prices, setPrices] = useState({});
   const [loading, setLoading] = useState(false);
@@ -56,7 +58,6 @@ function App() {
   };
 
   const handleUnsupported = (code) => {
-    debugger;
     if (code === "0x2a") {
       setUnsupported(false);
     } else {
@@ -130,7 +131,16 @@ function App() {
       proxyBalances,
     ] = await fetchStabilityFactory(networkId, web3, address, lusdToken);
 
+    const [rewards, rwsBalances, rwsAllowances] = await fetchRewards(
+      networkId,
+      web3,
+      address,
+      lqtyToken
+    );
+
     // debugger;
+
+    setRewardsBalances(rwsBalances);
     setFarmBalances(farmBalances);
     setProfitShareBalances(psBalances);
     setFactoryBalances(fyBalances);
@@ -139,10 +149,12 @@ function App() {
       farm: allowances,
       profitShare: psAllowances,
       proxy: proxyAllowance,
+      rewards: rwsAllowances,
     });
     setContracts({
       factory,
       proxy,
+      rewards,
       profitShare,
       stringToken,
       ETHLPToken,
@@ -219,9 +231,12 @@ function App() {
   }, [prices]);
 
   const credentials = {
+    rewardsBalances,
     factoryBalances,
     profitShareBalances,
+    userBalances,
     proxyBalances,
+    farmBalances,
     web3DataProvider,
     setWeb3DataProvider,
     web3UserProvider,
@@ -235,8 +250,6 @@ function App() {
     handleManualConnect,
     handleOpenConnectModal,
     handleCloseConnectModal,
-    farmBalances,
-    userBalances,
     userAllowances,
     setUserAllowances,
     contracts,

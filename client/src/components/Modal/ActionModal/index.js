@@ -56,6 +56,8 @@ const ActionModal = ({
       profitShare,
       gStringToken,
       factory,
+      lqtyToken,
+      rewards,
     },
     address,
     setUserAllowances,
@@ -80,6 +82,7 @@ const ActionModal = ({
     STRING: stringToken,
     LUSD: lusdToken,
     gSTRING: gStringToken,
+    LQTY: lqtyToken,
   };
 
   const pairNames = {
@@ -87,6 +90,7 @@ const ActionModal = ({
     "gSTRING/LUSD": "gSTRING_LUSD_LP",
     STRING: "STRING",
     LUSD: "LUSD",
+    LQTY: "LQTY",
   };
 
   const contractInstance = {
@@ -94,6 +98,7 @@ const ActionModal = ({
     profitShare,
     factory,
     proxy,
+    rewards,
   };
 
   const [value, setValue] = useState(0);
@@ -158,6 +163,8 @@ const ActionModal = ({
       contractAddress = factory._address;
     } else if (contract === "profitShare") {
       contractAddress = profitShare._address;
+    } else if (contract === "rewards") {
+      contractAddress = rewards._address;
     }
 
     let ctrct;
@@ -168,6 +175,7 @@ const ActionModal = ({
       ctrct = token[pair];
     }
 
+    debugger;
     await ctrct.methods
       .approve(contractAddress, toWei(web3DataProvider, "10000000000000"))
       .send({ from: address })
@@ -194,6 +202,23 @@ const ActionModal = ({
 
     const param2 = toWei(web3DataProvider, value.toString());
 
+    if (contract === "rewards") {
+      await ctrct.methods
+        .stake(param1)
+        .send({ from: address })
+        .once("sent", async () => {
+          // debugger;
+        })
+        .on("transactionHash", async () => {
+          setSending(true);
+        })
+        .on("receipt", async () => {
+          setSending(false);
+          await reFetchData();
+        });
+
+      return;
+    }
     if (contract === "profitShare" || contract === "factory") {
       try {
         await ctrct.methods
@@ -244,6 +269,24 @@ const ActionModal = ({
     const temp2 = profitShareBalances;
     const param2 = toWei(web3DataProvider, value.toString());
     debugger;
+
+    if (contract === "rewards") {
+      await ctrct.methods
+        .unstake(param1)
+        .send({ from: address })
+        .once("sent", async () => {
+          // debugger;
+        })
+        .on("transactionHash", async () => {
+          setSending(true);
+        })
+        .on("receipt", async () => {
+          setSending(false);
+          await reFetchData();
+        });
+
+      return;
+    }
 
     if (contract === "profitShare" || contract === "factory") {
       try {

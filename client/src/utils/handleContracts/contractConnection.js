@@ -4,6 +4,7 @@ import gStringToken from "../../abis/gStringToken.json";
 import LQTYToken from "../../abis/ILQTYToken.json";
 import LUSDToken from "../../abis/ILUSDToken.json";
 import IERC20 from "../../abis/IERC20.json";
+import ILQTYStaking from "../../abis/ILQTYStaking.json";
 import StakingPool from "../../abis/StringStaking.json";
 import StabilityFactory from "../../abis/StabilityFactory.json";
 import StabilityProxy from "../../abis/StabilityProxy.json";
@@ -98,7 +99,6 @@ export const fetchETHLPTokens = async (networkId, web3, address) => {
       web3,
       await ETHLPToken.methods.balanceOf(address).call()
     );
-    debugger;
     // const STRING_ETH_LP = 0;
     const STRING_ETH_LP = toDecimal(
       fromWei(web3, await ETHLPToken.methods.balanceOf(address).call())
@@ -349,5 +349,52 @@ export const fetchStabilityFactory = async (
       },
     };
     return [factory, userProxy, proxyAllowances, fyBalances, proxyBalances];
+  }
+};
+
+export const fetchRewards = async (networkId, web3, address, lqtyToken) => {
+  if (networkId === 42) {
+    const rewards = new web3.eth.Contract(
+      ILQTYStaking.abi,
+      addresses.kovan.lqtyStaking
+    );
+
+    const lqtyStaked = toDecimal(
+      fromWei(web3, await rewards.methods.stakes(address).call())
+    );
+
+    const pendingETH = toDecimal(
+      fromWei(web3, await rewards.methods.getPendingETHGain(address).call())
+    );
+
+    const pendingLUSD = toDecimal(
+      fromWei(web3, await rewards.methods.getPendingLUSDGain(address).call())
+    );
+
+    const lqtyAllowance = toDecimal(
+      fromWei(
+        web3,
+        await lqtyToken.methods.allowance(address, rewards._address).call()
+      )
+    );
+    // const STRING_LUSD_LP = 0;
+
+    const rewardsAllowances = {
+      LQTY: lqtyAllowance,
+    };
+
+    const rewardsBalances = {
+      userPending: {
+        ETH: pendingETH,
+        LUSD: pendingLUSD,
+      },
+      userStaked: {
+        LQTY: lqtyStaked,
+      },
+    };
+
+    debugger;
+
+    return [rewards, rewardsBalances, rewardsAllowances];
   }
 };

@@ -146,7 +146,8 @@ export const InfoDesc = styled.span`
 `;
 
 export const InfoBalance = styled.span`
-  font-size ${MasterStyles.fontSize.large};
+  font-size ${({ lqty }) =>
+    lqty ? MasterStyles.fontSize.small : MasterStyles.fontSize.large};
 `;
 
 // rgb(93 93 93)
