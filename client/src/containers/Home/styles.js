@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import MasterStyles from "../../utils/masterStyles";
 
+export const Parent = styled.div`
+  @media (max-width: 745px) {
+    display: none;
+  }
+  @media (min-width: 745px) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  } ;
+`;
+
 export const Container = styled.div`
   width: 100%;
   min-height: 100vh;

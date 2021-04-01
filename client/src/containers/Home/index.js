@@ -11,12 +11,14 @@ import {
   ConnectedCircle,
   AddressContainer,
   HR,
+  Parent,
 } from "./styles";
 import Logo from "../../assets/harpLogo.png";
 import Menu from "../../components/Menu";
 import Content from "../Content";
 import CredentialsContext from "../../context/credentialsContext";
 import { truncateAddress } from "../../utils/truncateString";
+import SmallScreen from "../../components/SmallScreen";
 
 const Home = () => {
   const { isConnected, address, loading } = useContext(CredentialsContext);
@@ -40,16 +42,18 @@ const Home = () => {
 
   return (
     <Container>
-      <AppContainer>
-        <InnerContainer>
-          <LogoContainer>
-            <StyledLogo src={Logo} />
-          </LogoContainer>
-          <Menu />
-          <HR />
-          {connectionStatus}
-          {/* side scrolling banner */}
-          {/* <div
+      <SmallScreen />
+      <Parent>
+        <AppContainer>
+          <InnerContainer>
+            <LogoContainer>
+              <StyledLogo src={Logo} />
+            </LogoContainer>
+            <Menu />
+            <HR />
+            {connectionStatus}
+            {/* side scrolling banner */}
+            {/* <div
             style={{
               width: "510px",
               height: 17.5,
@@ -60,9 +64,10 @@ const Home = () => {
               border: "dashed black 2px",
             }}
           ></div> */}
-        </InnerContainer>
-        <Content loading={loading} />
-      </AppContainer>
+          </InnerContainer>
+          <Content loading={loading} />
+        </AppContainer>
+      </Parent>
     </Container>
   );
 };
