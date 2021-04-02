@@ -393,8 +393,6 @@ export const fetchRewards = async (networkId, web3, address, lqtyToken) => {
       },
     };
 
-    debugger;
-
     return [rewards, rewardsBalances, rewardsAllowances];
   }
 };

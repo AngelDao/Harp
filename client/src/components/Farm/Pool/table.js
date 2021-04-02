@@ -22,6 +22,7 @@ import {
   ButtonContainer,
   UserInfoContainer,
 } from "./styles";
+import { truncDust } from "../../../utils/truncateString";
 
 const PoolTable = ({
   pair,
@@ -44,14 +45,26 @@ const PoolTable = ({
     gSTRING: stringLogo,
     ETH: ethLogo,
   };
+  const truncLPStaked = truncDust(LPTokensStaked);
+  const truncLPinWallet = truncDust(LPTokensInWallet);
+  const truncgSTRINGBalance = truncDust(gSTRINGBalance);
+  const truncPendingTokens = truncDust(pendingTokens);
+  const truncSecondPendingTokens = truncDust(secondPendingTokens);
 
-  const pendingAmounts = [pendingTokens, secondPendingTokens];
+  const pendingAmounts = [truncPendingTokens, truncSecondPendingTokens];
 
   const sum = () => {
     let s = 0;
-    pendingAmounts.forEach((a) => {
-      if (a) {
-        s += parseFloat(a);
+    pendingAmounts.forEach((a, i) => {
+      let val = a;
+      if (a === "Dust" && i === 0) {
+        val = pendingTokens;
+      }
+      if (a === "Dust" && i === 1) {
+        val = secondPendingTokens;
+      }
+      if (val) {
+        s += parseFloat(val);
       }
     });
     return s;
@@ -107,10 +120,10 @@ const PoolTable = ({
             <span>--</span>
           </AssetCell>
           <AssetCell style={{ width: "172px" }}>
-            <span>{LPTokensInWallet}</span>
+            <span>{truncLPinWallet}</span>
           </AssetCell>
           <AssetCell>
-            <span>{LPTokensStaked}</span>
+            <span>{truncLPStaked}</span>
           </AssetCell>
         </ContentRow>
         {pair === "STRING" && (
@@ -127,7 +140,7 @@ const PoolTable = ({
               <span>--</span>
             </AssetCell>
             <AssetCell style={{ width: "172px" }}>
-              <span>{gSTRINGBalance}</span>
+              <span>{truncgSTRINGBalance}</span>
             </AssetCell>
             <AssetCell>
               <span>--</span>

@@ -1,4 +1,5 @@
 import Web3 from "web3";
+import { InfoTable } from "../components/Farm/Pool/styles";
 
 export const truncateAddress = (str, n) => {
   if (!str) return null;
@@ -6,7 +7,7 @@ export const truncateAddress = (str, n) => {
 };
 
 export const fromWei = (web3, n) => {
-  return web3.utils.fromWei(n, "micro");
+  return web3.utils.fromWei(n, "ether");
 };
 
 export const toWei = (web3, n) => {
@@ -15,35 +16,44 @@ export const toWei = (web3, n) => {
 };
 
 export const toDecimal = (n) => {
-  let temp = n.replace(/[.].+$/g, "");
-  if (n.length <= 1) {
-    return "0";
+  return n;
+};
+
+export const truncDust = (n) => {
+  console.log(n);
+  if (!n) {
+    return 0;
+  }
+  const temp = n.toString();
+  let allDec = temp.match(/[.](.+)/i);
+  allDec = allDec && allDec[1];
+  if (allDec && allDec.length > 9 && parseFloat(temp) < 0.000000001) {
+    return "Dust";
+  } else if (allDec && allDec.length > 9) {
+    return temp.match(/.+[.].{9}/g)[0];
+  } else {
+    return temp;
+  }
+};
+
+export const readableTrunc = (str) => {
+  let temp = str.replace(/[.].+$/g, "");
+
+  if (temp.length === 6) {
+    return temp[0] + temp[1] + temp[3] + "K";
+  }
+  if (temp.length > 6 && temp.length < 10) {
+    let toKeep = temp.length - 6;
+    return temp.slice(0, toKeep) + "M";
+  }
+  if (temp.length > 9 && temp.length < 13) {
+    let toKeep = temp.length - 9;
+    return temp.slice(0, toKeep) + "B";
+  }
+  if (temp.length > 12 && temp.length) {
+    let toKeep = temp.length - 12;
+    return temp.slice(0, toKeep) + "T";
   }
 
-  if (temp.length <= 2) {
-    return "0";
-  }
-
-  if (temp.length <= 3) {
-    return `.000${temp[0]}`;
-  }
-  if (temp.length <= 4) {
-    return `.00${temp[0] + temp[1]}`;
-  }
-  if (temp.length <= 5) {
-    return `.0${temp[0] + temp[1] + temp[2]}`;
-  }
-  if (temp.length <= 6) {
-    return `.${temp[0] + temp[1] + temp[2] + temp[3]}`;
-  }
-  if (temp.length <= 7) {
-    return `${temp[0]}.${+temp[1] + temp[2] + temp[3] + temp[4]}`;
-  }
-
-  const end = temp.substr(temp.length - 6, 4);
-  const diff = temp.substr(temp.length - 6, 6);
-  const start = temp.replace(diff, "");
-  // ;
-  // ;
-  return `${start}.${end}`;
+  return str;
 };

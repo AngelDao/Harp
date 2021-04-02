@@ -27,7 +27,7 @@ import {
 } from "./styles";
 import Modal from "../../Modal";
 import CredentialsContext from "../../../context/credentialsContext";
-import { fromWei, toWei } from "../../../utils/truncateString";
+import { fromWei, toWei, readableTrunc } from "../../../utils/truncateString";
 import ethLogo from "../../../assets/eth1.png";
 import stringLogo from "../../../assets/string1.png";
 import liquityLogo from "../../../assets/liq.svg";
@@ -231,9 +231,9 @@ const Pool = ({
             <Desc>APY</Desc>
           </DescContainer>
           <StatContainer>
-            <Stat>{dailyAPY ? dailyAPY : "∞"}%</Stat>
-            <Stat>{weeklyAPY ? weeklyAPY : "∞"}%</Stat>
-            <Stat>{yearlyAPY ? yearlyAPY : "∞"}%</Stat>
+            <Stat>{dailyAPY ? readableTrunc(dailyAPY) : "∞"}%</Stat>
+            <Stat>{weeklyAPY ? readableTrunc(weeklyAPY) : "∞"}%</Stat>
+            <Stat>{yearlyAPY ? readableTrunc(yearlyAPY) : "∞"}%</Stat>
           </StatContainer>
         </PoolContainer>
         <CollapseButtonContainer>{viewButton}</CollapseButtonContainer>
