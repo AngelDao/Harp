@@ -33,6 +33,7 @@ import stringLogo from "../../../assets/string1.png";
 import liquityLogo from "../../../assets/liq.svg";
 import uniswapLogo from "../../../assets/uniswap2.svg";
 import { addresses } from "../../../utils/handleContracts/addresses";
+import Table from "./table";
 
 const Pool = ({
   noClaim,
@@ -61,6 +62,7 @@ const Pool = ({
     profitShareBalances,
     factoryBalances,
     setSending,
+    userBalances,
   } = useContext(CredentialsContext);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("");
@@ -235,80 +237,20 @@ const Pool = ({
           </StatContainer>
         </PoolContainer>
         <CollapseButtonContainer>{viewButton}</CollapseButtonContainer>
-        <UserInfoContainer collapsed={collapsed} noClaim={noClaim}>
-          <UserInfoSubContainer>
-            <InfoContainer>
-              <InfoDesc>Staked</InfoDesc>
-              <InfoBalance>
-                {LPTokensStaked ? LPTokensStaked : 0} {currencyLP}
-              </InfoBalance>
-            </InfoContainer>
-            <ActionButtonContainer>
-              <ActionButton
-                action={parseFloat(LPTokensStaked) > 0}
-                disabled={parseFloat(LPTokensStaked) <= 0}
-                onClick={() => {
-                  handleOpen("Withdraw", LPTokensStaked);
-                }}
-              >
-                <i>Withdraw</i>
-              </ActionButton>
-            </ActionButtonContainer>
-          </UserInfoSubContainer>
-
-          <UserInfoSubContainer>
-            <InfoContainer>
-              <InfoDesc>Wallet</InfoDesc>
-              <InfoBalance>
-                {LPTokensInWallet ? LPTokensInWallet : 0} {currencyLP}
-              </InfoBalance>
-            </InfoContainer>
-            <ActionButtonContainer>
-              <ActionButton
-                action={parseFloat(LPTokensInWallet) > 0}
-                disabled={parseFloat(LPTokensInWallet) <= 0}
-                onClick={() => {
-                  handleOpen("Deposit", LPTokensInWallet);
-                }}
-              >
-                <i>Deposit</i>
-              </ActionButton>
-            </ActionButtonContainer>
-          </UserInfoSubContainer>
-
-          {!noClaim && (
-            <UserInfoSubContainer>
-              <InfoContainer>
-                <InfoDesc>Recieved</InfoDesc>
-                {currencyLP !== "LQTY" ? (
-                  <InfoBalance>
-                    {pendingTokens ? pendingTokens : 0} STRING
-                  </InfoBalance>
-                ) : (
-                  <>
-                    <InfoBalance lqty>
-                      {pendingTokens ? pendingTokens : 0} ETH
-                    </InfoBalance>
-                    <InfoBalance lqty>
-                      {pendingTokens ? secondPendingTokens : 0} LUSD
-                    </InfoBalance>
-                  </>
-                )}
-              </InfoContainer>
-              <ActionButtonContainer>
-                <ActionButton
-                  action={parseFloat(pendingTokens) > 0}
-                  disabled={parseFloat(pendingTokens) <= 0}
-                  onClick={() => {
-                    handleOpen("Claim", pendingTokens);
-                  }}
-                >
-                  <i>Claim</i>
-                </ActionButton>
-              </ActionButtonContainer>
-            </UserInfoSubContainer>
-          )}
-        </UserInfoContainer>
+        <Table
+          currencyEarned={currencyEarned}
+          pair={pair}
+          currency1={currency1}
+          currency2={currency2}
+          LPTokensStaked={LPTokensStaked}
+          LPTokensInWallet={LPTokensInWallet}
+          noClaim={noClaim}
+          collapsed={collapsed}
+          pendingTokens={pendingTokens}
+          secondPendingTokens={secondPendingTokens}
+          open={handleOpen}
+          gSTRINGBalance={userBalances.gSTRING}
+        />
       </div>
     </>
   );

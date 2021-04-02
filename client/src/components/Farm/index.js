@@ -9,9 +9,12 @@ const Farm = () => {
     stringLUSD: true,
     LUSD: true,
   });
-  const { userBalances, farmBalances, userAllowances, proxyBalances } = useContext(
-    CredentialsContext
-  );
+  const {
+    userBalances,
+    farmBalances,
+    userAllowances,
+    proxyBalances,
+  } = useContext(CredentialsContext);
 
   return (
     <FarmContainer>
@@ -45,7 +48,7 @@ const Farm = () => {
         currency1={"gSTRING"}
         currency2={"ETH"}
         currencyLP={"UNI LP"}
-        currencyEarned={"STRING"}
+        currencyEarned={["STRING"]}
         collapsed={collapsed.stringETH}
         LPTokensInWallet={userBalances.gSTRING_ETH_LP}
         LPTokensAllowance={userAllowances.farm.gSTRING_ETH_LP}
@@ -66,7 +69,7 @@ const Farm = () => {
         currency1={"gSTRING"}
         currency2={"LUSD"}
         currencyLP={"UNI LP"}
-        currencyEarned={"STRING"}
+        currencyEarned={["STRING"]}
         collapsed={collapsed.stringLUSD}
         LPTokensInWallet={userBalances.gSTRING_LUSD_LP}
         LPTokensAllowance={userAllowances.farm.gSTRING_LUSD_LP}
