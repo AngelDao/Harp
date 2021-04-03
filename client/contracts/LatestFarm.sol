@@ -240,7 +240,7 @@ contract LatestFarm is Ownable {
         uint256 pending = _pending(user, pool);
         safeStringTransfer(msg.sender, pending);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
-        Claim(msg.sender, pending);
+        emit Claim(msg.sender, pending);
     }
 
     // Withdraw without caring about rewards. EMERGENCY ONLY.

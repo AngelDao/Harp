@@ -147,7 +147,7 @@ const ActionModal = ({
       .on("transactionHash", async () => {
         setSending(true);
       })
-      .on("reciept", async () => {
+      .on("receipt", async () => {
         setSending(false);
         await reFetchData();
       });
@@ -220,6 +220,7 @@ const ActionModal = ({
       return;
     }
     if (contract === "profitShare" || contract === "factory") {
+      debugger;
       try {
         await ctrct.methods
           .deposit(param1)

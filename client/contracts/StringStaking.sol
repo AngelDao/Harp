@@ -69,6 +69,11 @@ contract StringStaking is Ownable {
 
     event Deposit(address indexed user, uint256 amount);
     event Withdraw(address indexed user, uint256 amount);
+    event Claim(
+        address indexed who,
+        uint256 amountClaimed,
+        uint256 seconAmountClaimed
+    );
     event EmergencyWithdraw(address indexed user, uint256 amount);
 
     modifier onlyCreator() {
@@ -206,8 +211,8 @@ contract StringStaking is Ownable {
         updateSP();
         uint256 cNotes = gstringToken.balanceOf(msg.sender);
         if (user.amount > 0) {
-            uint256 pending = _pending(user, cNotes);
-            uint256 pendingLQTY = _pendingLQTY(user, cNotes);
+            uint256 pending = _pending(user);
+            uint256 pendingLQTY = _pendingLQTY(user);
             safeStringTransfer(msg.sender, pending);
             safeLQTYTransfer(msg.sender, pendingLQTY);
         }
@@ -221,16 +226,8 @@ contract StringStaking is Ownable {
         user.amount = user.amount.add(depositAmount);
         pool.lpTokenSupply = pool.lpTokenSupply.add(depositAmount);
 
-        uint256 debtAmount;
-
-        if (user.amount.sub(depositAmount) > cNotes) {
-            debtAmount = user.amount.sub(depositAmount).add(cNotes);
-        } else if (user.amount.sub(depositAmount) <= cNotes) {
-            debtAmount = user.amount;
-        }
-
-        user.rewardDebt = debtAmount.mul(pool.accStringPerShare).div(1e12);
-        user.lqtyRewardDebt = debtAmount.mul(pool.accLQTYPerShare).div(1e12);
+        user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
+        user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
         updateForFee(fee);
         gstringToken.mintTo(msg.sender, depositAmount);
         emit Deposit(msg.sender, _amount);
@@ -243,8 +240,8 @@ contract StringStaking is Ownable {
         updatePool();
         updateSP();
         uint256 cNotes = gstringToken.balanceOf(msg.sender);
-        uint256 pending = _pending(user, cNotes);
-        uint256 pendingLQTY = _pendingLQTY(user, cNotes);
+        uint256 pending = _pending(user);
+        uint256 pendingLQTY = _pendingLQTY(user);
         safeStringTransfer(msg.sender, pending);
         safeLQTYTransfer(msg.sender, pendingLQTY);
 
@@ -263,6 +260,19 @@ contract StringStaking is Ownable {
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
         emit Withdraw(msg.sender, _amount);
+    }
+
+    function claim() public {
+        UserInfo storage user = userInfo[msg.sender];
+        updatePool();
+        updateSP();
+        uint256 pending = _pending(user);
+        uint256 pendingLQTY = _pendingLQTY(user);
+        safeStringTransfer(msg.sender, pending);
+        safeLQTYTransfer(msg.sender, pendingLQTY);
+        user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
+        user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
+        emit Claim(msg.sender, pending, pendingLQTY);
     }
 
     // Withdraw without caring about rewards. EMERGENCY ONLY.
@@ -294,40 +304,24 @@ contract StringStaking is Ownable {
         }
     }
 
-    function _pending(UserInfo storage _user, uint256 _cNotes)
-        internal
-        view
-        returns (uint256)
-    {
-        uint256 amount;
-
-        if (_user.amount > _cNotes) {
-            amount = _cNotes;
-        } else if (_user.amount <= _cNotes) {
-            amount = _user.amount;
-        }
+    function _pending(UserInfo storage _user) internal view returns (uint256) {
         uint256 rewardsToSend =
-            amount.mul(pool.accStringPerShare).div(1e12).sub(_user.rewardDebt);
+            _user.amount.mul(pool.accStringPerShare).div(1e12).sub(
+                _user.rewardDebt
+            );
         if (isBoosted) {
             return rewardsToSend.mul(boostedMultiplier);
         }
         return rewardsToSend;
     }
 
-    function _pendingLQTY(UserInfo storage _user, uint256 _cNotes)
+    function _pendingLQTY(UserInfo storage _user)
         internal
         view
         returns (uint256)
     {
-        uint256 amount;
-
-        if (_user.amount > _cNotes) {
-            amount = _cNotes;
-        } else if (_user.amount <= _cNotes) {
-            amount = _user.amount;
-        }
         uint256 lqtyRewardsToSend =
-            amount.mul(pool.accLQTYPerShare).div(1e12).sub(
+            _user.amount.mul(pool.accLQTYPerShare).div(1e12).sub(
                 _user.lqtyRewardDebt
             );
         return lqtyRewardsToSend;

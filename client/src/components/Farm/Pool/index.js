@@ -63,6 +63,7 @@ const Pool = ({
     factoryBalances,
     setSending,
     userBalances,
+    tvl,
   } = useContext(CredentialsContext);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("");
@@ -102,6 +103,13 @@ const Pool = ({
     "gSTRING/LUSD": "gSTRING_LUSD_LP",
     STRING: "STRING",
     LUSD: "LUSD",
+    LQTY: "LQTY",
+    ETH: "ETH",
+  };
+
+  const farmLPMap = {
+    "gSTRING/ETH": "ETHLPToken",
+    "gSTRING/LUSD": "LUSDLPToken",
   };
 
   const alloc = {
@@ -142,9 +150,14 @@ const Pool = ({
       : 0.641025641 * alloc[pair];
   }
 
-  const pairTokensTVL =
-    parseFloat(contractBal.totalStaked[pairNames[pair]]) *
-    parseFloat(prices[pairNames[pair]]);
+  let tvlKey;
+
+  if (contract === "farm") {
+    tvlKey = farmLPMap[pair];
+  } else {
+    tvlKey = contract;
+  }
+  const pairTokensTVL = tvl[tvlKey] * parseFloat(prices[pairNames[pair]]);
 
   const blocksPerDay = 6500;
   // const year = 365;
@@ -250,6 +263,8 @@ const Pool = ({
           secondPendingTokens={secondPendingTokens}
           open={handleOpen}
           gSTRINGBalance={userBalances.gSTRING}
+          tvl={tvl[tvlKey]}
+          prices={prices}
         />
       </div>
     </>

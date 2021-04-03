@@ -4,6 +4,7 @@ import ethLogo from "../../../assets/eth1.png";
 import stringLogo from "../../../assets/string1.png";
 import liquityLogo from "../../../assets/liq.svg";
 import uniswapLogo from "../../../assets/uniswap2.svg";
+import { readableTrunc } from "../../../utils/truncateString";
 import {
   InfoTable,
   HR,
@@ -37,6 +38,8 @@ const PoolTable = ({
   currency2,
   currencyEarned,
   gSTRINGBalance,
+  tvl,
+  prices,
 }) => {
   const logosMap = {
     LUSD: liquityLogo,
@@ -44,6 +47,15 @@ const PoolTable = ({
     STRING: stringLogo,
     gSTRING: stringLogo,
     ETH: ethLogo,
+  };
+
+  const pairNames = {
+    "gSTRING/ETH": "gSTRING_ETH_LP",
+    "gSTRING/LUSD": "gSTRING_LUSD_LP",
+    STRING: "STRING",
+    LUSD: "LUSD",
+    LQTY: "LQTY",
+    ETH: "ETH",
   };
   const truncLPStaked = truncDust(LPTokensStaked);
   const truncLPinWallet = truncDust(LPTokensInWallet);
@@ -117,7 +129,7 @@ const PoolTable = ({
             <Pair>{currency2 ? `${currency1}/${currency2}` : currency1}</Pair>
           </AssetCell>
           <AssetCell style={{ width: "148px" }}>
-            <span>--</span>
+            <span>${tvl && readableTrunc(tvl.toFixed(2))}</span>
           </AssetCell>
           <AssetCell style={{ width: "172px" }}>
             <span>{truncLPinWallet}</span>
@@ -209,10 +221,25 @@ const PoolTable = ({
                     <Pair>{c}</Pair>
                   </AssetCell>
                   <AssetCell style={{ width: "148px" }}>
-                    <span>--</span>
+                    <span>
+                      $
+                      {prices &&
+                        readableTrunc(
+                          prices[pairNames[c]].toFixed(2).toString()
+                        )}
+                    </span>
                   </AssetCell>
                   <AssetCell style={{ width: "172px" }}>
-                    <span>--</span>
+                    <span>
+                      $
+                      {prices && pendingAmounts[i]
+                        ? readableTrunc(
+                            (prices[pairNames[c]] * pendingAmounts[i])
+                              .toFixed(2)
+                              .toString()
+                          )
+                        : 0}
+                    </span>
                   </AssetCell>
                   <AssetCell>
                     <span>{pendingAmounts[i] ? pendingAmounts[i] : 0}</span>

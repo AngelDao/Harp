@@ -22,6 +22,8 @@ import {
   fetchStabilityFactory,
   fetchRewards,
 } from "./utils/handleContracts/contractConnection";
+import { fetchPrices } from "./utils/handlePriceData";
+import { fetchTVL } from "./utils/handleContracts/contractTVL";
 // import { setEventListeners } from "./utils/handleWallets.js/modalConfig";
 
 function App() {
@@ -43,6 +45,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [unsupported, setUnsupported] = useState(false);
   const [sending, setSending] = useState(false);
+  const [tvl, setTVL] = useState(false);
 
   const handleOpenConnectModal = () => {
     setConnectModalVisible(false);
@@ -175,12 +178,28 @@ function App() {
   };
 
   const handlePricing = async () => {
+    const [ETH] = await fetchPrices();
+    const LQTY = 0.7;
     const STRING = 0.1;
+    const gSTRING = 0.1;
     const LUSD = 1;
-    // when all deposited $500mm tvl
-    const gSTRING_ETH_LP = 500;
-    const gSTRING_LUSD_LP = 500;
-    setPrices({ LUSD, STRING, gSTRING_ETH_LP, gSTRING_LUSD_LP });
+    setPrices({
+      LQTY,
+      LUSD,
+      STRING,
+      ETH,
+      gSTRING,
+    });
+  };
+
+  const handleTVL = async () => {
+    const [tvl, eprice, lprice] = await fetchTVL(
+      window.web3,
+      prices,
+      contracts
+    );
+    setPrices({ ...prices, gSTRING_ETH_LP: eprice, gSTRING_LUSD_LP: lprice });
+    setTVL(tvl);
   };
 
   const handleManualConnect = async () => {
@@ -228,6 +247,12 @@ function App() {
     if (contracts.stringToken) {
       setIsConnected(true);
     }
+    console.log("tvl", tvl);
+    if (!tvl && contracts.stringToken) {
+      (async () => {
+        await handleTVL(prices);
+      })();
+    }
   }, [prices]);
 
   const credentials = {
@@ -259,6 +284,7 @@ function App() {
     sending,
     setSending,
     unsupported,
+    tvl,
   };
 
   return (

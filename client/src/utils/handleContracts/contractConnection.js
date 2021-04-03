@@ -8,6 +8,7 @@ import ILQTYStaking from "../../abis/ILQTYStaking.json";
 import StakingPool from "../../abis/StringStaking.json";
 import StabilityFactory from "../../abis/StabilityFactory.json";
 import StabilityProxy from "../../abis/StabilityProxy.json";
+import IStabilityPool from "../../abis/IStabilityPool.json";
 import { fromWei, toDecimal } from "../truncateString";
 import { addresses } from "./addresses";
 
@@ -288,6 +289,7 @@ export const fetchStabilityFactory = async (
 ) => {
   const SFNetwork = StabilityFactory.networks[networkId];
   if (SFNetwork) {
+    // const sp = await
     const factory = new web3.eth.Contract(
       StabilityFactory.abi,
       SFNetwork.address
