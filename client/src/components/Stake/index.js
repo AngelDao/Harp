@@ -54,8 +54,8 @@ const Stake = () => {
         LPTokensInWallet={userBalances.LQTY}
         LPTokensAllowance={userAllowances.rewards.LQTY}
         LPTokensStaked={rewardsBalances.userStaked.LQTY}
-        pendingTokens={rewardsBalances.userPending.ETH}
-        secondPendingTokens={rewardsBalances.userPending.LUSD}
+        pendingTokens={rewardsBalances.userPending.LUSD}
+        secondPendingTokens={rewardsBalances.userPending.ETH}
         collapse={() => {
           setCollapsed({ ...collapsed, LQTY: true });
         }}

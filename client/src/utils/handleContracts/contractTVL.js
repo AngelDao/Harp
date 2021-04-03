@@ -11,6 +11,7 @@ export const fetchTVL = async (web3, prices, contracts) => {
     LUSDLPToken,
     gStringToken,
     lusdToken,
+    farm,
   } = contracts;
   const { STRING, LQTY, LUSD, ETH, gSTRING } = prices;
 
@@ -50,6 +51,19 @@ export const fetchTVL = async (web3, prices, contracts) => {
     await LUSDLPToken.methods.totalSupply().call()
   );
 
+  const ETHLPFarm = fromWei(
+    web3,
+    await ETHLPToken.methods.balanceOf(farm._address).call()
+  );
+
+  const LUSDLPFarm = fromWei(
+    web3,
+    await LUSDLPToken.methods.balanceOf(farm._address).call()
+  );
+
+  const ETHLPRatio = ETHLPFarm / ETHLPSupply;
+  const LUSDRatio = LUSDLPFarm / LUSDLPSupply;
+
   const rewardsTVL = parseFloat(totalLQTYR) * LQTY;
   const profitShareTVL = parseFloat(totalSTRINGSS) * STRING;
   const factoryTVL = parseFloat(totalLUSDF) * LUSD;
@@ -61,8 +75,8 @@ export const fetchTVL = async (web3, prices, contracts) => {
     rewards: rewardsTVL,
     factory: factoryTVL,
     profitShare: profitShareTVL,
-    ETHLPToken: ETHLPTVL,
-    LUSDLPToken: LUSDLPTVL,
+    ETHLPToken: ETHLPTVL * ETHLPRatio,
+    LUSDLPToken: LUSDLPTVL * LUSDRatio,
   };
 
   const ETHLPPrice = ETHLPTVL / parseFloat(ETHLPSupply);

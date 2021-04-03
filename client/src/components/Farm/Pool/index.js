@@ -47,6 +47,7 @@ const Pool = ({
   LPTokensStaked,
   pendingTokens,
   secondPendingTokens,
+  thirdPendingTokens,
   LPTokensAllowance,
   gSTRINGAllowance,
   from,
@@ -261,6 +262,7 @@ const Pool = ({
           collapsed={collapsed}
           pendingTokens={pendingTokens}
           secondPendingTokens={secondPendingTokens}
+          thirdPendingTokens={thirdPendingTokens}
           open={handleOpen}
           gSTRINGBalance={userBalances.gSTRING}
           tvl={tvl[tvlKey]}

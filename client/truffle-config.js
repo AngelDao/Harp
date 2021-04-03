@@ -27,7 +27,9 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 require("dotenv").config({ path: "./src/.env" });
 console.log(process.env);
-const endpointUrl = "https://kovan.infura.io/v3/1161cdc1e4e143649ab82b0037230ac1";
+const endpointUrl = process.env.localHarp
+  ? process.env.endpointCurrent
+  : process.env.KOVAN_ENDPOINT;
 
 module.exports = {
   networks: {
@@ -47,7 +49,7 @@ module.exports = {
       },
     },
   },
-  contracts_directory: "./contracts/  ",
+  contracts_directory: "./src/contracts/",
   contracts_build_directory: "./src/abis/",
   compilers: {
     solc: {

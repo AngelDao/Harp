@@ -149,6 +149,17 @@ contract StringStaking is Ownable {
         }
     }
 
+    // View function to see pending SUSHIs on frontend.
+    function pendingLQTY(address _user) external view returns (uint256) {
+        UserInfo storage user = userInfo[_user];
+        uint256 accLQTYPerShare = pool.accLQTYPerShare;
+        uint256 lpSupply = pool.lpTokenSupply;
+
+        uint256 pending =
+            user.amount.mul(accLQTYPerShare).div(1e12).sub(user.rewardDebt);
+        return pending;
+    }
+
     // Update reward variables of the given pool to be up-to-date.
     function updatePool() public {
         if (block.number <= pool.lastRewardBlock) {
@@ -260,19 +271,6 @@ contract StringStaking is Ownable {
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
         emit Withdraw(msg.sender, _amount);
-    }
-
-    function claim() public {
-        UserInfo storage user = userInfo[msg.sender];
-        updatePool();
-        updateSP();
-        uint256 pending = _pending(user);
-        uint256 pendingLQTY = _pendingLQTY(user);
-        safeStringTransfer(msg.sender, pending);
-        safeLQTYTransfer(msg.sender, pendingLQTY);
-        user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
-        user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
-        emit Claim(msg.sender, pending, pendingLQTY);
     }
 
     // Withdraw without caring about rewards. EMERGENCY ONLY.

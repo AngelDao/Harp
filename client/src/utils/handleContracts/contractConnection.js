@@ -156,9 +156,9 @@ export const fetchProfitShare = async (
       fromWei(web3, await stringToken.methods.balanceOf(ps._address).call())
     );
     // debugger;
-    // const pendingSTRING = toDecimal(
-    //   fromWei(web3, await ps.methods.pendingString(address).call())
-    // );
+    const pendingSTRING = toDecimal(
+      fromWei(web3, await ps.methods.pendingString(address).call())
+    );
     // debugger;
 
     // const ammount = (await ps.methods.userInfo(address).call()).amount;
@@ -176,7 +176,7 @@ export const fetchProfitShare = async (
     const psBalances = {
       isBoosted,
       userPending: {
-        STRING: 0,
+        STRING: pendingSTRING,
       },
       userStaked: {
         STRING: userSTRINGStaked,
@@ -288,6 +288,7 @@ export const fetchStabilityFactory = async (
   lusdToken
 ) => {
   const SFNetwork = StabilityFactory.networks[networkId];
+
   if (SFNetwork) {
     // const sp = await
     const factory = new web3.eth.Contract(
@@ -296,6 +297,7 @@ export const fetchStabilityFactory = async (
     );
 
     let userProxy = await factory.methods.userProxys(address).call();
+    let stabilityPool;
     if (
       userProxy.proxyAddress === "0x0000000000000000000000000000000000000000"
     ) {
@@ -305,12 +307,16 @@ export const fetchStabilityFactory = async (
         StabilityProxy.abi,
         userProxy.proxyAddress
       );
+      stabilityPool = new web3.eth.Contract(
+        IStabilityPool.abi,
+        addresses.kovan.stabilityPool
+      );
     }
     const totalLUSD = toDecimal(
       fromWei(web3, await factory.methods.totalLUSD().call())
     );
 
-    let allowanceLUSD, userStaked;
+    let allowanceLUSD, userStaked, pendingETH, pendingLQTY;
     if (userProxy) {
       allowanceLUSD = toDecimal(
         fromWei(
@@ -322,6 +328,20 @@ export const fetchStabilityFactory = async (
       userStaked = toDecimal(
         fromWei(web3, await userProxy.methods.lusdBalance().call())
       );
+
+      pendingETH = fromWei(
+        web3,
+        await stabilityPool.methods
+          .getDepositorETHGain(userProxy._address)
+          .call()
+      );
+
+      pendingLQTY = fromWei(
+        web3,
+        await stabilityPool.methods
+          .getDepositorLQTYGain(userProxy._address)
+          .call()
+      );
     } else {
       allowanceLUSD = 0;
       userStaked = 0;
@@ -331,6 +351,7 @@ export const fetchStabilityFactory = async (
     const pendingSTRING = toDecimal(
       fromWei(web3, await factory.methods.pendingString(address).call())
     );
+
     const proxyAllowances = {
       LUSD: allowanceLUSD,
     };
@@ -338,6 +359,8 @@ export const fetchStabilityFactory = async (
     const proxyBalances = {
       userPending: {
         STRING: pendingSTRING,
+        ETH: pendingETH && pendingETH,
+        LQTY: pendingLQTY && pendingLQTY,
       },
       userStaked: {
         LUSD: userProxy ? userStaked : 0,
@@ -368,6 +391,8 @@ export const fetchRewards = async (networkId, web3, address, lqtyToken) => {
     const pendingETH = toDecimal(
       fromWei(web3, await rewards.methods.getPendingETHGain(address).call())
     );
+
+    debugger;
 
     const pendingLUSD = toDecimal(
       fromWei(web3, await rewards.methods.getPendingLUSDGain(address).call())

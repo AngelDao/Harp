@@ -141,7 +141,7 @@ const ActionModal = ({
   };
 
   const handleDeployProxy = async () => {
-    factory.methods
+    await factory.methods
       .createStabilityProxy()
       .send({ from: address })
       .on("transactionHash", async () => {
@@ -151,6 +151,8 @@ const ActionModal = ({
         setSending(false);
         await reFetchData();
       });
+
+    handleClose();
   };
 
   const handleApprove = async () => {
@@ -187,7 +189,7 @@ const ActionModal = ({
         setSending(false);
         await reFetchData();
       });
-    close();
+    handleClose();
   };
 
   const handleDeposit = async () => {
@@ -220,7 +222,6 @@ const ActionModal = ({
       return;
     }
     if (contract === "profitShare" || contract === "factory") {
-      debugger;
       try {
         await ctrct.methods
           .deposit(param1)
@@ -324,11 +325,11 @@ const ActionModal = ({
     switch (type) {
       case "Deposit":
         await handleDeposit();
-        close();
+        handleClose();
         break;
       case "Withdraw":
         await handleWithdraw();
-        close();
+        handleClose();
     }
   };
 

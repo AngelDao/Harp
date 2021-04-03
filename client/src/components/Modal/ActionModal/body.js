@@ -110,7 +110,9 @@ const Body = ({
           padding="25px 24px"
           textAlign="center"
         >
-          <span>You must approve the farm in order to use it</span>
+          <span>
+            You must approve this contract in order to interact with it
+          </span>
         </ModalBody>
       )}
     </>

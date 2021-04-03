@@ -33,6 +33,7 @@ const PoolTable = ({
   collapsed,
   pendingTokens,
   secondPendingTokens,
+  thirdPendingTokens,
   open,
   currency1,
   currency2,
@@ -62,8 +63,13 @@ const PoolTable = ({
   const truncgSTRINGBalance = truncDust(gSTRINGBalance);
   const truncPendingTokens = truncDust(pendingTokens);
   const truncSecondPendingTokens = truncDust(secondPendingTokens);
+  const truncThirdPendingTokens = truncDust(thirdPendingTokens);
 
-  const pendingAmounts = [truncPendingTokens, truncSecondPendingTokens];
+  const pendingAmounts = [
+    truncPendingTokens,
+    truncSecondPendingTokens,
+    truncThirdPendingTokens,
+  ];
 
   const sum = () => {
     let s = 0;
@@ -183,94 +189,82 @@ const PoolTable = ({
       </ButtonContainer>
 
       <SubTitle>Rewards</SubTitle>
-      {pair !== "STRING" ? (
-        <>
-          <InfoTable>
-            <HeaderRow>
-              <Cell style={{ marginRight: "135px" }}>
-                <WrapperCenter>
-                  <HeaderTitle>Asset</HeaderTitle>
-                </WrapperCenter>
-              </Cell>
-              <Cell style={{ marginRight: "80px" }}>
-                <WrapperCenter>
-                  <HeaderTitle>Price</HeaderTitle>
-                </WrapperCenter>
-              </Cell>
-              <Cell style={{ marginRight: "100px" }}>
-                <WrapperCenter>
-                  <HeaderTitle>Value</HeaderTitle>
-                </WrapperCenter>
-              </Cell>
-              <Cell>
-                <WrapperCenter>
-                  <HeaderTitle>Pending</HeaderTitle>
-                </WrapperCenter>
-              </Cell>
-            </HeaderRow>
-            <HR />
-            {currencyEarned.map((c, i) => {
-              return (
-                <ContentRow>
-                  <AssetCell style={{ width: "207px" }}>
-                    <TablePLContainer>
-                      <TableLogoContainer>
-                        <TablePL src={logosMap[c]} />
-                      </TableLogoContainer>
-                    </TablePLContainer>
-                    <Pair>{c}</Pair>
-                  </AssetCell>
-                  <AssetCell style={{ width: "148px" }}>
-                    <span>
-                      $
-                      {prices &&
-                        readableTrunc(
-                          prices[pairNames[c]].toFixed(2).toString()
-                        )}
-                    </span>
-                  </AssetCell>
-                  <AssetCell style={{ width: "172px" }}>
-                    <span>
-                      $
-                      {prices && pendingAmounts[i]
-                        ? readableTrunc(
-                            (prices[pairNames[c]] * pendingAmounts[i])
-                              .toFixed(2)
-                              .toString()
-                          )
-                        : 0}
-                    </span>
-                  </AssetCell>
-                  <AssetCell>
-                    <span>{pendingAmounts[i] ? pendingAmounts[i] : 0}</span>
-                  </AssetCell>
-                </ContentRow>
-              );
-            })}
-          </InfoTable>
-        </>
-      ) : (
-        <div style={{ marginTop: "12.5px", marginBottom: "12.5px" }}>
-          <span>
-            You cannot claim rewards from STRING Staking check the docs to find
-            out why
-          </span>
-        </div>
-      )}
 
-      {pair !== "STRING" && (
-        <ButtonContainer>
-          <ActionButton
-            action={sum() > 0}
-            disabled={sum() <= 0}
-            onClick={() => {
-              open("Claim", pendingTokens);
-            }}
-          >
-            Claim
-          </ActionButton>
-        </ButtonContainer>
-      )}
+      <>
+        <InfoTable>
+          <HeaderRow>
+            <Cell style={{ marginRight: "135px" }}>
+              <WrapperCenter>
+                <HeaderTitle>Asset</HeaderTitle>
+              </WrapperCenter>
+            </Cell>
+            <Cell style={{ marginRight: "80px" }}>
+              <WrapperCenter>
+                <HeaderTitle>Price</HeaderTitle>
+              </WrapperCenter>
+            </Cell>
+            <Cell style={{ marginRight: "100px" }}>
+              <WrapperCenter>
+                <HeaderTitle>Value</HeaderTitle>
+              </WrapperCenter>
+            </Cell>
+            <Cell>
+              <WrapperCenter>
+                <HeaderTitle>Pending</HeaderTitle>
+              </WrapperCenter>
+            </Cell>
+          </HeaderRow>
+          <HR />
+          {currencyEarned.map((c, i) => {
+            return (
+              <ContentRow>
+                <AssetCell style={{ width: "207px" }}>
+                  <TablePLContainer>
+                    <TableLogoContainer>
+                      <TablePL src={logosMap[c]} />
+                    </TableLogoContainer>
+                  </TablePLContainer>
+                  <Pair>{c}</Pair>
+                </AssetCell>
+                <AssetCell style={{ width: "148px" }}>
+                  <span>
+                    $
+                    {prices &&
+                      readableTrunc(prices[pairNames[c]].toFixed(2).toString())}
+                  </span>
+                </AssetCell>
+                <AssetCell style={{ width: "172px" }}>
+                  <span>
+                    $
+                    {prices && pendingAmounts[i]
+                      ? readableTrunc(
+                          (prices[pairNames[c]] * pendingAmounts[i])
+                            .toFixed(2)
+                            .toString()
+                        )
+                      : 0}
+                  </span>
+                </AssetCell>
+                <AssetCell>
+                  <span>{pendingAmounts[i] ? pendingAmounts[i] : 0}</span>
+                </AssetCell>
+              </ContentRow>
+            );
+          })}
+        </InfoTable>
+      </>
+
+      <ButtonContainer>
+        <ActionButton
+          action={sum() > 0}
+          disabled={sum() <= 0}
+          onClick={() => {
+            open("Claim", pendingTokens);
+          }}
+        >
+          Claim
+        </ActionButton>
+      </ButtonContainer>
     </UserInfoContainer>
   );
 };

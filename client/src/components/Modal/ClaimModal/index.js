@@ -18,12 +18,15 @@ import MasterStyles from "../../../utils/masterStyles";
 import { toWei, fromWei, toDecimal } from "../../../utils/truncateString";
 import CredentialsContext from "../../../context/credentialsContext";
 import { Pair } from "../../Farm/Pool/styles";
+import Loader from "../../Loader";
 
 const ActionModal = ({ open, close, balance, pair, contract }) => {
   const {
     contracts: { farm, profitShare, proxy },
     address,
     reFetchData,
+    sending,
+    setSending,
   } = useContext(CredentialsContext);
 
   const pool = {
@@ -43,12 +46,26 @@ const ActionModal = ({ open, close, balance, pair, contract }) => {
         .unstake(0)
         .send({ from: address })
         .on("transactionHash", async () => {
-          await reFetchData();
+          setSending(true);
         })
         .on("receipt", async () => {
+          setSending(false);
           await reFetchData();
         });
       return;
+    }
+
+    if (pair === "STRING") {
+      await contractInstance[contract].methods
+        .withdraw(0)
+        .send({ from: address })
+        .on("transactionHash", async () => {
+          setSending(true);
+        })
+        .on("receipt", async () => {
+          setSending(false);
+          await reFetchData();
+        });
     }
 
     if (pair === "LUSD") {
@@ -56,9 +73,10 @@ const ActionModal = ({ open, close, balance, pair, contract }) => {
         .claim()
         .send({ from: address })
         .on("transactionHash", async () => {
-          await reFetchData();
+          setSending(true);
         })
         .on("receipt", async () => {
+          setSending(false);
           await reFetchData();
         });
     } else {
@@ -66,9 +84,10 @@ const ActionModal = ({ open, close, balance, pair, contract }) => {
         .claim(pool[pair])
         .send({ from: address })
         .on("transactionHash", async () => {
-          await reFetchData();
+          setSending(true);
         })
         .on("receipt", async () => {
+          setSending(false);
           await reFetchData();
         });
     }
@@ -99,13 +118,24 @@ const ActionModal = ({ open, close, balance, pair, contract }) => {
             />
           </CloseContainer>
         </HeaderContainer>
-        <ModalBody
-          borderTop="2px solid black"
-          padding="25px 24px"
-          textAlign="center"
-        >
-          <span>You have {balance} STRING ready to claim!</span>
-        </ModalBody>
+        {sending ? (
+          <ModalBody
+            borderTop="2px solid black"
+            padding="25px 24px"
+            textAlign="center"
+          >
+            <Loader status={"SENDING"} />
+          </ModalBody>
+        ) : (
+          <ModalBody
+            borderTop="2px solid black"
+            padding="25px 24px"
+            textAlign="center"
+          >
+            <span>You have {balance} STRING ready to claim!</span>
+          </ModalBody>
+        )}
+
         <ModalFooter paddingTop="0px">
           <div style={{ display: "flex", flexDirection: "column" }}>
             <ActionContainer>
