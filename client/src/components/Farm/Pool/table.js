@@ -2,6 +2,7 @@ import React from "react";
 import MasterStyles from "../../../utils/masterStyles";
 import ethLogo from "../../../assets/eth1.png";
 import stringLogo from "../../../assets/string1.png";
+import gStringLogo from "../../../assets/gString1.png";
 import liquityLogo from "../../../assets/liq.svg";
 import uniswapLogo from "../../../assets/uniswap2.svg";
 import { readableTrunc } from "../../../utils/truncateString";
@@ -46,7 +47,7 @@ const PoolTable = ({
     LUSD: liquityLogo,
     LQTY: liquityLogo,
     STRING: stringLogo,
-    gSTRING: stringLogo,
+    gSTRING: gStringLogo,
     ETH: ethLogo,
   };
 
@@ -121,9 +122,12 @@ const PoolTable = ({
               <TableLogoContainer>
                 {currency2 ? (
                   <>
-                    <TablePL style={{ zIndex: 1 }} src={logosMap[currency1]} />
                     <TablePL
-                      style={{ zIndex: 0, left: "5px" }}
+                      style={{ zIndex: 1, left: "-5px" }}
+                      src={logosMap[currency1]}
+                    />
+                    <TablePL
+                      style={{ zIndex: 0, left: "3px" }}
                       src={logosMap[currency2]}
                     />
                   </>

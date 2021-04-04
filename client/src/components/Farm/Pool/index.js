@@ -29,6 +29,7 @@ import Modal from "../../Modal";
 import CredentialsContext from "../../../context/credentialsContext";
 import { fromWei, toWei, readableTrunc } from "../../../utils/truncateString";
 import ethLogo from "../../../assets/eth1.png";
+import gStringLogo from "../../../assets/gString1.png";
 import stringLogo from "../../../assets/string1.png";
 import liquityLogo from "../../../assets/liq.svg";
 import uniswapLogo from "../../../assets/uniswap2.svg";
@@ -126,7 +127,7 @@ const Pool = ({
     LUSD: liquityLogo,
     LQTY: liquityLogo,
     STRING: stringLogo,
-    gSTRING: stringLogo,
+    gSTRING: gStringLogo,
     ETH: ethLogo,
   };
 

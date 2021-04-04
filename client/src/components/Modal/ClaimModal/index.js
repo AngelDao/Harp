@@ -158,22 +158,24 @@ const ActionModal = ({
           </ModalBody>
         )}
 
-        <ModalFooter paddingTop="0px">
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <ActionContainer>
-              <ActionButton
-                onClick={handleClaim}
-                action={true}
-                style={{ marginRight: "10px" }}
-              >
-                Claim
-              </ActionButton>
-              <ActionButton action={true} onClick={close}>
-                Cancel
-              </ActionButton>
-            </ActionContainer>
-          </div>
-        </ModalFooter>
+        {!sending && (
+          <ModalFooter paddingTop="0px">
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <ActionContainer>
+                <ActionButton
+                  onClick={handleClaim}
+                  action={true}
+                  style={{ marginRight: "10px" }}
+                >
+                  Claim
+                </ActionButton>
+                <ActionButton action={true} onClick={close}>
+                  Cancel
+                </ActionButton>
+              </ActionContainer>
+            </div>
+          </ModalFooter>
+        )}
       </ModalContent>
     </Modal>
   );

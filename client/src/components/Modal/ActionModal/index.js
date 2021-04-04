@@ -66,7 +66,11 @@ const ActionModal = ({
     web3UserProvider,
     reFetchData,
     userBalances,
+    rewardsBalances,
     profitShareBalances,
+    farmBalances,
+    factoryBalances,
+    proxyBalances,
     sending,
     setSending,
   } = useContext(CredentialsContext);
@@ -91,6 +95,14 @@ const ActionModal = ({
     STRING: "STRING",
     LUSD: "LUSD",
     LQTY: "LQTY",
+  };
+
+  const contractBals = {
+    farm: farmBalances,
+    profitShare: profitShareBalances,
+    rewards: rewardsBalances,
+    factory: factoryBalances,
+    proxy: proxyBalances,
   };
 
   const contractInstance = {
@@ -155,16 +167,13 @@ const ActionModal = ({
     handleClose();
   };
 
-  const handleOverflow = () => {
+  const handleOverflowDep = () => {
     const web3 = web3DataProvider;
     const BN = web3.utils.BN;
-    debugger;
     let val = web3.utils.toWei(value.toString());
     let val2 = web3.utils.toWei(
       userBalances[pair === "STRING" ? "gSTRING" : pairNames[pair]]
     );
-
-    debugger;
 
     val = new BN(val);
     val2 = new BN(val2);
@@ -177,6 +186,30 @@ const ActionModal = ({
         return val.toString();
       }
     }
+
+    if (val.gt(val2)) {
+      return val2.toString();
+    } else {
+      return val.toString();
+    }
+  };
+
+  const handleOverflowWith = () => {
+    const web3 = web3DataProvider;
+    const BN = web3.utils.BN;
+    let val = web3.utils.toWei(value.toString());
+    let contractSel = contractBals[contract === "factory" ? "proxy" : contract];
+    let val2;
+    if (pair === "STRING") {
+      val2 = web3.utils.toWei(userBalances["gSTRING"]);
+    } else {
+      val2 = web3.utils.toWei(contractSel.userStaked[pair]);
+    }
+
+    debugger;
+
+    val = new BN(val);
+    val2 = new BN(val2);
 
     if (val.gt(val2)) {
       return val2.toString();
@@ -221,7 +254,7 @@ const ActionModal = ({
   };
 
   const handleDeposit = async () => {
-    const val = handleOverflow();
+    const val = handleOverflowDep();
 
     debugger;
     const web3 = web3DataProvider;
@@ -287,7 +320,7 @@ const ActionModal = ({
   };
 
   const handleWithdraw = async () => {
-    const val = handleOverflow();
+    const val = handleOverflowWith();
     const web3 = web3DataProvider;
 
     const ctrct =
@@ -317,6 +350,7 @@ const ActionModal = ({
     }
 
     if (contract === "profitShare" || contract === "factory") {
+      debugger;
       try {
         await ctrct.methods
           .withdraw(param1)
