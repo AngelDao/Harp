@@ -75,6 +75,14 @@ contract StabilityProxy {
         _safeLQTYTransferAll(owner);
     }
 
+    function emergencyWithdraw() public onlyOwner {
+        uint256 currentBal =
+            stabilityPool.getCompoundedLUSDDeposit(address(this));
+        stabilityPool.withdrawFromSP(currentBal);
+        stabilityFactory.updateProxyBalanceEmergency(currentBal, _owner);
+        _safeLUSDTransfer(owner, currentBal);
+    }
+
     function _safeLUSDTransfer(address _to, uint256 _amount) internal {
         uint256 lusdBal = lusdToken.balanceOf(address(this));
         if (_amount > lusdBal) {
