@@ -61,6 +61,7 @@ const ActionModal = ({
           setSending(false);
           await reFetchData();
         });
+      close();
       return;
     }
 
@@ -75,6 +76,8 @@ const ActionModal = ({
           setSending(false);
           await reFetchData();
         });
+      close();
+      return;
     }
 
     if (pair === "LUSD") {

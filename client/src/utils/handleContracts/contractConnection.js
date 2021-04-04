@@ -24,6 +24,8 @@ export const fetchgStringToken = async (networkId, web3, address) => {
       fromWei(web3, await gstringToken.methods.balanceOf(address).call())
     );
 
+    debugger;
+
     return [gstringToken, gSTRING];
   }
 };
