@@ -32,6 +32,10 @@ module.exports = async function (deployer, network, accounts) {
     stabilityPool = addresses.kovan.stabilityPool;
     // lusdToken = await LUSDToken.deployed();
     // lqtyToken = await LQTYToken.deployed();
+  }else if( deploy === "rinkeby") {
+    lusdToken = addresses.rinkeby.lusdToken;
+    lqtyToken = addresses.rinkeby.lqtyToken;
+    stabilityPool = addresses.rinkeby.stabilityPool;
   }
   await deployer.deploy(StringToken, "String", "STRING", HarpDAOAddress, owner);
   const stringToken = await StringToken.deployed();
