@@ -257,16 +257,13 @@ function App() {
         if (!scheduler && prices) {
           setScheduler(true);
         }
-
       })();
     }
   }, [prices]);
 
   useEffect(() => {
     if (scheduler) {
-      debugger;
       setInterval(async () => {
-        debugger;
         await handleContractConnect();
         await handlePricing();
         console.log("Updated");

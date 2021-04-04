@@ -24,8 +24,6 @@ export const fetchgStringToken = async (networkId, web3, address) => {
       fromWei(web3, await gstringToken.methods.balanceOf(address).call())
     );
 
-    debugger;
-
     return [gstringToken, gSTRING];
   }
 };
@@ -161,7 +159,15 @@ export const fetchProfitShare = async (
     const pendingSTRING = toDecimal(
       fromWei(web3, await ps.methods.pendingString(address).call())
     );
+
+    const pendingLQTY = 0;
     // debugger;
+    // const pendingLQTY = fromWei(
+    //   web3,
+    //   await ps.methods.pendingLQTY(address).call()
+    // );
+    // debugger;
+    // // debugger;
 
     // const ammount = (await ps.methods.userInfo(address).call()).amount;
     // const trnced = fromWei(web3, ammount);
@@ -179,6 +185,7 @@ export const fetchProfitShare = async (
       isBoosted,
       userPending: {
         STRING: pendingSTRING,
+        LQTY: pendingLQTY,
       },
       userStaked: {
         STRING: userSTRINGStaked,

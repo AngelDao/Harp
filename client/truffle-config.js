@@ -27,7 +27,11 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 require("dotenv").config({ path: "./src/.env" });
 console.log(process.env);
-const endpointUrl = "https://kovan.infura.io/v3/1161cdc1e4e143649ab82b0037230ac1";
+const endpointUrlKovan =
+  "https://kovan.infura.io/v3/1161cdc1e4e143649ab82b0037230ac1";
+
+const endpointUrlRink =
+  "https://rinkeby.infura.io/v3/1161cdc1e4e143649ab82b0037230ac1";
 
 module.exports = {
   networks: {
@@ -42,7 +46,17 @@ module.exports = {
         return new HDWalletProvider(
           "biology inch series welcome conduct nothing parade save salmon lyrics whisper gold",
           //url to ethereum node
-          endpointUrl
+          endpointUrlKovan
+        );
+      },
+    },
+    rinkeby: {
+      network_id: 4,
+      provider: function () {
+        return new HDWalletProvider(
+          "biology inch series welcome conduct nothing parade save salmon lyrics whisper gold",
+          //url to ethereum node
+          endpointUrlRink
         );
       },
     },

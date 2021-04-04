@@ -274,8 +274,6 @@ const ActionModal = ({
     const val = handleOverflow();
     const web3 = web3DataProvider;
 
-    debugger;
-
     const ctrct =
       contract === "factory"
         ? contractInstance["proxy"]
@@ -303,7 +301,6 @@ const ActionModal = ({
     }
 
     if (contract === "profitShare" || contract === "factory") {
-      debugger;
       try {
         await ctrct.methods
           .withdraw(param1)

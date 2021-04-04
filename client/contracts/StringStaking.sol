@@ -156,7 +156,7 @@ contract StringStaking is Ownable {
         uint256 lpSupply = pool.lpTokenSupply;
 
         uint256 pending =
-            user.amount.mul(accLQTYPerShare).div(1e12).sub(user.rewardDebt);
+            user.amount.mul(accLQTYPerShare).div(1e12).sub(user.lqtyRewardDebt);
         return pending;
     }
 
