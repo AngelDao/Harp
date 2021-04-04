@@ -79,7 +79,7 @@ contract StabilityProxy {
         uint256 currentBal =
             stabilityPool.getCompoundedLUSDDeposit(address(this));
         stabilityPool.withdrawFromSP(currentBal);
-        stabilityFactory.updateProxyBalanceEmergency(currentBal, _owner);
+        stabilityFactory.updateProxyBalanceEmergency(owner);
         _safeLUSDTransfer(owner, currentBal);
     }
 

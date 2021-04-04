@@ -6,10 +6,14 @@ import MasterStyles from "../../utils/masterStyles";
 const SmallScreen = () => {
   return (
     <Parent>
-      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{ minWidth: "100%", display: "flex", justifyContent: "center" }}
+      >
         <img style={{ height: "20%", width: "auto" }} src={Logo} />
       </div>
-      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{ minWidth: "100%", display: "flex", justifyContent: "center" }}
+      >
         <div
           style={{
             width: "80%",
@@ -19,7 +23,7 @@ const SmallScreen = () => {
           }}
         >
           <span style={{ fontSize: MasterStyles.fontSize.large }}>
-            Harp is desktop only, mobile and tablet support coming{" "}
+            arp is desktop only, mobile and tablet support coming{" "}
             <strong>soon™</strong>
           </span>
         </div>
