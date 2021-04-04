@@ -259,7 +259,12 @@ const PoolTable = ({
           action={sum() > 0}
           disabled={sum() <= 0}
           onClick={() => {
-            open("Claim", pendingTokens);
+            open(
+              "Claim",
+              pendingTokens,
+              secondPendingTokens,
+              thirdPendingTokens
+            );
           }}
         >
           Claim

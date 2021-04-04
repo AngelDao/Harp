@@ -24,6 +24,8 @@ export const fetchgStringToken = async (networkId, web3, address) => {
       fromWei(web3, await gstringToken.methods.balanceOf(address).call())
     );
 
+    debugger;
+
     return [gstringToken, gSTRING];
   }
 };
@@ -391,8 +393,6 @@ export const fetchRewards = async (networkId, web3, address, lqtyToken) => {
     const pendingETH = toDecimal(
       fromWei(web3, await rewards.methods.getPendingETHGain(address).call())
     );
-
-    // debugger;
 
     const pendingLUSD = toDecimal(
       fromWei(web3, await rewards.methods.getPendingLUSDGain(address).call())

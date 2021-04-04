@@ -217,6 +217,7 @@ contract StringStaking is Ownable {
 
     // Deposit LP tokens to MasterChef for SUSHI allocation.
     function deposit(uint256 _amount) public {
+        require(_amount > 1000, "deposit must be greater than 1000 WEI");
         UserInfo storage user = userInfo[msg.sender];
         updatePool();
         updateSP();
@@ -248,26 +249,18 @@ contract StringStaking is Ownable {
     function withdraw(uint256 _amount) public {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
+        uint256 cNotes = gstringToken.balanceOf(msg.sender);
+        require(_amount <= cNotes, "not enough gSTRING");
         updatePool();
         updateSP();
-        uint256 cNotes = gstringToken.balanceOf(msg.sender);
         uint256 pending = _pending(user);
         uint256 pendingLQTY = _pendingLQTY(user);
         safeStringTransfer(msg.sender, pending);
         safeLQTYTransfer(msg.sender, pendingLQTY);
-
-        uint256 redeemAmount;
-
-        if (_amount > cNotes) {
-            redeemAmount = cNotes;
-        } else if (_amount <= cNotes) {
-            redeemAmount = _amount;
-        }
-
-        user.amount = user.amount.sub(redeemAmount);
-        pool.lpTokenSupply = pool.lpTokenSupply.sub(redeemAmount);
-        gstringToken.burnFrom(msg.sender, redeemAmount);
-        pool.lpToken.safeTransfer(address(msg.sender), redeemAmount);
+        user.amount = user.amount.sub(_amount);
+        pool.lpTokenSupply = pool.lpTokenSupply.sub(_amount);
+        gstringToken.burnFrom(msg.sender, _amount);
+        pool.lpToken.safeTransfer(address(msg.sender), _amount);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
         emit Withdraw(msg.sender, _amount);

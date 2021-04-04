@@ -1,7 +1,6 @@
 import { toDecimal, fromWei } from "../truncateString.js";
 
 export const fetchTVL = async (web3, prices, contracts) => {
-  // debugger;
   const {
     lqtyToken,
     profitShare,

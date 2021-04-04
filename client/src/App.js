@@ -225,6 +225,7 @@ function App() {
 
   const reFetchData = async () => {
     await handleContractConnect();
+    await handleTVL;
   };
 
   const toast = useToast();
@@ -256,6 +257,7 @@ function App() {
         if (!scheduler && prices) {
           setScheduler(true);
         }
+
       })();
     }
   }, [prices]);
