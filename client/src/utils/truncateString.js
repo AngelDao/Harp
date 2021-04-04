@@ -20,7 +20,6 @@ export const toDecimal = (n) => {
 };
 
 export const truncDust = (n) => {
-  console.log(n);
   if (!n) {
     return 0;
   }

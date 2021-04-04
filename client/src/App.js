@@ -246,11 +246,9 @@ function App() {
 
   // once connected to the contractss
   useEffect(() => {
-    console.log([userAllowances, contracts, userBalances, farmBalances]);
     if (contracts.stringToken) {
       setIsConnected(true);
     }
-    console.log("tvl", tvl);
     if (!tvl && contracts.stringToken) {
       (async () => {
         await handleTVL(prices);
@@ -266,7 +264,6 @@ function App() {
       setInterval(async () => {
         await handleContractConnect();
         await handlePricing();
-        console.log("Updated");
       }, 1000 * 10);
     }
   }, [scheduler]);

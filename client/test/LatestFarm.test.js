@@ -140,8 +140,6 @@ contract("Farm Tests", async (accounts) => {
         .mul(poolNumerator)
         .div(poolDenominator);
 
-      //   console.log(expectedRewards.toString());
-      console.log(`rewards earned:${rewards.toString()}`);
       assert.equal(rewards.toString(), expectedRewards.toString());
       assert.equal(userBalance, tokens("1000"));
       assert.equal(farmBalance, tokens("0"));
@@ -173,8 +171,6 @@ contract("Farm Tests", async (accounts) => {
         .mul(poolNumerator)
         .div(poolDenominator);
 
-      //   console.log(expectedRewards.toString());
-      console.log(`rewards earned:${rewards.toString()}`);
       assert.equal(rewards.toString(), expectedRewards.toString());
       assert.equal(userBalance, tokens("990"));
       assert.equal(farmBalance, tokens("10"));
