@@ -7,6 +7,12 @@ const addresses = {
     lusdLPToken: "0x512d5E44ad6e1bf77fdDC58Ef34e12658232393f",
     lqtyStaking: "0x82b7384e360DD3f16ed23D15921BB7a878a08b87",
   },
+  rinkeby: {
+    lqtyStaking: "0x988749E04e5B0863Da4E0Fdb1EaD85C1FA59fCe3",
+    stabilityPool: "0xB8eb11f9eFF55378dfB692296C32DF020f5CC7fF",
+    lusdToken: "0x9C5AE6852622ddE455B6Fca4C1551FC0352531a3",
+    lqtyToken: "0xF74dcAbeA0954AeB6903c8a71d41e468a6B77357",
+  }
 };
 
 module.exports = { addresses };
