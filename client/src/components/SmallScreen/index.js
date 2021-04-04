@@ -6,8 +6,16 @@ import MasterStyles from "../../utils/masterStyles";
 const SmallScreen = () => {
   return (
     <Parent>
-      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-        <img style={{ height: "20%", width: "auto" }} src={Logo} />
+      <div
+        style={{
+          maxWidth: "300px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "auto",
+        }}
+      >
+        <img style={{ maxWidth: "300px", height: "auto" }} src={Logo} />
       </div>
       <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
         <div
