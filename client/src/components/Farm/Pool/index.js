@@ -69,6 +69,8 @@ const Pool = ({
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("");
   const [balance, setBalance] = useState(0);
+  const [balance2, setBalance2] = useState(false);
+  const [balance3, setBalance3] = useState(false);
   const [allowance, setAllowance] = useState(0);
 
   const web3 = web3DataProvider;
@@ -79,10 +81,12 @@ const Pool = ({
     <CollapseButton onClick={expand}>Expand ↓</CollapseButton>
   );
 
-  const handleOpen = (type, balance) => {
+  const handleOpen = (type, balance, balance2, balance3) => {
     setType(type);
     setOpen(true);
     setBalance(balance);
+    setBalance2(balance2);
+    setBalance3(balance3);
     setAllowance(LPTokensAllowance);
   };
 
@@ -182,6 +186,9 @@ const Pool = ({
         close={handleClose}
         type={type}
         balance={balance && balance}
+        balance2={balance2 && balance2}
+        balance3={balance3 && balance3}
+        currencyEarned={currencyEarned}
         allowance={allowance && allowance}
         gSTRINGAllowance={gSTRINGAllowance}
         pair={pair}
@@ -245,9 +252,21 @@ const Pool = ({
             <Desc>APY</Desc>
           </DescContainer>
           <StatContainer>
-            <Stat>{dailyAPY ? readableTrunc(dailyAPY) : "∞"}%</Stat>
-            <Stat>{weeklyAPY ? readableTrunc(weeklyAPY) : "∞"}%</Stat>
-            <Stat>{yearlyAPY ? readableTrunc(yearlyAPY) : "∞"}%</Stat>
+            <Stat>
+              {dailyAPY && dailyAPY !== "NaN" ? readableTrunc(dailyAPY) : "∞"}%
+            </Stat>
+            <Stat>
+              {weeklyAPY && weeklyAPY !== "NaN"
+                ? readableTrunc(weeklyAPY)
+                : "∞"}
+              %
+            </Stat>
+            <Stat>
+              {yearlyAPY && yearlyAPY !== "NaN"
+                ? readableTrunc(yearlyAPY)
+                : "∞"}
+              %
+            </Stat>
           </StatContainer>
         </PoolContainer>
         <CollapseButtonContainer>{viewButton}</CollapseButtonContainer>

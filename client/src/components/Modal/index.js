@@ -8,6 +8,9 @@ const Modal = ({
   close,
   type,
   balance,
+  balance2,
+  balance3,
+  currencyEarned,
   allowance,
   pair,
   contract,
@@ -32,6 +35,9 @@ const Modal = ({
         open={open}
         close={close}
         balance={balance}
+        balance2={balance2}
+        balance3={balance3}
+        currencyEarned={currencyEarned}
         pair={pair}
         contract={contract}
       />

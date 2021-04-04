@@ -20,7 +20,16 @@ import CredentialsContext from "../../../context/credentialsContext";
 import { Pair } from "../../Farm/Pool/styles";
 import Loader from "../../Loader";
 
-const ActionModal = ({ open, close, balance, pair, contract }) => {
+const ActionModal = ({
+  open,
+  close,
+  balance,
+  pair,
+  contract,
+  balance2,
+  balance3,
+  currencyEarned,
+}) => {
   const {
     contracts: { farm, profitShare, proxy },
     address,
@@ -132,7 +141,17 @@ const ActionModal = ({ open, close, balance, pair, contract }) => {
             padding="25px 24px"
             textAlign="center"
           >
-            <span>You have {balance} STRING ready to claim!</span>
+            <p>You have {balance} STRING ready to claim!</p>
+            {balance2 && (
+              <p style={{ marginTop: "20px" }}>
+                You have {balance2} {currencyEarned[1]} ready to claim!
+              </p>
+            )}
+            {balance3 && (
+              <p style={{ marginTop: "20px" }}>
+                You have {balance3} {currencyEarned[2]} ready to claim!
+              </p>
+            )}
           </ModalBody>
         )}
 

@@ -392,8 +392,6 @@ export const fetchRewards = async (networkId, web3, address, lqtyToken) => {
       fromWei(web3, await rewards.methods.getPendingETHGain(address).call())
     );
 
-    debugger;
-
     const pendingLUSD = toDecimal(
       fromWei(web3, await rewards.methods.getPendingLUSDGain(address).call())
     );

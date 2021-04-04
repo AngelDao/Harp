@@ -223,6 +223,7 @@ function App() {
 
   const reFetchData = async () => {
     await handleContractConnect();
+    await handleTVL;
   };
 
   const toast = useToast();
@@ -250,7 +251,7 @@ function App() {
     console.log("tvl", tvl);
     if (!tvl && contracts.stringToken) {
       (async () => {
-        await handleTVL(prices);
+        await handleTVL();
       })();
     }
   }, [prices]);

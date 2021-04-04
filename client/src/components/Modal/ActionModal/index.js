@@ -177,7 +177,6 @@ const ActionModal = ({
       ctrct = token[pair];
     }
 
-    debugger;
     await ctrct.methods
       .approve(contractAddress, toWei(web3DataProvider, "10000000000000"))
       .send({ from: address })
@@ -270,7 +269,6 @@ const ActionModal = ({
     const temp = userBalances;
     const temp2 = profitShareBalances;
     const param2 = toWei(web3DataProvider, value.toString());
-    debugger;
 
     if (contract === "rewards") {
       await ctrct.methods
