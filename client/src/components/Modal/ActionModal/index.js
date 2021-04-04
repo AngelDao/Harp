@@ -158,13 +158,25 @@ const ActionModal = ({
   const handleOverflow = () => {
     const web3 = web3DataProvider;
     const BN = web3.utils.BN;
+    debugger;
     let val = web3.utils.toWei(value.toString());
     let val2 = web3.utils.toWei(
       userBalances[pair === "STRING" ? "gSTRING" : pairNames[pair]]
     );
 
+    debugger;
+
     val = new BN(val);
     val2 = new BN(val2);
+
+    if (type === "Deposit" && pair === "STRING") {
+      val2 = web3.utils.toWei(userBalances["STRING"]);
+      if (val.gt(val2)) {
+        return val2.toString();
+      } else {
+        return val.toString();
+      }
+    }
 
     if (val.gt(val2)) {
       return val2.toString();
@@ -210,6 +222,8 @@ const ActionModal = ({
 
   const handleDeposit = async () => {
     const val = handleOverflow();
+
+    debugger;
     const web3 = web3DataProvider;
 
     const ctrct =
@@ -219,6 +233,8 @@ const ActionModal = ({
     const param1 = contract === "farm" && pair !== "LUSD" ? pool[pair] : val;
 
     const param2 = val;
+
+    debugger;
 
     if (contract === "rewards") {
       await ctrct.methods
