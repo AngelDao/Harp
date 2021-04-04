@@ -194,7 +194,6 @@ const ActionModal = ({
     } else {
       ctrct = token[pair];
     }
-
     await ctrct.methods
       .approve(contractAddress, toWei(web3DataProvider, "10000000000000"))
       .send({ from: address })
@@ -281,6 +280,7 @@ const ActionModal = ({
       contract === "factory"
         ? contractInstance["proxy"]
         : contractInstance[contract];
+
     const param1 = contract === "farm" && pair !== "LUSD" ? pool[pair] : val;
     const param2 = val;
 

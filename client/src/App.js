@@ -25,6 +25,7 @@ import {
 import { fetchPrices } from "./utils/handlePriceData";
 import { fetchTVL } from "./utils/handleContracts/contractTVL";
 // import { setEventListeners } from "./utils/handleWallets.js/modalConfig";
+import { refreshState } from "./utils/handleContracts/refreshState";
 
 function App() {
   const [connectModalVisible, setConnectModalVisible] = useState(null);
@@ -46,6 +47,7 @@ function App() {
   const [unsupported, setUnsupported] = useState(false);
   const [sending, setSending] = useState(false);
   const [tvl, setTVL] = useState(false);
+  const [scheduler, setScheduler] = useState(false);
 
   const handleOpenConnectModal = () => {
     setConnectModalVisible(false);
@@ -251,10 +253,26 @@ function App() {
     console.log("tvl", tvl);
     if (!tvl && contracts.stringToken) {
       (async () => {
-        await handleTVL();
+        await handleTVL(prices);
+        if (!scheduler && prices) {
+          setScheduler(true);
+        }
+
       })();
     }
   }, [prices]);
+
+  useEffect(() => {
+    if (scheduler) {
+      debugger;
+      setInterval(async () => {
+        debugger;
+        await handleContractConnect();
+        await handlePricing();
+        console.log("Updated");
+      }, 1000 * 10);
+    }
+  }, [scheduler]);
 
   const credentials = {
     rewardsBalances,
@@ -292,9 +310,7 @@ function App() {
     <Router history={history}>
       <ChakraProvider>
         <CredentialsProvider value={credentials}>
-          <noscript>
-            You need to enable JavaScript to run this app.
-          </noscript>
+          <noscript>You need to enable JavaScript to run this app.</noscript>
           <div>
             <Home />
           </div>
