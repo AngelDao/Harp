@@ -14,6 +14,22 @@ export const fetchTVL = async (web3, prices, contracts) => {
   } = contracts;
   const { STRING, LQTY, LUSD, ETH, gSTRING } = prices;
 
+  // const notadded = true;
+
+  // // if (notadded) {
+  //   return [
+  //     {
+  //       rewards: 0,
+  //       factory: 0,
+  //       profitShare: 0,
+  //       ETHLPToken: 0,
+  //       LUSDLPToken: 0,
+  //     },
+  //     0,
+  //     0,
+  //   ];
+  // }
+
   const totalSTRINGSS = fromWei(
     web3,
     (await profitShare.methods.pool().call()).lpTokenSupply.toString()

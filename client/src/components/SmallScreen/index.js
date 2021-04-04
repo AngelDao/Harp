@@ -16,7 +16,6 @@ const SmallScreen = () => {
         }}
       >
         <img style={{ maxWidth: "300px", height: "auto" }} src={Logo} />
-
       </div>
       <div
         style={{ minWidth: "100%", display: "flex", justifyContent: "center" }}
@@ -30,7 +29,7 @@ const SmallScreen = () => {
           }}
         >
           <span style={{ fontSize: MasterStyles.fontSize.large }}>
-            arp is desktop only, mobile and tablet support coming{" "}
+            Harp is desktop only, mobile and tablet support coming{" "}
             <strong>soon™</strong>
           </span>
         </div>

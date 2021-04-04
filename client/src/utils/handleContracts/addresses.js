@@ -12,7 +12,9 @@ const addresses = {
     stabilityPool: "0xB8eb11f9eFF55378dfB692296C32DF020f5CC7fF",
     lusdToken: "0x9C5AE6852622ddE455B6Fca4C1551FC0352531a3",
     lqtyToken: "0xF74dcAbeA0954AeB6903c8a71d41e468a6B77357",
-  }
+    ethLPToken: "0xda937ccea640b54233cd885905b23b853d31034c",
+    lusdLPToken: "0x64781266a68816ddd83e68ec90874c31a6089169",
+  },
 };
 
 module.exports = { addresses };

@@ -63,7 +63,8 @@ function App() {
   };
 
   const handleUnsupported = (code) => {
-    if (code === "0x2a") {
+    debugger;
+    if (code === "0x2a" || code === "0x4") {
       setUnsupported(false);
     } else {
       setUnsupported(true);

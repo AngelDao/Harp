@@ -39,10 +39,10 @@ export const fetchLUSDToken = async (networkId, web3, address) => {
       fromWei(web3, await lusdToken.methods.balanceOf(address).call())
     );
     return [lusdToken, LUSD];
-  } else if (LUSDTokenNetwork) {
+  } else if (networkId === 4) {
     const lusdToken = new web3.eth.Contract(
       LUSDToken.abi,
-      LUSDTokenNetwork.address
+      addresses.rinkeby.lusdToken
     );
     const LUSD = toDecimal(
       fromWei(web3, await lusdToken.methods.balanceOf(address).call())
@@ -62,10 +62,10 @@ export const fetchLQTYToken = async (networkId, web3, address) => {
       fromWei(web3, await lqtyToken.methods.balanceOf(address).call())
     );
     return [lqtyToken, LQTY];
-  } else if (LQTYTokenNetwork) {
+  } else if (networkId === 4) {
     const lqtyToken = new web3.eth.Contract(
       LQTYToken.abi,
-      LQTYTokenNetwork.address
+      addresses.rinkeby.lqtyToken
     );
     const LQTY = toDecimal(
       fromWei(web3, await lqtyToken.methods.balanceOf(address).call())
@@ -106,6 +106,18 @@ export const fetchETHLPTokens = async (networkId, web3, address) => {
     );
     return [ETHLPToken, STRING_ETH_LP];
   }
+  if (networkId === 4) {
+    const ETHLPToken = new web3.eth.Contract(
+      IERC20.abi,
+      addresses.rinkeby.ethLPToken
+    );
+
+    // const STRING_ETH_LP = 0;
+    const STRING_ETH_LP = toDecimal(
+      fromWei(web3, await ETHLPToken.methods.balanceOf(address).call())
+    );
+    return [ETHLPToken, STRING_ETH_LP];
+  }
 };
 
 export const fetchLUSDLPTokens = async (networkId, web3, address) => {
@@ -113,6 +125,18 @@ export const fetchLUSDLPTokens = async (networkId, web3, address) => {
     const LUSDLPToken = new web3.eth.Contract(
       IERC20.abi,
       addresses.kovan.lusdLPToken
+    );
+    const STRING_LUSD_LP = toDecimal(
+      fromWei(web3, await LUSDLPToken.methods.balanceOf(address).call())
+    );
+    // const STRING_LUSD_LP = 0;
+
+    return [LUSDLPToken, STRING_LUSD_LP];
+  }
+  if (networkId === 4) {
+    const LUSDLPToken = new web3.eth.Contract(
+      IERC20.abi,
+      addresses.rinkeby.lusdLPToken
     );
     const STRING_LUSD_LP = toDecimal(
       fromWei(web3, await LUSDLPToken.methods.balanceOf(address).call())
@@ -160,12 +184,12 @@ export const fetchProfitShare = async (
       fromWei(web3, await ps.methods.pendingString(address).call())
     );
 
-    const pendingLQTY = 0;
+    // const pendingLQTY = 0;
     // debugger;
-    // const pendingLQTY = fromWei(
-    //   web3,
-    //   await ps.methods.pendingLQTY(address).call()
-    // );
+    const pendingLQTY = fromWei(
+      web3,
+      await ps.methods.pendingLQTY(address).call()
+    );
     // debugger;
     // // debugger;
 
@@ -212,9 +236,11 @@ export const fetchFarm = async (
   if (farmNetwork) {
     const farm = new web3.eth.Contract(Farm.abi, farmNetwork.address);
 
+    // const farmSTRING_ETH_LP = 0;
     const farmSTRING_ETH_LP = toDecimal(
       fromWei(web3, await ETHLPToken.methods.balanceOf(farm._address).call())
     );
+    // const farmSTRING_LUSD_LP = 0;
     const farmSTRING_LUSD_LP = toDecimal(
       fromWei(web3, await LUSDLPToken.methods.balanceOf(farm._address).call())
     );
@@ -252,12 +278,14 @@ export const fetchFarm = async (
         await lusdToken.methods.allowance(address, farm._address).call()
       )
     );
+    // const allowancesSTRING_ETH_LP = 0;
     const allowancesSTRING_ETH_LP = toDecimal(
       fromWei(
         web3,
         await ETHLPToken.methods.allowance(address, farm._address).call()
       )
     );
+    // const allowancesSTRING_LUSD_LP = 0;
     const allowancesSTRING_LUSD_LP = toDecimal(
       fromWei(
         web3,
@@ -316,10 +344,18 @@ export const fetchStabilityFactory = async (
         StabilityProxy.abi,
         userProxy.proxyAddress
       );
-      stabilityPool = new web3.eth.Contract(
-        IStabilityPool.abi,
-        addresses.kovan.stabilityPool
-      );
+      if (networkId === 42) {
+        stabilityPool = new web3.eth.Contract(
+          IStabilityPool.abi,
+          addresses.kovan.stabilityPool
+        );
+      }
+      if (networkId === 4) {
+        stabilityPool = new web3.eth.Contract(
+          IStabilityPool.abi,
+          addresses.rinkeby.stabilityPool
+        );
+      }
     }
     const totalLUSD = toDecimal(
       fromWei(web3, await factory.methods.totalLUSD().call())
@@ -391,6 +427,48 @@ export const fetchRewards = async (networkId, web3, address, lqtyToken) => {
     const rewards = new web3.eth.Contract(
       ILQTYStaking.abi,
       addresses.kovan.lqtyStaking
+    );
+
+    const lqtyStaked = toDecimal(
+      fromWei(web3, await rewards.methods.stakes(address).call())
+    );
+
+    const pendingETH = toDecimal(
+      fromWei(web3, await rewards.methods.getPendingETHGain(address).call())
+    );
+
+    const pendingLUSD = toDecimal(
+      fromWei(web3, await rewards.methods.getPendingLUSDGain(address).call())
+    );
+
+    const lqtyAllowance = toDecimal(
+      fromWei(
+        web3,
+        await lqtyToken.methods.allowance(address, rewards._address).call()
+      )
+    );
+    // const STRING_LUSD_LP = 0;
+
+    const rewardsAllowances = {
+      LQTY: lqtyAllowance,
+    };
+
+    const rewardsBalances = {
+      userPending: {
+        ETH: pendingETH,
+        LUSD: pendingLUSD,
+      },
+      userStaked: {
+        LQTY: lqtyStaked,
+      },
+    };
+
+    return [rewards, rewardsBalances, rewardsAllowances];
+  }
+  if (networkId === 4) {
+    const rewards = new web3.eth.Contract(
+      ILQTYStaking.abi,
+      addresses.rinkeby.lqtyStaking
     );
 
     const lqtyStaked = toDecimal(

@@ -17,8 +17,8 @@ const Content = ({ location }) => {
     return <Loader status={"LOADING"} />;
   }
 
-  if(!window.web3) {
-    return <Metamask />
+  if (!window.web3) {
+    return <Metamask />;
   }
 
   if (unsupported) {
@@ -32,7 +32,10 @@ const Content = ({ location }) => {
           height: "400px",
         }}
       >
-        <span>Chain not supported, change chain to Kovan</span>
+        <span>
+          Chain not supported, change chain to <strong>Kovan</strong> or{" "}
+          <strong>Rinkeby</strong>
+        </span>
       </div>
     );
   }

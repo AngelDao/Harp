@@ -102,7 +102,7 @@ const Body = ({
           padding="25px 24px"
           textAlign="center"
         >
-          <span>You must deploy a proxy on first time depositing</span>
+          <span>You must create a proxy on first time depositing</span>
         </ModalBody>
       ) : (
         <ModalBody

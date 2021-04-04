@@ -206,8 +206,6 @@ const ActionModal = ({
       val2 = web3.utils.toWei(contractSel.userStaked[pair]);
     }
 
-    debugger;
-
     val = new BN(val);
     val2 = new BN(val2);
 
@@ -256,7 +254,6 @@ const ActionModal = ({
   const handleDeposit = async () => {
     const val = handleOverflowDep();
 
-    debugger;
     const web3 = web3DataProvider;
 
     const ctrct =
@@ -266,8 +263,6 @@ const ActionModal = ({
     const param1 = contract === "farm" && pair !== "LUSD" ? pool[pair] : val;
 
     const param2 = val;
-
-    debugger;
 
     if (contract === "rewards") {
       await ctrct.methods
@@ -335,9 +330,7 @@ const ActionModal = ({
       await ctrct.methods
         .unstake(param1)
         .send({ from: address })
-        .once("sent", async () => {
-          // debugger;
-        })
+        .once("sent", async () => {})
         .on("transactionHash", async () => {
           setSending(true);
         })
@@ -350,7 +343,6 @@ const ActionModal = ({
     }
 
     if (contract === "profitShare" || contract === "factory") {
-      debugger;
       try {
         await ctrct.methods
           .withdraw(param1)
@@ -494,9 +486,9 @@ const ActionModal = ({
                   <ActionButton
                     onClick={handleDeployProxy}
                     action={true}
-                    style={{ marginRight: "10px" }}
+                    style={{ marginRight: "10px", width: "120px" }}
                   >
-                    Deploy
+                    Create Proxy
                   </ActionButton>
                 ) : (
                   <ActionButton
