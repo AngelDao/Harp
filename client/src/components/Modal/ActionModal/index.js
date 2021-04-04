@@ -155,6 +155,24 @@ const ActionModal = ({
     handleClose();
   };
 
+  const handleOverflow = () => {
+    const web3 = web3DataProvider;
+    const BN = web3.utils.BN;
+    let val = web3.utils.toWei(value.toString());
+    let val2 = web3.utils.toWei(
+      userBalances[pair === "STRING" ? "gSTRING" : pairNames[pair]]
+    );
+
+    val = new BN(val);
+    val2 = new BN(val2);
+
+    if (val.gt(val2)) {
+      return val2.toString();
+    } else {
+      return val.toString();
+    }
+  };
+
   const handleApprove = async () => {
     let contractAddress;
     if (contract === "farm") {
@@ -192,24 +210,22 @@ const ActionModal = ({
   };
 
   const handleDeposit = async () => {
+    const val = handleOverflow();
+    const web3 = web3DataProvider;
+
     const ctrct =
       contract === "factory"
         ? contractInstance["proxy"]
         : contractInstance[contract];
-    const param1 =
-      contract === "farm" && pair !== "LUSD"
-        ? pool[pair]
-        : toWei(web3DataProvider, value.toString());
+    const param1 = contract === "farm" && pair !== "LUSD" ? pool[pair] : val;
 
-    const param2 = toWei(web3DataProvider, value.toString());
+    const param2 = val;
 
     if (contract === "rewards") {
       await ctrct.methods
         .stake(param1)
         .send({ from: address })
-        .once("sent", async () => {
-          // debugger;
-        })
+        .once("sent", async () => {})
         .on("transactionHash", async () => {
           setSending(true);
         })
@@ -225,9 +241,7 @@ const ActionModal = ({
         await ctrct.methods
           .deposit(param1)
           .send({ from: address })
-          .once("sent", async () => {
-            // debugger;
-          })
+          .once("sent", async () => {})
           .on("transactionHash", async () => {
             setSending(true);
           })
@@ -258,17 +272,17 @@ const ActionModal = ({
   };
 
   const handleWithdraw = async () => {
+    const val = handleOverflow();
+    const web3 = web3DataProvider;
+
+    debugger;
+
     const ctrct =
       contract === "factory"
         ? contractInstance["proxy"]
         : contractInstance[contract];
-    const param1 =
-      contract === "farm" && pair !== "LUSD"
-        ? pool[pair]
-        : toWei(web3DataProvider, value.toString());
-    const temp = userBalances;
-    const temp2 = profitShareBalances;
-    const param2 = toWei(web3DataProvider, value.toString());
+    const param1 = contract === "farm" && pair !== "LUSD" ? pool[pair] : val;
+    const param2 = val;
 
     if (contract === "rewards") {
       await ctrct.methods
@@ -289,6 +303,7 @@ const ActionModal = ({
     }
 
     if (contract === "profitShare" || contract === "factory") {
+      debugger;
       try {
         await ctrct.methods
           .withdraw(param1)
