@@ -25,6 +25,7 @@ import {
 import { fetchPrices } from "./utils/handlePriceData";
 import { fetchTVL } from "./utils/handleContracts/contractTVL";
 // import { setEventListeners } from "./utils/handleWallets.js/modalConfig";
+import { refreshState } from "./utils/refreshState"
 
 function App() {
   const [connectModalVisible, setConnectModalVisible] = useState(null);
@@ -46,6 +47,7 @@ function App() {
   const [unsupported, setUnsupported] = useState(false);
   const [sending, setSending] = useState(false);
   const [tvl, setTVL] = useState(false);
+  const [scheduler, setScheduler] = useState(true);
 
   const handleOpenConnectModal = () => {
     setConnectModalVisible(false);
@@ -251,6 +253,10 @@ function App() {
     if (!tvl && contracts.stringToken) {
       (async () => {
         await handleTVL(prices);
+        if(scheduler) {
+          await refreshState(handleContractConnect, handlePricing);
+          setScheduler(false);
+        }
       })();
     }
   }, [prices]);
