@@ -13,7 +13,7 @@ const StabilityFactory = artifacts.require("StabilityFactory.sol");
 const { addresses } = require("../src/utils/handleContracts/addresses");
 
 module.exports = async function (deployer, network, accounts) {
-  const deploy = "kovan";
+  const deploy = "rinkeby";
 
   // HARP
   // 2nd Ganache
