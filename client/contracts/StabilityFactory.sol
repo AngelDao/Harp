@@ -111,6 +111,13 @@ contract StabilityFactory {
         proxy.rewardDebt = proxy.amount.mul(pool.accStringPerShare).div(1e12);
     }
 
+    function updateProxyBalanceEmergency(address _owner) public isRegClone {
+        UserProxy storage proxy = userProxys[_owner];
+        totalLUSD = totalLUSD.sub(proxy.amount);
+        proxy.amount = 0;
+        proxy.rewardDebt = 0;
+    }
+
     function update() public {
         if (block.number <= pool.lastRewardBlock) {
             return;
