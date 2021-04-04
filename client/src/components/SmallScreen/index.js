@@ -7,9 +7,16 @@ const SmallScreen = () => {
   return (
     <Parent>
       <div
-        style={{ minWidth: "100%", display: "flex", justifyContent: "center" }}
+        style={{
+          maxWidth: "300px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "auto",
+        }}
       >
-        <img style={{ height: "20%", width: "auto" }} src={Logo} />
+        <img style={{ maxWidth: "300px", height: "auto" }} src={Logo} />
+
       </div>
       <div
         style={{ minWidth: "100%", display: "flex", justifyContent: "center" }}
