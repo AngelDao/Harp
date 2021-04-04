@@ -8,12 +8,17 @@ import FAQ from "../../components/FAQ";
 import Stake from "../../components/Stake";
 import Borrow from "../../components/Borrow";
 import Redeem from "../../components/Redeem";
+import Metamask from "../../components/Metamask";
 
 const Content = ({ location }) => {
   const { isConnected, loading, unsupported } = useContext(CredentialsContext);
   // loading;
   if (loading) {
     return <Loader status={"LOADING"} />;
+  }
+
+  if(!window.web3) {
+    return <Metamask />
   }
 
   if (unsupported) {

@@ -292,6 +292,9 @@ function App() {
     <Router history={history}>
       <ChakraProvider>
         <CredentialsProvider value={credentials}>
+          <noscript>
+            You need to enable JavaScript to run this app.
+          </noscript>
           <div>
             <Home />
           </div>
