@@ -48,6 +48,7 @@ function App() {
   const [sending, setSending] = useState(false);
   const [tvl, setTVL] = useState(false);
   const [scheduler, setScheduler] = useState(false);
+  const [hasAgreed, setHasAgreed] = useState(false);
 
   const handleOpenConnectModal = () => {
     setConnectModalVisible(false);
@@ -298,6 +299,8 @@ function App() {
     setSending,
     unsupported,
     tvl,
+    hasAgreed,
+    setHasAgreed,
   };
 
   return (
