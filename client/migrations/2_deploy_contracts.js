@@ -20,7 +20,6 @@ module.exports = async function (deployer, network, accounts) {
   // Token Contract
   const HarpDAOAddress = "0x0cbde7d648C1F51253d53ca1dB099030Fc35490a";
   const owner = accounts[1];
-  console.log(owner);
 
   let lusdToken, lqtyToken, stabilityPool;
 
@@ -32,7 +31,7 @@ module.exports = async function (deployer, network, accounts) {
     stabilityPool = addresses.kovan.stabilityPool;
     // lusdToken = await LUSDToken.deployed();
     // lqtyToken = await LQTYToken.deployed();
-  }else if( deploy === "rinkeby") {
+  } else if (deploy === "rinkeby") {
     lusdToken = addresses.rinkeby.lusdToken;
     lqtyToken = addresses.rinkeby.lqtyToken;
     stabilityPool = addresses.rinkeby.stabilityPool;

@@ -43,8 +43,6 @@ const ActionModal = ({
   contract,
   gSTRINGAllowance,
 }) => {
-  console.log(contract);
-
   const {
     contracts: {
       proxy,
@@ -293,7 +291,7 @@ const ActionModal = ({
             await reFetchData();
           });
       } catch (err) {
-        console.log(err.message);
+        console.error(err.message);
       }
     } else {
       try {
@@ -309,7 +307,7 @@ const ActionModal = ({
             await reFetchData();
           });
       } catch (err) {
-        console.log(err.message);
+        console.error(err.message);
       }
     }
   };
@@ -356,7 +354,7 @@ const ActionModal = ({
             await reFetchData();
           });
       } catch (err) {
-        console.log(err.message);
+        console.error(err.message);
       }
     } else {
       await ctrct.methods

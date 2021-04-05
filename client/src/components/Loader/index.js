@@ -48,7 +48,6 @@ const Loader = ({ status }) => {
 
   useEffect(() => {
     if (currentSpin === "" && !loaderStyle) {
-      console.log("enter");
       handleLoading();
     }
   });

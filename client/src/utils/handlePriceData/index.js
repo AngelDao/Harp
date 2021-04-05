@@ -7,7 +7,7 @@ export const fetchPrices = async () => {
   try {
     ethPrice = JSON.parse(ethPrice);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     ethPrice = null;
   }
   if (ethPrice && ethPrice.lastFetch && ethPrice.eth) {
@@ -15,7 +15,6 @@ export const fetchPrices = async () => {
     const date2 = ethPrice.lastFetch;
     const diffTime = Math.abs(date1 - date2);
     diffMinutes = Math.ceil(diffTime / (1000 * 60));
-    console.log(diffMinutes + "minutes");
   }
   if (!ethPrice || !ethPrice.eth || diffMinutes > 9) {
     try {
@@ -26,7 +25,7 @@ export const fetchPrices = async () => {
         JSON.stringify({ eth: ethPrice, lastFetch: new Date() })
       );
     } catch (err) {
-      console.log(err);
+      console.error(err);
       ethPrice = null;
     }
   } else {

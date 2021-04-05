@@ -6,12 +6,11 @@ const DisconnectScreen = () => {
   const { handleManualConnect, setAddress } = useContext(CredentialsContext);
 
   const handleClick = async () => {
-    console.log("log");
     try {
       setAddress(0);
       await handleManualConnect();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

@@ -90,23 +90,17 @@ contract("String Staking Test", (accounts) => {
       const fee = depositedSTRING.div(denominator);
       const expectedBalance = depositedSTRING.sub(fee);
 
-      console.log(expectedBalance);
-
       const STRINGPerShareMulti = makeBN("1000000000000");
-      console.log(STRINGPerShareMulti.toString());
-      console.log(fee.toString());
       const expectedStringPerShare = fee
         .mul(STRINGPerShareMulti)
         .div(expectedBalance);
 
-      console.log(expectedBalance);
       const gStringBal = (await gStringToken.balanceOf(depositer))
         .mul(makeBN(10))
         .toString();
       const user = await stringStaking.userInfo(depositer);
       const pool = await stringStaking.pool();
 
-      console.log(expectedBalance);
       assert.equal(
         pool.lpTokenSupply.mul(makeBN(10)).toString(),
         tokens(depositedSTRING.sub(fee).toString())
@@ -135,13 +129,9 @@ contract("String Staking Test", (accounts) => {
       const stringBalFirst = (
         await stringToken.balanceOf(depositer)
       ).toString();
-      console.log(stringBalFirst);
       await stringStaking.deposit(tokens("500"), { from: depositer });
       const userFirst = await stringStaking.userInfo(depositer);
       const contractString = await stringToken.balanceOf(stringStaking.address);
-      console.log(contractString.toString());
-      console.log(userFirst.amount.toString());
-      console.log(tokens("499.5"));
       await advanceBlock(10);
       await gStringToken.approve(stringStaking.address, tokens("2000"), {
         from: depositer,
@@ -177,23 +167,17 @@ contract("String Staking Test", (accounts) => {
       const fee = depositedSTRING.div(denominator);
       const expectedBalance = depositedSTRING.sub(fee);
 
-      console.log(expectedBalance);
-
       const STRINGPerShareMulti = makeBN("1000000000000");
-      console.log(STRINGPerShareMulti.toString());
-      console.log(fee.toString());
       const expectedStringPerShare = fee
         .mul(STRINGPerShareMulti)
         .div(expectedBalance);
 
-      console.log(expectedBalance);
       const gStringBal = (await gStringToken.balanceOf(depositer))
         .mul(makeBN(10))
         .toString();
       const user = await stringStaking.userInfo(depositer);
       const pool = await stringStaking.pool();
 
-      console.log(expectedBalance);
       // assert.equal(
       //   pool.lpTokenSupply.mul(makeBN(10)).toString(),
       //   tokens(depositedSTRING.sub(fee).toString())
