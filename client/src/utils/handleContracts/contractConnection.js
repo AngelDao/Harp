@@ -190,7 +190,6 @@ export const fetchProfitShare = async (
       web3,
       await ps.methods.pendingLQTY(address).call()
     );
-    // debugger;
     // // debugger;
 
     // const ammount = (await ps.methods.userInfo(address).call()).amount;
