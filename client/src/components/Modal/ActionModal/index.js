@@ -201,7 +201,7 @@ const ActionModal = ({
     if (pair === "STRING") {
       val2 = web3.utils.toWei(userBalances["gSTRING"]);
     } else {
-      val2 = web3.utils.toWei(contractSel.userStaked[pair]);
+      val2 = web3.utils.toWei(contractSel.userStaked[pairNames[pair]]);
     }
 
     val = new BN(val);

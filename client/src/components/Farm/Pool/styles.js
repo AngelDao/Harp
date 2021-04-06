@@ -45,6 +45,44 @@ export const WrapperCenter = styled.div`
   // justify-content: center;
 `;
 
+export const StakedSign = styled.div`
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.16, rgb(252 255 29)),
+    color-stop(0.79, rgb(252 255 0))
+  );
+  background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(252 255 29) 16%,
+    rgb(252 255 0) 79%
+  );
+  background-image: linear-gradient(
+    to top,
+    rgb(252 255 29) 16%,
+    rgb(252 255 0) 79%
+  );
+  padding: 3px;
+  outline: none;
+  border: 3px solid #000;
+  color: black;
+  font-size: ${MasterStyles.fontSize.medium};
+  background-color: #fcfcfc !important;
+  height: 33px;
+  font-style: italic;
+
+  position: absolute;
+  transform: rotate(270deg);
+  width: 140px;
+  left: -84px;
+  bottom: 83.8px;
+  text-align: center;
+  // background: #fcff00;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+`;
+
 export const PoolContainer = styled.div`
   width: 100%;
   height: 140px;

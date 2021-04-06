@@ -25,7 +25,6 @@ import {
 import { fetchPrices, fetchTest } from "./utils/handlePriceData";
 import { fetchTVL } from "./utils/handleContracts/contractTVL";
 // import { setEventListeners } from "./utils/handleWallets.js/modalConfig";
-import { refreshState } from "./utils/handleContracts/refreshState";
 
 function App() {
   const [connectModalVisible, setConnectModalVisible] = useState(null);
@@ -67,9 +66,11 @@ function App() {
   const handleUnsupported = (code) => {
     if (code === "0x2a" || code === "0x4") {
       setUnsupported(false);
+      setNetwork(code === "0x2a" ? "kovan" : "rinkeby");
     } else {
       setUnsupported(true);
       setLoading(false);
+      setNetwork(false);
     }
   };
 
@@ -301,6 +302,7 @@ function App() {
     tvl,
     hasAgreed,
     setHasAgreed,
+    network,
   };
 
   return (

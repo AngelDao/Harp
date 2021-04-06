@@ -81,6 +81,43 @@ export const ConnectStatus = styled.span`
   margin-left: 5px;
 `;
 
+export const NetworkContainer = styled.div`
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.16, #ffc20b),
+    color-stop(0.79, #ffc20b)
+  );
+  background-image: -moz-linear-gradient(
+    center bottom,
+    #ffc20b 16%,
+    #ffc20b 79%
+  );
+  background-image: linear-gradient(to top, #ffc20b 16%, #ffc20b 79%);
+  padding: 3px;
+  outline: none;
+  border: 1px solid #000;
+  color: black;
+  font-size: ${MasterStyles.fontSize.small};
+  background-color: #fcfcfc !important;
+  width: 70px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+  margin-right: 7.5px;
+`;
+
+export const Network = styled.span`
+  font-size: ${MasterStyles.fontSize.small};
+  padding: 1px;
+`;
+
 export const ConnectedCircle = styled.div`
   height: 7px;
   width: 7px;
@@ -97,7 +134,7 @@ export const NotConnectedCircle = styled.div`
   margin-left: 5px;
 `;
 
-export const AddressContainer = styled.div`
+export const AddressContainer = styled.a`
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;

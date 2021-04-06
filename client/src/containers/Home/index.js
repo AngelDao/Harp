@@ -12,6 +12,8 @@ import {
   AddressContainer,
   HR,
   Parent,
+  Network,
+  NetworkContainer,
 } from "./styles";
 import Logo from "../../assets/harpLogo.png";
 import Menu from "../../components/Menu";
@@ -21,14 +23,24 @@ import { truncateAddress } from "../../utils/truncateString";
 import SmallScreen from "../../components/SmallScreen";
 
 const Home = () => {
-  const { isConnected, address, loading } = useContext(CredentialsContext);
+  const { isConnected, address, loading, network } = useContext(
+    CredentialsContext
+  );
 
   const connectionStatus = isConnected ? (
     <ConnectionContainer>
-      <AddressContainer>
-        <span>
-          <i>{truncateAddress(address)}</i>
-        </span>
+      {network && (
+        <NetworkContainer>
+          <Network>
+            {network.charAt(0).toUpperCase() + network.slice(1)}
+          </Network>
+        </NetworkContainer>
+      )}
+      <AddressContainer
+        target="_blank"
+        href={network && `https://${network}.etherscan.io/address/${address}`}
+      >
+        <i>{truncateAddress(address)}</i>
       </AddressContainer>
       <ConnectStatus>Connected</ConnectStatus>
       <ConnectedCircle />

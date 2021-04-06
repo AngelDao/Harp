@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import Loader from "../../components/Loader";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import DisconnectScreen from "../../components/DisconnectScreen";
@@ -10,7 +10,6 @@ import Borrow from "../../components/Borrow";
 import Redeem from "../../components/Redeem";
 import Metamask from "../../components/Metamask";
 import WarningModal from "../../components/Modal/WarningModal";
-import { addresses } from "../../utils/handleContracts/addresses";
 
 const Content = ({ location }) => {
   const {
@@ -20,7 +19,6 @@ const Content = ({ location }) => {
     hasAgreed,
     setHasAgreed,
     setIsConnected,
-    address,
   } = useContext(CredentialsContext);
 
   // loading;

@@ -14,16 +14,10 @@ import {
   Stat,
   CollapseButton,
   CollapseButtonContainer,
-  InfoContainer,
-  UserInfoContainer,
-  InfoDesc,
-  InfoBalance,
-  ActionButton,
-  ActionButtonContainer,
-  UserInfoSubContainer,
   PairLogoContainer,
   LogoContainer,
   PairLogo,
+  StakedSign,
 } from "./styles";
 import Modal from "../../Modal";
 import CredentialsContext from "../../../context/credentialsContext";
@@ -35,6 +29,8 @@ import liquityLogo from "../../../assets/liq.svg";
 import uniswapLogo from "../../../assets/uniswap2.svg";
 import { addresses } from "../../../utils/handleContracts/addresses";
 import Table from "./table";
+import { transform } from "framer-motion";
+import MasterStyles from "../../../utils/masterStyles";
 
 const Pool = ({
   noClaim,
@@ -63,9 +59,13 @@ const Pool = ({
     prices,
     profitShareBalances,
     factoryBalances,
+    rewardsBalances,
+    proxyBalances,
     setSending,
     userBalances,
     tvl,
+    network,
+    contracts,
   } = useContext(CredentialsContext);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("");
@@ -113,6 +113,14 @@ const Pool = ({
     ETH: "ETH",
   };
 
+  const contractBals = {
+    farm: farmBalances,
+    profitShare: profitShareBalances,
+    rewards: rewardsBalances,
+    factory: factoryBalances,
+    proxy: proxyBalances,
+  };
+
   const farmLPMap = {
     "gSTRING/ETH": "ETHLPToken",
     "gSTRING/LUSD": "LUSDLPToken",
@@ -132,11 +140,13 @@ const Pool = ({
   };
 
   const links = {
-    LUSD: `https://kovan.etherscan.io/address/${addresses.kovan.stabilityPool}`,
-    LQTY: `https://kovan.etherscan.io/address/${addresses.kovan.lqtyStaking}`,
-    STRING: `https://kovan.etherscan.io/address/0xba593297bec35f3162f37ab2f27774a826aa6153`,
-    "gSTRING/ETH": `https://kovan.etherscan.io/address/${addresses.kovan.ethLPToken}`,
-    "gSTRING/LUSD": `https://kovan.etherscan.io/address${addresses.kovan.lusdLPToken}`,
+    LUSD: `https://${network}.etherscan.io/address/${addresses[network].stabilityPool}`,
+    LQTY: `https://${network}.etherscan.io/address/${addresses[network].lqtyStaking}`,
+    STRING: `https://${network}.etherscan.io/address/${
+      contracts && contracts.profitShare._address
+    }`,
+    "gSTRING/ETH": `https://app.uniswap.org/#/add/ETH/${contracts.gStringToken._address}`,
+    "gSTRING/LUSD": `https://app.uniswap.org/#/add/${contracts.lusdToken._address}/${contracts.gStringToken._address}`,
   };
 
   let contractBal, rewardPerBlock;
@@ -180,6 +190,8 @@ const Pool = ({
 
   const margin = conditionalMargin ? (collapsed ? "0px" : "10px") : "35.5px";
 
+  let contractSel = contractBals[contract === "factory" ? "proxy" : contract];
+
   return (
     <>
       <Modal
@@ -195,7 +207,16 @@ const Pool = ({
         pair={pair}
         contract={contract}
       />
-      <div style={{ marginTop: "12.5px", marginBottom: margin }}>
+      <div
+        style={{
+          marginTop: "12.5px",
+          marginBottom: margin,
+          position: "relative",
+        }}
+      >
+        {parseFloat(contractSel.userStaked[pairNames[pair]]) > 0 && (
+          <StakedSign>Staked</StakedSign>
+        )}
         <PoolContainer>
           <PairContainer>
             <ContractLink href={links[pair]} target="_blank">
@@ -203,7 +224,6 @@ const Pool = ({
               <Pair>{currency2 ? `${currency1}/${currency2}` : currency1}</Pair>
               <PairLogoContainer>
                 <LogoContainer>
-                  {/* <div> */}
                   {currency2 ? (
                     <>
                       <PairLogo src={logosMap[currency1]} />
@@ -212,7 +232,6 @@ const Pool = ({
                   ) : (
                     <PairLogo src={logosMap[currency1]} />
                   )}
-                  {/* </div> */}
                 </LogoContainer>
               </PairLogoContainer>
             </ContractLink>
