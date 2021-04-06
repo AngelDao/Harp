@@ -6,28 +6,9 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
-  Button,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
 } from "@chakra-ui/react";
-import {
-  CloseContainer,
-  HeaderContainer,
-  CollapseButton,
-  ActionButton,
-  ConnectedCircle,
-  NotConnectedCircle,
-  AllowanceContainer,
-  AllowanceText,
-  ActionContainer,
-  GStringCap,
-} from "./styles";
+import { HeaderContainer, ActionButton, ActionContainer } from "./styles";
 import MasterStyles from "../../../utils/masterStyles";
-import CredentialsContext from "../../../context/credentialsContext";
 
 const WarningModal = ({ isOpen, handleAgree, onCancel }) => {
   const [checkbox, setCheckbox] = useState(false);
@@ -38,6 +19,10 @@ const WarningModal = ({ isOpen, handleAgree, onCancel }) => {
 
   const handleClose = () => {
     if (checkbox) {
+      localStorage.setItem(
+        "warning",
+        JSON.stringify({ agreed: true, lastFetch: new Date() })
+      );
       handleAgree(true);
     }
   };
@@ -67,11 +52,12 @@ const WarningModal = ({ isOpen, handleAgree, onCancel }) => {
         <ModalBody
           borderTop="2px solid black"
           padding="25px 24px"
-          textAlign="center"
+          // textAlign="center"
         >
           <p>
-            The smart contracts are unaudited and experiemntal. Please use at
-            your own risk.
+            This app uses some smart contracts that are unaudited and
+            expiremental, you could lose all your money. Please be careful. We
+            will not compensate losses.
           </p>
           <div
             style={{

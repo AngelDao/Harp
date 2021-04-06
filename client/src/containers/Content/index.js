@@ -10,6 +10,7 @@ import Borrow from "../../components/Borrow";
 import Redeem from "../../components/Redeem";
 import Metamask from "../../components/Metamask";
 import WarningModal from "../../components/Modal/WarningModal";
+import { addresses } from "../../utils/handleContracts/addresses";
 
 const Content = ({ location }) => {
   const {
@@ -19,6 +20,7 @@ const Content = ({ location }) => {
     hasAgreed,
     setHasAgreed,
     setIsConnected,
+    address,
   } = useContext(CredentialsContext);
 
   // loading;
@@ -53,13 +55,33 @@ const Content = ({ location }) => {
     return <DisconnectScreen />;
   }
 
+  let warning = localStorage.getItem("warning");
+  let diffHours = 0;
+  try {
+    warning = JSON.parse(warning);
+  } catch (err) {
+    console.error(err);
+    warning = null;
+  }
+
+  if (warning && warning.agreed) {
+    const date1 = new Date(new Date());
+    const date2 = new Date(warning.lastFetch);
+    const diffTime = Math.abs(date1.getTime() - date2.getTime());
+    diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
+  }
+
+  console.log(warning, diffHours);
+
   return (
     <>
-      <WarningModal
-        isOpen={hasAgreed}
-        handleAgree={setHasAgreed}
-        onCancel={setIsConnected}
-      />
+      {(!warning || !warning.agreed || diffHours > 6) && (
+        <WarningModal
+          isOpen={hasAgreed}
+          handleAgree={setHasAgreed}
+          onCancel={setIsConnected}
+        />
+      )}
       <div>
         <Switch location={location}>
           <Route exact path="/borrow" component={Borrow} />

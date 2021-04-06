@@ -22,7 +22,7 @@ import {
   fetchStabilityFactory,
   fetchRewards,
 } from "./utils/handleContracts/contractConnection";
-import { fetchPrices } from "./utils/handlePriceData";
+import { fetchPrices, fetchTest } from "./utils/handlePriceData";
 import { fetchTVL } from "./utils/handleContracts/contractTVL";
 // import { setEventListeners } from "./utils/handleWallets.js/modalConfig";
 import { refreshState } from "./utils/handleContracts/refreshState";
@@ -49,6 +49,7 @@ function App() {
   const [tvl, setTVL] = useState(false);
   const [scheduler, setScheduler] = useState(false);
   const [hasAgreed, setHasAgreed] = useState(false);
+  const [network, setNetwork] = useState(false);
 
   const handleOpenConnectModal = () => {
     setConnectModalVisible(false);
@@ -64,7 +65,6 @@ function App() {
   };
 
   const handleUnsupported = (code) => {
-    debugger;
     if (code === "0x2a" || code === "0x4") {
       setUnsupported(false);
     } else {
@@ -182,16 +182,14 @@ function App() {
   };
 
   const handlePricing = async () => {
-    const [ETH] = await fetchPrices();
-    const LQTY = 0.7;
+    let [ETH, LUSD, LQTY] = await fetchPrices();
     const STRING = 0.1;
     const gSTRING = 0.1;
-    const LUSD = 1;
     setPrices({
-      LQTY,
-      LUSD,
+      LQTY: LQTY ? LQTY : 0,
+      LUSD: LUSD ? LUSD : 0,
       STRING,
-      ETH,
+      ETH: ETH ? ETH : 0,
       gSTRING,
     });
   };
@@ -241,7 +239,6 @@ function App() {
       if (address && web3DataProvider && !unsupported) {
         await handleContractConnect();
         await handlePricing();
-        setLoading(false);
       }
     })();
   }, [address]);
@@ -249,11 +246,12 @@ function App() {
   // once connected to the contractss
   useEffect(() => {
     if (contracts.stringToken) {
-      setIsConnected(true);
     }
     if (!tvl && contracts.stringToken) {
       (async () => {
-        await handleTVL(prices);
+        await handleTVL();
+        setIsConnected(true);
+        setLoading(false);
         if (!scheduler && prices) {
           setScheduler(true);
         }
@@ -266,6 +264,7 @@ function App() {
       setInterval(async () => {
         await handleContractConnect();
         await handlePricing();
+        await handleTVL();
       }, 1000 * 10);
     }
   }, [scheduler]);

@@ -246,7 +246,7 @@ const PoolTable = ({
                             .toFixed(2)
                             .toString()
                         )
-                      : 0}
+                      : "0.00"}
                   </span>
                 </AssetCell>
                 <AssetCell>
