@@ -192,6 +192,10 @@ const Pool = ({
 
   let contractSel = contractBals[contract === "factory" ? "proxy" : contract];
 
+  if (!dailyAPY || (dailyAPY === "NaN" && contract !== "rewards")) {
+    debugger;
+  }
+
   return (
     <>
       <Modal
@@ -215,7 +219,7 @@ const Pool = ({
         }}
       >
         {parseFloat(contractSel.userStaked[pairNames[pair]]) > 0 && (
-          <StakedSign>Staked</StakedSign>
+          <StakedSign collapsed={collapsed}>Staked</StakedSign>
         )}
         <PoolContainer>
           <PairContainer>

@@ -76,7 +76,7 @@ export const StakedSign = styled.div`
   transform: rotate(270deg);
   width: 140px;
   left: -84px;
-  bottom: 83.8px;
+  top: 53.51px;
   text-align: center;
   // background: #fcff00;
   border-top-left-radius: 5px;

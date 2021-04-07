@@ -48,5 +48,4 @@ export const fetchTest = async () => {
   const res = await client.coins.fetch("ethereum", {});
   await client.coins.fetch("liquity-usd", {});
   await client.coins.fetch("liquity", {});
-  debugger;
 };

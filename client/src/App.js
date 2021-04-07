@@ -49,6 +49,7 @@ function App() {
   const [scheduler, setScheduler] = useState(false);
   const [hasAgreed, setHasAgreed] = useState(false);
   const [network, setNetwork] = useState(false);
+  const [schedulerID, setSchedulerID] = useState(null);
 
   const handleOpenConnectModal = () => {
     setConnectModalVisible(false);
@@ -186,23 +187,20 @@ function App() {
     let [ETH, LUSD, LQTY] = await fetchPrices();
     const STRING = 0.1;
     const gSTRING = 0.1;
-    setPrices({
+    const prc = {
       LQTY: LQTY ? LQTY : 0,
       LUSD: LUSD ? LUSD : 0,
       STRING,
       ETH: ETH ? ETH : 0,
       gSTRING,
-    });
-  };
-
-  const handleTVL = async () => {
-    const [tvl, eprice, lprice] = await fetchTVL(
-      window.web3,
-      prices,
-      contracts
-    );
-    setPrices({ ...prices, gSTRING_ETH_LP: eprice, gSTRING_LUSD_LP: lprice });
+    };
+    const [tvl, eprice, lprice] = await fetchTVL(window.web3, prc, contracts);
     setTVL(tvl);
+    setPrices({
+      ...prc,
+      gSTRING_ETH_LP: eprice,
+      gSTRING_LUSD_LP: lprice,
+    });
   };
 
   const handleManualConnect = async () => {
@@ -226,7 +224,7 @@ function App() {
 
   const reFetchData = async () => {
     await handleContractConnect();
-    await handleTVL;
+    await handlePricing;
   };
 
   const toast = useToast();
@@ -239,18 +237,15 @@ function App() {
       // fetch app data
       if (address && web3DataProvider && !unsupported) {
         await handleContractConnect();
-        await handlePricing();
       }
     })();
   }, [address]);
 
   // once connected to the contractss
   useEffect(() => {
-    if (contracts.stringToken) {
-    }
     if (!tvl && contracts.stringToken) {
       (async () => {
-        await handleTVL();
+        await handlePricing();
         setIsConnected(true);
         setLoading(false);
         if (!scheduler && prices) {
@@ -258,17 +253,28 @@ function App() {
         }
       })();
     }
-  }, [prices]);
+  }, [contracts]);
 
   useEffect(() => {
     if (scheduler) {
-      setInterval(async () => {
-        await handleContractConnect();
-        await handlePricing();
-        await handleTVL();
+      const id = setInterval(async () => {
+        if (network) {
+          debugger;
+          await handleContractConnect();
+          await handlePricing();
+        }
       }, 1000 * 10);
+      setSchedulerID(id);
     }
   }, [scheduler]);
+
+  useEffect(() => {
+    if (!network && schedulerID) {
+      debugger;
+      clearInterval(schedulerID);
+      setIsConnected(false);
+    }
+  }, [network]);
 
   const credentials = {
     rewardsBalances,
