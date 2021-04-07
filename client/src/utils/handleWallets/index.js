@@ -11,6 +11,7 @@ export const manualConnect = async (
   handleUnsupported,
   setLoading
 ) => {
+  // debugger;
   if (!address && !visible) {
     let res;
     try {
@@ -20,6 +21,7 @@ export const manualConnect = async (
         handleUnsupported,
         setLoading
       );
+      // debugger;
     } catch (err) {
       console.error(err);
     }

@@ -76,6 +76,7 @@ function App() {
   };
 
   const handleContractConnect = async () => {
+    console.log("gather contracts");
     let w = web3DataProvider;
     let w2 = window.web3;
     // const web3 = web3UserProvider;
@@ -184,6 +185,7 @@ function App() {
   };
 
   const handlePricing = async () => {
+    console.log("gather pricing");
     let [ETH, LUSD, LQTY] = await fetchPrices();
     const STRING = 0.1;
     const gSTRING = 0.1;
@@ -194,6 +196,7 @@ function App() {
       ETH: ETH ? ETH : 0,
       gSTRING,
     };
+    console.log("gather tvl");
     const [tvl, eprice, lprice] = await fetchTVL(window.web3, prc, contracts);
     setTVL(tvl);
     setPrices({
@@ -203,15 +206,18 @@ function App() {
     });
   };
 
-  const handleManualConnect = async () => {
+  const handleManualConnect = async (reconnectParam) => {
+    console.log("handle manual connect");
     const res = await manualConnect(
       handleOpenConnectModal,
-      address,
+      reconnectParam ? null : address,
       connectModalVisible,
       handleAccountchange,
       handleUnsupported,
       setLoading
     );
+
+    debugger;
 
     if (res) {
       setWeb3UserProvider(res[0]);
@@ -234,15 +240,33 @@ function App() {
       if (dataInstance && !web3DataProvider && !address) {
         setWeb3DataProvider(dataInstance);
       }
+
+      if (address === "reconnect") {
+        handleManualConnect(true);
+        setTVL(false);
+      }
       // fetch app data
-      if (address && web3DataProvider && !unsupported) {
-        await handleContractConnect();
+      if (
+        address &&
+        address !== "reconnect" &&
+        web3DataProvider &&
+        !unsupported
+      ) {
+        if (!schedulerID) {
+          await handleContractConnect();
+        } else {
+          clearInterval(schedulerID);
+          setIsConnected(false);
+          setSchedulerID(false);
+        }
       }
     })();
   }, [address]);
 
   // once connected to the contractss
   useEffect(() => {
+    const adr = address;
+    debugger;
     if (!tvl && contracts.stringToken) {
       (async () => {
         await handlePricing();
@@ -271,6 +295,7 @@ function App() {
     if (!network && schedulerID) {
       clearInterval(schedulerID);
       setIsConnected(false);
+      setSchedulerID(false);
     }
   }, [network]);
 
