@@ -218,8 +218,12 @@ const Pool = ({
           position: "relative",
         }}
       >
-        {parseFloat(contractSel.userStaked[pairNames[pair]]) > 0 && (
+        {parseFloat(contractSel.userStaked[pairNames[pair]]) > 0 ? (
           <StakedSign collapsed={collapsed}>Staked</StakedSign>
+        ) : (
+          <StakedSign notStaked collapsed={collapsed}>
+            Not Staked :(
+          </StakedSign>
         )}
         <PoolContainer>
           <PairContainer>

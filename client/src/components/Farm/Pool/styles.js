@@ -1,3 +1,4 @@
+import { withTheme } from "@emotion/react";
 import styled from "styled-components";
 import MasterStyles from "../../../utils/masterStyles";
 
@@ -50,18 +51,30 @@ export const StakedSign = styled.div`
     linear,
     left bottom,
     left top,
-    color-stop(0.16, rgb(252 255 29)),
-    color-stop(0.79, rgb(252 255 0))
+    ${({ notStaked }) => {
+      return !notStaked ? "color-stop(0.16, rgb(252 255 29))" : "white";
+    }},
+    ${({ notStaked }) => {
+      return !notStaked ? "color-stop(0.79, rgb(252 255 0))" : "white";
+    }}
   );
   background-image: -moz-linear-gradient(
     center bottom,
-    rgb(252 255 29) 16%,
-    rgb(252 255 0) 79%
+    ${({ notStaked }) => {
+      return !notStaked ? "rgb(252 255 29) 16%" : "white";
+    }},
+    ${({ notStaked }) => {
+      return !notStaked ? "rgb(252 255 0) 79%" : "white";
+    }}
   );
   background-image: linear-gradient(
     to top,
-    rgb(252 255 29) 16%,
-    rgb(252 255 0) 79%
+    ${({ notStaked }) => {
+      return !notStaked ? "rgb(252 255 29) 16%" : "white";
+    }},
+    ${({ notStaked }) => {
+      return !notStaked ? "rgb(252 255 0) 79%" : "white";
+    }}
   );
   padding: 3px;
   outline: none;

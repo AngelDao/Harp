@@ -259,7 +259,6 @@ function App() {
     if (scheduler) {
       const id = setInterval(async () => {
         if (network) {
-          debugger;
           await handleContractConnect();
           await handlePricing();
         }
@@ -270,7 +269,6 @@ function App() {
 
   useEffect(() => {
     if (!network && schedulerID) {
-      debugger;
       clearInterval(schedulerID);
       setIsConnected(false);
     }
