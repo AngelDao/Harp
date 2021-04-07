@@ -93,7 +93,6 @@ function App() {
     const [lusdToken, LUSD] = await fetchLUSDToken(networkId, web3, address);
     // debugger;
     const [lqtyToken, LQTY] = await fetchLQTYToken(networkId, web3, address);
-    // debugger;
 
     const [stringToken, STRING] = await fetchStringToken(
       networkId,
@@ -244,6 +243,7 @@ function App() {
       if (address === "reconnect") {
         handleManualConnect(true);
         setTVL(false);
+        setPrices(false);
       }
       // fetch app data
       if (
