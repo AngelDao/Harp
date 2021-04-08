@@ -31,9 +31,9 @@ export const fetchPrices = async () => {
       );
     } catch (err) {
       console.error(err);
-      ethPrice = null;
-      lusd = null;
-      lqty = null;
+      lusd = ethPrice.lusd ? ethPrice.lusd : null;
+      lqty = ethPrice.lqty ? ethPrice.lqty : null;
+      ethPrice = ethPrice.eth ? ethPrice.eth : null;
     }
   } else {
     lusd = ethPrice.lusd;

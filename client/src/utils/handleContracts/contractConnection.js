@@ -27,7 +27,9 @@ export const fetchgStringToken = async (networkId, web3, address) => {
       fromWei(web3, await gstringToken.methods.balanceOf(address).call())
     );
 
-    return [gstringToken, gSTRING];
+    const ETH = fromWei(web3, await web3.eth.getBalance(address));
+
+    return [gstringToken, gSTRING, ETH];
   }
 };
 
@@ -537,7 +539,7 @@ export const fetchTroveManager = async (web3, networkId, address) => {
     );
 
     const troveCount = await troveManager.methods.getTroveOwnersCount().call();
-    const userTrove = await troveManager.methods.Troves(address);
+    const userTrove = await troveManager.methods.Troves(address).call();
 
     return [troveManager, troveCount, userTrove];
   } else if (networkId === 42) {
@@ -548,7 +550,7 @@ export const fetchTroveManager = async (web3, networkId, address) => {
 
     const troveCount = await troveManager.methods.getTroveOwnersCount().call();
 
-    const userTrove = await troveManager.methods.Troves(address);
+    const userTrove = await troveManager.methods.Troves(address).call();
 
     return [troveManager, troveCount, userTrove];
   }

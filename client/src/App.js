@@ -90,7 +90,7 @@ function App() {
     // ;
     const networkId = await web3.eth.net.getId();
 
-    const [gStringToken, gSTRING] = await fetchgStringToken(
+    const [gStringToken, gSTRING, ETH] = await fetchgStringToken(
       networkId,
       web3,
       address
@@ -205,6 +205,7 @@ function App() {
       LQTY,
       gSTRING,
       LUSD,
+      ETH,
     });
   };
 
@@ -213,6 +214,7 @@ function App() {
     let [ETH, LUSD, LQTY] = await fetchPrices();
     const STRING = 0.1;
     const gSTRING = 0.1;
+
     const prc = {
       LQTY: LQTY ? LQTY : 0,
       LUSD: LUSD ? LUSD : 0,

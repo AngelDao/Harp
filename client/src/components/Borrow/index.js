@@ -35,6 +35,7 @@ const Borrow = () => {
     prices,
     setTroves,
     contracts: { troveManager, sortedTroves },
+    userBalances,
   } = useContext(CredentialsContext);
 
   const [memTrove, setMemTrove] = useState({
@@ -45,15 +46,47 @@ const Borrow = () => {
   const [currentPage, setPage] = useState(1);
   const [internalLoading, setInternalLoading] = useState(false);
 
-  const handleChangeValue = (type, num) => {
-    let temp = num;
-    if (!num) {
-      temp = "";
-    }
-    if (num === 0) {
-      temp = 0;
-    }
-    setMemTrove({ ...memTrove, [type]: temp });
+  const handleChangeBorrowValue = (num) => {
+    const requiredColl = 1.1;
+    const lusdUSD = parseFloat(num) * prices.LUSD;
+    const newCollat = (lusdUSD * requiredColl) / prices.ETH;
+    const cr =
+      memTrove.collat &&
+      (memTrove.collat * prices.ETH) / lusdUSD >= requiredColl
+        ? ((memTrove.collat * prices.ETH) / lusdUSD) * 100
+        : ((newCollat * prices.ETH) / lusdUSD) * 100;
+
+    setMemTrove({
+      debt: num,
+      collat:
+        memTrove.collat &&
+        (memTrove.collat * prices.ETH) / lusdUSD >= requiredColl
+          ? memTrove.collat
+          : newCollat,
+      cRatio: cr.toFixed(2),
+    });
+  };
+
+  const handleChangeCollValue = (num) => {
+    const requiredColl = 1.1;
+    const ethUSD = parseFloat(num) * prices.ETH;
+    const lusdUSD = parseFloat(memTrove.debt) * prices.LUSD;
+    const newBorrow = ethUSD / requiredColl;
+    const cr =
+      memTrove.collat &&
+      memTrove.debt &&
+      ethUSD / (memTrove.debt * prices.LUSD) >= requiredColl
+        ? (ethUSD / lusdUSD) * 100
+        : (ethUSD / newBorrow) * 100;
+
+    setMemTrove({
+      collat: num,
+      debt:
+        memTrove.debt && ethUSD / (memTrove.debt * prices.LUSD) >= requiredColl
+          ? memTrove.debt
+          : newBorrow / prices.LUSD,
+      cRatio: cr.toFixed(2),
+    });
   };
 
   const handleFocus = (type) => {
@@ -108,13 +141,29 @@ const Borrow = () => {
 
   const web3 = window.web3;
 
+  const cr =
+    ((parseFloat(userTrove.coll) * prices.ETH) /
+      (parseFloat(userTrove.debt) * prices.LUSD)) *
+    100;
+
   return (
     <div style={{ marginTop: "10px" }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div style={{ width: "375px" }}>
           <Title>Add To Trove</Title>
           <DescContainer>
-            <SubTitle>Borrow</SubTitle>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-end",
+              }}
+            >
+              <SubTitle>Borrow(LUSD)</SubTitle>
+              <span style={{ marginBottom: "6px" }}>
+                Balance: {truncDust(parseFloat(userBalances.LUSD).toFixed(4))}
+              </span>
+            </div>
             <NumberInput
               onBlur={() => handleBlur("debt")}
               onFocus={() => handleFocus("debt")}
@@ -128,7 +177,7 @@ const Borrow = () => {
               borderRadius="0%"
               borderColor="black"
               focusBorderColor="black"
-              onChange={(str, num) => handleChangeValue("debt", num)}
+              onChange={(str, num) => handleChangeBorrowValue(num)}
               outline="none"
               backgroundColor={MasterStyles.background.secondaryMenu}
             >
@@ -144,7 +193,19 @@ const Borrow = () => {
                 <NumberDecrementStepper border="none" />
               </NumberInputStepper>
             </NumberInput>
-            <SubTitle style={{ marginTop: "10px" }}>Collateral</SubTitle>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-end",
+                marginTop: "6px",
+              }}
+            >
+              <SubTitle>Collateral(ETH)</SubTitle>
+              <span style={{ marginBottom: "6px" }}>
+                Balance: {truncDust(parseFloat(userBalances.ETH).toFixed(4))}
+              </span>
+            </div>
             <NumberInput
               onBlur={() => handleBlur("collat")}
               onFocus={() => handleFocus("collat")}
@@ -158,7 +219,7 @@ const Borrow = () => {
               borderRadius="0%"
               borderColor="black"
               focusBorderColor="black"
-              onChange={(str, num) => handleChangeValue("collat", num)}
+              onChange={(str, num) => handleChangeCollValue(num)}
               outline="none"
               backgroundColor={MasterStyles.background.secondaryMenu}
             >
@@ -175,7 +236,7 @@ const Borrow = () => {
               </NumberInputStepper>
             </NumberInput>
             <SubTitle style={{ marginTop: "10px" }}>
-              Collateralization Ratio
+              Collateralization Ratio(%)
             </SubTitle>
             <NumberInput
               defaultValue={0}
@@ -227,7 +288,7 @@ const Borrow = () => {
               precision={4}
               step={0.2}
               //   max={parseFloat(memTrove.debt)}
-              value={memTrove.debt}
+              value={truncDust(parseFloat(userTrove.debt))}
               inputMode="decimal"
               borderRadius="0%"
               borderColor="black"
@@ -254,7 +315,7 @@ const Borrow = () => {
               precision={4}
               step={0.2}
               //   max={parseFloat(memTrove.debt)}
-              value={memTrove.collat}
+              value={truncDust(parseFloat(userTrove.coll))}
               inputMode="decimal"
               borderRadius="0%"
               borderColor="black"
@@ -280,7 +341,7 @@ const Borrow = () => {
               precision={4}
               step={0.2}
               //   max={parseFloat(memTrove.debt)}
-              value={memTrove.cRatio}
+              value={cr.toFixed(2) !== "NaN" ? cr.toFixed(2) : 0}
               inputMode="decimal"
               borderRadius="0%"
               borderColor="black"

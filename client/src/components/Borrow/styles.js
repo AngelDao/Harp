@@ -3,7 +3,7 @@ import MasterStyles from "../../utils/masterStyles";
 
 export const DescContainer = styled.div`
   width: 100%;
-  height: auto;
+  height: 285px;
   background: ${MasterStyles.background.menu};
   border: 3px solid black;
   padding: 15px 25px 15px 25px;
