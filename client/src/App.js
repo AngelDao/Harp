@@ -55,6 +55,7 @@ function App() {
   const [schedulerID, setSchedulerID] = useState(null);
   const [troves, setTroves] = useState(false);
   const [userTrove, setUserTrove] = useState(false);
+  const [trovePages, setTrovePages] = useState(false);
 
   const handleOpenConnectModal = () => {
     setConnectModalVisible(false);
@@ -154,15 +155,19 @@ function App() {
     );
 
     const [borrow] = await fetchBorrow(web3, networkId, address);
-    const [troveManager, troves, userTrove] = await fetchTroveManager(
+    const [troveManager, troveCount, userTrove] = await fetchTroveManager(
       web3,
       networkId,
       address
     );
-    const [sortedTroves] = await fetchSortedTroves(web3, networkId, address);
+    const [sortedTroves, troves] = await fetchSortedTroves(
+      web3,
+      networkId,
+      troveManager
+    );
 
     // debugger;
-    setTroves(troves);
+    setTroves({ troveCount, troves });
     setUserTrove(userTrove);
     setRewardsBalances(rwsBalances);
     setFarmBalances(farmBalances);
@@ -348,6 +353,7 @@ function App() {
     setHasAgreed,
     network,
     troves,
+    setTroves,
     userTrove,
   };
 

@@ -536,57 +536,78 @@ export const fetchTroveManager = async (web3, networkId, address) => {
       addresses.rinkeby.troveManager
     );
 
-    const troveOwnersCount = await troveManager.methods
-      .getTroveOwnersCount()
-      .call();
+    const troveCount = await troveManager.methods.getTroveOwnersCount().call();
+    const userTrove = await troveManager.methods.Troves(address);
 
-    const troves = {};
-    for (let i = 0; i < 5; i++) {
-      console.log(i);
-      const troveOwner = await troveManager.methods
-        .getTroveFromTroveOwnersArray(i)
-        .call();
-      const trove = await troveManager.methods.Troves(troveOwner).call();
-      troves[troveOwner] = trove;
-    }
-
-    const userTrove = await troveManager.methods.Troves(address).call();
-    return [troveManager, troves, userTrove];
+    return [troveManager, troveCount, userTrove];
   } else if (networkId === 42) {
     const troveManager = new web3.eth.Contract(
       ITroveManager.abi,
       addresses.kovan.troveManager
     );
-    const troveOwnersCount = await troveManager.methods
-      .getTroveOwnersCount()
-      .call();
-    const troves = {};
-    for (let i = 0; i < 5; i++) {
-      console.log(i);
-      const troveOwner = await troveManager.methods
-        .getTroveFromTroveOwnersArray(i)
-        .call();
-      const trove = await troveManager.methods.Troves(troveOwner).call();
-      troves[troveOwner] = trove;
-    }
-    return [troveManager, troves];
+
+    const troveCount = await troveManager.methods.getTroveOwnersCount().call();
+
+    const userTrove = await troveManager.methods.Troves(address);
+
+    return [troveManager, troveCount, userTrove];
   }
 };
 
-export const fetchSortedTroves = async (web3, networkId, address) => {
+export const fetchSortedTroves = async (web3, networkId, troveManager) => {
   if (networkId === 4) {
     const sortedTroves = new web3.eth.Contract(
       ISortedTroves.abi,
       addresses.rinkeby.sortedTroves
     );
 
-    return [sortedTroves];
+    const pageSize = 10;
+    const trovePages = { 1: [], 2: [] };
+    let lastTrove = null;
+
+    for (let i = 0; i < pageSize; i++) {
+      let troveOwner;
+      if (!lastTrove) {
+        troveOwner = await sortedTroves.methods.getLast().call();
+      } else {
+        troveOwner = await sortedTroves.methods.getPrev(lastTrove).call();
+      }
+      if (troveOwner) {
+        const trove = await troveManager.methods.Troves(troveOwner).call();
+        lastTrove = troveOwner;
+        trovePages[1].push({ address: troveOwner, trove });
+      } else {
+        break;
+      }
+    }
+
+    return [sortedTroves, trovePages];
   } else if (networkId === 42) {
     const sortedTroves = new web3.eth.Contract(
       ISortedTroves.abi,
       addresses.kovan.sortedTroves
     );
 
-    return [sortedTroves];
+    const pageSize = 10;
+    const trovePages = { 1: [] };
+    let lastTrove = null;
+
+    for (let i = 0; i < pageSize; i++) {
+      let troveOwner;
+      if (!lastTrove) {
+        troveOwner = await sortedTroves.methods.getLast().call();
+      } else {
+        troveOwner = await sortedTroves.methods.getPrev(lastTrove).call();
+      }
+      if (troveOwner) {
+        const trove = await troveManager.methods.Troves(troveOwner).call();
+        lastTrove = troveOwner;
+        trovePages[1].push({ owner: troveOwner, trove });
+      } else {
+        break;
+      }
+    }
+
+    return [sortedTroves, trovePages];
   }
 };
