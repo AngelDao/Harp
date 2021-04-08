@@ -160,14 +160,16 @@ function App() {
       networkId,
       address
     );
-    const [sortedTroves, troves] = await fetchSortedTroves(
+    const [sortedTroves, sTroves] = await fetchSortedTroves(
       web3,
       networkId,
       troveManager
     );
 
     // debugger;
-    setTroves({ troveCount, troves });
+    if (!troves) {
+      setTroves({ troveCount, troves: sTroves });
+    }
     setUserTrove(userTrove);
     setRewardsBalances(rwsBalances);
     setFarmBalances(farmBalances);
@@ -286,7 +288,6 @@ function App() {
 
   // once connected to the contractss
   useEffect(() => {
-    const adr = address;
     if (!tvl && contracts.stringToken) {
       (async () => {
         await handlePricing();

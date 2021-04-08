@@ -21,8 +21,13 @@ import {
   AssetCell,
 } from "./styles";
 import CredentialsContext from "../../context/credentialsContext";
-import { fromWei, truncateAddress } from "../../utils/truncateString";
+import {
+  fromWei,
+  truncateAddress,
+  truncDust,
+} from "../../utils/truncateString";
 import { fetchPage } from "../../utils/handleContracts/fetchPage";
+import Loader from "../Loader";
 const Borrow = () => {
   const {
     troves,
@@ -38,6 +43,7 @@ const Borrow = () => {
     cRatio: 0,
   });
   const [currentPage, setPage] = useState(1);
+  const [internalLoading, setInternalLoading] = useState(false);
 
   const handleChangeValue = (type, num) => {
     let temp = num;
@@ -63,11 +69,15 @@ const Borrow = () => {
   };
 
   const handlePageChange = async (num) => {
-    if (troves.troves[num]) {
-      setPage(num);
-    } else {
-      await fetchPage(setTroves, troves, sortedTroves, troveManager, num);
-      setPage(num);
+    if (num > 0 && !internalLoading && num * 10 - troves.troveCount < 10) {
+      if (troves.troves[num]) {
+        setPage(num);
+      } else {
+        setInternalLoading(true);
+        await fetchPage(setTroves, troves, sortedTroves, troveManager, num);
+        setPage(num);
+        setInternalLoading(false);
+      }
     }
   };
 
@@ -75,7 +85,11 @@ const Borrow = () => {
     const from = 1;
     const to = 10;
 
-    return `${from * currentPage}-${to * currentPage} of ${troves.troveCount}`;
+    return `${from * currentPage * 10 - 9}-${
+      to * currentPage > troves.troveCount
+        ? troves.troveCount
+        : to * currentPage
+    } of ${troves.troveCount}`;
   };
 
   // return (
@@ -321,7 +335,7 @@ const Borrow = () => {
           </div>
         </div>
       </div>
-      <DescContainer>
+      <DescContainer style={{ height: "567.5px" }}>
         <HeaderRow>
           <Cell style={{ marginRight: "135px" }}>
             <WrapperCenter>
@@ -330,12 +344,12 @@ const Borrow = () => {
           </Cell>
           <Cell style={{ marginRight: "80px" }}>
             <WrapperCenter>
-              <HeaderTitle>Collateral</HeaderTitle>
+              <HeaderTitle>Collateral(ETH)</HeaderTitle>
             </WrapperCenter>
           </Cell>
           <Cell style={{ marginRight: "100px" }}>
             <WrapperCenter>
-              <HeaderTitle>Debt</HeaderTitle>
+              <HeaderTitle>Debt(LUSD)</HeaderTitle>
             </WrapperCenter>
           </Cell>
           <Cell>
@@ -345,33 +359,36 @@ const Borrow = () => {
           </Cell>
         </HeaderRow>
         <HR />
-        {troves.troves[currentPage].map((e, i) => {
-          const { owner, trove } = e;
-          const debt = fromWei(web3, trove.debt);
-          const collateral = fromWei(web3, trove.coll);
-          const cr =
-            ((parseFloat(collateral) * prices.ETH) /
-              (parseFloat(debt) * prices.LUSD)) *
-            100;
-          debugger;
+        {!internalLoading ? (
+          troves.troves[currentPage].map((e, i) => {
+            const { owner, trove } = e;
+            const debt = fromWei(web3, trove.debt);
+            const collateral = fromWei(web3, trove.coll);
+            const cr =
+              ((parseFloat(collateral) * prices.ETH) /
+                (parseFloat(debt) * prices.LUSD)) *
+              100;
 
-          return (
-            <ContentRow>
-              <AssetCell style={{ width: "207px" }}>
-                <span>{truncateAddress(owner)}</span>
-              </AssetCell>
-              <AssetCell style={{ width: "148px" }}>
-                <span>{collateral}</span>
-              </AssetCell>
-              <AssetCell style={{ width: "172px" }}>
-                <span>{debt}</span>
-              </AssetCell>
-              <AssetCell>
-                <span>{cr.toFixed(2)}%</span>
-              </AssetCell>
-            </ContentRow>
-          );
-        })}
+            return (
+              <ContentRow>
+                <AssetCell style={{ width: "207px" }}>
+                  <span>{truncateAddress(owner)}</span>
+                </AssetCell>
+                <AssetCell style={{ width: "148px" }}>
+                  <span>{truncDust(collateral)}</span>
+                </AssetCell>
+                <AssetCell style={{ width: "172px" }}>
+                  <span>{truncDust(debt)}</span>
+                </AssetCell>
+                <AssetCell>
+                  <span>{cr.toFixed(2)}%</span>
+                </AssetCell>
+              </ContentRow>
+            );
+          })
+        ) : (
+          <Loader status={"FETCHING"} />
+        )}
       </DescContainer>
     </div>
   );

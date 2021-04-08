@@ -7,6 +7,7 @@ import {
 } from "./styles";
 import { boomerang } from "./animations/boomerang";
 import { money } from "./animations/money";
+import { fetching } from "./animations/fetching";
 import { rand } from "../../utils/randomNumbers";
 import MasterStyles from "../../utils/masterStyles";
 
@@ -29,6 +30,10 @@ const Loader = ({ status }) => {
       SENDING: {
         animation: boomerang,
         style: { w: "235px", h: "150px", fs: "18px" },
+      },
+      FETCHING: {
+        animation: fetching,
+        style: { w: "365px", h: "300px", fs: "25px" },
       },
     };
 
@@ -56,6 +61,7 @@ const Loader = ({ status }) => {
     <ComponentContainer style={{ marginTop: status === "SENDING" && "0px" }}>
       <LoadingContainer status={status}>
         <StyledText
+          style={{ marginTop: status === "FETCHING" && "85px" }}
           value={currentSpin}
           w={loaderStyle && loaderStyle.w}
           h={loaderStyle && loaderStyle.h}
@@ -65,7 +71,12 @@ const Loader = ({ status }) => {
       <LoadingText
         status={status}
         style={{
-          marginTop: status === "SENDING" ? "-15px" : "20px",
+          marginTop:
+            status === "SENDING"
+              ? "-15px"
+              : status === "FETCHING"
+              ? "-35px"
+              : "20px",
         }}
       >
         <i>{status}</i>

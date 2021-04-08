@@ -10,7 +10,10 @@ export const fetchPage = async (
   const newPage = [];
   for (let i = 0; i < pageSize; i++) {
     const troveOwner = await sortedTroves.methods.getPrev(lastTrove).call();
-    if (troveOwner) {
+    if (
+      troveOwner &&
+      troveOwner !== "0x0000000000000000000000000000000000000000"
+    ) {
       const trove = await troveManager.methods.Troves(troveOwner).call();
       lastTrove = troveOwner;
       newPage.push({ owner: troveOwner, trove });
