@@ -109,7 +109,7 @@ const Borrow = () => {
   const web3 = window.web3;
 
   return (
-    <div>
+    <div style={{ marginTop: "10px" }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div style={{ width: "375px" }}>
           <Title>Add To Trove</Title>
@@ -307,6 +307,7 @@ const Borrow = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          marginTop: "10px",
         }}
       >
         <Title>All Troves</Title>

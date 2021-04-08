@@ -3,7 +3,7 @@ import { DescContainer, Title, HR, Desc, Link, TokenomicsList } from "./styles";
 
 const FAQ = () => {
   return (
-    <div>
+    <div style={{ marginTop: "10px" }}>
       <Title>Overview</Title>
       <DescContainer>
         <HR />

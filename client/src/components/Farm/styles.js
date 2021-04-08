@@ -2,7 +2,7 @@ import styled from "styled-components";
 import MasterStyles from "../../utils/masterStyles";
 
 export const FarmContainer = styled.div`
-  margin-top: 0px;
+  margin-top: 10px;
 `;
 
 export const Title = styled.div`

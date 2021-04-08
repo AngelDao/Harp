@@ -25,5 +25,5 @@ export const Desc = styled.span`
 `;
 
 export const FarmContainer = styled.div`
-  margin-top: 0px;
+  margin-top: 10px;
 `;
