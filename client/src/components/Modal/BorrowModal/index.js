@@ -27,8 +27,31 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
   } = useContext(CredentialsContext);
   const [sending, setSending] = useState(false);
 
-  const handleBorrow = () => {
+  // NEED HINT PARAMS
+  const handleBorrow = async () => {
     const web3 = window.web3;
+
+    if (parseFloat(userTrove.coll) > 0) {
+      await borrow.methods
+        ._adjustTrove()
+        .send({ from: address })
+        .on("transactionHash", async () => {
+          setSending(true);
+        })
+        .on("receipt", async () => {
+          setSending(false);
+        });
+    } else {
+      await borrow.methods
+        .openTrove()
+        .send({ from: address })
+        .on("transactionHash", async () => {
+          setSending(true);
+        })
+        .on("receipt", async () => {
+          setSending(false);
+        });
+    }
   };
 
   return (

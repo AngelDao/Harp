@@ -574,10 +574,13 @@ export const fetchSortedTroves = async (web3, networkId, troveManager) => {
       } else {
         troveOwner = await sortedTroves.methods.getPrev(lastTrove).call();
       }
-      if (troveOwner) {
+      if (
+        troveOwner &&
+        troveOwner !== "0x0000000000000000000000000000000000000000"
+      ) {
         const trove = await troveManager.methods.Troves(troveOwner).call();
         lastTrove = troveOwner;
-        trovePages[1].push({ address: troveOwner, trove });
+        trovePages[1].push({ owner: troveOwner, trove });
       } else {
         break;
       }

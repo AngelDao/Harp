@@ -173,10 +173,9 @@ const Borrow = () => {
       (parseFloat(userTrove.debt) * prices.LUSD)) *
     100;
 
-  if (userTrove) {
-    const test = truncDust(fromWei(web3, userTrove.debt));
-    debugger;
-  }
+  const tDebt = truncDust(fromWei(web3, userTrove.debt));
+  const tColl = truncDust(fromWei(web3, userTrove.coll));
+  const uBal = parseFloat(userBalances.ETH);
 
   return (
     <>
@@ -199,7 +198,7 @@ const Borrow = () => {
               }}
             >
               <Title>Add To Trove</Title>
-              {parseFloat(userBalances.ETH) * prices.ETH > 2000 && (
+              {uBal * prices.ETH > 2000 && (
                 <a
                   onClick={() => handleSetMax()}
                   style={{ textDecoration: "underline", cursor: "pointer" }}
@@ -209,7 +208,7 @@ const Borrow = () => {
               )}
             </div>
             <DescContainer>
-              {parseFloat(userBalances.ETH) * prices.ETH > 2000 ? (
+              {uBal * prices.ETH > 2000 || tDebt > 0 ? (
                 <>
                   <div
                     style={{
@@ -264,8 +263,7 @@ const Borrow = () => {
                   >
                     <SubTitle>Collateral(ETH)</SubTitle>
                     <span style={{ marginBottom: "6px" }}>
-                      Available:{" "}
-                      {truncDust(parseFloat(userBalances.ETH).toFixed(4))}
+                      Available: {truncDust(uBal.toFixed(4))}
                     </span>
                   </div>
                   <NumberInput
@@ -357,9 +355,13 @@ const Borrow = () => {
                 height: "33px",
               }}
             >
-              {parseFloat(userBalances.ETH) * prices.ETH > 2000 && (
+              {(uBal * prices.ETH > 2000 || tDebt > 0) && (
                 <>
-                  <ActionButton onClick={handleOpen} action>
+                  <ActionButton
+                    onClick={handleOpen}
+                    action={memTrove.collat <= uBal && memTrove.collat > 0}
+                    disabled={!(memTrove.collat <= uBal && memTrove.collat > 0)}
+                  >
                     Add
                   </ActionButton>
                   <ActionButton onClick={handleClear} action>
