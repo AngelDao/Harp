@@ -5,6 +5,7 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  Center,
 } from "@chakra-ui/react";
 import MasterStyles from "../../utils/masterStyles";
 import {
@@ -19,6 +20,7 @@ import {
   HR,
   ContentRow,
   AssetCell,
+  NotEnough,
 } from "./styles";
 import CredentialsContext from "../../context/credentialsContext";
 import {
@@ -28,6 +30,7 @@ import {
 } from "../../utils/truncateString";
 import { fetchPage } from "../../utils/handleContracts/fetchPage";
 import Loader from "../Loader";
+import { ape, embrace } from "./ape";
 const Borrow = () => {
   const {
     troves,
@@ -56,6 +59,7 @@ const Borrow = () => {
         ? ((memTrove.collat * prices.ETH) / lusdUSD) * 100
         : ((newCollat * prices.ETH) / lusdUSD) * 100;
 
+    debugger;
     setMemTrove({
       debt: num,
       collat:
@@ -87,6 +91,10 @@ const Borrow = () => {
           : newBorrow / prices.LUSD,
       cRatio: cr.toFixed(2),
     });
+  };
+
+  const handleSetMax = () => {
+    handleChangeCollValue(parseFloat(userBalances.ETH));
   };
 
   const handleFocus = (type) => {
@@ -146,220 +154,292 @@ const Borrow = () => {
       (parseFloat(userTrove.debt) * prices.LUSD)) *
     100;
 
+  if (userTrove) {
+    const test = truncDust(fromWei(web3, userTrove.debt));
+    debugger;
+  }
+
   return (
     <div style={{ marginTop: "10px" }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div style={{ width: "375px" }}>
-          <Title>Add To Trove</Title>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Title>Add To Trove</Title>
+            {parseFloat(userBalances.ETH) * prices.ETH > 2000 && (
+              <a
+                onClick={() => handleSetMax()}
+                style={{ textDecoration: "underline", cursor: "pointer" }}
+              >
+                + Add Max
+              </a>
+            )}
+          </div>
           <DescContainer>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-end",
-              }}
-            >
-              <SubTitle>Borrow(LUSD)</SubTitle>
-              <span style={{ marginBottom: "6px" }}>
-                Balance: {truncDust(parseFloat(userBalances.LUSD).toFixed(4))}
-              </span>
-            </div>
-            <NumberInput
-              onBlur={() => handleBlur("debt")}
-              onFocus={() => handleFocus("debt")}
-              defaultValue={0}
-              min={0}
-              precision={4}
-              step={0.2}
-              //   max={parseFloat(memTrove.debt)}
-              value={memTrove.debt}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              onChange={(str, num) => handleChangeBorrowValue(num)}
-              outline="none"
-              backgroundColor={MasterStyles.background.secondaryMenu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.secondaryMenu}
-              />
-              <NumberInputStepper border="none">
-                <NumberIncrementStepper border="none" />
-                <NumberDecrementStepper border="none" />
-              </NumberInputStepper>
-            </NumberInput>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-end",
-                marginTop: "6px",
-              }}
-            >
-              <SubTitle>Collateral(ETH)</SubTitle>
-              <span style={{ marginBottom: "6px" }}>
-                Balance: {truncDust(parseFloat(userBalances.ETH).toFixed(4))}
-              </span>
-            </div>
-            <NumberInput
-              onBlur={() => handleBlur("collat")}
-              onFocus={() => handleFocus("collat")}
-              defaultValue={0}
-              min={0}
-              precision={4}
-              step={0.2}
-              //   max={parseFloat(memTrove.debt)}
-              value={memTrove.collat}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              onChange={(str, num) => handleChangeCollValue(num)}
-              outline="none"
-              backgroundColor={MasterStyles.background.secondaryMenu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.secondaryMenu}
-              />
-              <NumberInputStepper border="none">
-                <NumberIncrementStepper border="none" />
-                <NumberDecrementStepper border="none" />
-              </NumberInputStepper>
-            </NumberInput>
-            <SubTitle style={{ marginTop: "10px" }}>
-              Collateralization Ratio(%)
-            </SubTitle>
-            <NumberInput
-              defaultValue={0}
-              min={0}
-              precision={4}
-              step={0.2}
-              //   max={parseFloat(memTrove.debt)}
-              value={memTrove.cRatio}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              isReadOnly
-              //   onChange={(str, num) => handleChangeValue("cRatio", num)}
-              outline="none"
-              cursor="pointer"
-              backgroundColor={MasterStyles.background.secondaryMenu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.secondaryMenu}
-              />
-            </NumberInput>
+            {parseFloat(userBalances.ETH) * prices.ETH > 2000 ? (
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-end",
+                  }}
+                >
+                  <SubTitle>Borrow(LUSD)</SubTitle>
+                  <span style={{ marginBottom: "6px" }}>
+                    Available:{" "}
+                    {truncDust(parseFloat(userBalances.LUSD).toFixed(4))}
+                  </span>
+                </div>
+                <NumberInput
+                  onBlur={() => handleBlur("debt")}
+                  onFocus={() => handleFocus("debt")}
+                  defaultValue={0}
+                  min={0}
+                  precision={4}
+                  step={0.2}
+                  //   max={parseFloat(memTrove.debt)}
+                  value={isNaN(memTrove.debt) ? 0 : memTrove.debt}
+                  inputMode="decimal"
+                  borderRadius="0%"
+                  borderColor="black"
+                  focusBorderColor="black"
+                  onChange={(str, num) => handleChangeBorrowValue(num)}
+                  outline="none"
+                  backgroundColor={MasterStyles.background.secondaryMenu}
+                >
+                  <NumberInputField
+                    borderRadius="0%"
+                    border="2px solid black"
+                    outline="none"
+                    _hover={{ borderColor: "black" }}
+                    backgroundColor={MasterStyles.background.secondaryMenu}
+                  />
+                  <NumberInputStepper border="none">
+                    <NumberIncrementStepper border="none" />
+                    <NumberDecrementStepper border="none" />
+                  </NumberInputStepper>
+                </NumberInput>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-end",
+                    marginTop: "10px",
+                  }}
+                >
+                  <SubTitle>Collateral(ETH)</SubTitle>
+                  <span style={{ marginBottom: "6px" }}>
+                    Available:{" "}
+                    {truncDust(parseFloat(userBalances.ETH).toFixed(4))}
+                  </span>
+                </div>
+                <NumberInput
+                  onBlur={() => handleBlur("collat")}
+                  onFocus={() => handleFocus("collat")}
+                  defaultValue={0}
+                  min={0}
+                  precision={4}
+                  step={0.2}
+                  //   max={parseFloat(memTrove.debt)}
+                  value={isNaN(memTrove.collat) ? 0 : memTrove.collat}
+                  inputMode="decimal"
+                  borderRadius="0%"
+                  borderColor="black"
+                  focusBorderColor="black"
+                  onChange={(str, num) => handleChangeCollValue(num)}
+                  outline="none"
+                  backgroundColor={MasterStyles.background.secondaryMenu}
+                >
+                  <NumberInputField
+                    borderRadius="0%"
+                    border="2px solid black"
+                    outline="none"
+                    _hover={{ borderColor: "black" }}
+                    backgroundColor={MasterStyles.background.secondaryMenu}
+                  />
+                  <NumberInputStepper border="none">
+                    <NumberIncrementStepper border="none" />
+                    <NumberDecrementStepper border="none" />
+                  </NumberInputStepper>
+                </NumberInput>
+
+                <SubTitle style={{ marginTop: "10px" }}>
+                  Collateralization Ratio(%)
+                </SubTitle>
+                <NumberInput
+                  defaultValue={0}
+                  min={0}
+                  precision={4}
+                  step={0.2}
+                  //   max={parseFloat(memTrove.debt)}
+                  value={isNaN(memTrove.cRatio) ? 0 : memTrove.cRatio}
+                  inputMode="decimal"
+                  borderRadius="0%"
+                  borderColor="black"
+                  focusBorderColor="black"
+                  isReadOnly
+                  //   onChange={(str, num) => handleChangeValue("cRatio", num)}
+                  outline="none"
+                  cursor="pointer"
+                  backgroundColor={MasterStyles.background.secondaryMenu}
+                >
+                  <NumberInputField
+                    borderRadius="0%"
+                    border="2px solid black"
+                    outline="none"
+                    _hover={{ borderColor: "black" }}
+                    backgroundColor={MasterStyles.background.secondaryMenu}
+                  />
+                </NumberInput>
+              </>
+            ) : (
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  textAlign: "center",
+                }}
+              >
+                <NotEnough
+                  style={{ width: "37%", height: "165px" }}
+                  value={ape}
+                />
+                <span style={{ marginTop: "20px" }}>
+                  In order to borrow/ape you must have $2000 worth of ETH
+                  minimum or an open trove!
+                </span>
+              </div>
+            )}
           </DescContainer>
           <div
             style={{
               marginBottom: "20px",
               display: "flex",
               justifyContent: "space-around",
+              height: "33px",
             }}
           >
-            <ActionButton action>Add</ActionButton>
-            <ActionButton action>Clear</ActionButton>
+            {parseFloat(userBalances.ETH) * prices.ETH > 2000 && (
+              <>
+                <ActionButton action>Add</ActionButton>
+                <ActionButton action>Clear</ActionButton>
+              </>
+            )}
           </div>
         </div>
         <div style={{ width: "300px" }}>
           <Title>My Trove</Title>
           <DescContainer>
-            <SubTitle>Borrow</SubTitle>
-            <NumberInput
-              //   onBlur={() => handleBlur("debt")}
-              //   onFocus={() => handleFocus("debt")}
-              isReadOnly
-              defaultValue={0}
-              min={0}
-              precision={4}
-              step={0.2}
-              //   max={parseFloat(memTrove.debt)}
-              value={truncDust(parseFloat(userTrove.debt))}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              //   onChange={(str, num) => handleChangeValue("debt", num)}
-              outline="none"
-              backgroundColor={MasterStyles.background.menu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.menu}
-              />
-            </NumberInput>
-            <SubTitle style={{ marginTop: "10px" }}>Collateral</SubTitle>
-            <NumberInput
-              //   onBlur={() => handleBlur("collat")}
-              //   onFocus={() => handleFocus("collat")}
-              defaultValue={0}
-              min={0}
-              isReadOnly
-              precision={4}
-              step={0.2}
-              //   max={parseFloat(memTrove.debt)}
-              value={truncDust(parseFloat(userTrove.coll))}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              //   onChange={(str, num) => handleChangeValue("collat", num)}
-              outline="none"
-              backgroundColor={MasterStyles.background.menu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.menu}
-              />
-            </NumberInput>
-            <SubTitle style={{ marginTop: "10px" }}>
-              Collateralization Ratio
-            </SubTitle>
-            <NumberInput
-              defaultValue={0}
-              min={0}
-              precision={4}
-              step={0.2}
-              //   max={parseFloat(memTrove.debt)}
-              value={cr.toFixed(2) !== "NaN" ? cr.toFixed(2) : 0}
-              inputMode="decimal"
-              borderRadius="0%"
-              borderColor="black"
-              focusBorderColor="black"
-              isReadOnly
-              //   onChange={(str, num) => handleChangeValue("cRatio", num)}
-              outline="none"
-              cursor="pointer"
-              backgroundColor={MasterStyles.background.menu}
-            >
-              <NumberInputField
-                borderRadius="0%"
-                border="2px solid black"
-                outline="none"
-                _hover={{ borderColor: "black" }}
-                backgroundColor={MasterStyles.background.menu}
-              />
-            </NumberInput>
+            {parseFloat(truncDust(fromWei(web3, userTrove.debt))) > 0 ? (
+              <>
+                <SubTitle>Borrow(LUSD)</SubTitle>
+                <NumberInput
+                  //   onBlur={() => handleBlur("debt")}
+                  //   onFocus={() => handleFocus("debt")}
+                  isReadOnly
+                  defaultValue={0}
+                  min={0}
+                  precision={4}
+                  step={0.2}
+                  //   max={parseFloat(memTrove.debt)}
+                  value={truncDust(fromWei(web3, userTrove.debt))}
+                  inputMode="decimal"
+                  borderRadius="0%"
+                  borderColor="black"
+                  focusBorderColor="black"
+                  //   onChange={(str, num) => handleChangeValue("debt", num)}
+                  outline="none"
+                  backgroundColor={MasterStyles.background.menu}
+                >
+                  <NumberInputField
+                    borderRadius="0%"
+                    border="2px solid black"
+                    outline="none"
+                    _hover={{ borderColor: "black" }}
+                    backgroundColor={MasterStyles.background.menu}
+                  />
+                </NumberInput>
+                <SubTitle style={{ marginTop: "10px" }}>
+                  Collateral(ETH)
+                </SubTitle>
+                <NumberInput
+                  //   onBlur={() => handleBlur("collat")}
+                  //   onFocus={() => handleFocus("collat")}
+                  defaultValue={0}
+                  min={0}
+                  isReadOnly
+                  precision={4}
+                  step={0.2}
+                  //   max={parseFloat(memTrove.debt)}
+                  value={truncDust(fromWei(web3, userTrove.coll))}
+                  inputMode="decimal"
+                  borderRadius="0%"
+                  borderColor="black"
+                  focusBorderColor="black"
+                  //   onChange={(str, num) => handleChangeValue("collat", num)}
+                  outline="none"
+                  backgroundColor={MasterStyles.background.menu}
+                >
+                  <NumberInputField
+                    borderRadius="0%"
+                    border="2px solid black"
+                    outline="none"
+                    _hover={{ borderColor: "black" }}
+                    backgroundColor={MasterStyles.background.menu}
+                  />
+                </NumberInput>
+                <SubTitle style={{ marginTop: "10px" }}>
+                  Collateralization Ratio(%)
+                </SubTitle>
+                <NumberInput
+                  defaultValue={0}
+                  min={0}
+                  precision={4}
+                  step={0.2}
+                  //   max={parseFloat(memTrove.debt)}
+                  value={cr.toFixed(2) !== "NaN" ? cr.toFixed(2) : 0}
+                  inputMode="decimal"
+                  borderRadius="0%"
+                  borderColor="black"
+                  focusBorderColor="black"
+                  isReadOnly
+                  //   onChange={(str, num) => handleChangeValue("cRatio", num)}
+                  outline="none"
+                  cursor="pointer"
+                  backgroundColor={MasterStyles.background.menu}
+                >
+                  <NumberInputField
+                    borderRadius="0%"
+                    border="2px solid black"
+                    outline="none"
+                    _hover={{ borderColor: "black" }}
+                    backgroundColor={MasterStyles.background.menu}
+                  />
+                </NumberInput>
+              </>
+            ) : (
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <span>You have not yet opened a trove!</span>
+              </div>
+            )}
           </DescContainer>
         </div>
       </div>
