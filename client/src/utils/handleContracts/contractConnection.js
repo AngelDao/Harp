@@ -9,6 +9,9 @@ import StakingPool from "../../abis/StringStaking.json";
 import StabilityFactory from "../../abis/StabilityFactory.json";
 import StabilityProxy from "../../abis/StabilityProxy.json";
 import IStabilityPool from "../../abis/IStabilityPool.json";
+import IBorrowOperations from "../../abis/IBorrowerOperations.json";
+import ITroveManager from "../../abis/ITroveManager.json";
+import ISortedTroves from "../../abis/ISortedTroves.json";
 import { fromWei, toDecimal } from "../truncateString";
 import { addresses } from "./addresses";
 
@@ -505,5 +508,85 @@ export const fetchRewards = async (networkId, web3, address, lqtyToken) => {
     };
 
     return [rewards, rewardsBalances, rewardsAllowances];
+  }
+};
+
+export const fetchBorrow = async (web3, networkId, address) => {
+  if (networkId === 4) {
+    const borrow = new web3.eth.Contract(
+      IBorrowOperations.abi,
+      addresses.rinkeby.borrowerOperations
+    );
+
+    return [borrow];
+  } else if (networkId === 42) {
+    const borrow = new web3.eth.Contract(
+      IBorrowOperations.abi,
+      addresses.kovan.borrowerOperations
+    );
+
+    return [borrow];
+  }
+};
+
+export const fetchTroveManager = async (web3, networkId, address) => {
+  if (networkId === 4) {
+    const troveManager = new web3.eth.Contract(
+      ITroveManager.abi,
+      addresses.rinkeby.troveManager
+    );
+
+    const troveOwnersCount = await troveManager.methods
+      .getTroveOwnersCount()
+      .call();
+
+    const troves = {};
+    for (let i = 0; i < 5; i++) {
+      console.log(i);
+      const troveOwner = await troveManager.methods
+        .getTroveFromTroveOwnersArray(i)
+        .call();
+      const trove = await troveManager.methods.Troves(troveOwner).call();
+      troves[troveOwner] = trove;
+    }
+
+    const userTrove = await troveManager.methods.Troves(address).call();
+    return [troveManager, troves, userTrove];
+  } else if (networkId === 42) {
+    const troveManager = new web3.eth.Contract(
+      ITroveManager.abi,
+      addresses.kovan.troveManager
+    );
+    const troveOwnersCount = await troveManager.methods
+      .getTroveOwnersCount()
+      .call();
+    const troves = {};
+    for (let i = 0; i < 5; i++) {
+      console.log(i);
+      const troveOwner = await troveManager.methods
+        .getTroveFromTroveOwnersArray(i)
+        .call();
+      const trove = await troveManager.methods.Troves(troveOwner).call();
+      troves[troveOwner] = trove;
+    }
+    return [troveManager, troves];
+  }
+};
+
+export const fetchSortedTroves = async (web3, networkId, address) => {
+  if (networkId === 4) {
+    const sortedTroves = new web3.eth.Contract(
+      ISortedTroves.abi,
+      addresses.rinkeby.sortedTroves
+    );
+
+    return [sortedTroves];
+  } else if (networkId === 42) {
+    const sortedTroves = new web3.eth.Contract(
+      ISortedTroves.abi,
+      addresses.kovan.sortedTroves
+    );
+
+    return [sortedTroves];
   }
 };

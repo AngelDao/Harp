@@ -21,6 +21,9 @@ import {
   fetchProfitShare,
   fetchStabilityFactory,
   fetchRewards,
+  fetchBorrow,
+  fetchTroveManager,
+  fetchSortedTroves,
 } from "./utils/handleContracts/contractConnection";
 import { fetchPrices, fetchTest } from "./utils/handlePriceData";
 import { fetchTVL } from "./utils/handleContracts/contractTVL";
@@ -50,6 +53,8 @@ function App() {
   const [hasAgreed, setHasAgreed] = useState(false);
   const [network, setNetwork] = useState(false);
   const [schedulerID, setSchedulerID] = useState(null);
+  const [troves, setTroves] = useState(false);
+  const [userTrove, setUserTrove] = useState(false);
 
   const handleOpenConnectModal = () => {
     setConnectModalVisible(false);
@@ -148,8 +153,17 @@ function App() {
       lqtyToken
     );
 
-    // debugger;
+    const [borrow] = await fetchBorrow(web3, networkId, address);
+    const [troveManager, troves, userTrove] = await fetchTroveManager(
+      web3,
+      networkId,
+      address
+    );
+    const [sortedTroves] = await fetchSortedTroves(web3, networkId, address);
 
+    // debugger;
+    setTroves(troves);
+    setUserTrove(userTrove);
     setRewardsBalances(rwsBalances);
     setFarmBalances(farmBalances);
     setProfitShareBalances(psBalances);
@@ -162,6 +176,9 @@ function App() {
       rewards: rwsAllowances,
     });
     setContracts({
+      borrow,
+      sortedTroves,
+      troveManager,
       factory,
       proxy,
       rewards,
@@ -217,8 +234,6 @@ function App() {
       setLoading
     );
 
-    debugger;
-
     if (res) {
       setWeb3UserProvider(res[0]);
       handleUnsupported(res[0].currentProvider.chainId);
@@ -267,7 +282,6 @@ function App() {
   // once connected to the contractss
   useEffect(() => {
     const adr = address;
-    debugger;
     if (!tvl && contracts.stringToken) {
       (async () => {
         await handlePricing();
@@ -333,6 +347,8 @@ function App() {
     hasAgreed,
     setHasAgreed,
     network,
+    troves,
+    userTrove,
   };
 
   return (

@@ -60,3 +60,43 @@ export const ActionButton = styled.button`
     return disabled ? "not-allowed" : "cursor";
   }};
 `;
+
+export const HeaderRow = styled.div`
+  width: 100%;
+  display: flex;
+  // justify-content: space-between;
+`;
+
+export const AssetCell = styled.div`
+  display: flex;
+  align-items: center;
+  height: 50px;
+`;
+
+export const ContentRow = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 px 0px;
+`;
+
+export const HeaderTitle = styled.span`
+  font-size: ${MasterStyles.fontSize.medium};
+`;
+
+export const Cell = styled.div`
+  width: 70px;
+`;
+
+export const WrapperCenter = styled.div`
+  width: 100%;
+  display: flex;
+  // justify-content: center;
+`;
+
+export const HR = styled.div`
+  margin-top: 5px;
+  border-top: 2.5px dashed black;
+  height: 0px;
+  width: 100%;
+`;

@@ -192,10 +192,6 @@ const Pool = ({
 
   let contractSel = contractBals[contract === "factory" ? "proxy" : contract];
 
-  if (!dailyAPY || (dailyAPY === "NaN" && contract !== "rewards")) {
-    debugger;
-  }
-
   return (
     <>
       <Modal

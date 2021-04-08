@@ -1,0 +1,295 @@
+{
+  "contractName": "ILiquityBase",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "priceFeed",
+      "outputs": [
+        {
+          "internalType": "contract IPriceFeed",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"priceFeed\",\"outputs\":[{\"internalType\":\"contract IPriceFeed\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/danie/code/harp/client/contracts/Interfaces/ILiquityBase.sol\":\"ILiquityBase\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/danie/code/harp/client/contracts/Interfaces/ILiquityBase.sol\":{\"keccak256\":\"0x99b2aab65c97627b931bb3b6d22acb6c74a6f12c650cc9f91477756cf765442e\",\"urls\":[\"bzz-raw://fd55ea5a972e64e55d4fadda84c42fb83f1ecf23828d3cd6d4e87b633788fb5c\",\"dweb:/ipfs/QmPKaU9U9mgGia9j4y1KN9atVyZyj8zZWHxu9C7MQM1VCm\"]},\"/C/Users/danie/code/harp/client/contracts/Interfaces/IPriceFeed.sol\":{\"keccak256\":\"0x715927ccea9e3367972e300124977680c72e9de52ab9779f5f2cbb9c3a9d34a6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://6898aeccd1f5f96d5b3779cb7563ad4155dafcb33bf73ffa4fc7aef255af932e\",\"dweb:/ipfs/QmZLxPWJ9nAp5vyLYpLBUxedHQgPb3QzQycSBqSh2vcsiZ\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity >=0.6.0 <0.8.0;\r\n\r\nimport \"./IPriceFeed.sol\";\r\n\r\ninterface ILiquityBase {\r\n    function priceFeed() external view returns (IPriceFeed);\r\n}\r\n",
+  "sourcePath": "C:\\Users\\danie\\code\\harp\\client\\contracts\\Interfaces\\ILiquityBase.sol",
+  "ast": {
+    "absolutePath": "/C/Users/danie/code/harp/client/contracts/Interfaces/ILiquityBase.sol",
+    "exportedSymbols": {
+      "ILiquityBase": [
+        514
+      ],
+      "IPriceFeed": [
+        526
+      ]
+    },
+    "id": 515,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 507,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0",
+          "<",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:31:6"
+      },
+      {
+        "absolutePath": "/C/Users/danie/code/harp/client/contracts/Interfaces/IPriceFeed.sol",
+        "file": "./IPriceFeed.sol",
+        "id": 508,
+        "nodeType": "ImportDirective",
+        "scope": 515,
+        "sourceUnit": 527,
+        "src": "35:26:6",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 514,
+        "linearizedBaseContracts": [
+          514
+        ],
+        "name": "ILiquityBase",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "741bef1a",
+            "id": 513,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "priceFeed",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 509,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "113:2:6"
+            },
+            "returnParameters": {
+              "id": 512,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 511,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 513,
+                  "src": "139:10:6",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_IPriceFeed_$526",
+                    "typeString": "contract IPriceFeed"
+                  },
+                  "typeName": {
+                    "id": 510,
+                    "name": "IPriceFeed",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 526,
+                    "src": "139:10:6",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IPriceFeed_$526",
+                      "typeString": "contract IPriceFeed"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "138:12:6"
+            },
+            "scope": 514,
+            "src": "95:56:6",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 515,
+        "src": "65:89:6"
+      }
+    ],
+    "src": "0:156:6"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "/C/Users/danie/code/harp/client/contracts/Interfaces/ILiquityBase.sol",
+      "exportedSymbols": {
+        "ILiquityBase": [
+          514
+        ],
+        "IPriceFeed": [
+          526
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".0",
+            "<",
+            "0.8",
+            ".0"
+          ]
+        },
+        "id": 507,
+        "name": "PragmaDirective",
+        "src": "0:31:6"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 527,
+          "absolutePath": "/C/Users/danie/code/harp/client/contracts/Interfaces/IPriceFeed.sol",
+          "file": "./IPriceFeed.sol",
+          "scope": 515,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 508,
+        "name": "ImportDirective",
+        "src": "35:26:6"
+      },
+      {
+        "attributes": {
+          "abstract": false,
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            514
+          ],
+          "name": "ILiquityBase",
+          "scope": 515
+        },
+        "children": [
+          {
+            "attributes": {
+              "functionSelector": "741bef1a",
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "priceFeed",
+              "scope": 514,
+              "stateMutability": "view",
+              "virtual": false,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 509,
+                "name": "ParameterList",
+                "src": "113:2:6"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "mutability": "mutable",
+                      "name": "",
+                      "scope": 513,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "contract IPriceFeed",
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "IPriceFeed",
+                          "referencedDeclaration": 526,
+                          "type": "contract IPriceFeed"
+                        },
+                        "id": 510,
+                        "name": "UserDefinedTypeName",
+                        "src": "139:10:6"
+                      }
+                    ],
+                    "id": 511,
+                    "name": "VariableDeclaration",
+                    "src": "139:10:6"
+                  }
+                ],
+                "id": 512,
+                "name": "ParameterList",
+                "src": "138:12:6"
+              }
+            ],
+            "id": 513,
+            "name": "FunctionDefinition",
+            "src": "95:56:6"
+          }
+        ],
+        "id": 514,
+        "name": "ContractDefinition",
+        "src": "65:89:6"
+      }
+    ],
+    "id": 515,
+    "name": "SourceUnit",
+    "src": "0:156:6"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.7.6+commit.7338295f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.3.3",
+  "updatedAt": "2021-04-07T23:02:53.903Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
