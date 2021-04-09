@@ -17,7 +17,7 @@ import {
 import Loader from "../../Loader";
 import MasterStyles from "../../../utils/masterStyles";
 import CredentialsContext from "../../../context/credentialsContext";
-
+import { toWei } from "../../../utils/truncateString";
 const RedeemModal = ({ isOpen, close, coll, debt }) => {
   const {
     contracts: { borrow },
@@ -33,7 +33,7 @@ const RedeemModal = ({ isOpen, close, coll, debt }) => {
 
     if (parseFloat(userTrove.coll) > parseFloat(coll)) {
       await borrow.methods
-        ._adjustTrove()
+        .adjustTrove(address,,false,,,toWei(web3, "0.05"))
         .send({ from: address })
         .on("transactionHash", async () => {
           setSending(true);
@@ -43,7 +43,7 @@ const RedeemModal = ({ isOpen, close, coll, debt }) => {
         });
     } else {
       await borrow.methods
-        .openTrove()
+        .openTrove(toWei(web3, "0.05"))
         .send({ from: address })
         .on("transactionHash", async () => {
           setSending(true);
