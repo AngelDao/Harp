@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { MenuContainer, Item, EffectContainer, ItemContainer } from "./styles";
 import { StyledLink } from "./styles";
 import { withRouter } from "react-router-dom";
+import { pathFinder } from "../../utils/ipfsRouteHelper";
 
-const Menu = ({ location }) => {
+const Menu = ({ location, history }) => {
   const [current, setCurrent] = useState(location.pathname.split("/")[1]);
   const [currentH, setCurrentH] = useState(null);
 
@@ -12,18 +13,25 @@ const Menu = ({ location }) => {
   };
 
   const handleHover = (c) => {
-    setCurrentH(c);
+    // setCurrentH(c);
+  };
+
+  const pushToHistory = (route) => {
+    debugger;
+    history.push(route);
   };
 
   useEffect(() => {
     setCurrent(location.pathname.split("/")[1]);
   }, [location.pathname]);
 
+  const ipfsHash = pathFinder();
+
   return (
     <MenuContainer>
       <EffectContainer>
         <ItemContainer>
-          <StyledLink to="/stake">
+          <StyledLink onClick={() => pushToHistory("stake")}>
             <Item
               onMouseLeave={() => handleHover("")}
               onMouseOver={() => handleHover("stake")}
@@ -34,7 +42,7 @@ const Menu = ({ location }) => {
               Stake
             </Item>
           </StyledLink>
-          <StyledLink to="/farm">
+          <StyledLink onClick={() => pushToHistory("farm")}>
             <Item
               onMouseLeave={() => handleHover("")}
               onMouseOver={() => handleHover("farm")}
@@ -45,7 +53,7 @@ const Menu = ({ location }) => {
               Farm
             </Item>
           </StyledLink>
-          <StyledLink to="/borrow">
+          <StyledLink onClick={() => pushToHistory("borrow")}>
             <Item
               onMouseLeave={() => handleHover("")}
               onMouseOver={() => handleHover("borrow")}
@@ -56,7 +64,7 @@ const Menu = ({ location }) => {
               Borrow
             </Item>
           </StyledLink>
-          <StyledLink to="/redeem">
+          <StyledLink onClick={() => pushToHistory("redeem")}>
             <Item
               onMouseLeave={() => handleHover("")}
               onMouseOver={() => handleHover("redeem")}
@@ -67,7 +75,7 @@ const Menu = ({ location }) => {
               Redeem
             </Item>
           </StyledLink>
-          <StyledLink to="/faq">
+          <StyledLink onClick={() => pushToHistory("faq")}>
             <Item
               onMouseLeave={() => handleHover("")}
               onMouseOver={() => handleHover("faq")}
