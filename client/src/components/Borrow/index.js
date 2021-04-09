@@ -198,7 +198,7 @@ const Borrow = () => {
               }}
             >
               <Title>Add To Trove</Title>
-              {uBal * prices.ETH > 2000 && (
+              {(uBal * prices.ETH > 2000 || tDebt > 0) && (
                 <a
                   onClick={() => handleSetMax()}
                   style={{ textDecoration: "underline", cursor: "pointer" }}
@@ -210,19 +210,7 @@ const Borrow = () => {
             <DescContainer>
               {uBal * prices.ETH > 2000 || tDebt > 0 ? (
                 <>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "flex-end",
-                    }}
-                  >
-                    <SubTitle>Borrow(LUSD)</SubTitle>
-                    <span style={{ marginBottom: "6px" }}>
-                      Available:{" "}
-                      {truncDust(parseFloat(userBalances.LUSD).toFixed(4))}
-                    </span>
-                  </div>
+                  <SubTitle>Borrow(LUSD)</SubTitle>
                   <NumberInput
                     onBlur={() => handleBlur("debt")}
                     onFocus={() => handleFocus("debt")}

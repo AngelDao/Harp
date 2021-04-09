@@ -31,7 +31,7 @@ import {
 import { fetchPage } from "../../utils/handleContracts/fetchPage";
 import Loader from "../Loader";
 import { ape, embrace, angel } from "../Borrow/ape";
-import BorrowModal from "../Modal/BorrowModal";
+import RedeemModal from "../Modal/RedeemModal";
 
 const Redeem = () => {
   const {
@@ -46,53 +46,44 @@ const Redeem = () => {
   const [memTrove, setMemTrove] = useState({
     collat: 0,
     debt: 0,
-    cRatio: 0,
   });
   const [currentPage, setPage] = useState(1);
   const [internalLoading, setInternalLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleChangeBorrowValue = (num) => {
-    const requiredColl = 1.1;
+    const tCollusd = parseFloat(fromWei(web3, userTrove.coll)) * prices.ETH;
+    const tDebtusd = parseFloat(fromWei(web3, userTrove.debt)) * prices.LUSD;
     const lusdUSD = parseFloat(num) * prices.LUSD;
-    const newCollat = (lusdUSD * requiredColl) / prices.ETH;
-    const cr =
-      memTrove.collat &&
-      (memTrove.collat * prices.ETH) / lusdUSD >= requiredColl
-        ? ((memTrove.collat * prices.ETH) / lusdUSD) * 100
-        : ((newCollat * prices.ETH) / lusdUSD) * 100;
+    const paybackRatio = tCollusd / tDebtusd;
+    const newCollat = (lusdUSD * paybackRatio) / prices.ETH;
 
     setMemTrove({
       debt: num,
-      collat:
-        memTrove.collat &&
-        (memTrove.collat * prices.ETH) / lusdUSD >= requiredColl
-          ? memTrove.collat
-          : newCollat,
-      cRatio: cr.toFixed(2),
+      collat: newCollat,
     });
   };
 
   const handleChangeCollValue = (num) => {
-    const requiredColl = 1.1;
+    const tCollusd = parseFloat(fromWei(web3, userTrove.coll)) * prices.ETH;
+    const tDebtusd = parseFloat(fromWei(web3, userTrove.debt)) * prices.LUSD;
     const ethUSD = parseFloat(num) * prices.ETH;
-    const lusdUSD = parseFloat(memTrove.debt) * prices.LUSD;
-    const newBorrow = ethUSD / requiredColl;
-    const cr =
-      memTrove.collat &&
-      memTrove.debt &&
-      ethUSD / (memTrove.debt * prices.LUSD) >= requiredColl
-        ? (ethUSD / lusdUSD) * 100
-        : (ethUSD / newBorrow) * 100;
+    const paybackRatio = tCollusd / tDebtusd;
+    const newDebt = ethUSD / paybackRatio / prices.LUSD;
+
+    // const requiredColl = 1.1;
+    // const ethUSD = parseFloat(num) * prices.ETH;
+    // const lusdUSD = tDebt * prices.LUSD;
+    // const newBorrow = ethUSD / requiredColl;
+    // const cr =
+    //   memTrove.collat && memTrove.debt && ethUSD / tDebt >= requiredColl
+    //     ? (ethUSD / lusdUSD) * 100
+    //     : (ethUSD / newBorrow) * 100;
 
     debugger;
     setMemTrove({
       collat: num,
-      debt:
-        memTrove.debt && ethUSD / (memTrove.debt * prices.LUSD) >= requiredColl
-          ? memTrove.debt
-          : newBorrow / prices.LUSD,
-      cRatio: cr.toFixed(2),
+      debt: newDebt,
     });
   };
 
@@ -180,7 +171,7 @@ const Redeem = () => {
 
   return (
     <>
-      <BorrowModal
+      <RedeemModal
         isOpen={isOpen}
         open={handleOpen}
         close={handleClose}
@@ -329,8 +320,10 @@ const Redeem = () => {
                 <>
                   <ActionButton
                     onClick={handleOpen}
-                    action={memTrove.collat <= uBal && memTrove.collat > 0}
-                    disabled={!(memTrove.collat <= uBal && memTrove.collat > 0)}
+                    action={memTrove.collat <= tColl && memTrove.collat > 0}
+                    disabled={
+                      !(memTrove.collat <= tColl && memTrove.collat > 0)
+                    }
                   >
                     Redeem
                   </ActionButton>
