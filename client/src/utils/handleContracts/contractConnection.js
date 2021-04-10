@@ -572,7 +572,7 @@ export const fetchSortedTroves = async (web3, networkId, troveManager) => {
     );
 
     const pageSize = 10;
-    const trovePages = { 1: [], 2: [] };
+    const trovePages = { 1: [] };
     let lastTrove = null;
 
     for (let i = 0; i < pageSize; i++) {

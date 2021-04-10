@@ -68,8 +68,8 @@ const Borrow = () => {
       collat:
         memTrove.collat &&
         (memTrove.collat * prices.ETH) / lusdUSD >= requiredColl
-          ? memTrove.collat + (num * prices.LUSD * borrowRate) / prices.ETH
-          : newCollat + (num * prices.LUSD * borrowRate) / prices.ETH,
+          ? memTrove.collat
+          : newCollat,
       cRatio: cr.toFixed(2),
     });
   };
@@ -93,8 +93,8 @@ const Borrow = () => {
       collat: num,
       debt:
         memTrove.debt && ethUSD / (memTrove.debt * prices.LUSD) >= requiredColl
-          ? memTrove.debt - memTrove.debt * borrowRate
-          : newBorrow / prices.LUSD - newBorrow * borrowRate,
+          ? memTrove.debt
+          : newBorrow / prices.LUSD,
       cRatio: cr.toFixed(2),
     });
   };

@@ -1,4 +1,4 @@
-import { toDecimal, fromWei } from "../truncateString.js";
+import { toDecimal, fromWei, toWei } from "../truncateString.js";
 
 export const fetchTVL = async (web3, prices, contracts) => {
   const {
@@ -11,6 +11,7 @@ export const fetchTVL = async (web3, prices, contracts) => {
     gStringToken,
     lusdToken,
     farm,
+    troveManager,
   } = contracts;
   const { STRING, LQTY, LUSD, ETH, gSTRING } = prices;
 
@@ -97,5 +98,12 @@ export const fetchTVL = async (web3, prices, contracts) => {
   const ETHLPPrice = ETHLPTVL / parseFloat(ETHLPSupply);
   const LUSDLPPrice = LUSDLPTVL / parseFloat(LUSDLPSupply);
 
-  return [TVL, ETHLPPrice, LUSDLPPrice];
+  const TCR = parseFloat(
+    fromWei(
+      web3,
+      await troveManager.methods.getTCR(toWei(web3, ETH.toString())).call()
+    )
+  );
+
+  return [TVL, ETHLPPrice, LUSDLPPrice, TCR];
 };

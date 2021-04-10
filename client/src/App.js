@@ -56,6 +56,7 @@ function App() {
   const [schedulerID, setSchedulerID] = useState(null);
   const [troves, setTroves] = useState(false);
   const [userTrove, setUserTrove] = useState(false);
+  const [liquityGlobals, setLiquityGlobals] = useState(false);
   const [borrowRate, setBorrowRate] = useState(false);
 
   const handleOpenConnectModal = () => {
@@ -174,6 +175,7 @@ function App() {
     if (!troves) {
       setTroves({ troveCount, troves: sTroves });
     }
+    setLiquityGlobals({ borrowRate });
     setBorrowRate(borrowRate);
     setUserTrove(userTrove);
     setRewardsBalances(rwsBalances);
@@ -229,8 +231,13 @@ function App() {
       gSTRING,
     };
     console.log("gather tvl");
-    const [tvl, eprice, lprice] = await fetchTVL(window.web3, prc, contracts);
+    const [tvl, eprice, lprice, TCR] = await fetchTVL(
+      window.web3,
+      prc,
+      contracts
+    );
     setTVL(tvl);
+    setLiquityGlobals({ ...liquityGlobals, TCR });
     setPrices({
       ...prc,
       gSTRING_ETH_LP: eprice,

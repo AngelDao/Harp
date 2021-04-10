@@ -35,7 +35,12 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
   const handleBorrow = async () => {
     const web3 = window.web3;
 
-    const [upperHint, lowerHint, debtChange] = await createHintforBorrow(
+    const [
+      upperHint,
+      lowerHint,
+      debtChange,
+      collatChange,
+    ] = await createHintforBorrow(
       web3,
       hintHelpers,
       sortedTroves,
@@ -44,32 +49,37 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
       coll
     );
 
+    debugger;
+
     if (parseFloat(userTrove.coll) > 0) {
       await borrow.methods
         .adjustTrove(
-          address,
+          toWei(web3, "0.05"),
           toWei(web3, "0"),
           debtChange,
           true,
           upperHint,
-          lowerHint,
-          toWei(web3, "0.05")
+          lowerHint
         )
         .send({ from: address })
+        .on("sent", async () => {})
         .on("transactionHash", async () => {
           setSending(true);
         })
         .on("receipt", async () => {
+          debugger;
           setSending(false);
         });
     } else {
       await borrow.methods
         .openTrove(toWei(web3, "0.05"), debtChange, upperHint, lowerHint)
         .send({ from: address })
+        .on("sent", async () => {})
         .on("transactionHash", async () => {
           setSending(true);
         })
         .on("receipt", async () => {
+          debugger;
           setSending(false);
         });
     }

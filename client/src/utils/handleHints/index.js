@@ -9,7 +9,8 @@ export const createHintforBorrow = async (
   collat
 ) => {
   let CR;
-  let debtChange = toWei(web3, debt.toString());
+  const debtChange = toWei(web3, debt.toString());
+  const collatChange = toWei(web3, collat.toString());
 
   const BN = web3.utils.BN;
   if (parseFloat(userTrove.debt) > 0) {
@@ -17,7 +18,6 @@ export const createHintforBorrow = async (
     const newDebt = new BN(toWei(web3, debt.toString()));
     const currentColl = newColl.add(new BN(userTrove.coll));
     const currentDebt = newDebt.add(new BN(userTrove.debt));
-    debtChange = currentDebt.sub(newDebt).abs();
     const ten = new BN("10");
     const to18th = new BN("20");
     const buffer = ten.pow(to18th);
@@ -25,7 +25,7 @@ export const createHintforBorrow = async (
   } else {
     const newColl = new BN(toWei(web3, collat.toString()));
     const newDebt = new BN(toWei(web3, debt.toString()));
-    const ten = new BN("100");
+    const ten = new BN("10");
     const to18th = new BN("20");
     const buffer = ten.pow(to18th);
     CR = newColl.mul(buffer).div(newDebt);
@@ -46,7 +46,5 @@ export const createHintforBorrow = async (
   const higher = res[0];
   const lower = res[1];
 
-  debtChange = toWei(web3, debtChange.toString);
-
-  return [higher, lower, debtChange];
+  return [higher, lower, debtChange, collatChange];
 };
