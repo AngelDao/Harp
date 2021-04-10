@@ -80,7 +80,6 @@ const Redeem = () => {
     //     ? (ethUSD / lusdUSD) * 100
     //     : (ethUSD / newBorrow) * 100;
 
-    debugger;
     setMemTrove({
       collat: num,
       debt: newDebt,

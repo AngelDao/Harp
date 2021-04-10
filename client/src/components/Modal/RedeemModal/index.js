@@ -32,25 +32,25 @@ const RedeemModal = ({ isOpen, close, coll, debt }) => {
     const web3 = window.web3;
 
     if (parseFloat(userTrove.coll) > parseFloat(coll)) {
-      await borrow.methods
-        .adjustTrove(address,,false,,,toWei(web3, "0.05"))
-        .send({ from: address })
-        .on("transactionHash", async () => {
-          setSending(true);
-        })
-        .on("receipt", async () => {
-          setSending(false);
-        });
+      // await borrow.methods
+      //   .adjustTrove(address,,false,,,toWei(web3, "0.05"))
+      //   .send({ from: address })
+      //   .on("transactionHash", async () => {
+      //     setSending(true);
+      //   })
+      //   .on("receipt", async () => {
+      //     setSending(false);
+      //   });
     } else {
-      await borrow.methods
-        .openTrove(toWei(web3, "0.05"))
-        .send({ from: address })
-        .on("transactionHash", async () => {
-          setSending(true);
-        })
-        .on("receipt", async () => {
-          setSending(false);
-        });
+      // await borrow.methods
+      //   .openTrove(toWei(web3, "0.05"))
+      //   .send({ from: address })
+      //   .on("transactionHash", async () => {
+      //     setSending(true);
+      //   })
+      //   .on("receipt", async () => {
+      //     setSending(false);
+      //   });
     }
   };
 

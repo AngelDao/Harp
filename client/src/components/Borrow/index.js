@@ -41,6 +41,7 @@ const Borrow = () => {
     setTroves,
     contracts: { troveManager, sortedTroves },
     userBalances,
+    borrowRate,
   } = useContext(CredentialsContext);
 
   const [memTrove, setMemTrove] = useState({
@@ -53,7 +54,7 @@ const Borrow = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleChangeBorrowValue = (num) => {
-    const requiredColl = 1.1;
+    const requiredColl = 1.2;
     const lusdUSD = parseFloat(num) * prices.LUSD;
     const newCollat = (lusdUSD * requiredColl) / prices.ETH;
     const cr =
@@ -62,20 +63,19 @@ const Borrow = () => {
         ? ((memTrove.collat * prices.ETH) / lusdUSD) * 100
         : ((newCollat * prices.ETH) / lusdUSD) * 100;
 
-    debugger;
     setMemTrove({
       debt: num,
       collat:
         memTrove.collat &&
         (memTrove.collat * prices.ETH) / lusdUSD >= requiredColl
-          ? memTrove.collat
-          : newCollat,
+          ? memTrove.collat + (num * prices.LUSD * borrowRate) / prices.ETH
+          : newCollat + (num * prices.LUSD * borrowRate) / prices.ETH,
       cRatio: cr.toFixed(2),
     });
   };
 
   const handleChangeCollValue = (num) => {
-    const requiredColl = 1.1;
+    const requiredColl = 1.2;
     const ethUSD = parseFloat(num) * prices.ETH;
     const lusdUSD = parseFloat(memTrove.debt) * prices.LUSD;
     const newBorrow = ethUSD / requiredColl;
@@ -86,12 +86,15 @@ const Borrow = () => {
         ? (ethUSD / lusdUSD) * 100
         : (ethUSD / newBorrow) * 100;
 
+    console.log(newBorrow * borrowRate);
+    console.log(memTrove.debt * borrowRate);
+
     setMemTrove({
       collat: num,
       debt:
         memTrove.debt && ethUSD / (memTrove.debt * prices.LUSD) >= requiredColl
-          ? memTrove.debt
-          : newBorrow / prices.LUSD,
+          ? memTrove.debt - memTrove.debt * borrowRate
+          : newBorrow / prices.LUSD - newBorrow * borrowRate,
       cRatio: cr.toFixed(2),
     });
   };
@@ -210,7 +213,16 @@ const Borrow = () => {
             <DescContainer>
               {uBal * prices.ETH > 2000 || tDebt > 0 ? (
                 <>
-                  <SubTitle>Borrow(LUSD)</SubTitle>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <SubTitle>Borrow(LUSD)</SubTitle>
+                    <span>Fee: {(memTrove.debt * borrowRate).toFixed(4)}</span>
+                  </div>
                   <NumberInput
                     onBlur={() => handleBlur("debt")}
                     onFocus={() => handleFocus("debt")}

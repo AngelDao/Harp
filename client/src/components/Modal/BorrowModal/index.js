@@ -17,13 +17,17 @@ import {
 import Loader from "../../Loader";
 import MasterStyles from "../../../utils/masterStyles";
 import CredentialsContext from "../../../context/credentialsContext";
+import { createHintforBorrow } from "../../../utils/handleHints";
+import { toWei } from "../../../utils/truncateString";
 
 const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
   const {
-    contracts: { borrow },
+    contracts: { borrow, hintHelpers, sortedTroves },
     address,
     userTrove,
     userBalances,
+    troves,
+    prices,
   } = useContext(CredentialsContext);
   const [sending, setSending] = useState(false);
 
@@ -31,9 +35,26 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
   const handleBorrow = async () => {
     const web3 = window.web3;
 
+    const [upperHint, lowerHint, debtChange] = await createHintforBorrow(
+      web3,
+      hintHelpers,
+      sortedTroves,
+      userTrove,
+      debt,
+      coll
+    );
+
     if (parseFloat(userTrove.coll) > 0) {
       await borrow.methods
-        ._adjustTrove()
+        .adjustTrove(
+          address,
+          toWei(web3, "0"),
+          debtChange,
+          true,
+          upperHint,
+          lowerHint,
+          toWei(web3, "0.05")
+        )
         .send({ from: address })
         .on("transactionHash", async () => {
           setSending(true);
@@ -43,7 +64,7 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
         });
     } else {
       await borrow.methods
-        .openTrove()
+        .openTrove(toWei(web3, "0.05"), debtChange, upperHint, lowerHint)
         .send({ from: address })
         .on("transactionHash", async () => {
           setSending(true);
