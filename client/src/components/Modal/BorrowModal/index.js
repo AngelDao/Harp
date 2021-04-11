@@ -49,8 +49,6 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
       coll
     );
 
-    debugger;
-
     if (parseFloat(userTrove.coll) > 0) {
       await borrow.methods
         .adjustTrove(
@@ -61,35 +59,40 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
           upperHint,
           lowerHint
         )
-        .send({ from: address })
+        .send({ from: address, value: collatChange })
         .on("sent", async () => {})
         .on("transactionHash", async () => {
           setSending(true);
         })
         .on("receipt", async () => {
-          debugger;
           setSending(false);
+          close();
         });
     } else {
       await borrow.methods
         .openTrove(toWei(web3, "0.05"), debtChange, upperHint, lowerHint)
-        .send({ from: address })
+        .send({ from: address, value: collatChange })
         .on("sent", async () => {})
         .on("transactionHash", async () => {
           setSending(true);
         })
         .on("receipt", async () => {
-          debugger;
           setSending(false);
+          close();
         });
     }
+  };
+
+  const handleClose = () => {
+    setSending(false);
+    close();
   };
 
   return (
     <Modal
       borderRadius="0%"
       isOpen={isOpen}
-      onClose={close}
+      onClose={handleClose}
       size="sm"
       isCentered
     >

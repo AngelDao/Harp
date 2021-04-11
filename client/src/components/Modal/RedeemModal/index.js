@@ -17,48 +17,87 @@ import {
 import Loader from "../../Loader";
 import MasterStyles from "../../../utils/masterStyles";
 import CredentialsContext from "../../../context/credentialsContext";
-import { toWei } from "../../../utils/truncateString";
-const RedeemModal = ({ isOpen, close, coll, debt }) => {
+import { toWei, fromWei } from "../../../utils/truncateString";
+import { createHintforRepay } from "../../../utils/handleHints";
+
+const RedeemModal = ({ isOpen, close, coll, debt, toClose }) => {
   const {
-    contracts: { borrow },
+    contracts: { borrow, hintHelpers, sortedTroves },
     address,
     userTrove,
     userBalances,
+    troves,
+    prices,
   } = useContext(CredentialsContext);
   const [sending, setSending] = useState(false);
 
   // NEED HINT PARAMS
-  const handleBorrow = async () => {
+  const handleRepay = async () => {
     const web3 = window.web3;
 
-    if (parseFloat(userTrove.coll) > parseFloat(coll)) {
-      // await borrow.methods
-      //   .adjustTrove(address,,false,,,toWei(web3, "0.05"))
-      //   .send({ from: address })
-      //   .on("transactionHash", async () => {
-      //     setSending(true);
-      //   })
-      //   .on("receipt", async () => {
-      //     setSending(false);
-      //   });
+    const [
+      upperHint,
+      lowerHint,
+      debtChange,
+      collatChange,
+    ] = await createHintforRepay(
+      web3,
+      hintHelpers,
+      sortedTroves,
+      userTrove,
+      debt,
+      coll
+    );
+
+    debugger;
+
+    if (
+      !toClose &&
+      parseFloat(fromWei(web3, userTrove.coll)) > parseFloat(coll)
+    ) {
+      await borrow.methods
+        .adjustTrove(
+          toWei(web3, "0.05"),
+          collatChange,
+          debtChange,
+          false,
+          upperHint,
+          lowerHint
+        )
+        .send({ from: address })
+        .on("transactionHash", async () => {
+          setSending(true);
+        })
+        .on("receipt", async () => {
+          setSending(false);
+          close();
+        });
     } else {
-      // await borrow.methods
-      //   .openTrove(toWei(web3, "0.05"))
-      //   .send({ from: address })
-      //   .on("transactionHash", async () => {
-      //     setSending(true);
-      //   })
-      //   .on("receipt", async () => {
-      //     setSending(false);
-      //   });
+      await borrow.methods
+        .closeTrove()
+        .send({ from: address })
+        .on("transactionHash", async () => {
+          setSending(true);
+        })
+        .on("receipt", async () => {
+          setSending(false);
+          close();
+        });
     }
+  };
+
+  const web3 = window.web3;
+
+  const handleClose = () => {
+    setSending(false);
+    close();
   };
 
   return (
     <Modal
       borderRadius="0%"
       isOpen={isOpen}
-      onClose={close}
+      onClose={handleClose}
       size="sm"
       isCentered
     >
@@ -69,7 +108,7 @@ const RedeemModal = ({ isOpen, close, coll, debt }) => {
         backgroundColor={MasterStyles.background.menu}
       >
         <HeaderContainer>
-          <ModalHeader textAlign="">Redeem</ModalHeader>
+          <ModalHeader textAlign="">Repay</ModalHeader>
 
           <CloseContainer>
             <ModalCloseButton
@@ -98,12 +137,30 @@ const RedeemModal = ({ isOpen, close, coll, debt }) => {
             padding="25px 24px"
             textAlign="center"
           >
-            <p>
-              You are redeeming <strong>{debt} LUSD</strong>.
-            </p>
-            <p style={{ marginTop: "25px" }}>
-              You are recieving <strong>{coll} ETH</strong>
-            </p>
+            {!toClose ? (
+              <>
+                <p>
+                  You are repayig <strong>{debt} LUSD</strong>.
+                </p>
+                <p style={{ marginTop: "25px" }}>
+                  You are recieving <strong>{coll} ETH</strong>
+                </p>
+                {parseFloat(fromWei(web3, userTrove.coll)).toFixed(4) ===
+                  parseFloat(coll).toFixed(4) && (
+                  <p style={{ marginTop: "25px" }}>
+                    <strong>
+                      Doing this will result in you closing your Trove!
+                    </strong>
+                  </p>
+                )}
+              </>
+            ) : (
+              <p>
+                Are you sure you want to close your Trove? This means all your
+                debt will be paid off and your collateral will be returned to
+                your wallet
+              </p>
+            )}
           </ModalBody>
         )}
 
@@ -112,7 +169,7 @@ const RedeemModal = ({ isOpen, close, coll, debt }) => {
             <div style={{ display: "flex", flexDirection: "column" }}>
               <ActionContainer>
                 <ActionButton
-                  onClick={handleBorrow}
+                  onClick={handleRepay}
                   action={true}
                   style={{ marginRight: "10px" }}
                 >

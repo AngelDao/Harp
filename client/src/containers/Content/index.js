@@ -82,7 +82,7 @@ const Content = ({ location }) => {
       <div>
         <Switch location={location}>
           <Route exact path={`/borrow`} component={Borrow} />
-          <Route exact path="/redeem" component={Redeem} />
+          <Route exact path="/repay" component={Redeem} />
           <Route exact path="/stake" component={Stake} />
           <Route exact path="/farm" component={Farm} />
           <Route exact path="/faq" component={FAQ} />

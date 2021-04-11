@@ -50,6 +50,8 @@ const Redeem = () => {
   const [currentPage, setPage] = useState(1);
   const [internalLoading, setInternalLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMsg, setError] = useState("");
+  const [toClose, setToClose] = useState(false);
 
   const handleChangeBorrowValue = (num) => {
     const tCollusd = parseFloat(fromWei(web3, userTrove.coll)) * prices.ETH;
@@ -58,27 +60,41 @@ const Redeem = () => {
     const paybackRatio = tCollusd / tDebtusd;
     const newCollat = (lusdUSD * paybackRatio) / prices.ETH;
 
+    if (parseFloat(num.toFixed(4)) > parseFloat(userBalances.LUSD).toFixed(4)) {
+      setError("Exceeds available LUSD in wallet");
+    } else {
+      setError("");
+    }
+
     setMemTrove({
       debt: num,
       collat: newCollat,
     });
   };
 
-  const handleChangeCollValue = (num) => {
+  const handleChangeCollValue = (num, max) => {
     const tCollusd = parseFloat(fromWei(web3, userTrove.coll)) * prices.ETH;
     const tDebtusd = parseFloat(fromWei(web3, userTrove.debt)) * prices.LUSD;
     const ethUSD = parseFloat(num) * prices.ETH;
     const paybackRatio = tCollusd / tDebtusd;
     const newDebt = ethUSD / paybackRatio / prices.LUSD;
 
-    // const requiredColl = 1.1;
-    // const ethUSD = parseFloat(num) * prices.ETH;
-    // const lusdUSD = tDebt * prices.LUSD;
-    // const newBorrow = ethUSD / requiredColl;
-    // const cr =
-    //   memTrove.collat && memTrove.debt && ethUSD / tDebt >= requiredColl
-    //     ? (ethUSD / lusdUSD) * 100
-    //     : (ethUSD / newBorrow) * 100;
+    if (max && newDebt > parseFloat(userBalances.LUSD)) {
+      handleChangeBorrowValue(
+        parseFloat(
+          (parseFloat(fromWei(web3, userTrove.debt)) - 2000.1).toFixed(6)
+        )
+      );
+      return;
+    }
+
+    const tColl = parseFloat(fromWei(web3, userTrove.coll));
+
+    if (num > tColl) {
+      setError("Exceeds Trove collateral");
+    } else {
+      setError("");
+    }
 
     setMemTrove({
       collat: num,
@@ -88,7 +104,7 @@ const Redeem = () => {
 
   const handleSetMax = () => {
     const tColl = fromWei(web3, userTrove.coll);
-    handleChangeCollValue(parseFloat(tColl));
+    handleChangeCollValue(parseFloat(tColl), true);
   };
 
   const handleFocus = (type) => {
@@ -103,7 +119,10 @@ const Redeem = () => {
     }
   };
 
-  const handleOpen = () => {
+  const handleOpen = (type) => {
+    if (type) {
+      setToClose(true);
+    }
     setIsOpen(true);
   };
 
@@ -164,13 +183,14 @@ const Redeem = () => {
       (parseFloat(userTrove.debt) * prices.LUSD)) *
     100;
 
-  const tDebt = truncDust(fromWei(web3, userTrove.debt));
-  const tColl = truncDust(fromWei(web3, userTrove.coll));
+  const tDebt = parseFloat(truncDust(fromWei(web3, userTrove.debt)));
+  const tColl = parseFloat(truncDust(fromWei(web3, userTrove.coll)));
   const uBal = parseFloat(userBalances.ETH);
 
   return (
     <>
       <RedeemModal
+        toClose={toClose}
         isOpen={isOpen}
         open={handleOpen}
         close={handleClose}
@@ -188,13 +208,13 @@ const Redeem = () => {
                 alignItems: "center",
               }}
             >
-              <Title>Redeem From Trove</Title>
+              <Title>Repay Debt</Title>
               {tColl > 0 && (
                 <a
                   onClick={() => handleSetMax()}
                   style={{ textDecoration: "underline", cursor: "pointer" }}
                 >
-                  - Redeem Max
+                  - Repay Max
                 </a>
               )}
             </div>
@@ -208,9 +228,13 @@ const Redeem = () => {
                       alignItems: "flex-end",
                     }}
                   >
-                    <SubTitle>Redeem(LUSD)</SubTitle>
+                    <SubTitle>Repay(LUSD)</SubTitle>
                     <span style={{ marginBottom: "6px" }}>
-                      Borrow: {truncDust(parseFloat(tDebt).toFixed(4))}
+                      Available:{" "}
+                      {(
+                        parseFloat(fromWei(web3, userTrove.debt)).toFixed(4) -
+                        2000
+                      ).toFixed(4)}
                     </span>
                   </div>
                   <NumberInput
@@ -285,6 +309,7 @@ const Redeem = () => {
                       <NumberDecrementStepper border="none" />
                     </NumberInputStepper>
                   </NumberInput>
+                  <span style={{ marginTop: "6px" }}>{errorMsg}</span>
                 </>
               ) : (
                 <div
@@ -311,7 +336,7 @@ const Redeem = () => {
               style={{
                 marginBottom: "20px",
                 display: "flex",
-                justifyContent: "space-around",
+                justifyContent: "flex-end",
                 height: "33px",
               }}
             >
@@ -319,14 +344,26 @@ const Redeem = () => {
                 <>
                   <ActionButton
                     onClick={handleOpen}
-                    action={memTrove.collat <= tColl && memTrove.collat > 0}
+                    action={
+                      memTrove.collat.toFixed(5) <= tColl.toFixed(5) &&
+                      memTrove.collat > 0 &&
+                      memTrove.debt <= parseFloat(userBalances.LUSD)
+                    }
                     disabled={
-                      !(memTrove.collat <= tColl && memTrove.collat > 0)
+                      !(
+                        memTrove.collat.toFixed(5) <= tColl.toFixed(5) &&
+                        memTrove.collat > 0 &&
+                        memTrove.debt <= parseFloat(userBalances.LUSD)
+                      )
                     }
                   >
-                    Redeem
+                    Repay
                   </ActionButton>
-                  <ActionButton onClick={handleClear} action>
+                  <ActionButton
+                    style={{ marginLeft: "40px" }}
+                    onClick={handleClear}
+                    action
+                  >
                     Clear
                   </ActionButton>
                 </>
@@ -437,6 +474,33 @@ const Redeem = () => {
                 </div>
               )}
             </DescContainer>
+            <div
+              style={{
+                marginBottom: "20px",
+                display: "flex",
+                justifyContent: "flex-end",
+                height: "33px",
+              }}
+            >
+              {tColl > 0 && (
+                <ActionButton
+                  style={{ marginLeft: "40px", width: "130px" }}
+                  onClick={() => handleOpen("close")}
+                  action={
+                    parseFloat(userBalances.LUSD) >
+                    parseFloat(fromWei(web3, userTrove.debt))
+                  }
+                  disabled={
+                    !(
+                      parseFloat(userBalances.LUSD) >
+                      parseFloat(fromWei(web3, userTrove.debt))
+                    )
+                  }
+                >
+                  Close Trove
+                </ActionButton>
+              )}
+            </div>
           </div>
         </div>
         <div

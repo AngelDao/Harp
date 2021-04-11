@@ -56,15 +56,15 @@ const Menu = ({ location }) => {
               Borrow
             </Item>
           </StyledLink>
-          <StyledLink to="/redeem">
+          <StyledLink to="/repay">
             <Item
               onMouseLeave={() => handleHover("")}
-              onMouseOver={() => handleHover("redeem")}
-              onClick={() => handleClick("redeem")}
-              current={current === "redeem"}
-              hover={currentH === "redeem"}
+              onMouseOver={() => handleHover("repay")}
+              onClick={() => handleClick("repay")}
+              current={current === "repay"}
+              hover={currentH === "repay"}
             >
-              Redeem
+              Repay
             </Item>
           </StyledLink>
           <StyledLink to="/faq">
