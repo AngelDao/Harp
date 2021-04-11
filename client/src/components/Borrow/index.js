@@ -62,7 +62,6 @@ const Borrow = () => {
         ? ((memTrove.collat * prices.ETH) / lusdUSD) * 100
         : ((newCollat * prices.ETH) / lusdUSD) * 100;
 
-    debugger;
     setMemTrove({
       debt: num,
       collat:

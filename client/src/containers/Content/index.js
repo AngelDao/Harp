@@ -72,8 +72,6 @@ const Content = ({ location }) => {
 
   console.log(warning, diffHours);
 
-  const ipfsHash = pathFinder();
-
   return (
     <>
       {(!warning || !warning.agreed || diffHours > 6) && (
@@ -84,15 +82,14 @@ const Content = ({ location }) => {
         />
       )}
       <div>
-        (
         <Switch location={location}>
-          <Route exact path={`${ipfsHash}borrow`} component={Borrow} />
-          <Route exact path={`${ipfsHash}redeem`} component={Redeem} />
-          <Route exact path={`${ipfsHash}stake`} component={Stake} />
-          <Route exact path={`${ipfsHash}farm`} component={Farm} />
-          <Route exact path={`${ipfsHash}faq`} component={FAQ} />
+          <Route exact path="/borrow" component={Borrow} />
+          <Route exact path="/redeem" component={Redeem} />
+          <Route exact path="/stake" component={Stake} />
+          <Route exact path="/farm" component={Farm} />
+          <Route exact path="/faq" component={FAQ} />
           <Route>
-            <Redirect to={`${ipfsHash}stake`} />
+            <Redirect to="/stake" />
           </Route>
         </Switch>
         )
