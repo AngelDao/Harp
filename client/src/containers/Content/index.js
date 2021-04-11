@@ -10,7 +10,6 @@ import Borrow from "../../components/Borrow";
 import Redeem from "../../components/Redeem";
 import Metamask from "../../components/Metamask";
 import WarningModal from "../../components/Modal/WarningModal";
-import { pathFinder } from "../../utils/ipfsRouteHelper";
 
 const Content = ({ location }) => {
   const {
@@ -91,7 +90,6 @@ const Content = ({ location }) => {
             <Redirect to="/stake" />
           </Route>
         </Switch>
-        )
       </div>
     </>
   );
