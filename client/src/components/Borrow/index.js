@@ -64,6 +64,7 @@ const Borrow = () => {
         ? ((memTrove.collat * prices.ETH) / lusdUSD) * 100
         : ((newCollat * prices.ETH) / lusdUSD) * 100;
 
+
     const tColl = truncDust(fromWei(web3, userTrove.coll));
 
     const collat =
