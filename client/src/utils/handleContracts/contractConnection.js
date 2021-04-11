@@ -12,6 +12,7 @@ import IStabilityPool from "../../abis/IStabilityPool.json";
 import IBorrowOperations from "../../abis/IBorrowerOperations.json";
 import ITroveManager from "../../abis/ITroveManager.json";
 import ISortedTroves from "../../abis/ISortedTroves.json";
+import IHintHelpers from "../../abis/HintHelpers.json";
 import { fromWei, toDecimal } from "../truncateString";
 import { addresses } from "./addresses";
 
@@ -538,21 +539,28 @@ export const fetchTroveManager = async (web3, networkId, address) => {
       addresses.rinkeby.troveManager
     );
 
+    const borrowRate = parseFloat(
+      fromWei(web3, await troveManager.methods.getBorrowingRate().call())
+    );
     const troveCount = await troveManager.methods.getTroveOwnersCount().call();
     const userTrove = await troveManager.methods.Troves(address).call();
 
-    return [troveManager, troveCount, userTrove];
+    return [troveManager, troveCount, userTrove, borrowRate];
   } else if (networkId === 42) {
     const troveManager = new web3.eth.Contract(
       ITroveManager.abi,
       addresses.kovan.troveManager
     );
 
+    const borrowRate = parseFloat(
+      fromWei(web3, await troveManager.methods.getBorrowingRate().call())
+    );
+
     const troveCount = await troveManager.methods.getTroveOwnersCount().call();
 
     const userTrove = await troveManager.methods.Troves(address).call();
 
-    return [troveManager, troveCount, userTrove];
+    return [troveManager, troveCount, userTrove, borrowRate];
   }
 };
 
@@ -564,7 +572,7 @@ export const fetchSortedTroves = async (web3, networkId, troveManager) => {
     );
 
     const pageSize = 10;
-    const trovePages = { 1: [], 2: [] };
+    const trovePages = { 1: [] };
     let lastTrove = null;
 
     for (let i = 0; i < pageSize; i++) {
@@ -617,5 +625,21 @@ export const fetchSortedTroves = async (web3, networkId, troveManager) => {
     }
 
     return [sortedTroves, trovePages];
+  }
+};
+
+export const fetchHintHelpers = async (web3, networkId) => {
+  if (networkId === 4) {
+    const hintHelpers = new web3.eth.Contract(
+      IHintHelpers.abi,
+      addresses.rinkeby.hintHelpers
+    );
+    return [hintHelpers];
+  } else if (networkId === 42) {
+    const hintHelpers = new web3.eth.Contract(
+      IHintHelpers.abi,
+      addresses.kovan.hintHelpers
+    );
+    return [hintHelpers];
   }
 };

@@ -24,6 +24,7 @@ import {
   fetchBorrow,
   fetchTroveManager,
   fetchSortedTroves,
+  fetchHintHelpers,
 } from "./utils/handleContracts/contractConnection";
 import { fetchPrices, fetchTest } from "./utils/handlePriceData";
 import { fetchTVL } from "./utils/handleContracts/contractTVL";
@@ -55,7 +56,8 @@ function App() {
   const [schedulerID, setSchedulerID] = useState(null);
   const [troves, setTroves] = useState(false);
   const [userTrove, setUserTrove] = useState(false);
-  const [trovePages, setTrovePages] = useState(false);
+  const [liquityGlobals, setLiquityGlobals] = useState(false);
+  const [borrowRate, setBorrowRate] = useState(false);
 
   const handleOpenConnectModal = () => {
     setConnectModalVisible(false);
@@ -155,21 +157,26 @@ function App() {
     );
 
     const [borrow] = await fetchBorrow(web3, networkId, address);
-    const [troveManager, troveCount, userTrove] = await fetchTroveManager(
-      web3,
-      networkId,
-      address
-    );
+    const [
+      troveManager,
+      troveCount,
+      userTrove,
+      borrowRate,
+    ] = await fetchTroveManager(web3, networkId, address);
     const [sortedTroves, sTroves] = await fetchSortedTroves(
       web3,
       networkId,
       troveManager
     );
 
+    const [hintHelpers] = await fetchHintHelpers(web3, networkId);
+
     // debugger;
     if (!troves) {
       setTroves({ troveCount, troves: sTroves });
     }
+    setLiquityGlobals({ borrowRate });
+    setBorrowRate(borrowRate);
     setUserTrove(userTrove);
     setRewardsBalances(rwsBalances);
     setFarmBalances(farmBalances);
@@ -183,6 +190,7 @@ function App() {
       rewards: rwsAllowances,
     });
     setContracts({
+      hintHelpers,
       borrow,
       sortedTroves,
       troveManager,
@@ -223,8 +231,13 @@ function App() {
       gSTRING,
     };
     console.log("gather tvl");
-    const [tvl, eprice, lprice] = await fetchTVL(window.web3, prc, contracts);
+    const [tvl, eprice, lprice, TCR] = await fetchTVL(
+      window.web3,
+      prc,
+      contracts
+    );
     setTVL(tvl);
+    setLiquityGlobals({ ...liquityGlobals, TCR });
     setPrices({
       ...prc,
       gSTRING_ETH_LP: eprice,
@@ -358,6 +371,7 @@ function App() {
     troves,
     setTroves,
     userTrove,
+    borrowRate,
   };
 
   return (

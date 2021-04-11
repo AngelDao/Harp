@@ -3,13 +3,33 @@ import MasterStyles from "../../utils/masterStyles";
 
 export const DescContainer = styled.div`
   width: 100%;
-  height: auto;
+  height: 305px;
   background: ${MasterStyles.background.menu};
   border: 3px solid black;
   padding: 15px 25px 15px 25px;
   display: flex;
   flex-direction: column;
   margin-bottom: 20.5px;
+`;
+
+export const NotEnough = styled.textarea`
+  font-size: 5px;
+  font-weight: bolder;
+  text-shadow: -0.4px 0 black, 0 0.4px black, 0.4px 0 black, 0 -0.4px black,
+    -0.4px -0.4px black, 0.4px 0.4px black, -0.4px 0.4px black,
+    0.4px -0.4px black;
+  white-space: normal;
+  resize: none;
+  text-align: justify;
+  background: transparent;
+  // color: transparent;
+  outline: none;
+  border: none;
+  rows: 6;
+  cols: 25;
+  font-family: monospace !important;
+  // -moz-text-align-last: center;
+  // text-align-last: center;
 `;
 
 export const Title = styled.div`
@@ -59,4 +79,44 @@ export const ActionButton = styled.button`
   cursor: ${({ disabled }) => {
     return disabled ? "not-allowed" : "cursor";
   }};
+`;
+
+export const HeaderRow = styled.div`
+  width: 100%;
+  display: flex;
+  // justify-content: space-between;
+`;
+
+export const AssetCell = styled.div`
+  display: flex;
+  align-items: center;
+  height: 50px;
+`;
+
+export const ContentRow = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 px 0px;
+`;
+
+export const HeaderTitle = styled.span`
+  font-size: ${MasterStyles.fontSize.medium};
+`;
+
+export const Cell = styled.div`
+  width: 70px;
+`;
+
+export const WrapperCenter = styled.div`
+  width: 100%;
+  display: flex;
+  // justify-content: center;
+`;
+
+export const HR = styled.div`
+  margin-top: 5px;
+  border-top: 2.5px dashed black;
+  height: 0px;
+  width: 100%;
 `;

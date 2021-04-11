@@ -15,7 +15,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"priceFeed\",\"outputs\":[{\"internalType\":\"contract IPriceFeed\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/danie/code/harp/client/contracts/Interfaces/ILiquityBase.sol\":\"ILiquityBase\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/danie/code/harp/client/contracts/Interfaces/ILiquityBase.sol\":{\"keccak256\":\"0x99b2aab65c97627b931bb3b6d22acb6c74a6f12c650cc9f91477756cf765442e\",\"urls\":[\"bzz-raw://fd55ea5a972e64e55d4fadda84c42fb83f1ecf23828d3cd6d4e87b633788fb5c\",\"dweb:/ipfs/QmPKaU9U9mgGia9j4y1KN9atVyZyj8zZWHxu9C7MQM1VCm\"]},\"/C/Users/danie/code/harp/client/contracts/Interfaces/IPriceFeed.sol\":{\"keccak256\":\"0x715927ccea9e3367972e300124977680c72e9de52ab9779f5f2cbb9c3a9d34a6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://6898aeccd1f5f96d5b3779cb7563ad4155dafcb33bf73ffa4fc7aef255af932e\",\"dweb:/ipfs/QmZLxPWJ9nAp5vyLYpLBUxedHQgPb3QzQycSBqSh2vcsiZ\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"priceFeed\",\"outputs\":[{\"internalType\":\"contract IPriceFeed\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/danie/code/harp/client/contracts/Interfaces/ILiquityBase.sol\":\"ILiquityBase\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/danie/code/harp/client/contracts/Interfaces/ILiquityBase.sol\":{\"keccak256\":\"0x0b2cf16290592f9f8e0fbede9230f15807901299c51c344500ebcdd98058f22e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ed83baf42476b8aba66de47dfed5f063f09529920d83926f0817b8e9cd845664\",\"dweb:/ipfs/QmNcMLhCKtiY5mz8Phszf55wQRa75uLrMA23cXivCATGhM\"]},\"/C/Users/danie/code/harp/client/contracts/Interfaces/IPriceFeed.sol\":{\"keccak256\":\"0x715927ccea9e3367972e300124977680c72e9de52ab9779f5f2cbb9c3a9d34a6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://6898aeccd1f5f96d5b3779cb7563ad4155dafcb33bf73ffa4fc7aef255af932e\",\"dweb:/ipfs/QmZLxPWJ9nAp5vyLYpLBUxedHQgPb3QzQycSBqSh2vcsiZ\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -23,23 +23,24 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity >=0.6.0 <0.8.0;\r\n\r\nimport \"./IPriceFeed.sol\";\r\n\r\ninterface ILiquityBase {\r\n    function priceFeed() external view returns (IPriceFeed);\r\n}\r\n",
+  "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\nimport \"./IPriceFeed.sol\";\r\n\r\ninterface ILiquityBase {\r\n    function priceFeed() external view returns (IPriceFeed);\r\n}\r\n",
   "sourcePath": "C:\\Users\\danie\\code\\harp\\client\\contracts\\Interfaces\\ILiquityBase.sol",
   "ast": {
     "absolutePath": "/C/Users/danie/code/harp/client/contracts/Interfaces/ILiquityBase.sol",
     "exportedSymbols": {
       "ILiquityBase": [
-        514
+        1730
       ],
       "IPriceFeed": [
-        526
+        1791
       ]
     },
-    "id": 515,
+    "id": 1731,
+    "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 507,
+        "id": 1723,
         "literals": [
           "solidity",
           ">=",
@@ -50,16 +51,16 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:31:6"
+        "src": "35:31:15"
       },
       {
         "absolutePath": "/C/Users/danie/code/harp/client/contracts/Interfaces/IPriceFeed.sol",
         "file": "./IPriceFeed.sol",
-        "id": 508,
+        "id": 1724,
         "nodeType": "ImportDirective",
-        "scope": 515,
-        "sourceUnit": 527,
-        "src": "35:26:6",
+        "scope": 1731,
+        "sourceUnit": 1792,
+        "src": "70:26:15",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -69,85 +70,86 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 514,
+        "id": 1730,
         "linearizedBaseContracts": [
-          514
+          1730
         ],
         "name": "ILiquityBase",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "functionSelector": "741bef1a",
-            "id": 513,
+            "id": 1729,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "priceFeed",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 509,
+              "id": 1725,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "113:2:6"
+              "src": "148:2:15"
             },
             "returnParameters": {
-              "id": 512,
+              "id": 1728,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 511,
+                  "id": 1727,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 513,
-                  "src": "139:10:6",
+                  "scope": 1729,
+                  "src": "174:10:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_IPriceFeed_$526",
+                    "typeIdentifier": "t_contract$_IPriceFeed_$1791",
                     "typeString": "contract IPriceFeed"
                   },
                   "typeName": {
-                    "id": 510,
+                    "id": 1726,
                     "name": "IPriceFeed",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 526,
-                    "src": "139:10:6",
+                    "referencedDeclaration": 1791,
+                    "src": "174:10:15",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_IPriceFeed_$526",
+                      "typeIdentifier": "t_contract$_IPriceFeed_$1791",
                       "typeString": "contract IPriceFeed"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "138:12:6"
+              "src": "173:12:15"
             },
-            "scope": 514,
-            "src": "95:56:6",
+            "scope": 1730,
+            "src": "130:56:15",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 515,
-        "src": "65:89:6"
+        "scope": 1731,
+        "src": "100:89:15"
       }
     ],
-    "src": "0:156:6"
+    "src": "35:156:15"
   },
   "legacyAST": {
     "attributes": {
       "absolutePath": "/C/Users/danie/code/harp/client/contracts/Interfaces/ILiquityBase.sol",
       "exportedSymbols": {
         "ILiquityBase": [
-          514
+          1730
         ],
         "IPriceFeed": [
-          526
+          1791
         ]
-      }
+      },
+      "license": "MIT"
     },
     "children": [
       {
@@ -162,24 +164,24 @@
             ".0"
           ]
         },
-        "id": 507,
+        "id": 1723,
         "name": "PragmaDirective",
-        "src": "0:31:6"
+        "src": "35:31:15"
       },
       {
         "attributes": {
-          "SourceUnit": 527,
+          "SourceUnit": 1792,
           "absolutePath": "/C/Users/danie/code/harp/client/contracts/Interfaces/IPriceFeed.sol",
           "file": "./IPriceFeed.sol",
-          "scope": 515,
+          "scope": 1731,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 508,
+        "id": 1724,
         "name": "ImportDirective",
-        "src": "35:26:6"
+        "src": "70:26:15"
       },
       {
         "attributes": {
@@ -193,10 +195,10 @@
           "contractKind": "interface",
           "fullyImplemented": false,
           "linearizedBaseContracts": [
-            514
+            1730
           ],
           "name": "ILiquityBase",
-          "scope": 515
+          "scope": 1731
         },
         "children": [
           {
@@ -209,7 +211,7 @@
                 null
               ],
               "name": "priceFeed",
-              "scope": 514,
+              "scope": 1730,
               "stateMutability": "view",
               "virtual": false,
               "visibility": "external"
@@ -222,9 +224,9 @@
                   ]
                 },
                 "children": [],
-                "id": 509,
+                "id": 1725,
                 "name": "ParameterList",
-                "src": "113:2:6"
+                "src": "148:2:15"
               },
               {
                 "children": [
@@ -233,7 +235,7 @@
                       "constant": false,
                       "mutability": "mutable",
                       "name": "",
-                      "scope": 513,
+                      "scope": 1729,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "contract IPriceFeed",
@@ -243,37 +245,37 @@
                       {
                         "attributes": {
                           "name": "IPriceFeed",
-                          "referencedDeclaration": 526,
+                          "referencedDeclaration": 1791,
                           "type": "contract IPriceFeed"
                         },
-                        "id": 510,
+                        "id": 1726,
                         "name": "UserDefinedTypeName",
-                        "src": "139:10:6"
+                        "src": "174:10:15"
                       }
                     ],
-                    "id": 511,
+                    "id": 1727,
                     "name": "VariableDeclaration",
-                    "src": "139:10:6"
+                    "src": "174:10:15"
                   }
                 ],
-                "id": 512,
+                "id": 1728,
                 "name": "ParameterList",
-                "src": "138:12:6"
+                "src": "173:12:15"
               }
             ],
-            "id": 513,
+            "id": 1729,
             "name": "FunctionDefinition",
-            "src": "95:56:6"
+            "src": "130:56:15"
           }
         ],
-        "id": 514,
+        "id": 1730,
         "name": "ContractDefinition",
-        "src": "65:89:6"
+        "src": "100:89:15"
       }
     ],
-    "id": 515,
+    "id": 1731,
     "name": "SourceUnit",
-    "src": "0:156:6"
+    "src": "35:156:15"
   },
   "compiler": {
     "name": "solc",
@@ -281,7 +283,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-04-07T23:02:53.903Z",
+  "updatedAt": "2021-04-09T17:33:33.335Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

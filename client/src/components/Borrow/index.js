@@ -41,6 +41,7 @@ const Borrow = () => {
     setTroves,
     contracts: { troveManager, sortedTroves },
     userBalances,
+    borrowRate,
   } = useContext(CredentialsContext);
 
   const [memTrove, setMemTrove] = useState({
@@ -51,9 +52,10 @@ const Borrow = () => {
   const [currentPage, setPage] = useState(1);
   const [internalLoading, setInternalLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMsg, setError] = useState(false);
 
   const handleChangeBorrowValue = (num) => {
-    const requiredColl = 1.1;
+    const requiredColl = 1.2;
     const lusdUSD = parseFloat(num) * prices.LUSD;
     const newCollat = (lusdUSD * requiredColl) / prices.ETH;
     const cr =
@@ -62,19 +64,34 @@ const Borrow = () => {
         ? ((memTrove.collat * prices.ETH) / lusdUSD) * 100
         : ((newCollat * prices.ETH) / lusdUSD) * 100;
 
+
+    const tColl = truncDust(fromWei(web3, userTrove.coll));
+
+    const collat =
+      memTrove.collat &&
+      (memTrove.collat * prices.ETH) / lusdUSD >= requiredColl
+        ? memTrove.collat
+        : newCollat;
+
+    if (tColl <= 0 && num < 2000 && num !== 0) {
+      setError("Borrow must be > 2000");
+    } else if (
+      parseFloat(collat.toFixed(4)) > parseFloat(userBalances.ETH).toFixed(4)
+    ) {
+      setError("Not enough collateral");
+    } else {
+      setError("");
+    }
+
     setMemTrove({
       debt: num,
-      collat:
-        memTrove.collat &&
-        (memTrove.collat * prices.ETH) / lusdUSD >= requiredColl
-          ? memTrove.collat
-          : newCollat,
+      collat: collat,
       cRatio: cr.toFixed(2),
     });
   };
 
   const handleChangeCollValue = (num) => {
-    const requiredColl = 1.1;
+    const requiredColl = 1.2;
     const ethUSD = parseFloat(num) * prices.ETH;
     const lusdUSD = parseFloat(memTrove.debt) * prices.LUSD;
     const newBorrow = ethUSD / requiredColl;
@@ -85,12 +102,27 @@ const Borrow = () => {
         ? (ethUSD / lusdUSD) * 100
         : (ethUSD / newBorrow) * 100;
 
+    console.log(newBorrow * borrowRate);
+    console.log(memTrove.debt * borrowRate);
+    const debt =
+      memTrove.debt && ethUSD / (memTrove.debt * prices.LUSD) >= requiredColl
+        ? memTrove.debt
+        : newBorrow / prices.LUSD;
+
+    const tColl = truncDust(fromWei(web3, userTrove.coll));
+
+    if (tColl <= 0 && debt < 2000 && debt !== 0) {
+      setError("Borrow must be > 2000");
+    } else if (
+      parseFloat(num.toFixed(4)) > parseFloat(userBalances.ETH).toFixed(4)
+    ) {
+      setError("Not enough collateral");
+    } else {
+      setError("");
+    }
     setMemTrove({
       collat: num,
-      debt:
-        memTrove.debt && ethUSD / (memTrove.debt * prices.LUSD) >= requiredColl
-          ? memTrove.debt
-          : newBorrow / prices.LUSD,
+      debt: debt,
       cRatio: cr.toFixed(2),
     });
   };
@@ -176,6 +208,8 @@ const Borrow = () => {
   const tColl = truncDust(fromWei(web3, userTrove.coll));
   const uBal = parseFloat(userBalances.ETH);
 
+  const overDebtMin = tColl > 0 ? true : memTrove.debt >= 2000;
+
   return (
     <>
       <BorrowModal
@@ -197,7 +231,7 @@ const Borrow = () => {
               }}
             >
               <Title>Add To Trove</Title>
-              {uBal * prices.ETH > 2000 && (
+              {(uBal * prices.ETH > 2000 || tDebt > 0) && (
                 <a
                   onClick={() => handleSetMax()}
                   style={{ textDecoration: "underline", cursor: "pointer" }}
@@ -213,13 +247,15 @@ const Borrow = () => {
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
-                      alignItems: "flex-end",
+                      alignItems: "center",
                     }}
                   >
                     <SubTitle>Borrow(LUSD)</SubTitle>
-                    <span style={{ marginBottom: "6px" }}>
-                      Available:{" "}
-                      {truncDust(parseFloat(userBalances.LUSD).toFixed(4))}
+                    <span>
+                      Fee:{" "}
+                      {isNaN((memTrove.debt * borrowRate).toFixed(4))
+                        ? "0.0000"
+                        : (memTrove.debt * borrowRate).toFixed(4)}
                     </span>
                   </div>
                   <NumberInput
@@ -323,6 +359,7 @@ const Borrow = () => {
                       backgroundColor={MasterStyles.background.secondaryMenu}
                     />
                   </NumberInput>
+                  <span style={{ marginTop: "6px" }}>{errorMsg}</span>
                 </>
               ) : (
                 <div
@@ -350,7 +387,7 @@ const Borrow = () => {
               style={{
                 marginBottom: "20px",
                 display: "flex",
-                justifyContent: "space-around",
+                justifyContent: "flex-end ",
                 height: "33px",
               }}
             >
@@ -358,12 +395,26 @@ const Borrow = () => {
                 <>
                   <ActionButton
                     onClick={handleOpen}
-                    action={memTrove.collat <= uBal && memTrove.collat > 0}
-                    disabled={!(memTrove.collat <= uBal && memTrove.collat > 0)}
+                    action={
+                      memTrove.collat <= uBal &&
+                      memTrove.collat > 0 &&
+                      overDebtMin
+                    }
+                    disabled={
+                      !(
+                        memTrove.collat <= uBal &&
+                        memTrove.collat > 0 &&
+                        overDebtMin
+                      )
+                    }
                   >
                     Add
                   </ActionButton>
-                  <ActionButton onClick={handleClear} action>
+                  <ActionButton
+                    style={{ marginLeft: "40px" }}
+                    onClick={handleClear}
+                    action
+                  >
                     Clear
                   </ActionButton>
                 </>

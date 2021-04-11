@@ -17,10 +17,10 @@ import {
 import Loader from "../../Loader";
 import MasterStyles from "../../../utils/masterStyles";
 import CredentialsContext from "../../../context/credentialsContext";
-import { createHintforBorrow } from "../../../utils/handleHints";
-import { toWei } from "../../../utils/truncateString";
+import { toWei, fromWei } from "../../../utils/truncateString";
+import { createHintforRepay } from "../../../utils/handleHints";
 
-const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
+const RedeemModal = ({ isOpen, close, coll, debt, toClose }) => {
   const {
     contracts: { borrow, hintHelpers, sortedTroves },
     address,
@@ -32,7 +32,7 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
   const [sending, setSending] = useState(false);
 
   // NEED HINT PARAMS
-  const handleBorrow = async () => {
+  const handleRepay = async () => {
     const web3 = window.web3;
 
     const [
@@ -40,7 +40,7 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
       lowerHint,
       debtChange,
       collatChange,
-    ] = await createHintforBorrow(
+    ] = await createHintforRepay(
       web3,
       hintHelpers,
       sortedTroves,
@@ -49,18 +49,22 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
       coll
     );
 
-    if (parseFloat(userTrove.coll) > 0) {
+    debugger;
+
+    if (
+      !toClose &&
+      parseFloat(fromWei(web3, userTrove.coll)) > parseFloat(coll)
+    ) {
       await borrow.methods
         .adjustTrove(
           toWei(web3, "0.05"),
-          toWei(web3, "0"),
+          collatChange,
           debtChange,
-          true,
+          false,
           upperHint,
           lowerHint
         )
-        .send({ from: address, value: collatChange })
-        .on("sent", async () => {})
+        .send({ from: address })
         .on("transactionHash", async () => {
           setSending(true);
         })
@@ -70,9 +74,8 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
         });
     } else {
       await borrow.methods
-        .openTrove(toWei(web3, "0.05"), debtChange, upperHint, lowerHint)
-        .send({ from: address, value: collatChange })
-        .on("sent", async () => {})
+        .closeTrove()
+        .send({ from: address })
         .on("transactionHash", async () => {
           setSending(true);
         })
@@ -82,6 +85,8 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
         });
     }
   };
+
+  const web3 = window.web3;
 
   const handleClose = () => {
     setSending(false);
@@ -103,7 +108,7 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
         backgroundColor={MasterStyles.background.menu}
       >
         <HeaderContainer>
-          <ModalHeader textAlign="">Borrow</ModalHeader>
+          <ModalHeader textAlign="">Repay</ModalHeader>
 
           <CloseContainer>
             <ModalCloseButton
@@ -132,19 +137,30 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
             padding="25px 24px"
             textAlign="center"
           >
-            <p>
-              You are borrowing <strong>{debt} LUSD</strong> as debt.
-            </p>
-            <p style={{ marginTop: "25px" }}>
-              You are putting up <strong>{coll} ETH</strong> as collateral for
-              your debt.
-            </p>
-            <p style={{ marginTop: "25px" }}>
-              This will result in a Collateralization Ratio(CR) of{" "}
-              <strong>{cr}%</strong>(collateral/debt). If your CR falls below
-              110% you run the risk of being liquidated are you sure you want to
-              confirm?
-            </p>
+            {!toClose ? (
+              <>
+                <p>
+                  You are repayig <strong>{debt} LUSD</strong>.
+                </p>
+                <p style={{ marginTop: "25px" }}>
+                  You are recieving <strong>{coll} ETH</strong>
+                </p>
+                {parseFloat(fromWei(web3, userTrove.coll)).toFixed(4) ===
+                  parseFloat(coll).toFixed(4) && (
+                  <p style={{ marginTop: "25px" }}>
+                    <strong>
+                      Doing this will result in you closing your Trove!
+                    </strong>
+                  </p>
+                )}
+              </>
+            ) : (
+              <p>
+                Are you sure you want to close your Trove? This means all your
+                debt will be paid off and your collateral will be returned to
+                your wallet
+              </p>
+            )}
           </ModalBody>
         )}
 
@@ -153,7 +169,7 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
             <div style={{ display: "flex", flexDirection: "column" }}>
               <ActionContainer>
                 <ActionButton
-                  onClick={handleBorrow}
+                  onClick={handleRepay}
                   action={true}
                   style={{ marginRight: "10px" }}
                 >
@@ -171,4 +187,4 @@ const BorrowModal = ({ isOpen, open, close, coll, cr, debt }) => {
   );
 };
 
-export default BorrowModal;
+export default RedeemModal;
