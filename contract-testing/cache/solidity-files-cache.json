@@ -1,0 +1,4460 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/DappSys/proxy.sol": {
+      "lastModificationDate": 1618186162340,
+      "contentHash": "928a9c4b946dd7aaf0a8fca2b142111a",
+      "sourceName": "contracts/Liquity/TestContracts/DappSys/proxy.sol",
+      "solcConfig": {
+        "version": "0.4.23",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.4.23"
+      ],
+      "artifacts": [
+        "DSAuth",
+        "DSAuthEvents",
+        "DSAuthority",
+        "DSNote",
+        "DSProxy",
+        "DSProxyCache",
+        "DSProxyFactory"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Dependencies/BaseMath.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "e2223056b5f21e55378c886c2abcc419",
+      "sourceName": "contracts/Dependencies/BaseMath.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "BaseMath"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Dependencies/LiquityBase.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "439e00aaa86d35c6c1d0fbe37a4c029c",
+      "sourceName": "contracts/Dependencies/LiquityBase.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./BaseMath.sol",
+        "./LiquityMath.sol",
+        "../Interfaces/IActivePool.sol",
+        "../Interfaces/IDefaultPool.sol",
+        "../Interfaces/IPriceFeed.sol",
+        "../Interfaces/ILiquityBase.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LiquityBase"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Dependencies/LiquityMath.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "faf51877eb3c560cbf20b1f04ebcc819",
+      "sourceName": "contracts/Dependencies/LiquityMath.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./SafeMath.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LiquityMath"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/IActivePool.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "65f74acfc1abe8c7fc7ad11a4bb70202",
+      "sourceName": "contracts/Interfaces/IActivePool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IPool.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IActivePool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/IDefaultPool.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "685b973f6c8279692e807a0414af070d",
+      "sourceName": "contracts/Interfaces/IDefaultPool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IPool.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IDefaultPool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/IPriceFeed.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "1c38f6204c98101b1e544da4738c684c",
+      "sourceName": "contracts/Interfaces/IPriceFeed.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IPriceFeed"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/ILiquityBase.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "89002c29569d3f45c8cf34bda7b2be0f",
+      "sourceName": "contracts/Interfaces/ILiquityBase.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IPriceFeed.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ILiquityBase"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Dependencies/SafeMath.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "129179f4a037ce8de873efc7365b3945",
+      "sourceName": "contracts/Dependencies/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/IPool.sol": {
+      "lastModificationDate": 1618187878509,
+      "contentHash": "a68da7b0469ef0e2a8497128a100b6aa",
+      "sourceName": "contracts/Interfaces/IPool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IPool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/IHintHelpers.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "5d9bae520ad8c5281408063ffa31d1c8",
+      "sourceName": "contracts/Interfaces/IHintHelpers.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ITroveManager.sol",
+        "./ISortedTroves.sol",
+        "../Dependencies/LiquityBase.sol",
+        "../Dependencies/Ownable.sol",
+        "../Dependencies/CheckContract.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "HintHelpers"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/ITroveManager.sol": {
+      "lastModificationDate": 1618187878509,
+      "contentHash": "8df5931d7a1df67065c303fd14b9c6b6",
+      "sourceName": "contracts/Interfaces/ITroveManager.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ILiquityBase.sol",
+        "./IStabilityPool.sol",
+        "./ILUSDToken.sol",
+        "./ILQTYToken.sol",
+        "./ILQTYStaking.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ITroveManager"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/ISortedTroves.sol": {
+      "lastModificationDate": 1618189580956,
+      "contentHash": "57354d974257752daa83f67d92af8fdf",
+      "sourceName": "contracts/Interfaces/ISortedTroves.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ISortedTroves"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Dependencies/Ownable.sol": {
+      "lastModificationDate": 1618189577198,
+      "contentHash": "242ecab9e29e240991d64386824c31a3",
+      "sourceName": "contracts/Dependencies/Ownable.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "Ownable"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Dependencies/CheckContract.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "dca531b0a6d6ebd878baac24b9c91407",
+      "sourceName": "contracts/Dependencies/CheckContract.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "CheckContract"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/IStabilityPool.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "21c8c5a23418ab214fd6321544063f97",
+      "sourceName": "contracts/Interfaces/IStabilityPool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IStabilityPool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/ILUSDToken.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "82a483d8ed312640046112d2b1335132",
+      "sourceName": "contracts/Interfaces/ILUSDToken.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/TestIERC20.sol",
+        "../Dependencies/IERC2612.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ILUSDToken"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/ILQTYToken.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "2e949f5616d44b102156a6182b70fd24",
+      "sourceName": "contracts/Interfaces/ILQTYToken.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/TestIERC20.sol",
+        "../Dependencies/IERC2612.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ILQTYToken"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/ILQTYStaking.sol": {
+      "lastModificationDate": 1618189587156,
+      "contentHash": "1e076fe7b2d66b61cd573ad632c83a37",
+      "sourceName": "contracts/Interfaces/ILQTYStaking.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ILQTYStaking"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Dependencies/TestIERC20.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "1e63ea8c720fb635b37674d67e4cef8d",
+      "sourceName": "contracts/Dependencies/TestIERC20.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "TestIERC20"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Dependencies/IERC2612.sol": {
+      "lastModificationDate": 1618187879204,
+      "contentHash": "4c4ff4efff31222f91fb4c86bec93023",
+      "sourceName": "contracts/Dependencies/IERC2612.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IERC2612"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Interfaces/IBorrowOperations.sol": {
+      "lastModificationDate": 1618189584476,
+      "contentHash": "a8c6feb1cea618a254f611a0f43ce432",
+      "sourceName": "contracts/Interfaces/IBorrowOperations.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ISortedTroves.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IBorrowerOperations"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/StringStaking.sol": {
+      "lastModificationDate": 1618189606182,
+      "contentHash": "40806ebcbabddc7187c8ed5a33d2b626",
+      "sourceName": "contracts/StringStaking.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/utils/math/SafeMath.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "./StringToken.sol",
+        "./Interfaces/ILQTYToken.sol",
+        "./gStringToken.sol",
+        "./Interfaces/IStabilityPool.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "StringStaking"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+      "lastModificationDate": 1618189968057,
+      "contentHash": "5fb992169ba41de7595d2b53f893f904",
+      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "Ownable"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/node_modules/@openzeppelin/contracts/utils/math/SafeMath.sol": {
+      "lastModificationDate": 1618189910888,
+      "contentHash": "e40e11b0ca8da85971ed6c8c95a5adca",
+      "sourceName": "@openzeppelin/contracts/utils/math/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+      "lastModificationDate": 1618189811108,
+      "contentHash": "a09b9aad14428e31223f33b89feb68f2",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IERC20"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol": {
+      "lastModificationDate": 1618189855312,
+      "contentHash": "73c2119927edb5f3aef4a319b10cf878",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../IERC20.sol",
+        "../../../utils/Address.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "SafeERC20"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/StringToken.sol": {
+      "lastModificationDate": 1618189607659,
+      "contentHash": "17f0281de2ea04532560f92f3b7a80b7",
+      "sourceName": "contracts/StringToken.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "StringToken"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/gStringToken.sol": {
+      "lastModificationDate": 1618189589555,
+      "contentHash": "be555b29beb90ce7cbdf6a4bdee8f080",
+      "sourceName": "contracts/gStringToken.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "gStringToken"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1618189810943,
+      "contentHash": "973bc8a02ad94eb8c7f5b673b6b4849f",
+      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "Context"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/node_modules/@openzeppelin/contracts/utils/Address.sol": {
+      "lastModificationDate": 1618189810943,
+      "contentHash": "669104a83c7aba2b095db7582b31e363",
+      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "Address"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
+      "lastModificationDate": 1618189992125,
+      "contentHash": "a53416b221dd21b639e8a78c7f33b778",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC20.sol",
+        "../../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ERC20"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/node_modules/@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol": {
+      "lastModificationDate": 1618189811108,
+      "contentHash": "e426c2e0fdb120a2497d62abf7b066d7",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../ERC20.sol",
+        "../../../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ERC20Burnable"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/StabilityProxy.sol": {
+      "lastModificationDate": 1618189602594,
+      "contentHash": "b03468d9d6d2d485cd20c84ef0551203",
+      "sourceName": "contracts/StabilityProxy.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/utils/math/SafeMath.sol",
+        "./Interfaces/IStabilityPool.sol",
+        "./StabilityFactory.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "StabilityProxy"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/StabilityFactory.sol": {
+      "lastModificationDate": 1618189600908,
+      "contentHash": "419aa429078a4fb7650f04b7a99011c7",
+      "sourceName": "contracts/StabilityFactory.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SafeMath.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "./StabilityProxy.sol",
+        "./StringToken.sol",
+        "./Interfaces/IStabilityPool.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "StabilityFactory"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/TokenVesting.sol": {
+      "lastModificationDate": 1618189612423,
+      "contentHash": "37547801cb8f0771a2f8a9693337c9e1",
+      "sourceName": "contracts/TokenVesting.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./StringToken.sol",
+        "@openzeppelin/contracts/utils/math/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "TokenVesting"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/LatestFarm.sol": {
+      "lastModificationDate": 1618189595039,
+      "contentHash": "db47fb92f2eb8036648dcdf9816665ac",
+      "sourceName": "contracts/LatestFarm.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/utils/math/SafeMath.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "./StringToken.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LatestFarm"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/LUSDToken.sol": {
+      "lastModificationDate": 1618189597627,
+      "contentHash": "220c3432e83bee0162f255967f4d7539",
+      "sourceName": "contracts/LUSDToken.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LUSDToken"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/LPRewards/TestContracts/ERC20Mock.sol": {
+      "lastModificationDate": 1618189591355,
+      "contentHash": "4be78bef35ad0ca7a41b9791042b4f25",
+      "sourceName": "contracts/Liquity/LPRewards/TestContracts/ERC20Mock.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ERC20Mock"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/ActivePool.sol": {
+      "lastModificationDate": 1618186217829,
+      "contentHash": "2be591ea1b172a1c61dd089c79629781",
+      "sourceName": "contracts/Liquity/ActivePool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Interfaces/IActivePool.sol",
+        "./Dependencies/SafeMath.sol",
+        "./Dependencies/Ownable.sol",
+        "./Dependencies/CheckContract.sol",
+        "./Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ActivePool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/IActivePool.sol": {
+      "lastModificationDate": 1618186162284,
+      "contentHash": "46a3e0f99e655fef31bf7bfede2a210a",
+      "sourceName": "contracts/Liquity/Interfaces/IActivePool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IPool.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IActivePool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/SafeMath.sol": {
+      "lastModificationDate": 1618186162259,
+      "contentHash": "319458fccf4239a98459ce69c9c4f709",
+      "sourceName": "contracts/Liquity/Dependencies/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/Ownable.sol": {
+      "lastModificationDate": 1618186162259,
+      "contentHash": "88be68382f8f36d2ac83810f491278db",
+      "sourceName": "contracts/Liquity/Dependencies/Ownable.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "Ownable"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/CheckContract.sol": {
+      "lastModificationDate": 1618186162256,
+      "contentHash": "86ac7f2634e3be59fafadf922b060ca5",
+      "sourceName": "contracts/Liquity/Dependencies/CheckContract.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "CheckContract"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/console.sol": {
+      "lastModificationDate": 1618186162260,
+      "contentHash": "7b3dddb93624a8c8e64ce8e0b9e6f873",
+      "sourceName": "contracts/Liquity/Dependencies/console.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/IPool.sol": {
+      "lastModificationDate": 1618186162287,
+      "contentHash": "9420d17dcddba9409dbffc293f7bc3eb",
+      "sourceName": "contracts/Liquity/Interfaces/IPool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IPool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/EchidnaTester.sol": {
+      "lastModificationDate": 1618186162340,
+      "contentHash": "295212b3d32c3e0d7106ab53824edc9f",
+      "sourceName": "contracts/Liquity/TestContracts/EchidnaTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../TroveManager.sol",
+        "../BorrowerOperations.sol",
+        "../ActivePool.sol",
+        "../DefaultPool.sol",
+        "../StabilityPool.sol",
+        "../GasPool.sol",
+        "../CollSurplusPool.sol",
+        "../LUSDToken.sol",
+        "./PriceFeedTestnet.sol",
+        "../SortedTroves.sol",
+        "./EchidnaProxy.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "EchidnaTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TroveManager.sol": {
+      "lastModificationDate": 1618186217926,
+      "contentHash": "c1eee1d023a61637c208bd326b39e1d8",
+      "sourceName": "contracts/Liquity/TroveManager.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Interfaces/ITroveManager.sol",
+        "./Interfaces/IStabilityPool.sol",
+        "./Interfaces/ICollSurplusPool.sol",
+        "./Interfaces/ILUSDToken.sol",
+        "./Interfaces/ISortedTroves.sol",
+        "./Interfaces/ILQTYToken.sol",
+        "./Interfaces/ILQTYStaking.sol",
+        "./Dependencies/LiquityBase.sol",
+        "./Dependencies/Ownable.sol",
+        "./Dependencies/CheckContract.sol",
+        "./Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "TroveManager"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/BorrowerOperations.sol": {
+      "lastModificationDate": 1618186217839,
+      "contentHash": "3f517f1db0da3cd2e26fa91757e169e2",
+      "sourceName": "contracts/Liquity/BorrowerOperations.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Interfaces/IBorrowerOperations.sol",
+        "./Interfaces/ITroveManager.sol",
+        "./Interfaces/ILUSDToken.sol",
+        "./Interfaces/ICollSurplusPool.sol",
+        "./Interfaces/ISortedTroves.sol",
+        "./Interfaces/ILQTYStaking.sol",
+        "./Dependencies/LiquityBase.sol",
+        "./Dependencies/Ownable.sol",
+        "./Dependencies/CheckContract.sol",
+        "./Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "BorrowerOperations"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/DefaultPool.sol": {
+      "lastModificationDate": 1618186217858,
+      "contentHash": "995c1410263bc8f2eb7eb7904c66b53f",
+      "sourceName": "contracts/Liquity/DefaultPool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Interfaces/IDefaultPool.sol",
+        "./Dependencies/SafeMath.sol",
+        "./Dependencies/Ownable.sol",
+        "./Dependencies/CheckContract.sol",
+        "./Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "DefaultPool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/StabilityPool.sol": {
+      "lastModificationDate": 1618186217920,
+      "contentHash": "4d47f79b79bc656f93064da22372772a",
+      "sourceName": "contracts/Liquity/StabilityPool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Interfaces/IBorrowerOperations.sol",
+        "./Interfaces/IStabilityPool.sol",
+        "./Interfaces/IBorrowerOperations.sol",
+        "./Interfaces/ITroveManager.sol",
+        "./Interfaces/ILUSDToken.sol",
+        "./Interfaces/ISortedTroves.sol",
+        "./Interfaces/ICommunityIssuance.sol",
+        "./Dependencies/LiquityBase.sol",
+        "./Dependencies/SafeMath.sol",
+        "./Dependencies/LiquitySafeMath128.sol",
+        "./Dependencies/Ownable.sol",
+        "./Dependencies/CheckContract.sol",
+        "./Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "StabilityPool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/GasPool.sol": {
+      "lastModificationDate": 1618186217867,
+      "contentHash": "9f4dd01d7765056df98c3f3868548848",
+      "sourceName": "contracts/Liquity/GasPool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "GasPool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/CollSurplusPool.sol": {
+      "lastModificationDate": 1618186217850,
+      "contentHash": "0caaa3c0184861a90056f7a43f0c2bfb",
+      "sourceName": "contracts/Liquity/CollSurplusPool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Interfaces/ICollSurplusPool.sol",
+        "./Dependencies/SafeMath.sol",
+        "./Dependencies/Ownable.sol",
+        "./Dependencies/CheckContract.sol",
+        "./Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "CollSurplusPool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/LUSDToken.sol": {
+      "lastModificationDate": 1618186217882,
+      "contentHash": "6553c57ef1644e82034d4f53d85d9213",
+      "sourceName": "contracts/Liquity/LUSDToken.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Interfaces/ILUSDToken.sol",
+        "./Dependencies/SafeMath.sol",
+        "./Dependencies/CheckContract.sol",
+        "./Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LUSDToken"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/PriceFeedTestnet.sol": {
+      "lastModificationDate": 1618186162342,
+      "contentHash": "42e8e0e6dbb08913e4ff41ad3bba8c08",
+      "sourceName": "contracts/Liquity/TestContracts/PriceFeedTestnet.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Interfaces/IPriceFeed.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "PriceFeedTestnet"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/SortedTroves.sol": {
+      "lastModificationDate": 1618186217913,
+      "contentHash": "57e19e50ce7820b19ddfd41de09296ee",
+      "sourceName": "contracts/Liquity/SortedTroves.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Interfaces/ISortedTroves.sol",
+        "./Interfaces/ITroveManager.sol",
+        "./Interfaces/IBorrowerOperations.sol",
+        "./Dependencies/SafeMath.sol",
+        "./Dependencies/Ownable.sol",
+        "./Dependencies/CheckContract.sol",
+        "./Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "SortedTroves"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/EchidnaProxy.sol": {
+      "lastModificationDate": 1618186162340,
+      "contentHash": "e0dc5b1fabcf3ebba320250060b13f93",
+      "sourceName": "contracts/Liquity/TestContracts/EchidnaProxy.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../TroveManager.sol",
+        "../BorrowerOperations.sol",
+        "../StabilityPool.sol",
+        "../LUSDToken.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "EchidnaProxy"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/ITroveManager.sol": {
+      "lastModificationDate": 1618186162288,
+      "contentHash": "086f29a392117cad9c12e93c6b341339",
+      "sourceName": "contracts/Liquity/Interfaces/ITroveManager.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ILiquityBase.sol",
+        "./IStabilityPool.sol",
+        "./ILUSDToken.sol",
+        "./ILQTYToken.sol",
+        "./ILQTYStaking.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ITroveManager"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/IStabilityPool.sol": {
+      "lastModificationDate": 1618186162288,
+      "contentHash": "1b74e87e4271cbe312248822f04d0366",
+      "sourceName": "contracts/Liquity/Interfaces/IStabilityPool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IStabilityPool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/ICollSurplusPool.sol": {
+      "lastModificationDate": 1618186162285,
+      "contentHash": "4c3de691e35fe3cbc8f468f3348ee95e",
+      "sourceName": "contracts/Liquity/Interfaces/ICollSurplusPool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ICollSurplusPool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/ILUSDToken.sol": {
+      "lastModificationDate": 1618186162286,
+      "contentHash": "c1f7bc1420ba555cfd4c79b3ad288504",
+      "sourceName": "contracts/Liquity/Interfaces/ILUSDToken.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/IERC20.sol",
+        "../Dependencies/IERC2612.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ILUSDToken"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/ISortedTroves.sol": {
+      "lastModificationDate": 1618186162287,
+      "contentHash": "596d6e141eea598b5d5b5f149ff45dc8",
+      "sourceName": "contracts/Liquity/Interfaces/ISortedTroves.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ISortedTroves"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/ILQTYToken.sol": {
+      "lastModificationDate": 1618186162286,
+      "contentHash": "ce8ac371dab2390dac084497c2faec24",
+      "sourceName": "contracts/Liquity/Interfaces/ILQTYToken.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/IERC20.sol",
+        "../Dependencies/IERC2612.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ILQTYToken"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/ILQTYStaking.sol": {
+      "lastModificationDate": 1618186162286,
+      "contentHash": "8b6197f0d752ee318fd450c809cfd42e",
+      "sourceName": "contracts/Liquity/Interfaces/ILQTYStaking.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ILQTYStaking"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/LiquityBase.sol": {
+      "lastModificationDate": 1618186162258,
+      "contentHash": "4d3d67c4f66b44c1eb2791bfc7408746",
+      "sourceName": "contracts/Liquity/Dependencies/LiquityBase.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./BaseMath.sol",
+        "./LiquityMath.sol",
+        "../Interfaces/IActivePool.sol",
+        "../Interfaces/IDefaultPool.sol",
+        "../Interfaces/IPriceFeed.sol",
+        "../Interfaces/ILiquityBase.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LiquityBase"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/ILiquityBase.sol": {
+      "lastModificationDate": 1618186162286,
+      "contentHash": "4ce63813d9516eab46cafb8f7280c445",
+      "sourceName": "contracts/Liquity/Interfaces/ILiquityBase.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IPriceFeed.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ILiquityBase"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/IPriceFeed.sol": {
+      "lastModificationDate": 1618186162287,
+      "contentHash": "6a92c5a6d02f593873e82afde20abee5",
+      "sourceName": "contracts/Liquity/Interfaces/IPriceFeed.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IPriceFeed"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/IERC20.sol": {
+      "lastModificationDate": 1618186162257,
+      "contentHash": "7b565373fcb5903d2663e4b0d91c8f0a",
+      "sourceName": "contracts/Liquity/Dependencies/IERC20.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IERC20"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/IERC2612.sol": {
+      "lastModificationDate": 1618186162257,
+      "contentHash": "3c70134daac99735c1cc086a1728f6ba",
+      "sourceName": "contracts/Liquity/Dependencies/IERC2612.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IERC2612"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/BaseMath.sol": {
+      "lastModificationDate": 1618186162256,
+      "contentHash": "2e7e17ddf012c77296d1451991795dc0",
+      "sourceName": "contracts/Liquity/Dependencies/BaseMath.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "BaseMath"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/LiquityMath.sol": {
+      "lastModificationDate": 1618186162258,
+      "contentHash": "12c8ea21fecc4ba0e962330b3718a30f",
+      "sourceName": "contracts/Liquity/Dependencies/LiquityMath.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./SafeMath.sol",
+        "./console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LiquityMath"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/IDefaultPool.sol": {
+      "lastModificationDate": 1618186162285,
+      "contentHash": "7e582b7a76643a77ec1f8faed2128e84",
+      "sourceName": "contracts/Liquity/Interfaces/IDefaultPool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IPool.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IDefaultPool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/IBorrowerOperations.sol": {
+      "lastModificationDate": 1618186162284,
+      "contentHash": "8877216c7055d59c75c44830fc34f06f",
+      "sourceName": "contracts/Liquity/Interfaces/IBorrowerOperations.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IBorrowerOperations"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/ICommunityIssuance.sol": {
+      "lastModificationDate": 1618186162285,
+      "contentHash": "c55faf2ead59cd12fb0c76f54c3d15d5",
+      "sourceName": "contracts/Liquity/Interfaces/ICommunityIssuance.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ICommunityIssuance"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/LiquitySafeMath128.sol": {
+      "lastModificationDate": 1618186162259,
+      "contentHash": "311cfe482ae4000acd3239b9ca710a2e",
+      "sourceName": "contracts/Liquity/Dependencies/LiquitySafeMath128.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LiquitySafeMath128"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/LUSDTokenTester.sol": {
+      "lastModificationDate": 1618186162341,
+      "contentHash": "5d5c722b13009c15b580e9ede917367f",
+      "sourceName": "contracts/Liquity/TestContracts/LUSDTokenTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../LUSDToken.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LUSDTokenTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/MockAggregator.sol": {
+      "lastModificationDate": 1618186162342,
+      "contentHash": "0b1b58720c0c82c08e223e98b7cbce4d",
+      "sourceName": "contracts/Liquity/TestContracts/MockAggregator.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/AggregatorV3Interface.sol",
+        "../Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "MockAggregator"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/AggregatorV3Interface.sol": {
+      "lastModificationDate": 1618186162255,
+      "contentHash": "80869bcc297fea759a9d79b9eca11d83",
+      "sourceName": "contracts/Liquity/Dependencies/AggregatorV3Interface.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "AggregatorV3Interface"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/PriceFeed.sol": {
+      "lastModificationDate": 1618186217905,
+      "contentHash": "2ade53bec891af16b93be5d4666960cf",
+      "sourceName": "contracts/Liquity/PriceFeed.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Interfaces/IPriceFeed.sol",
+        "./Interfaces/ITellorCaller.sol",
+        "./Dependencies/AggregatorV3Interface.sol",
+        "./Dependencies/SafeMath.sol",
+        "./Dependencies/Ownable.sol",
+        "./Dependencies/CheckContract.sol",
+        "./Dependencies/BaseMath.sol",
+        "./Dependencies/LiquityMath.sol",
+        "./Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "PriceFeed"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/ITellorCaller.sol": {
+      "lastModificationDate": 1618186162288,
+      "contentHash": "37d470c7a90a64c2e2adde381def44c8",
+      "sourceName": "contracts/Liquity/Interfaces/ITellorCaller.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ITellorCaller"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/PriceFeedTester.sol": {
+      "lastModificationDate": 1618186162342,
+      "contentHash": "ed30de21a2e4838a7908a74e502fa7d5",
+      "sourceName": "contracts/Liquity/TestContracts/PriceFeedTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../PriceFeed.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "PriceFeedTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/LiquityMathTester.sol": {
+      "lastModificationDate": 1618186162342,
+      "contentHash": "281c432d7bff4e97306da190e1f63fe0",
+      "sourceName": "contracts/Liquity/TestContracts/LiquityMathTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/LiquityMath.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LiquityMathTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/FunctionCaller.sol": {
+      "lastModificationDate": 1618186162341,
+      "contentHash": "b1c6fbfcafb586b7ba58860e6390021e",
+      "sourceName": "contracts/Liquity/TestContracts/FunctionCaller.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Interfaces/ITroveManager.sol",
+        "../Interfaces/ISortedTroves.sol",
+        "../Interfaces/IPriceFeed.sol",
+        "../Dependencies/LiquityMath.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "FunctionCaller"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Proxy/BorrowerWrappersScript.sol": {
+      "lastModificationDate": 1618186162329,
+      "contentHash": "56cc398fc22739e6c7dc5d0a1ad7920b",
+      "sourceName": "contracts/Liquity/Proxy/BorrowerWrappersScript.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/SafeMath.sol",
+        "../Dependencies/LiquityMath.sol",
+        "../Dependencies/IERC20.sol",
+        "../Interfaces/IBorrowerOperations.sol",
+        "../Interfaces/ITroveManager.sol",
+        "../Interfaces/IStabilityPool.sol",
+        "../Interfaces/IPriceFeed.sol",
+        "../Interfaces/ILQTYStaking.sol",
+        "./BorrowerOperationsScript.sol",
+        "./ETHTransferScript.sol",
+        "./LQTYStakingScript.sol",
+        "../Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "BorrowerWrappersScript"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Proxy/BorrowerOperationsScript.sol": {
+      "lastModificationDate": 1618186162327,
+      "contentHash": "29860f24d0e08842d8ffedab5955f087",
+      "sourceName": "contracts/Liquity/Proxy/BorrowerOperationsScript.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/CheckContract.sol",
+        "../Interfaces/IBorrowerOperations.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "BorrowerOperationsScript"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Proxy/ETHTransferScript.sol": {
+      "lastModificationDate": 1618186162330,
+      "contentHash": "2490690b25902621b2f4c3ca27e2e2c1",
+      "sourceName": "contracts/Liquity/Proxy/ETHTransferScript.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ETHTransferScript"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Proxy/LQTYStakingScript.sol": {
+      "lastModificationDate": 1618186162330,
+      "contentHash": "82af41f3876502c06f61cac6052a0b5e",
+      "sourceName": "contracts/Liquity/Proxy/LQTYStakingScript.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/CheckContract.sol",
+        "../Interfaces/ILQTYStaking.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LQTYStakingScript"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/CDPManagerTester.sol": {
+      "lastModificationDate": 1618186162339,
+      "contentHash": "81fb98819faa4b4afa9a5ac960a54a63",
+      "sourceName": "contracts/Liquity/TestContracts/CDPManagerTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../TroveManager.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "TroveManagerTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/StabilityPoolTester.sol": {
+      "lastModificationDate": 1618186162343,
+      "contentHash": "8b6904096067695110f6958ec09fe53d",
+      "sourceName": "contracts/Liquity/TestContracts/StabilityPoolTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../StabilityPool.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "StabilityPoolTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/LQTY/LQTYToken.sol": {
+      "lastModificationDate": 1618186162316,
+      "contentHash": "79208af867bd19464c7a2d1270db6755",
+      "sourceName": "contracts/Liquity/LQTY/LQTYToken.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/CheckContract.sol",
+        "../Dependencies/SafeMath.sol",
+        "../Interfaces/ILQTYToken.sol",
+        "../Interfaces/ILockupContractFactory.sol",
+        "../Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LQTYToken"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Interfaces/ILockupContractFactory.sol": {
+      "lastModificationDate": 1618186162287,
+      "contentHash": "d7c500cc912c5e07c7bef30ee84d481d",
+      "sourceName": "contracts/Liquity/Interfaces/ILockupContractFactory.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ILockupContractFactory"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/LQTYTokenTester.sol": {
+      "lastModificationDate": 1618186162341,
+      "contentHash": "e250756e18097ab570c9cdf7f81d58ef",
+      "sourceName": "contracts/Liquity/TestContracts/LQTYTokenTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../LQTY/LQTYToken.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LQTYTokenTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/LQTY/LockupContractFactory.sol": {
+      "lastModificationDate": 1618186162316,
+      "contentHash": "875f179a328a84fb6720aa3884898536",
+      "sourceName": "contracts/Liquity/LQTY/LockupContractFactory.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/CheckContract.sol",
+        "../Dependencies/SafeMath.sol",
+        "../Dependencies/Ownable.sol",
+        "../Interfaces/ILockupContractFactory.sol",
+        "./LockupContract.sol",
+        "../Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LockupContractFactory"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/LQTY/LockupContract.sol": {
+      "lastModificationDate": 1618186162316,
+      "contentHash": "d38ac18eea704ff096cd93dd5fbb4e59",
+      "sourceName": "contracts/Liquity/LQTY/LockupContract.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/SafeMath.sol",
+        "../Interfaces/ILQTYToken.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LockupContract"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/LQTY/LQTYStaking.sol": {
+      "lastModificationDate": 1618186162315,
+      "contentHash": "2250f5961de69824c2356765f4d3fe20",
+      "sourceName": "contracts/Liquity/LQTY/LQTYStaking.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/BaseMath.sol",
+        "../Dependencies/SafeMath.sol",
+        "../Dependencies/Ownable.sol",
+        "../Dependencies/CheckContract.sol",
+        "../Dependencies/console.sol",
+        "../Interfaces/ILQTYToken.sol",
+        "../Interfaces/ILQTYStaking.sol",
+        "../Dependencies/LiquityMath.sol",
+        "../Interfaces/ILUSDToken.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LQTYStaking"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/LQTYStakingTester.sol": {
+      "lastModificationDate": 1618186162341,
+      "contentHash": "8feec292a61f915a7f85e4ab419dff1f",
+      "sourceName": "contracts/Liquity/TestContracts/LQTYStakingTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../LQTY/LQTYStaking.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LQTYStakingTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/LUSDTokenCaller.sol": {
+      "lastModificationDate": 1618186162341,
+      "contentHash": "2c6ed04987a9daf7e2f13e85b576d41e",
+      "sourceName": "contracts/Liquity/TestContracts/LUSDTokenCaller.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Interfaces/ILUSDToken.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LUSDTokenCaller"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Proxy/TokenScript.sol": {
+      "lastModificationDate": 1618186162330,
+      "contentHash": "c9452bb8edce6fa6aa237ef799cdd4d1",
+      "sourceName": "contracts/Liquity/Proxy/TokenScript.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/CheckContract.sol",
+        "../Dependencies/IERC20.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "TokenScript"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/LPRewards/Dependencies/SafeERC20.sol": {
+      "lastModificationDate": 1618186162302,
+      "contentHash": "dea5d1cbb6854956a59b54bb6cfd7951",
+      "sourceName": "contracts/Liquity/LPRewards/Dependencies/SafeERC20.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../Dependencies/IERC20.sol",
+        "../../Dependencies/SafeMath.sol",
+        "./Address.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "SafeERC20"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/LPRewards/Dependencies/Address.sol": {
+      "lastModificationDate": 1618186162302,
+      "contentHash": "ce5e9c4d616151f26bd1b2f9a967da4e",
+      "sourceName": "contracts/Liquity/LPRewards/Dependencies/Address.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "Address"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/LPRewards/Unipool.sol": {
+      "lastModificationDate": 1618186162303,
+      "contentHash": "bc5899cf240683ddbf323dca86039733",
+      "sourceName": "contracts/Liquity/LPRewards/Unipool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/LiquityMath.sol",
+        "../Dependencies/SafeMath.sol",
+        "../Dependencies/Ownable.sol",
+        "../Dependencies/CheckContract.sol",
+        "../Interfaces/ILQTYToken.sol",
+        "./Dependencies/SafeERC20.sol",
+        "./Interfaces/ILPTokenWrapper.sol",
+        "./Interfaces/IUnipool.sol",
+        "../Dependencies/console.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LPTokenWrapper",
+        "Unipool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/LPRewards/Interfaces/ILPTokenWrapper.sol": {
+      "lastModificationDate": 1618186162303,
+      "contentHash": "407d67130dcaae4333af4165266c28c2",
+      "sourceName": "contracts/Liquity/LPRewards/Interfaces/ILPTokenWrapper.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ILPTokenWrapper"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/LPRewards/Interfaces/IUnipool.sol": {
+      "lastModificationDate": 1618186162303,
+      "contentHash": "5b86535a8e22f8d607dbcc75a8424df9",
+      "sourceName": "contracts/Liquity/LPRewards/Interfaces/IUnipool.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "IUnipool"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Proxy/TroveManagerScript.sol": {
+      "lastModificationDate": 1618186162330,
+      "contentHash": "65bb4cd604310a300b8619d4e5cef293",
+      "sourceName": "contracts/Liquity/Proxy/TroveManagerScript.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/CheckContract.sol",
+        "../Interfaces/ITroveManager.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "TroveManagerScript"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/HintHelpers.sol": {
+      "lastModificationDate": 1618186217874,
+      "contentHash": "a44e7b903c2534bfaae020d241a71f46",
+      "sourceName": "contracts/Liquity/HintHelpers.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Interfaces/ITroveManager.sol",
+        "./Interfaces/ISortedTroves.sol",
+        "./Dependencies/LiquityBase.sol",
+        "./Dependencies/Ownable.sol",
+        "./Dependencies/CheckContract.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "HintHelpers"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/DefaultPoolTester.sol": {
+      "lastModificationDate": 1618186162340,
+      "contentHash": "83dcf103b37928f26df9fa299b957797",
+      "sourceName": "contracts/Liquity/TestContracts/DefaultPoolTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../DefaultPool.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "DefaultPoolTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/LQTY/CommunityIssuance.sol": {
+      "lastModificationDate": 1618186162315,
+      "contentHash": "21d90ee6d27c255457ef9ae59b1019b3",
+      "sourceName": "contracts/Liquity/LQTY/CommunityIssuance.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Interfaces/ILQTYToken.sol",
+        "../Interfaces/ICommunityIssuance.sol",
+        "../Dependencies/BaseMath.sol",
+        "../Dependencies/LiquityMath.sol",
+        "../Dependencies/Ownable.sol",
+        "../Dependencies/CheckContract.sol",
+        "../Dependencies/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "CommunityIssuance"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/CommunityIssuanceTester.sol": {
+      "lastModificationDate": 1618186162339,
+      "contentHash": "1d8744aa4a26287bd5bf1c61accd5b66",
+      "sourceName": "contracts/Liquity/TestContracts/CommunityIssuanceTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../LQTY/CommunityIssuance.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "CommunityIssuanceTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/BorrowerOperationsTester.sol": {
+      "lastModificationDate": 1618186162339,
+      "contentHash": "476ff099025b989eb310d22f0eb29979",
+      "sourceName": "contracts/Liquity/TestContracts/BorrowerOperationsTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../BorrowerOperations.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "BorrowerOperationsTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/SortedTrovesTester.sol": {
+      "lastModificationDate": 1618186162343,
+      "contentHash": "dbbf231722834e920cdbf33bd39bdf30",
+      "sourceName": "contracts/Liquity/TestContracts/SortedTrovesTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Interfaces/ISortedTroves.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "SortedTrovesTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Proxy/StabilityPoolScript.sol": {
+      "lastModificationDate": 1618186162330,
+      "contentHash": "d8e1d73d2a588a7a44518e6efebd88f2",
+      "sourceName": "contracts/Liquity/Proxy/StabilityPoolScript.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/CheckContract.sol",
+        "../Interfaces/IStabilityPool.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "StabilityPoolScript"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/TellorCaller.sol": {
+      "lastModificationDate": 1618186162260,
+      "contentHash": "8fbccc9e3b8bcdb962358f5914d32bda",
+      "sourceName": "contracts/Liquity/Dependencies/TellorCaller.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Interfaces/ITellorCaller.sol",
+        "./ITellor.sol",
+        "./SafeMath.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "TellorCaller"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Dependencies/ITellor.sol": {
+      "lastModificationDate": 1618186162258,
+      "contentHash": "c1bd2caf347f1f4deea3fbf94551ef65",
+      "sourceName": "contracts/Liquity/Dependencies/ITellor.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ITellor"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/MultiTroveGetter.sol": {
+      "lastModificationDate": 1618186217897,
+      "contentHash": "ab6deb3f41fd478bb012aed6679d40be",
+      "sourceName": "contracts/Liquity/MultiTroveGetter.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./TroveManager.sol",
+        "./SortedTroves.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "MultiTroveGetter"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/LiquitySafeMath128Tester.sol": {
+      "lastModificationDate": 1618186162342,
+      "contentHash": "fb738969fe886ab5cd1942ac88ba3684",
+      "sourceName": "contracts/Liquity/TestContracts/LiquitySafeMath128Tester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Dependencies/LiquitySafeMath128.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "LiquitySafeMath128Tester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/ActivePoolTester.sol": {
+      "lastModificationDate": 1618186162339,
+      "contentHash": "c65ac320e30403e32139fd8c70f1e2d2",
+      "sourceName": "contracts/Liquity/TestContracts/ActivePoolTester.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../ActivePool.sol"
+      ],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "ActivePoolTester"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/Migrations.sol": {
+      "lastModificationDate": 1618186217889,
+      "contentHash": "2386143b48a6ba717cf3a097e29ccd9f",
+      "sourceName": "contracts/Liquity/Migrations.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "Migrations"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/Destructible.sol": {
+      "lastModificationDate": 1618186162340,
+      "contentHash": "ea715f1973792f213ab64a57ee7db506",
+      "sourceName": "contracts/Liquity/TestContracts/Destructible.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "Destructible"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/MockTellor.sol": {
+      "lastModificationDate": 1618186162342,
+      "contentHash": "909fa3e2a4a3c9a85cb90762aa520ba0",
+      "sourceName": "contracts/Liquity/TestContracts/MockTellor.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "MockTellor"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Liquity/TestContracts/NonPayable.sol": {
+      "lastModificationDate": 1618186162342,
+      "contentHash": "0e3e76aa4d941dad7e9ea17bed4a4067",
+      "sourceName": "contracts/Liquity/TestContracts/NonPayable.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.6.11"
+      ],
+      "artifacts": [
+        "NonPayable"
+      ]
+    },
+    "/Users/dannywarrick/code/harp/contract-testing/contracts/Migrations.sol": {
+      "lastModificationDate": 1618189599047,
+      "contentHash": "74b18017f204dd929a6efbd6c97ecb9d",
+      "sourceName": "contracts/Migrations.sol",
+      "solcConfig": {
+        "version": "0.6.11",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "Migrations"
+      ]
+    }
+  }
+}
