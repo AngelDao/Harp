@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+  font-family: Helvetica, Sans-Serif;
+}
+
+p,
+h1,
+a {
+  font-family: Helvetica, Sans-Serif;
+  font-size: 16px;
+}
+p {
+  margin: 12.5px 0px;
+}
+h1 {
+  margin: 0px;
+}
+a {
+  color: rgb(0, 0, 238);
+  cursor: pointer;
+}
+
+html {
+  width: 100%;
+  min-height: 100vh;
+  background: -webkit-linear-gradient(
+    -180deg,
+    rgb(227, 193, 255),
+    rgb(244, 244, 244)
+  );
+  background: linear-gradient(-180deg, rgb(227, 193, 255), rgb(244, 244, 244));
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px 25px 25px 25px;
+}
+
+section {
+  margin: 25px 25px 0px 25px;
+  width: 100%;
+  max-width: 705px;
+}
+
+.container-box {
+  display: flex;
+  justify-content: center;
+  border: 3px solid black;
+  padding: 10px;
+  background-color: #cc95ff;
+  padding: 15px 25px;
+}
+
+.heading {
+  font-size: 28px;
+  font-weight: 500;
+  color: #000;
+  margin: 0px 0px 15px 0px;
+}
+
+.border {
+  border-top: 5px dashed black;
+  height: 0px;
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+}
+
+.logo img {
+  width: 50%;
+  height: auto;
+}
+
+.why-we-build-harp p {
+  font-size: 16px;
+}
+
+.app {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 5px;
+  background-image: linear-gradient(
+    to top,
+    rgb(207, 207, 207) 16%,
+    rgb(252, 252, 252) 79%
+  );
+  padding: 3px;
+  outline: none;
+  border: 1px solid #000;
+  color: black;
+  background-color: #fcfcfc !important;
+  width: 100px;
+  height: 33px;
+  font-style: italic;
+  text-decoration: none;
+}
+
+.docs {
+  display: flex;
+  flex-direction: column;
+}
+
+.docs > .row {
+  display: flex;
+  justify-content: center;
+  margin: 7px 0px;
+}
+
+.connnect a,
+.docs > .row > a {
+  padding: 0px 7px;
+  border-right: 2px solid black;
+}
+
+.connnect {
+  display: flex;
+  justify-content: center;
+}
+
+.connnect a:last-child,
+.docs > .row > a:last-child {
+  border-right: none;
+}
