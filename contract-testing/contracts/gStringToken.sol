@@ -9,6 +9,19 @@ contract gStringToken is ERC20, ERC20Burnable {
     mapping(address => bool) internal allowedMinters;
     address public owner;
 
+    modifier onlyOwner {
+        require(msg.sender == owner, "Only owner can call this function");
+        _;
+    }
+
+    modifier onlyVerified {
+        require(
+            allowedMinters[msg.sender] == true,
+            "Sender not a verified Minter"
+        );
+        _;
+    }
+
     constructor(address _owner)
         public
         ERC20("Goverance String Token", "gSTRING")
@@ -20,16 +33,11 @@ contract gStringToken is ERC20, ERC20Burnable {
         return allowedMinters[_for];
     }
 
-    function addVestingAddress(address _vestingAddress) public {
-        require(msg.sender == owner, "Only owner can set this contract");
+    function addMinter(address _vestingAddress) public onlyOwner {
         allowedMinters[_vestingAddress] = true;
     }
 
-    function mintTo(address _to, uint256 _amount) public {
-        require(
-            allowedMinters[msg.sender] == true,
-            "Sender not a verified Minter"
-        );
+    function mintTo(address _to, uint256 _amount) public onlyVerified {
         _mint(_to, _amount);
     }
 }

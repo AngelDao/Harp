@@ -1,5 +1,5 @@
 import StringToken from "../../abis/StringToken.json";
-import Farm from "../../abis/LatestFarm.json";
+import Farm from "../../abis/Farm.json";
 import gStringToken from "../../abis/gStringToken.json";
 import LQTYToken from "../../abis/ILQTYToken.json";
 import LUSDToken from "../../abis/ILUSDToken.json";

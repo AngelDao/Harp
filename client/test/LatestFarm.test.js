@@ -4,7 +4,7 @@ const timeMachine = require("ganache-time-traveler");
 const StringToken = artifacts.require("StringToken");
 const LUSDLP = artifacts.require("LUSDLPToken");
 const ETHLP = artifacts.require("ETHLPToken");
-const LatestFarm = artifacts.require("LatestFarm");
+const Farm = artifacts.require("Farm");
 
 const SECOND = 1000;
 const HOUR = 60 * 60;
@@ -60,7 +60,7 @@ contract("Farm Tests", async (accounts) => {
     ethLPToken = await ETHLP.new(owner, owner2);
     lusdLPToken = await LUSDLP.new(owner, owner2);
 
-    farm = await LatestFarm.new(stringToken.address, 100);
+    farm = await Farm.new(stringToken.address, 100);
 
     await farm.add(20, lusdLPToken.address, true);
     await farm.add(80, ethLPToken.address, true);

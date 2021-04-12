@@ -9,6 +9,19 @@ contract StringToken is ERC20 {
     uint256 public HarpDAOAllocation = 2000000000000000000000000;
     address public owner;
 
+    modifier onlyOwner {
+        require(msg.sender == owner, "only owner can call this function");
+        _;
+    }
+
+    modifier onlyVerified {
+        require(
+            allowedMinters[msg.sender] == true,
+            "Sender not a verified Minter"
+        );
+        _;
+    }
+
     constructor(
         string memory _name,
         string memory _symbol,
@@ -23,16 +36,11 @@ contract StringToken is ERC20 {
         return allowedMinters[_for];
     }
 
-    function addVestingAddress(address _vestingAddress) public {
-        require(msg.sender == owner, "Only owner can set this contract");
+    function addVestingAddress(address _vestingAddress) public onlyOwner{
         allowedMinters[_vestingAddress] = true;
     }
 
-    function mintTo(address _to, uint256 _amount) public {
-        require(
-            allowedMinters[msg.sender] == true,
-            "Sender not a verified Minter"
-        );
+    function mintTo(address _to, uint256 _amount) public onlyVerified {
         _mint(_to, _amount);
     }
 }

@@ -2,7 +2,7 @@
 const StringToken = artifacts.require("StringToken");
 const gStringToken = artifacts.require("gStringToken");
 const TokenVesting = artifacts.require("TokenVesting");
-const LatestFarm = artifacts.require("LatestFarm");
+const Farm = artifacts.require("Farm");
 // const LUSDLP = artifacts.require("LUSDLPToken");
 // const ETHLP = artifacts.require("ETHLPToken");
 // const LQTYToken = artifacts.require("LQTYToken");
@@ -64,9 +64,9 @@ module.exports = async function (deployer, network, accounts) {
     stabilityPool
   );
 
-  await deployer.deploy(LatestFarm, stringToken.address, 100);
+  await deployer.deploy(Farm, stringToken.address, 100);
 
-  const farm = await LatestFarm.deployed();
+  const farm = await Farm.deployed();
   const stringStaking = await StringStaking.deployed();
   await stringStaking.registerIt({ from: owner });
 

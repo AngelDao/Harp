@@ -5,7 +5,7 @@
 // const LUSDLP = artifacts.require("LUSDLPToken");
 // const ETHLP = artifacts.require("ETHLPToken");
 // // const Farm = artifacts.require("Farm");
-// const LatestFarm = artifacts.require("LatestFarm");
+// const Farm = artifacts.require("Farm");
 
 // const SECOND = 1000;
 // const HOUR = 60 * 60;
@@ -58,7 +58,7 @@
 //     ethLPToken = await ETHLP.new(owner, owner2);
 //     lusdLPToken = await LUSDLP.new(owner, owner2);
 
-//     farm = await LatestFarm.new(stringToken.address);
+//     farm = await Farm.new(stringToken.address);
 
 //     farm.add(20, lusdLPToken.address, true);
 //     farm.add(80, ethLPToken.address, true);
