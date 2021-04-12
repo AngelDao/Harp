@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.11 ;
+pragma solidity 0.6.11;
 
 import "./ITroveManager.sol";
 import "./ISortedTroves.sol";
@@ -8,7 +8,7 @@ import "../Dependencies/LiquityBase.sol";
 import "../Dependencies/Ownable.sol";
 import "../Dependencies/CheckContract.sol";
 
-contract HintHelpers is LiquityBase, Ownable, CheckContract {
+contract IHintHelpers is LiquityBase, Ownable, CheckContract {
     string public constant NAME = "HintHelpers";
 
     ISortedTroves public sortedTroves;

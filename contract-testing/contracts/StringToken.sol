@@ -28,7 +28,7 @@ contract StringToken is ERC20 {
         string memory _symbol,
         address _HarpDAOAddress,
         address _owner
-    ) ERC20(_name, _symbol) {
+    ) public  ERC20(_name, _symbol) {
         owner = _owner;
         _mint(_HarpDAOAddress, HarpDAOAllocation);
     }

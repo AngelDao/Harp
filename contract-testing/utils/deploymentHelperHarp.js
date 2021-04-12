@@ -5,7 +5,7 @@ const Farm = artifacts.require("Farm");
 const StringStaking = artifacts.require("StringStaking");
 const StabilityFactory = artifacts.require("StabilityFactory.sol");
 
-const deployHarp = async (addresses, HarpDAO, AngelDAO, liquity) => {
+const deployHarp = async (addresses, liquity) => {
   // user addresses
   const owner = addresses[0];
 
@@ -81,3 +81,5 @@ const deployHarp = async (addresses, HarpDAO, AngelDAO, liquity) => {
   // register the front end
   await stringStaking.registerIt({ from: owner });
 };
+
+module.exports = deployHarp;
