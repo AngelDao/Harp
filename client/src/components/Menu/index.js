@@ -3,9 +3,10 @@ import { MenuContainer, Item, EffectContainer, ItemContainer } from "./styles";
 import { StyledLink } from "./styles";
 import { withRouter } from "react-router-dom";
 import { pathFinder } from "../../utils/ipfsRouteHelper";
+import UseRedirectToHttps from "../../hooks/https";
 
 const Menu = ({ location, history }) => {
-  debugger;
+  UseRedirectToHttps();
   const [current, setCurrent] = useState(location.pathname.split("/")[1]);
   const [currentH, setCurrentH] = useState(null);
 
@@ -63,7 +64,6 @@ const Menu = ({ location, history }) => {
             </Item>
           </div>
           <div onClick={() => pushToHistory("repay")}>
-
             <Item
               onMouseLeave={() => handleHover("")}
               onMouseOver={() => handleHover("repay")}
