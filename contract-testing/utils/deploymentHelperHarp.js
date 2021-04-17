@@ -26,7 +26,6 @@ const deployHarp = async (addresses, liquity) => {
   let stringStaking = await ethers.getContractFactory("StringStaking");
   let stabilityFactory = await ethers.getContractFactory("StabilityFactory");
 
-  console.log("get factories");
   // deploy STRING contract
   stringToken = await stringToken.deploy(
     "STRING Token",
@@ -34,19 +33,15 @@ const deployHarp = async (addresses, liquity) => {
     HarpDAO,
     owner
   );
-  console.log("deploy string");
 
   // deploy gSTRING contract
   gstringToken = await gstringToken.deploy(owner);
-  console.log("deploy gstring");
 
   // deploy TokenVesting contract
   tokenVesting = await tokenVesting.deploy(AngelDAO, 365, stringToken.address);
-  console.log("deploy tokenvesting");
 
   // deploy Farm contract
   farm = await farm.deploy(stringToken.address, 100);
-  console.log("deploy farm");
 
   // deploy StringStaking contract
   stringStaking = await stringStaking.deploy(
@@ -56,7 +51,6 @@ const deployHarp = async (addresses, liquity) => {
     gstringToken.address,
     stabilityPool
   );
-  console.log("deploy stringstaking");
 
   // deploy StabilityFactory contract
   stabilityFactory = await stabilityFactory.deploy(
@@ -66,7 +60,6 @@ const deployHarp = async (addresses, liquity) => {
     stringToken.address,
     stabilityPool
   );
-  console.log("deploy stability");
 
   // add TokenVesting as a verified STRING minter
   await stringToken.addMinter(tokenVesting.address, { from: owner });
@@ -86,7 +79,6 @@ const deployHarp = async (addresses, liquity) => {
   // register the front end
   await stringStaking.registerIt({ from: owner });
 
-  console.log("connect to blockchain");
   return {
     stringStaking,
     stringToken,
