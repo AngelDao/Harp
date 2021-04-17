@@ -16,7 +16,6 @@ const deployHarp = async (addresses, liquity) => {
   // Liquity Addresses
   const stabilityPool = liquity.stabilityPool.address;
   const lqtyToken = liquity.lqtyToken.address;
-  console.log(liquity.lusdToken);
   const lusdToken = liquity.lusdToken.address;
 
   // Harp contracts
@@ -42,7 +41,6 @@ const deployHarp = async (addresses, liquity) => {
   console.log("deploy gstring");
 
   // deploy TokenVesting contract
-  console.log(stringToken.address);
   tokenVesting = await tokenVesting.deploy(AngelDAO, 365, stringToken.address);
   console.log("deploy tokenvesting");
 
@@ -87,6 +85,16 @@ const deployHarp = async (addresses, liquity) => {
 
   // register the front end
   await stringStaking.registerIt({ from: owner });
+
+  console.log("connect to blockchain");
+  return {
+    stringStaking,
+    stringToken,
+    gstringToken,
+    tokenVesting,
+    farm,
+    stabilityFactory,
+  };
 };
 
 module.exports = deployHarp;
