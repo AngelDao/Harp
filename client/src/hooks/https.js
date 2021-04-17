@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 const UseRedirectToHttps = () => {
   let location = useLocation();
   useEffect(() => {
+    debugger;
     if (
       window.location.protocol !== "https:" &&
       window.location.host === "app.harp.finance"

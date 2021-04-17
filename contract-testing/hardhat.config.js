@@ -28,18 +28,47 @@ module.exports = {
     },
   },
   solidity: {
-    paths: {
-      tests: "./test",
-      artifacts: "./artifacts",
-    },
     compilers: [
       {
-        version: "0.6.11",
-      },
-
-      {
         version: "0.4.23",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 100,
+          },
+        },
+      },
+      {
+        version: "0.5.17",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 100,
+          },
+        },
+      },
+      {
+        version: "0.6.11",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 100,
+          },
+        },
       },
     ],
   },
+  paths: {
+    tests: "./test",
+    artifacts: "./artifacts",
+  },
+  compilers: [
+    {
+      version: "0.6.11",
+    },
+
+    {
+      version: "0.4.23",
+    },
+  ],
 };
