@@ -122,8 +122,8 @@ contract("STRING Token Tests", () => {
           "Vesting has already started"
         );
       }
-      // 3 days
-      // First distribution
+      //    3 days
+      //    First distribution
       await th.fastForwardTime(72 * HOUR, web3.currentProvider);
 
       await tokenVesting.releasePending();
@@ -137,7 +137,7 @@ contract("STRING Token Tests", () => {
       );
       let lastBalance = balance;
 
-      // assert.equal(tokens(expectedBalance.toString()), balance.toString());
+      assert.equal(tokens(expectedBalance.toString()), balance.toString());
       let totalSupply = (await stringToken.totalSupply()).toString();
       const firstSupplyCheck = new web3.utils.BN(tokens("2000000"));
       let currentSupply = firstSupplyCheck.add(balance);
@@ -156,15 +156,15 @@ contract("STRING Token Tests", () => {
       ).toNumber();
       assert.equal(lastDistributionTime - startDistributionTime, 3 * DAY);
 
-      // 5 Days
-      // Second distribution
+      //    5 Days
+      //    Second distribution
       await th.fastForwardTime(5 * DAY, web3.currentProvider);
       await tokenVesting.releasePending();
       expectedBalance = expectedRate * 5 + lastBalance;
       balance = await new web3.utils.BN(
         (await stringToken.balanceOf(AngelDAO)).toString()
       );
-      // assert.equal(tokens(expectedBalance.toString()), balance.toString());
+      assert.equal(tokens(expectedBalance.toString()), balance.toString());
       totalSupply = (await stringToken.totalSupply()).toString();
       currentSupply = firstSupplyCheck.add(balance);
       assert.equal(totalSupply, currentSupply.toString());
@@ -180,17 +180,17 @@ contract("STRING Token Tests", () => {
         await tokenVesting.startDistributionTime()
       ).toNumber();
       assert.equal(lastDistributionTime - startDistributionTime, 8 * DAY);
-      // lastBalance = expectedBalance;
+      lastBalance = expectedBalance;
 
-      // 81.5 Days
-      // Third distribution
+      //    81.5 Days
+      //    Third distribution
       await th.fastForwardTime(81 * DAY + DAY * 0.5, web3.currentProvider);
       await tokenVesting.releasePending();
-      // expectedBalance = expectedRate * 81 + lastBalance;
+      expectedBalance = expectedRate * 81 + lastBalance;
       balance = await new web3.utils.BN(
         (await stringToken.balanceOf(AngelDAO)).toString()
       );
-      // assert.equal(tokens(expectedBalance.toString()), balance.toString());
+      assert.equal(tokens(expectedBalance.toString()), balance.toString());
       totalSupply = (await stringToken.totalSupply()).toString();
       currentSupply = firstSupplyCheck.add(balance);
       assert.equal(totalSupply, currentSupply.toString());
@@ -208,8 +208,8 @@ contract("STRING Token Tests", () => {
       assert.equal(lastDistributionTime - startDistributionTime, 89 * DAY);
       lastBalance = expectedBalance;
 
-      // 900.5 Days
-      // Third distribution
+      //    900.5 Days
+      //    Third distribution
       await th.fastForwardTime(900 * DAY + DAY * 0.5, web3.currentProvider);
       await tokenVesting.releasePending();
       expectedBalance = 1000000;
@@ -236,7 +236,7 @@ contract("STRING Token Tests", () => {
       const vestingComplete = await tokenVesting.vestingComplete();
       assert.equal(vestingComplete, true);
 
-      //   make sure releasePending() can no longer be called
+      //  make sure releasePending() can no longer be called
       try {
         await tokenVesting.releasePending();
       } catch (err) {
