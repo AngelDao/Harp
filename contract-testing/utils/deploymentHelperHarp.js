@@ -8,6 +8,7 @@ const StabilityFactory = artifacts.require("StabilityFactory.sol");
 const deployHarp = async (addresses, liquity) => {
   // user addresses
   const owner = addresses[0].address;
+  const owner2 = addresses[1].address;
 
   // DAO Adresses
   const AngelDAO = "0x3Af2d668Afd7eF2B94b0862aE759712c067DFa4c";
@@ -25,6 +26,10 @@ const deployHarp = async (addresses, liquity) => {
   let farm = await ethers.getContractFactory("Farm");
   let stringStaking = await ethers.getContractFactory("StringStaking");
   let stabilityFactory = await ethers.getContractFactory("StabilityFactory");
+  let lqtyTestToken = await ethers.getContractFactory("LQTYTokenTest");
+
+  // deploy LQTY contract
+  lqtyTestToken = await lqtyTestToken.deploy(owner, owner2);
 
   // deploy STRING contract
   stringToken = await stringToken.deploy(
@@ -46,8 +51,8 @@ const deployHarp = async (addresses, liquity) => {
   // deploy StringStaking contract
   stringStaking = await stringStaking.deploy(
     stringToken.address,
-    100,
-    lqtyToken,
+    200,
+    lqtyTestToken.address,
     gstringToken.address,
     stabilityPool
   );
@@ -62,19 +67,19 @@ const deployHarp = async (addresses, liquity) => {
   );
 
   // add TokenVesting as a verified STRING minter
-  await stringToken.addMinter(tokenVesting.address, { from: owner });
+  await stringToken.addMinter(tokenVesting.address);
 
   // add StabilityFactory as a verified STRING minter
-  await stringToken.addMinter(stabilityFactory.address, { from: owner });
+  await stringToken.addMinter(stabilityFactory.address);
 
   // add Farm as a verified STRING minter
-  await stringToken.addMinter(farm.address, { from: owner });
+  await stringToken.addMinter(farm.address);
 
   // add StringStaking as a verified STRING minter
-  await stringToken.addMinter(stabilityFactory.address, { from: owner });
+  await stringToken.addMinter(stringStaking.address);
 
   // add StringStaking as a verified gSTRING minter
-  await gstringToken.addMinter(farm.address, { from: owner });
+  await gstringToken.addMinter(stringStaking.address);
 
   // register the front end
   await stringStaking.registerIt({ from: owner });

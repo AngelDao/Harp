@@ -7,10 +7,10 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "./StringToken.sol";
-// import "./ILQTYToken.sol";
 import "./Interfaces/ILQTYToken.sol";
 import "./gStringToken.sol";
 import "./Interfaces/IStabilityPool.sol";
+import "hardhat/console.sol";
 
 contract StringStaking is Ownable {
     using SafeMath for uint256;
@@ -22,7 +22,7 @@ contract StringStaking is Ownable {
         uint256 rewardDebt; // Reward debt. See explanation below.
         uint256 lqtyRewardDebt;
         //
-        // We do some fancy math here. Basically, any point in time, the amount of SUSHIs
+        // We do some fancy math here. Basically, any point in time, the amount of STRING
         // entitled to a user but is pending to be distributed is:
         //
         //   pending reward = (user.amount * pool.accstringPerShare) - user.rewardDebt
@@ -38,23 +38,23 @@ contract StringStaking is Ownable {
     struct PoolInfo {
         IERC20 lpToken; // Address of LP token contract.
         uint256 lpTokenSupply;
-        uint256 lastRewardBlock; // Last block number that SUSHIs distribution occurs.
-        uint256 accStringPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
+        uint256 lastRewardBlock; // Last block number that STRING distribution occurs.
+        uint256 accStringPerShare; // Accumulated STRING per share, times 1e12. See below.
         uint256 accLQTYPerShare;
     }
 
-    // The SUSHI TOKEN!
+    // The STRING TOKEN!
     StringToken public stringToken;
     ILQTYToken public lqtyToken;
     gStringToken public gstringToken;
     IStabilityPool public stabilityPool;
     // Dev address.
     address public devaddr;
-    bool public registered;
+    bool public registered = false;
     address public creator;
-    // Block number when bonus SUSHI period ends.
+    // Block number when bonus STRING period ends.
     uint256 public endBlock;
-    // SUSHI tokens created per block.
+    // STRING tokens created per block.
     uint256 public stringPerBlock = 230769230800000000;
     uint256 public postBoostedBlock;
     uint256 public constant boostedMultiplier = 5;
@@ -66,7 +66,7 @@ contract StringStaking is Ownable {
     mapping(address => UserInfo) public userInfo;
     // Total allocation poitns. Must be the sum of all allocation points in all pools.
     uint256 public totalAllocPoint = 0;
-    // The block number when SUSHI mining starts.
+    // The block number when STRING mining starts.
     uint256 public startBlock;
 
     event Deposit(address indexed user, uint256 amount);
@@ -128,7 +128,7 @@ contract StringStaking is Ownable {
         }
     }
 
-    // View function to see pending SUSHIs on frontend.
+    // View function to see pending STRING on frontend.
     function pendingString(address _user) external view returns (uint256) {
         UserInfo storage user = userInfo[_user];
         uint256 accStringPerShare = pool.accStringPerShare;
@@ -151,7 +151,7 @@ contract StringStaking is Ownable {
         }
     }
 
-    // View function to see pending SUSHIs on frontend.
+    // View function to see pending STRING on frontend.
     function pendingLQTY(address _user) external view returns (uint256) {
         UserInfo storage user = userInfo[_user];
         uint256 accLQTYPerShare = pool.accLQTYPerShare;
@@ -172,6 +172,11 @@ contract StringStaking is Ownable {
             pool.lastRewardBlock = block.number;
             return;
         }
+        console.log(
+            " last reward block:%s, current block:%s",
+            pool.lastRewardBlock,
+            block.number
+        );
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
         uint256 stringReward = multiplier.mul(stringPerBlock);
         if (block.number < postBoostedBlock) {
@@ -217,7 +222,7 @@ contract StringStaking is Ownable {
         );
     }
 
-    // Deposit LP tokens to MasterChef for SUSHI allocation.
+    // Deposit LP tokens for STRING allocation.
     function deposit(uint256 _amount) public {
         require(_amount > 1000, "deposit must be greater than 1000 WEI");
         UserInfo storage user = userInfo[msg.sender];
@@ -247,7 +252,7 @@ contract StringStaking is Ownable {
         emit Deposit(msg.sender, _amount);
     }
 
-    // Withdraw LP tokens from MasterChef.
+    // Withdraw LP tokens.
     function withdraw(uint256 _amount) public {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
@@ -257,11 +262,13 @@ contract StringStaking is Ownable {
         updateSP();
         uint256 pending = _pending(user);
         uint256 pendingLQTY = _pendingLQTY(user);
+        console.log("rewards to send: %s", pending);
         safeStringTransfer(msg.sender, pending);
         safeLQTYTransfer(msg.sender, pendingLQTY);
         user.amount = user.amount.sub(_amount);
         pool.lpTokenSupply = pool.lpTokenSupply.sub(_amount);
         gstringToken.burnFrom(msg.sender, _amount);
+        console.log("amount to send: %s", _amount);
         pool.lpToken.safeTransfer(address(msg.sender), _amount);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
@@ -277,7 +284,7 @@ contract StringStaking is Ownable {
         user.rewardDebt = 0;
     }
 
-    // Safe sushi transfer function, just in case if rounding error causes pool to not have enough SUSHIs.
+    // Safe STRING transfer function, just in case if rounding error causes pool to not have enough STRING.
     function safeStringTransfer(address _to, uint256 _amount) internal {
         uint256 totalString = stringToken.balanceOf(address(this));
         uint256 rewardsBal = totalString.sub(pool.lpTokenSupply);
@@ -302,7 +309,9 @@ contract StringStaking is Ownable {
             _user.amount.mul(pool.accStringPerShare).div(1e12).sub(
                 _user.rewardDebt
             );
+        console.log("rewards to send: %s", rewardsToSend);
         if (isBoosted) {
+            console.log("is boosted");
             return rewardsToSend.mul(boostedMultiplier);
         }
         return rewardsToSend;
