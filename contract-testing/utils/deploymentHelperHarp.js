@@ -85,6 +85,7 @@ const deployHarp = async (addresses, liquity) => {
   await stringStaking.registerIt({ from: owner });
 
   return {
+    lqtyTestToken,
     stringStaking,
     stringToken,
     gstringToken,
