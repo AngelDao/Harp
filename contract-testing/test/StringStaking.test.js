@@ -771,6 +771,32 @@ contract("STRING Staking Tests", () => {
 
       await stringStaking.connect(owner2).withdraw(tokens("0"));
 
+      await lqtyTestToken.mintTo(stringStaking.address, tokens("1000"));
+
+      await advanceBlock(1);
+
+      await stringStaking.connect(owner2).withdraw(tokens("0"));
+
+      await advanceBlock(4);
+
+      await stringStaking.connect(owner2).withdraw(tokens("0"));
+
+      await advanceBlock(4);
+
+      await stringStaking.connect(owner2).withdraw(tokens("0"));
+
+      await advanceBlock(4);
+
+      await stringStaking.connect(owner2).withdraw(tokens("0"));
+
+      await stringStaking.connect(owner2).deposit(tokens("10"));
+
+      await advanceBlock(4);
+
+      await stringStaking.connect(owner2).withdraw(tokens("0"));
+
+      await stringStaking.connect(owner).withdraw(tokens("0"));
+
       const totalSupply = await lqtyTestToken.totalSupply();
 
       // console.log("totalsupply", totalSupply.toString());
@@ -778,9 +804,9 @@ contract("STRING Staking Tests", () => {
       const owner3Rewards = await lqtyTestToken.balanceOf(owner3.address);
       const owner2Rewards = await lqtyTestToken.balanceOf(owner2.address);
 
-      assert.equal(ownerRewards.toString(), tokens("100"));
+      assert.equal(ownerRewards.toString(), tokens("200"));
       assert.equal(owner3Rewards.toString(), tokens("400"));
-      assert.equal(owner2Rewards.toString(), tokens("500"));
+      assert.equal(owner2Rewards.toString(), tokens("1000"));
 
       console.log(owner3Rewards.toString());
     });

@@ -168,6 +168,7 @@ contract StringStaking is Ownable {
     // Update reward variables of the given pool to be up-to-date.
     function updatePool() public {
         UserInfo storage user = userInfo[msg.sender];
+        updateSP();
         // console.log("sender: %s, balance: %s", msg.sender, user.amount);
         if (block.number <= pool.lastRewardBlock) {
             return;
@@ -203,7 +204,6 @@ contract StringStaking is Ownable {
         //     "accumulated string per share after update:",
         //     pool.accStringPerShare
         // );
-        updateSP();
         pool.lastRewardBlock = block.number;
     }
 
@@ -214,9 +214,9 @@ contract StringStaking is Ownable {
         //     pool.lastRewardBlock,
         //     block.number
         // );
-        if (block.number <= pool.lastRewardBlock) {
-            return;
-        }
+        // if (block.number <= pool.lastRewardBlock) {
+        //     return;
+        // }
         uint256 lpSupply = pool.lpTokenSupply;
 
         //  console.log(lpSupply);
@@ -232,13 +232,15 @@ contract StringStaking is Ownable {
         }
 
         console.log("freshRewards", freshRewards);
+        console.log("availbleRewards", lqtyAvailableRewards);
+        console.log("lastRewards", lastLQTYRewards);
 
         if (freshRewards > 0) {
             pool.accLQTYPerShare = pool.accLQTYPerShare.add(
                 freshRewards.mul(1e12).div(lpSupply)
             );
         }
-        lastLQTYRewards = lqtyAvailableRewards.add(freshRewards);
+        lastLQTYRewards = lqtyAvailableRewards;
         pool.lastRewardBlock = block.number;
     }
 
@@ -290,6 +292,7 @@ contract StringStaking is Ownable {
         uint256 pending = _pending(user);
         uint256 pendingLQTY = _pendingLQTY(user);
         // console.log("rewards to send: %s", pending);
+        console.log("LQTY rewards to send: %s", pendingLQTY);
         safeStringTransfer(msg.sender, pending);
         safeLQTYTransfer(msg.sender, pendingLQTY);
         user.amount = user.amount.sub(_amount);
@@ -328,8 +331,10 @@ contract StringStaking is Ownable {
         uint256 lqtyBal = lqtyToken.balanceOf(address(this));
         if (_amount > lqtyBal) {
             lqtyToken.transfer(_to, lqtyBal);
+            lastLQTYRewards = lastLQTYRewards.sub(lqtyBal);
         } else {
             lqtyToken.transfer(_to, _amount);
+            lastLQTYRewards = lastLQTYRewards.sub(_amount);
         }
     }
 
