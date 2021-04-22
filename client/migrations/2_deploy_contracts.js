@@ -13,7 +13,7 @@ const StabilityFactory = artifacts.require("StabilityFactory.sol");
 const { addresses } = require("../src/utils/handleContracts/addresses");
 
 module.exports = async function (deployer, network, accounts) {
-  const deploy = "kovan";
+  const deploy = "rinkeby";
 
   // HARP
   // 2nd Ganache
@@ -51,7 +51,7 @@ module.exports = async function (deployer, network, accounts) {
 
   const vestingAddress = tokenVesting.address;
 
-  await stringToken.addVestingAddress(vestingAddress, { from: owner });
+  await stringToken.addMinter(vestingAddress, { from: owner });
 
   await deployer.deploy(gStringToken, owner);
   const gstringToken = await gStringToken.deployed();
@@ -70,9 +70,9 @@ module.exports = async function (deployer, network, accounts) {
   const stringStaking = await StringStaking.deployed();
   await stringStaking.registerIt({ from: owner });
 
-  await gstringToken.addVestingAddress(stringStaking.address, { from: owner });
-  await stringToken.addVestingAddress(stringStaking.address, { from: owner });
-  await stringToken.addVestingAddress(farm.address, { from: owner });
+  await gstringToken.addMinter(stringStaking.address, { from: owner });
+  await stringToken.addMinter(stringStaking.address, { from: owner });
+  await stringToken.addMinter(farm.address, { from: owner });
 
   await deployer.deploy(
     StabilityFactory,
@@ -80,10 +80,11 @@ module.exports = async function (deployer, network, accounts) {
     lusdToken,
     lqtyToken,
     stringToken.address,
-    stabilityPool
+    stabilityPool,
+    100
   );
 
   const sf = await StabilityFactory.deployed();
 
-  await stringToken.addVestingAddress(sf.address, { from: owner });
+  await stringToken.addMinter(sf.address, { from: owner });
 };

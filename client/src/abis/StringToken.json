@@ -88,7 +88,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -112,7 +113,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -155,7 +157,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -168,7 +171,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -229,7 +233,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -242,7 +247,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -255,7 +261,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -268,7 +275,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -340,7 +348,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -3199,10 +3208,61 @@
   },
   "networks": {
     "4": {
-      "events": {},
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
       "links": {},
-      "address": "0xDDa8481d798cc68D0480B310Ca1E375989838954",
-      "transactionHash": "0x1b0f2f30b6a7fcd520de76d1bba57a9276025f2b02df6e04cce2efa8b0b60d70"
+      "address": "0xED296e8eB9B1764C7c2Aa34b54cab46B9c287c80",
+      "transactionHash": "0x3cc75a9e8630cae3d5120cbc4d3e4d64ecb3ef230eff646006ca2af38b3af458"
     },
     "42": {
       "events": {
@@ -3258,12 +3318,13 @@
         }
       },
       "links": {},
-      "address": "0x2C1305AE7Fa059A064A584C1e13664D8358f612D",
-      "transactionHash": "0xb2961bf6062f8862a09b9caea06dfca8a6c41fce70d633fb9756d6d2b95504a8"
+      "address": "0xa5747Af189EA88aF029cA938ec36f438b7694Aa5",
+      "transactionHash": "0x03f1734667690c5b5d43a9cebfaef1f9198e8784684ba8abf2be32123eff47fa"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-22T17:24:11.416Z",
+  "updatedAt": "2021-04-22T19:21:19.901Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {
