@@ -63,7 +63,8 @@ const deployHarp = async (addresses, liquity) => {
     lusdToken,
     lqtyToken,
     stringToken.address,
-    stabilityPool
+    stabilityPool,
+    200
   );
 
   // add TokenVesting as a verified STRING minter

@@ -7,6 +7,8 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "./Interfaces/IStabilityPool.sol";
 import "./StabilityFactory.sol";
 
+import "hardhat/console.sol";
+
 contract StabilityProxy {
     using SafeMath for uint256;
 
@@ -43,6 +45,8 @@ contract StabilityProxy {
     }
 
     function deposit(uint256 _amount) public onlyOwner {
+        console.log("deposit");
+        console.log("currentblock", block.number);
         stabilityFactory.update();
         if (lusdBalance > 0) {
             _updateBalance();
@@ -56,6 +60,7 @@ contract StabilityProxy {
     }
 
     function withdraw(uint256 _amount) public onlyOwner {
+        console.log("withdraw");
         require(
             _amount <= lusdBalance,
             "Withdraw is for more than balance amount"

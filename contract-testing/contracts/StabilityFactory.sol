@@ -9,6 +9,8 @@ import "./StabilityProxy.sol";
 import "./StringToken.sol";
 import "./Interfaces/IStabilityPool.sol";
 
+import "hardhat/console.sol";
+
 contract StabilityFactory {
     using SafeMath for uint256;
 
@@ -52,20 +54,20 @@ contract StabilityFactory {
 
     constructor(
         address _frontEnd,
-        // address _impli,
         IERC20 _lusdToken,
         IERC20 _lqtyToken,
         StringToken _stringToken,
-        IStabilityPool _stabilityPool
+        IStabilityPool _stabilityPool,
+        uint256 _boostedBuffer
     ) public {
         frontEnd = _frontEnd;
-        // impli = _impli;
         pool = PoolInfo({lastRewardBlock: block.number, accStringPerShare: 0});
         stringToken = _stringToken;
         lusdToken = _lusdToken;
         lqtyToken = _lqtyToken;
         endBlock = block.number.add(2437500);
         stabilityPool = _stabilityPool;
+        postBoostedBlock = block.number.add(_boostedBuffer);
     }
 
     function pendingString(address _user) external view returns (uint256) {
@@ -121,10 +123,16 @@ contract StabilityFactory {
     }
 
     function update() public {
+        console.log(
+            "last reward block:%s, current block:%s",
+            pool.lastRewardBlock,
+            block.number
+        );
         if (block.number <= pool.lastRewardBlock) {
             return;
         }
         uint256 lpSupply = totalLUSD;
+        console.log("lpSupply", totalLUSD);
         if (lpSupply == 0) {
             pool.lastRewardBlock = block.number;
             return;

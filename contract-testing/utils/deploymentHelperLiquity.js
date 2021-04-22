@@ -49,6 +49,7 @@ const TroveManagerScript = artifacts.require("TroveManagerScript");
 const StabilityPoolScript = artifacts.require("StabilityPoolScript");
 const TokenScript = artifacts.require("TokenScript");
 const LQTYStakingScript = artifacts.require("LQTYStakingScript");
+const { ethers } = require("ethers");
 const {
   buildUserProxies,
   BorrowerOperationsProxy,
