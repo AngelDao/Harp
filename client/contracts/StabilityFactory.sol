@@ -21,6 +21,7 @@ contract StabilityFactory {
         StabilityProxy proxyAddress;
         uint256 amount;
         uint256 rewardDebt;
+        bool initialized;
     }
 
     // address public impli;
@@ -44,6 +45,11 @@ contract StabilityFactory {
             registeredClone[msg.sender] == true,
             "only owner can call this method"
         );
+        _;
+    }
+
+    modifier isNewProxy() {
+        require(userProxys[msg.sender].initialized == false,  "addr already created a proxy");
         _;
     }
 
@@ -163,7 +169,7 @@ contract StabilityFactory {
         totalLUSD = totalLUSD.sub(_newSubtract);
     }
 
-    function createStabilityProxy() public {
+    function createStabilityProxy() public isNewProxy {
         StabilityProxy clone =
             new StabilityProxy(
                 msg.sender,
@@ -174,7 +180,7 @@ contract StabilityFactory {
                 stabilityPool
             );
         UserProxy memory proxy =
-            UserProxy({proxyAddress: clone, amount: 0, rewardDebt: 0});
+            UserProxy({proxyAddress: clone, amount: 0, rewardDebt: 0, initialized:true});
         userProxys[msg.sender] = proxy;
         registeredClone[address(clone)] = true;
         emit Deploy(msg.sender, address(clone));

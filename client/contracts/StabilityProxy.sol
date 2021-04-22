@@ -42,6 +42,7 @@ contract StabilityProxy {
         stabilityFactory = _factory;
     }
 
+
     function deposit(uint256 _amount) public onlyOwner {
         stabilityFactory.update();
         if (lusdBalance > 0) {
@@ -62,8 +63,13 @@ contract StabilityProxy {
         );
         stabilityFactory.update();
         _updateBalance();
-        stabilityPool.withdrawFromSP(_amount);
-        _safeLUSDTransfer(owner, _amount);
+        if(_amount > lusdBalance){
+            stabilityPool.withdrawFromSP(lusdBalance);
+            _safeLUSDTransfer(owner, lusdBalance);
+        }else{
+            stabilityPool.withdrawFromSP(_amount);
+            _safeLUSDTransfer(owner, _amount);
+        }
         stabilityFactory.updateProxyBalance(lusdBalance, owner);
         emit Withdraw(msg.sender, _amount);
     }
@@ -72,7 +78,6 @@ contract StabilityProxy {
         stabilityFactory.update();
         _updateBalance();
         stabilityPool.withdrawFromSP(0);
-        _safeETHTransferAll(owner);
         _safeLQTYTransferAll(owner);
     }
 
@@ -123,5 +128,13 @@ contract StabilityProxy {
             stabilityFactory.claim(owner);
         }
         lusdBalance = currentBal;
+    }
+
+    fallback () external payable {
+        _safeETHTransferAll(owner);
+    }
+
+    receive() external payable {
+        _safeETHTransferAll(owner);
     }
 }

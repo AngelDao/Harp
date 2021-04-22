@@ -3,13 +3,11 @@
 pragma solidity 0.6.11;
 
 // import "@optionality.io/clone-factory/contracts/CloneFactory.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./StabilityProxy.sol";
 import "./StringToken.sol";
 import "./Interfaces/IStabilityPool.sol";
-
-import "hardhat/console.sol";
 
 contract StabilityFactory {
     using SafeMath for uint256;
@@ -23,6 +21,7 @@ contract StabilityFactory {
         StabilityProxy proxyAddress;
         uint256 amount;
         uint256 rewardDebt;
+        bool initialized;
     }
 
     // address public impli;
@@ -46,6 +45,11 @@ contract StabilityFactory {
             registeredClone[msg.sender] == true,
             "only owner can call this method"
         );
+        _;
+    }
+
+    modifier isNewProxy() {
+        require(userProxys[msg.sender].initialized == false,  "addr already created a proxy");
         _;
     }
 
@@ -123,16 +127,10 @@ contract StabilityFactory {
     }
 
     function update() public {
-        console.log(
-            "last reward block:%s, current block:%s",
-            pool.lastRewardBlock,
-            block.number
-        );
         if (block.number <= pool.lastRewardBlock) {
             return;
         }
         uint256 lpSupply = totalLUSD;
-        console.log("lpSupply", totalLUSD);
         if (lpSupply == 0) {
             pool.lastRewardBlock = block.number;
             return;
@@ -171,7 +169,7 @@ contract StabilityFactory {
         totalLUSD = totalLUSD.sub(_newSubtract);
     }
 
-    function createStabilityProxy() public {
+    function createStabilityProxy() public isNewProxy {
         StabilityProxy clone =
             new StabilityProxy(
                 msg.sender,
@@ -182,7 +180,7 @@ contract StabilityFactory {
                 stabilityPool
             );
         UserProxy memory proxy =
-            UserProxy({proxyAddress: clone, amount: 0, rewardDebt: 0});
+            UserProxy({proxyAddress: clone, amount: 0, rewardDebt: 0, initialized:true});
         userProxys[msg.sender] = proxy;
         registeredClone[address(clone)] = true;
         emit Deploy(msg.sender, address(clone));

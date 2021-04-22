@@ -3,11 +3,9 @@
 pragma solidity 0.6.11;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 import "./Interfaces/IStabilityPool.sol";
 import "./StabilityFactory.sol";
-
-import "hardhat/console.sol";
 
 contract StabilityProxy {
     using SafeMath for uint256;
@@ -44,9 +42,8 @@ contract StabilityProxy {
         stabilityFactory = _factory;
     }
 
+
     function deposit(uint256 _amount) public onlyOwner {
-        console.log("deposit");
-        console.log("currentblock", block.number);
         stabilityFactory.update();
         if (lusdBalance > 0) {
             _updateBalance();
@@ -60,15 +57,19 @@ contract StabilityProxy {
     }
 
     function withdraw(uint256 _amount) public onlyOwner {
-        console.log("withdraw");
         require(
             _amount <= lusdBalance,
             "Withdraw is for more than balance amount"
         );
         stabilityFactory.update();
         _updateBalance();
-        stabilityPool.withdrawFromSP(_amount);
-        _safeLUSDTransfer(owner, _amount);
+        if(_amount > lusdBalance){
+            stabilityPool.withdrawFromSP(lusdBalance);
+            _safeLUSDTransfer(owner, lusdBalance);
+        }else{
+            stabilityPool.withdrawFromSP(_amount);
+            _safeLUSDTransfer(owner, _amount);
+        }
         stabilityFactory.updateProxyBalance(lusdBalance, owner);
         emit Withdraw(msg.sender, _amount);
     }
@@ -77,7 +78,6 @@ contract StabilityProxy {
         stabilityFactory.update();
         _updateBalance();
         stabilityPool.withdrawFromSP(0);
-        _safeETHTransferAll(owner);
         _safeLQTYTransferAll(owner);
     }
 
@@ -128,5 +128,13 @@ contract StabilityProxy {
             stabilityFactory.claim(owner);
         }
         lusdBalance = currentBal;
+    }
+
+    fallback () external payable {
+        _safeETHTransferAll(owner);
+    }
+
+    receive() external payable {
+        _safeETHTransferAll(owner);
     }
 }
