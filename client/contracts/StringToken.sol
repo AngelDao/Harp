@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.6.0 <0.8.0;
+
+pragma solidity 0.6.11;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
@@ -27,7 +28,7 @@ contract StringToken is ERC20 {
         string memory _symbol,
         address _HarpDAOAddress,
         address _owner
-    ) ERC20(_name, _symbol) {
+    ) public  ERC20(_name, _symbol) {
         owner = _owner;
         _mint(_HarpDAOAddress, HarpDAOAllocation);
     }
@@ -36,7 +37,7 @@ contract StringToken is ERC20 {
         return allowedMinters[_for];
     }
 
-    function addVestingAddress(address _vestingAddress) public onlyOwner{
+    function addMinter(address _vestingAddress) public onlyOwner{
         allowedMinters[_vestingAddress] = true;
     }
 

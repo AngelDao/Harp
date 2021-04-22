@@ -15,7 +15,7 @@ abstract contract ILQTYStaking {
         uint256 ETHGain
     );
 
-    constructor() {}
+    constructor() public  {}
 
     // --- Functions ---
 

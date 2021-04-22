@@ -28,18 +28,16 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_lastGoodPrice\",\"type\":\"uint256\"}],\"name\":\"LastGoodPriceUpdated\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"fetchPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/danie/code/harp/client/contracts/Interfaces/IPriceFeed.sol\":\"IPriceFeed\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/danie/code/harp/client/contracts/Interfaces/IPriceFeed.sol\":{\"keccak256\":\"0x715927ccea9e3367972e300124977680c72e9de52ab9779f5f2cbb9c3a9d34a6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://6898aeccd1f5f96d5b3779cb7563ad4155dafcb33bf73ffa4fc7aef255af932e\",\"dweb:/ipfs/QmZLxPWJ9nAp5vyLYpLBUxedHQgPb3QzQycSBqSh2vcsiZ\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.11+commit.5ef660b1\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_lastGoodPrice\",\"type\":\"uint256\"}],\"name\":\"LastGoodPriceUpdated\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"fetchPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/dannywarrick/code/harp/client/contracts/Interfaces/IPriceFeed.sol\":\"IPriceFeed\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/dannywarrick/code/harp/client/contracts/Interfaces/IPriceFeed.sol\":{\"keccak256\":\"0x2cda48978d2ff7c9c7eb438e4707d7e6e6b9fda9dd86dc513c2ada60e5a0ca30\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d79fd3192b76c97385870bc65e1de1f06ed36c30e5c304bef9e9a05dc8e0b2c1\",\"dweb:/ipfs/QmUxJYwtviCMAg8veEoBRLSi8cj2mWTWAEN5iRUZbs7n2w\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
-  "generatedSources": [],
-  "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.6.0 <0.8.0;\r\n\r\ninterface IPriceFeed {\r\n    // --- Events ---\r\n    event LastGoodPriceUpdated(uint256 _lastGoodPrice);\r\n\r\n    // --- Function ---\r\n    function fetchPrice() external returns (uint256);\r\n}\r\n",
-  "sourcePath": "C:\\Users\\danie\\code\\harp\\client\\contracts\\Interfaces\\IPriceFeed.sol",
+  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity >=0.6.0 <0.8.0;\n\ninterface IPriceFeed {\n    // --- Events ---\n    event LastGoodPriceUpdated(uint256 _lastGoodPrice);\n\n    // --- Function ---\n    function fetchPrice() external returns (uint256);\n}\n",
+  "sourcePath": "/Users/dannywarrick/code/harp/client/contracts/Interfaces/IPriceFeed.sol",
   "ast": {
-    "absolutePath": "/C/Users/danie/code/harp/client/contracts/Interfaces/IPriceFeed.sol",
+    "absolutePath": "/Users/dannywarrick/code/harp/client/contracts/Interfaces/IPriceFeed.sol",
     "exportedSymbols": {
       "IPriceFeed": [
         2684
@@ -61,13 +59,14 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "35:31:18"
+        "src": "33:31:18"
       },
       {
         "abstract": false,
         "baseContracts": [],
         "contractDependencies": [],
         "contractKind": "interface",
+        "documentation": null,
         "fullyImplemented": false,
         "id": 2684,
         "linearizedBaseContracts": [
@@ -78,6 +77,7 @@
         "nodes": [
           {
             "anonymous": false,
+            "documentation": null,
             "id": 2678,
             "name": "LastGoodPriceUpdated",
             "nodeType": "EventDefinition",
@@ -92,8 +92,9 @@
                   "mutability": "mutable",
                   "name": "_lastGoodPrice",
                   "nodeType": "VariableDeclaration",
+                  "overrides": null,
                   "scope": 2678,
-                  "src": "148:22:18",
+                  "src": "142:22:18",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -104,20 +105,23 @@
                     "id": 2675,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "148:7:18",
+                    "src": "142:7:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
+                  "value": null,
                   "visibility": "internal"
                 }
               ],
-              "src": "147:24:18"
+              "src": "141:24:18"
             },
-            "src": "121:51:18"
+            "src": "115:51:18"
           },
           {
+            "body": null,
+            "documentation": null,
             "functionSelector": "0fdb11cf",
             "id": 2683,
             "implemented": false,
@@ -125,11 +129,12 @@
             "modifiers": [],
             "name": "fetchPrice",
             "nodeType": "FunctionDefinition",
+            "overrides": null,
             "parameters": {
               "id": 2679,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "224:2:18"
+              "src": "215:2:18"
             },
             "returnParameters": {
               "id": 2682,
@@ -141,8 +146,9 @@
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
+                  "overrides": null,
                   "scope": 2683,
-                  "src": "245:7:18",
+                  "src": "236:7:18",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -153,33 +159,34 @@
                     "id": 2680,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "245:7:18",
+                    "src": "236:7:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
+                  "value": null,
                   "visibility": "internal"
                 }
               ],
-              "src": "244:9:18"
+              "src": "235:9:18"
             },
             "scope": 2684,
-            "src": "205:49:18",
+            "src": "196:49:18",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
         "scope": 2685,
-        "src": "70:187:18"
+        "src": "66:181:18"
       }
     ],
-    "src": "35:224:18"
+    "src": "33:215:18"
   },
   "legacyAST": {
     "attributes": {
-      "absolutePath": "/C/Users/danie/code/harp/client/contracts/Interfaces/IPriceFeed.sol",
+      "absolutePath": "/Users/dannywarrick/code/harp/client/contracts/Interfaces/IPriceFeed.sol",
       "exportedSymbols": {
         "IPriceFeed": [
           2684
@@ -202,7 +209,7 @@
         },
         "id": 2674,
         "name": "PragmaDirective",
-        "src": "35:31:18"
+        "src": "33:31:18"
       },
       {
         "attributes": {
@@ -214,6 +221,7 @@
             null
           ],
           "contractKind": "interface",
+          "documentation": null,
           "fullyImplemented": false,
           "linearizedBaseContracts": [
             2684
@@ -225,6 +233,7 @@
           {
             "attributes": {
               "anonymous": false,
+              "documentation": null,
               "name": "LastGoodPriceUpdated"
             },
             "children": [
@@ -236,10 +245,12 @@
                       "indexed": false,
                       "mutability": "mutable",
                       "name": "_lastGoodPrice",
+                      "overrides": null,
                       "scope": 2678,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
+                      "value": null,
                       "visibility": "internal"
                     },
                     "children": [
@@ -250,25 +261,27 @@
                         },
                         "id": 2675,
                         "name": "ElementaryTypeName",
-                        "src": "148:7:18"
+                        "src": "142:7:18"
                       }
                     ],
                     "id": 2676,
                     "name": "VariableDeclaration",
-                    "src": "148:22:18"
+                    "src": "142:22:18"
                   }
                 ],
                 "id": 2677,
                 "name": "ParameterList",
-                "src": "147:24:18"
+                "src": "141:24:18"
               }
             ],
             "id": 2678,
             "name": "EventDefinition",
-            "src": "121:51:18"
+            "src": "115:51:18"
           },
           {
             "attributes": {
+              "body": null,
+              "documentation": null,
               "functionSelector": "0fdb11cf",
               "implemented": false,
               "isConstructor": false,
@@ -277,6 +290,7 @@
                 null
               ],
               "name": "fetchPrice",
+              "overrides": null,
               "scope": 2684,
               "stateMutability": "nonpayable",
               "virtual": false,
@@ -292,7 +306,7 @@
                 "children": [],
                 "id": 2679,
                 "name": "ParameterList",
-                "src": "224:2:18"
+                "src": "215:2:18"
               },
               {
                 "children": [
@@ -301,10 +315,12 @@
                       "constant": false,
                       "mutability": "mutable",
                       "name": "",
+                      "overrides": null,
                       "scope": 2683,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
+                      "value": null,
                       "visibility": "internal"
                     },
                     "children": [
@@ -315,40 +331,40 @@
                         },
                         "id": 2680,
                         "name": "ElementaryTypeName",
-                        "src": "245:7:18"
+                        "src": "236:7:18"
                       }
                     ],
                     "id": 2681,
                     "name": "VariableDeclaration",
-                    "src": "245:7:18"
+                    "src": "236:7:18"
                   }
                 ],
                 "id": 2682,
                 "name": "ParameterList",
-                "src": "244:9:18"
+                "src": "235:9:18"
               }
             ],
             "id": 2683,
             "name": "FunctionDefinition",
-            "src": "205:49:18"
+            "src": "196:49:18"
           }
         ],
         "id": 2684,
         "name": "ContractDefinition",
-        "src": "70:187:18"
+        "src": "66:181:18"
       }
     ],
     "id": 2685,
     "name": "SourceUnit",
-    "src": "35:224:18"
+    "src": "33:215:18"
   },
   "compiler": {
     "name": "solc",
-    "version": "0.7.6+commit.7338295f.Emscripten.clang"
+    "version": "0.6.11+commit.5ef660b1.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.3",
-  "updatedAt": "2021-04-14T22:42:25.177Z",
+  "schemaVersion": "3.3.4",
+  "updatedAt": "2021-04-22T17:24:11.384Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

@@ -9,7 +9,7 @@ abstract contract IBorrowerOperations {
     // A doubly linked list of Troves, sorted by their collateral ratios
     ISortedTroves public sortedTroves;
 
-    constructor() {}
+    constructor() public {}
 
     // --- Events ---
 

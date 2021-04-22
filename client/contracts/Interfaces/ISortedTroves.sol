@@ -21,7 +21,7 @@ abstract contract ISortedTroves {
 
     Data public data;
 
-    constructor() {}
+    constructor() public {}
 
     // --- Events ---
 

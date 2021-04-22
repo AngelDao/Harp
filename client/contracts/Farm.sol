@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.6.0 <0.8.0;
+
+pragma solidity 0.6.11;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -15,7 +16,7 @@ contract Farm is Ownable {
         uint256 amount; // How many LP tokens the user has provided.
         uint256 rewardDebt; // Reward debt. See explanation below.
         //
-        // We do some fancy math here. Basically, any point in time, the amount of SUSHIs
+        // We do some fancy math here. Basically, any point in time, the amount of STRING
         // entitled to a user but is pending to be distributed is:
         //
         //   pending reward = (user.amount * pool.accstringPerShare) - user.rewardDebt
@@ -30,18 +31,18 @@ contract Farm is Ownable {
     // Info of each pool.
     struct PoolInfo {
         IERC20 lpToken; // Address of LP token contract.
-        uint256 allocPoint; // How many allocation points assigned to this pool. SUSHIs to distribute per block.
-        uint256 lastRewardBlock; // Last block number that SUSHIs distribution occurs.
-        uint256 accStringPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
+        uint256 allocPoint; // How many allocation points assigned to this pool. STRING to distribute per block.
+        uint256 lastRewardBlock; // Last block number that STRING distribution occurs.
+        uint256 accStringPerShare; // Accumulated STRING per share, times 1e12. See below.
     }
 
-    // The SUSHI TOKEN!
+    // The STRING TOKEN!
     StringToken public stringToken;
     // Dev address.
     address public devaddr;
-    // Block number when bonus SUSHI period ends.
+    // Block number when bonus STRING period ends.
     uint256 public endBlock;
-    // SUSHI tokens created per block.
+    // STRING tokens created per block.
     uint256 public stringPerBlock = 641025641000000000;
     uint256 public postBoostedBlock;
     uint256 public constant boostedMultiplier = 5;
@@ -53,7 +54,7 @@ contract Farm is Ownable {
     mapping(uint256 => mapping(address => UserInfo)) public userInfo;
     // Total allocation poitns. Must be the sum of all allocation points in all pools.
     uint256 public totalAllocPoint = 0;
-    // The block number when SUSHI mining starts.
+    // The block number when STRING mining starts.
     uint256 public startBlock;
 
     event Deposit(address indexed user, uint256 indexed pid, uint256 amount);
@@ -65,7 +66,7 @@ contract Farm is Ownable {
         uint256 amount
     );
 
-    constructor(StringToken _string, uint256 _boostedBuffer) {
+    constructor(StringToken _string, uint256 _boostedBuffer) public {
         stringToken = _string;
         endBlock = block.number.add(2437500);
         startBlock = block.number;
@@ -78,7 +79,7 @@ contract Farm is Ownable {
 
     // Add a new lp to the pool. Can only be called by the owner.
     // XXX DO NOT add the same LP token more than once. Rewards will be messed up if you do.
-    function add(
+    function addPool(
         uint256 _allocPoint,
         IERC20 _lpToken,
         bool _withUpdate
@@ -99,7 +100,7 @@ contract Farm is Ownable {
         );
     }
 
-    // Update the given pool's SUSHI allocation point. Can only be called by the owner.
+    // Update the given pool's STRING allocation point. Can only be called by the owner.
     function set(
         uint256 _pid,
         uint256 _allocPoint,
@@ -129,7 +130,7 @@ contract Farm is Ownable {
         }
     }
 
-    // View function to see pending SUSHIs on frontend.
+    // View function to see pending STRING on frontend.
     function pendingString(uint256 _pid, address _user)
         external
         view
@@ -179,6 +180,7 @@ contract Farm is Ownable {
             pool.lastRewardBlock = block.number;
             return;
         }
+
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
         uint256 stringReward =
             multiplier.mul(stringPerBlock).mul(pool.allocPoint).div(
@@ -200,7 +202,7 @@ contract Farm is Ownable {
         pool.lastRewardBlock = block.number;
     }
 
-    // Deposit LP tokens to MasterChef for SUSHI allocation.
+    // Deposit LP tokens to Farm for STRING allocation.
     function deposit(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
@@ -219,7 +221,7 @@ contract Farm is Ownable {
         emit Deposit(msg.sender, _pid, _amount);
     }
 
-    // Withdraw LP tokens from MasterChef.
+    // Withdraw LP tokens from Farm.
     function withdraw(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
@@ -253,7 +255,7 @@ contract Farm is Ownable {
         user.rewardDebt = 0;
     }
 
-    // Safe sushi transfer function, just in case if rounding error causes pool to not have enough SUSHIs.
+    // Safe STRING transfer function, just in case if rounding error causes pool to not have enough STRING.
     function safeStringTransfer(address _to, uint256 _amount) internal {
         uint256 stringBal = stringToken.balanceOf(address(this));
         if (_amount > stringBal) {

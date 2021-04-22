@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.6.0 <0.8.0;
+
+pragma solidity 0.6.11;
+
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "./StringToken.sol";
-// import "./ILQTYToken.sol";
 import "./Interfaces/ILQTYToken.sol";
 import "./gStringToken.sol";
 import "./Interfaces/IStabilityPool.sol";
@@ -20,7 +21,7 @@ contract StringStaking is Ownable {
         uint256 rewardDebt; // Reward debt. See explanation below.
         uint256 lqtyRewardDebt;
         //
-        // We do some fancy math here. Basically, any point in time, the amount of SUSHIs
+        // We do some fancy math here. Basically, any point in time, the amount of STRING
         // entitled to a user but is pending to be distributed is:
         //
         //   pending reward = (user.amount * pool.accstringPerShare) - user.rewardDebt
@@ -36,27 +37,29 @@ contract StringStaking is Ownable {
     struct PoolInfo {
         IERC20 lpToken; // Address of LP token contract.
         uint256 lpTokenSupply;
-        uint256 lastRewardBlock; // Last block number that SUSHIs distribution occurs.
-        uint256 accStringPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
+        uint256 lastRewardBlock; // Last block number that STRING distribution occurs.
+        uint256 accStringPerShare; // Accumulated STRING per share, times 1e12. See below.
         uint256 accLQTYPerShare;
     }
 
-    // The SUSHI TOKEN!
+    // The STRING TOKEN!
     StringToken public stringToken;
     ILQTYToken public lqtyToken;
     gStringToken public gstringToken;
     IStabilityPool public stabilityPool;
     // Dev address.
     address public devaddr;
-    bool public registered;
+    bool public registered = false;
     address public creator;
-    // Block number when bonus SUSHI period ends.
+    // Block number when bonus STRING period ends.
     uint256 public endBlock;
-    // SUSHI tokens created per block.
+    // STRING tokens created per block.
     uint256 public stringPerBlock = 230769230800000000;
     uint256 public postBoostedBlock;
     uint256 public constant boostedMultiplier = 5;
     bool public isBoosted = true;
+    uint256 public lastLQTYRewards = 0;
+    uint256 public totalLQTYRewards = 0;
 
     // Info of each pool.
     PoolInfo public pool;
@@ -64,7 +67,7 @@ contract StringStaking is Ownable {
     mapping(address => UserInfo) public userInfo;
     // Total allocation poitns. Must be the sum of all allocation points in all pools.
     uint256 public totalAllocPoint = 0;
-    // The block number when SUSHI mining starts.
+    // The block number when STRING mining starts.
     uint256 public startBlock;
 
     event Deposit(address indexed user, uint256 amount);
@@ -87,7 +90,7 @@ contract StringStaking is Ownable {
         ILQTYToken _lqty,
         gStringToken _gstringToken,
         IStabilityPool _stabilityPool
-    ) {
+    ) public {
         stringToken = _string;
         lqtyToken = _lqty;
         gstringToken = _gstringToken;
@@ -126,7 +129,7 @@ contract StringStaking is Ownable {
         }
     }
 
-    // View function to see pending SUSHIs on frontend.
+    // View function to see pending STRING on frontend.
     function pendingString(address _user) external view returns (uint256) {
         UserInfo storage user = userInfo[_user];
         uint256 accStringPerShare = pool.accStringPerShare;
@@ -149,7 +152,7 @@ contract StringStaking is Ownable {
         }
     }
 
-    // View function to see pending SUSHIs on frontend.
+    // View function to see pending STRING on frontend.
     function pendingLQTY(address _user) external view returns (uint256) {
         UserInfo storage user = userInfo[_user];
         uint256 accLQTYPerShare = pool.accLQTYPerShare;
@@ -162,6 +165,8 @@ contract StringStaking is Ownable {
 
     // Update reward variables of the given pool to be up-to-date.
     function updatePool() public {
+        UserInfo storage user = userInfo[msg.sender];
+        updateSP();
         if (block.number <= pool.lastRewardBlock) {
             return;
         }
@@ -170,6 +175,7 @@ contract StringStaking is Ownable {
             pool.lastRewardBlock = block.number;
             return;
         }
+        
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
         uint256 stringReward = multiplier.mul(stringPerBlock);
         if (block.number < postBoostedBlock) {
@@ -185,13 +191,13 @@ contract StringStaking is Ownable {
         pool.accStringPerShare = pool.accStringPerShare.add(
             stringReward.mul(1e12).div(lpSupply)
         );
+
+       
         pool.lastRewardBlock = block.number;
     }
 
     function updateSP() public {
-        if (block.number <= pool.lastRewardBlock) {
-            return;
-        }
+        
         uint256 lpSupply = pool.lpTokenSupply;
 
         if (lpSupply == 0) {
@@ -199,29 +205,28 @@ contract StringStaking is Ownable {
         }
 
         uint256 lqtyAvailableRewards = lqtyToken.balanceOf(address(this));
+        uint256 freshRewards = 0;
 
-        if (lqtyAvailableRewards > 0) {
+        if (lqtyAvailableRewards > lastLQTYRewards) {
+            freshRewards = lqtyAvailableRewards.sub(lastLQTYRewards);
+        }
+
+
+        if (freshRewards > 0) {
             pool.accLQTYPerShare = pool.accLQTYPerShare.add(
-                lqtyAvailableRewards.mul(1e12).div(lpSupply)
+                freshRewards.mul(1e12).div(lpSupply)
             );
         }
+        lastLQTYRewards = lqtyAvailableRewards;
         pool.lastRewardBlock = block.number;
     }
 
-    function updateForFee(uint256 _fee) internal {
-        uint256 lpSupply = pool.lpTokenSupply;
-        pool.accStringPerShare = pool.accStringPerShare.add(
-            _fee.mul(1e12).div(lpSupply)
-        );
-    }
-
-    // Deposit LP tokens to MasterChef for SUSHI allocation.
+    // Deposit LP tokens for STRING allocation.
     function deposit(uint256 _amount) public {
         require(_amount > 1000, "deposit must be greater than 1000 WEI");
         UserInfo storage user = userInfo[msg.sender];
         updatePool();
-        updateSP();
-        uint256 cNotes = gstringToken.balanceOf(msg.sender);
+        // updateSP();
         if (user.amount > 0) {
             uint256 pending = _pending(user);
             uint256 pendingLQTY = _pendingLQTY(user);
@@ -233,26 +238,24 @@ contract StringStaking is Ownable {
             address(this),
             _amount
         );
-        uint256 fee = _amount.div(1000);
-        uint256 depositAmount = _amount.sub(fee);
-        user.amount = user.amount.add(depositAmount);
-        pool.lpTokenSupply = pool.lpTokenSupply.add(depositAmount);
+
+        user.amount = user.amount.add(_amount);
+        pool.lpTokenSupply = pool.lpTokenSupply.add(_amount);
 
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
-        updateForFee(fee);
-        gstringToken.mintTo(msg.sender, depositAmount);
+        gstringToken.mintTo(msg.sender, _amount);
         emit Deposit(msg.sender, _amount);
     }
 
-    // Withdraw LP tokens from MasterChef.
+    // Withdraw LP tokens.
     function withdraw(uint256 _amount) public {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
         uint256 cNotes = gstringToken.balanceOf(msg.sender);
         require(_amount <= cNotes, "not enough gSTRING");
         updatePool();
-        updateSP();
+        // updateSP();
         uint256 pending = _pending(user);
         uint256 pendingLQTY = _pendingLQTY(user);
         safeStringTransfer(msg.sender, pending);
@@ -275,10 +278,11 @@ contract StringStaking is Ownable {
         user.rewardDebt = 0;
     }
 
-    // Safe sushi transfer function, just in case if rounding error causes pool to not have enough SUSHIs.
+    // Safe STRING transfer function, just in case if rounding error causes pool to not have enough STRING.
     function safeStringTransfer(address _to, uint256 _amount) internal {
         uint256 totalString = stringToken.balanceOf(address(this));
         uint256 rewardsBal = totalString.sub(pool.lpTokenSupply);
+
         if (_amount > rewardsBal) {
             stringToken.transfer(_to, rewardsBal);
         } else {
@@ -290,12 +294,18 @@ contract StringStaking is Ownable {
         uint256 lqtyBal = lqtyToken.balanceOf(address(this));
         if (_amount > lqtyBal) {
             lqtyToken.transfer(_to, lqtyBal);
+            lastLQTYRewards = lastLQTYRewards.sub(lqtyBal);
         } else {
             lqtyToken.transfer(_to, _amount);
+            lastLQTYRewards = lastLQTYRewards.sub(_amount);
         }
     }
 
     function _pending(UserInfo storage _user) internal view returns (uint256) {
+
+        uint256 totalString = stringToken.balanceOf(address(this));
+        uint256 rewardsBal = totalString.sub(pool.lpTokenSupply);
+
         uint256 rewardsToSend =
             _user.amount.mul(pool.accStringPerShare).div(1e12).sub(
                 _user.rewardDebt

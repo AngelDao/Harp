@@ -1,4 +1,6 @@
-pragma solidity >=0.6.0 <0.8.0;
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.6.11;
 
 // import "@optionality.io/clone-factory/contracts/CloneFactory.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
@@ -50,20 +52,20 @@ contract StabilityFactory {
 
     constructor(
         address _frontEnd,
-        // address _impli,
         IERC20 _lusdToken,
         IERC20 _lqtyToken,
         StringToken _stringToken,
-        IStabilityPool _stabilityPool
-    ) {
+        IStabilityPool _stabilityPool,
+        uint256 _boostedBuffer
+    ) public {
         frontEnd = _frontEnd;
-        // impli = _impli;
         pool = PoolInfo({lastRewardBlock: block.number, accStringPerShare: 0});
         stringToken = _stringToken;
         lusdToken = _lusdToken;
         lqtyToken = _lqtyToken;
         endBlock = block.number.add(2437500);
         stabilityPool = _stabilityPool;
+        postBoostedBlock = block.number.add(_boostedBuffer);
     }
 
     function pendingString(address _user) external view returns (uint256) {

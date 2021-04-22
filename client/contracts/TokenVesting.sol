@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.6.0 <0.8.0;
+
+pragma solidity 0.6.11;
 
 import "./StringToken.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
@@ -24,7 +25,7 @@ contract TokenVesting {
         address _vestingAddress,
         uint256 _days,
         StringToken _stringToken
-    ) {
+    ) public {
         AngelDAOAddress = _vestingAddress;
         vestingPeriodDays = _days;
         dailyVestingRate = AngelDAOAllocation.div(_days);
