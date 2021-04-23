@@ -152,11 +152,25 @@ contract StringStaking is Ownable {
         }
     }
 
-    // View function to see pending STRING on frontend.
+    // View function to see pending LQTY on frontend.
     function pendingLQTY(address _user) external view returns (uint256) {
         UserInfo storage user = userInfo[_user];
         uint256 accLQTYPerShare = pool.accLQTYPerShare;
         uint256 lpSupply = pool.lpTokenSupply;
+
+        uint256 lqtyAvailableRewards = lqtyToken.balanceOf(address(this));
+        uint256 freshRewards = 0;
+
+        if (lqtyAvailableRewards > lastLQTYRewards) {
+            freshRewards = lqtyAvailableRewards.sub(lastLQTYRewards);
+        }
+
+
+        if (freshRewards > 0) {
+            accLQTYPerShare = pool.accLQTYPerShare.add(
+                freshRewards.mul(1e12).div(lpSupply)
+            );
+        }
 
         uint256 pending =
             user.amount.mul(accLQTYPerShare).div(1e12).sub(user.lqtyRewardDebt);
@@ -175,7 +189,6 @@ contract StringStaking is Ownable {
             pool.lastRewardBlock = block.number;
             return;
         }
-        
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
         uint256 stringReward = multiplier.mul(stringPerBlock);
         if (block.number < postBoostedBlock) {
@@ -192,12 +205,10 @@ contract StringStaking is Ownable {
             stringReward.mul(1e12).div(lpSupply)
         );
 
-       
         pool.lastRewardBlock = block.number;
     }
 
     function updateSP() public {
-        
         uint256 lpSupply = pool.lpTokenSupply;
 
         if (lpSupply == 0) {
@@ -218,7 +229,6 @@ contract StringStaking is Ownable {
             );
         }
         lastLQTYRewards = lqtyAvailableRewards;
-        pool.lastRewardBlock = block.number;
     }
 
     // Deposit LP tokens for STRING allocation.
@@ -226,7 +236,6 @@ contract StringStaking is Ownable {
         require(_amount > 1000, "deposit must be greater than 1000 WEI");
         UserInfo storage user = userInfo[msg.sender];
         updatePool();
-        // updateSP();
         if (user.amount > 0) {
             uint256 pending = _pending(user);
             uint256 pendingLQTY = _pendingLQTY(user);
@@ -242,6 +251,7 @@ contract StringStaking is Ownable {
         user.amount = user.amount.add(_amount);
         pool.lpTokenSupply = pool.lpTokenSupply.add(_amount);
 
+
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
         gstringToken.mintTo(msg.sender, _amount);
@@ -255,7 +265,6 @@ contract StringStaking is Ownable {
         uint256 cNotes = gstringToken.balanceOf(msg.sender);
         require(_amount <= cNotes, "not enough gSTRING");
         updatePool();
-        // updateSP();
         uint256 pending = _pending(user);
         uint256 pendingLQTY = _pendingLQTY(user);
         safeStringTransfer(msg.sender, pending);
@@ -302,7 +311,6 @@ contract StringStaking is Ownable {
     }
 
     function _pending(UserInfo storage _user) internal view returns (uint256) {
-
         uint256 totalString = stringToken.balanceOf(address(this));
         uint256 rewardsBal = totalString.sub(pool.lpTokenSupply);
 
