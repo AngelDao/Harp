@@ -15,7 +15,7 @@ import {
   Network,
   NetworkContainer,
 } from "./styles";
-import Logo from "../../assets/harpLogo.png";
+import Logo from "../../assets/harp.png";
 import Menu from "../../components/Menu";
 import Content from "../Content";
 import CredentialsContext from "../../context/credentialsContext";

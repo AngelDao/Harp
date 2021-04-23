@@ -4,6 +4,7 @@ import ethLogo from "../../../assets/eth1.png";
 import stringLogo from "../../../assets/string1.png";
 import gStringLogo from "../../../assets/gString1.png";
 import liquityLogo from "../../../assets/liq.svg";
+import lusdLogo from "../../../assets/lusd.png";
 import uniswapLogo from "../../../assets/uniswap2.svg";
 import { readableTrunc } from "../../../utils/truncateString";
 import {
@@ -45,7 +46,7 @@ const PoolTable = ({
   prices,
 }) => {
   const logosMap = {
-    LUSD: liquityLogo,
+    LUSD: lusdLogo,
     LQTY: liquityLogo,
     STRING: stringLogo,
     gSTRING: gStringLogo,
@@ -61,7 +62,6 @@ const PoolTable = ({
     ETH: "ETH",
   };
 
-  if (pendingTokens) debugger;
   const truncLPStaked = truncDust(LPTokensStaked);
   const truncLPinWallet = truncDust(LPTokensInWallet);
   const truncgSTRINGBalance = truncDust(gSTRINGBalance);

@@ -18,11 +18,11 @@ const Farm = () => {
 
   return (
     <FarmContainer>
-      <Title>Liquity Pools</Title>
+      <Title>Incentivized Pools</Title>
       <Pool
         conditionalMargin
         contract={"factory"}
-        from={"Stability"}
+        from={"Stability (Proxy)"}
         src={""}
         currency1={"LUSD"}
         currencyLP={"LUSD"}

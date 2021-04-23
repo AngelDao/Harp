@@ -175,7 +175,7 @@ export const StatContainer = styled.div`
 `;
 
 export const ContractLink = styled.a`
-  min-width: 125px;
+  min-width: 145px;
   display: flex;
   flex-direction: column;
   justify-content: center;

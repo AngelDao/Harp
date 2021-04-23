@@ -42,13 +42,13 @@ export const LogoContainer = styled.div`
 `;
 
 export const StyledLogo = styled.img`
-  width: 85%;
+  width: 400px;
   height: auto;
-  margin-top: -100px;
+  margin-top: -10px;
 `;
 
 export const InnerContainer = styled.div`
-  max-width: 705px;
+  min-width: 705px;
   min-height: 205px;
   border: 3px solid black;
   padding: 10px 25px 0px 25px;
@@ -170,6 +170,7 @@ export const AddressContainer = styled.a`
 
 export const HR = styled.div`
   margin-top: 20px;
+  margin-bottom: 20px;
   border-top: 5px dashed black;
   height: 0px;
   width: 100%;

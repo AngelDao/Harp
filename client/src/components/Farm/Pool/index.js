@@ -26,6 +26,7 @@ import ethLogo from "../../../assets/eth1.png";
 import gStringLogo from "../../../assets/gString1.png";
 import stringLogo from "../../../assets/string1.png";
 import liquityLogo from "../../../assets/liq.svg";
+import lusdLogo from "../../../assets/lusd.png";
 import uniswapLogo from "../../../assets/uniswap2.svg";
 import { addresses } from "../../../utils/handleContracts/addresses";
 import Table from "./table";
@@ -132,7 +133,7 @@ const Pool = ({
   };
 
   const logosMap = {
-    LUSD: liquityLogo,
+    LUSD: lusdLogo,
     LQTY: liquityLogo,
     STRING: stringLogo,
     gSTRING: gStringLogo,
