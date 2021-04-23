@@ -296,6 +296,7 @@ const Pool = ({
         <CollapseButtonContainer>{viewButton}</CollapseButtonContainer>
         <Table
           currencyEarned={currencyEarned}
+          ps={profitShareBalances}
           pair={pair}
           currency1={currency1}
           currency2={currency2}

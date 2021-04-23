@@ -3,8 +3,12 @@ const addresses = {
     stabilityPool: "0x04d630Bff6dea193Fd644dEcfC460db249854a02",
     lusdToken: "0x0b02b94638daa719290b5214825da625af08a02f",
     lqtyToken: "0xd8FABEa5752D52Ee0dEbF6c90948F5446694EE7c",
-    ethLPToken: "0x82a22294461ff0aeb10d572e2a0d1fc8bd05ca77",
-    lusdLPToken: "0x5331d0a466e0f529d347ddafbb2de54abf34ea72",
+    // "0x30cf3d347815d2e7cd4e676fe68844d65e2eb7bc"
+    //  0x585947e2cea2c10d33ce0ddfb43600386f010447
+    // ethLPToken: "0x82a22294461ff0aeb10d572e2a0d1fc8bd05ca77",
+    // lusdLPToken: "0x5331d0a466e0f529d347ddafbb2de54abf34ea72",
+    ethLPToken: "0x30cf3d347815d2e7cd4e676fe68844d65e2eb7bc",
+    lusdLPToken: "0x585947e2cea2c10d33ce0ddfb43600386f010447",
     lqtyStaking: "0x82b7384e360DD3f16ed23D15921BB7a878a08b87",
     borrowerOperations: "0xA289111CC4b306E3F5F15c654D4c318B3dA51813",
     troveManager: "0x5EBeC1ecc36a760A54E35d474F889EfB9E7eD2aD",

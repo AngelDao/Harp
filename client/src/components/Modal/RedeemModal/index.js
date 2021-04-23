@@ -49,8 +49,6 @@ const RedeemModal = ({ isOpen, close, coll, debt, toClose }) => {
       coll
     );
 
-    debugger;
-
     if (
       !toClose &&
       parseFloat(fromWei(web3, userTrove.coll)) > parseFloat(coll)

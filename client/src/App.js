@@ -73,7 +73,6 @@ function App() {
   };
 
   const handleUnsupported = (code) => {
-    debugger;
     if (code === "0x2a" || code === "0x4") {
       setUnsupported(false);
       setNetwork(code === "0x2a" ? "kovan" : "rinkeby");

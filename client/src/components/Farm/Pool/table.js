@@ -27,6 +27,7 @@ import {
 import { truncDust } from "../../../utils/truncateString";
 
 const PoolTable = ({
+  ps,
   pair,
   LPTokensStaked,
   LPTokensInWallet,
@@ -59,6 +60,8 @@ const PoolTable = ({
     LQTY: "LQTY",
     ETH: "ETH",
   };
+
+  if (pendingTokens) debugger;
   const truncLPStaked = truncDust(LPTokensStaked);
   const truncLPinWallet = truncDust(LPTokensInWallet);
   const truncgSTRINGBalance = truncDust(gSTRINGBalance);
@@ -220,6 +223,7 @@ const PoolTable = ({
           </HeaderRow>
           <HR />
           {currencyEarned.map((c, i) => {
+            console.log(pendingAmounts[i]);
             return (
               <ContentRow>
                 <AssetCell style={{ width: "207px" }}>

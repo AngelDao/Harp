@@ -178,7 +178,6 @@ export const fetchProfitShare = async (
         await gStringToken.methods.allowance(address, ps._address).call()
       )
     );
-    // debugger;
 
     const isBoosted = await ps.methods.isBoosted().call();
     // debugger;
@@ -192,11 +191,10 @@ export const fetchProfitShare = async (
 
     // const pendingLQTY = 0;
     // debugger;
-    const pendingLQTY = fromWei(
-      web3,
-      await ps.methods.pendingLQTY(address).call()
+    const pendingLQTY = toDecimal(
+      fromWei(web3, await ps.methods.pendingLQTY(address).call())
     );
-    // // debugger;
+    debugger;
 
     // const ammount = (await ps.methods.userInfo(address).call()).amount;
     // const trnced = fromWei(web3, ammount);
@@ -241,33 +239,33 @@ export const fetchFarm = async (
   if (farmNetwork) {
     const farm = new web3.eth.Contract(Farm.abi, farmNetwork.address);
 
-    // const farmSTRING_ETH_LP = 0;
-    const farmSTRING_ETH_LP = toDecimal(
-      fromWei(web3, await ETHLPToken.methods.balanceOf(farm._address).call())
-    );
-    // const farmSTRING_LUSD_LP = 0;
-    const farmSTRING_LUSD_LP = toDecimal(
-      fromWei(web3, await LUSDLPToken.methods.balanceOf(farm._address).call())
-    );
+    const farmSTRING_ETH_LP = 0;
+    // const farmSTRING_ETH_LP = toDecimal(
+    //   fromWei(web3, await ETHLPToken.methods.balanceOf(farm._address).call())
+    // );
+    const farmSTRING_LUSD_LP = 0;
+    // const farmSTRING_LUSD_LP = toDecimal(
+    //   fromWei(web3, await LUSDLPToken.methods.balanceOf(farm._address).call())
+    // );
 
     const userSTRING_ETH_LP = toDecimal(
       fromWei(web3, (await farm.methods.userInfo(0, address).call()).amount)
     );
     // ;
-    // const pendingSTRING_ETH_LP = 0;
-    const pendingSTRING_ETH_LP = toDecimal(
-      fromWei(web3, await farm.methods.pendingString(0, address).call())
-    );
+    const pendingSTRING_ETH_LP = 0;
+    // const pendingSTRING_ETH_LP = toDecimal(
+    //   fromWei(web3, await farm.methods.pendingString(0, address).call())
+    // );
 
-    // const pendingSTRING_LUSD_LP = 0;
-    const pendingSTRING_LUSD_LP = toDecimal(
-      fromWei(web3, await farm.methods.pendingString(1, address).call())
-    );
+    const pendingSTRING_LUSD_LP = 0;
+    // const pendingSTRING_LUSD_LP = toDecimal(
+    //   fromWei(web3, await farm.methods.pendingString(1, address).call())
+    // );
 
-    // const userSTRING_LUSD_LP = 0;
-    const userSTRING_LUSD_LP = toDecimal(
-      fromWei(web3, (await farm.methods.userInfo(1, address).call()).amount)
-    );
+    const userSTRING_LUSD_LP = 0;
+    // const userSTRING_LUSD_LP = toDecimal(
+    //   fromWei(web3, (await farm.methods.userInfo(1, address).call()).amount)
+    // );
 
     const isBoosted = await farm.methods.isBoosted().call();
 
@@ -379,19 +377,24 @@ export const fetchStabilityFactory = async (
         fromWei(web3, await userProxy.methods.lusdBalance().call())
       );
 
-      pendingETH = fromWei(
-        web3,
-        await stabilityPool.methods
-          .getDepositorETHGain(userProxy._address)
-          .call()
+      pendingETH = toDecimal(
+        fromWei(
+          web3,
+          await stabilityPool.methods
+            .getDepositorETHGain(userProxy._address)
+            .call()
+        )
       );
 
-      pendingLQTY = fromWei(
-        web3,
-        await stabilityPool.methods
-          .getDepositorLQTYGain(userProxy._address)
-          .call()
+      pendingLQTY = toDecimal(
+        fromWei(
+          web3,
+          await stabilityPool.methods
+            .getDepositorLQTYGain(userProxy._address)
+            .call()
+        )
       );
+      debugger;
     } else {
       allowanceLUSD = 0;
       userStaked = 0;

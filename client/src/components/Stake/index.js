@@ -34,6 +34,7 @@ const Stake = () => {
         gSTRINGAllowance={userAllowances.profitShare.gSTRING}
         LPTokensStaked={profitShareBalances.userStaked.STRING}
         pendingTokens={profitShareBalances.userPending.STRING}
+        secondPendingTokens={profitShareBalances.userPending.LQTY}
         stringTokensAllowance={userAllowances.profitShare.STRING}
         collapse={() => {
           setCollapsed({ ...collapsed, STRING: true });
