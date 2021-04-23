@@ -3,7 +3,7 @@
 pragma solidity 0.6.11;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "./Interfaces/IStabilityPool.sol";
 import "./StabilityFactory.sol";
 
@@ -42,7 +42,6 @@ contract StabilityProxy {
         stabilityFactory = _factory;
     }
 
-
     function deposit(uint256 _amount) public onlyOwner {
         stabilityFactory.update();
         if (lusdBalance > 0) {
@@ -63,10 +62,10 @@ contract StabilityProxy {
         );
         stabilityFactory.update();
         _updateBalance();
-        if(_amount > lusdBalance){
+        if (_amount > lusdBalance) {
             stabilityPool.withdrawFromSP(lusdBalance);
             _safeLUSDTransfer(owner, lusdBalance);
-        }else{
+        } else {
             stabilityPool.withdrawFromSP(_amount);
             _safeLUSDTransfer(owner, _amount);
         }
@@ -130,7 +129,7 @@ contract StabilityProxy {
         lusdBalance = currentBal;
     }
 
-    fallback () external payable {
+    fallback() external payable {
         _safeETHTransferAll(owner);
     }
 

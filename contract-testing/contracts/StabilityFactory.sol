@@ -3,7 +3,7 @@
 pragma solidity 0.6.11;
 
 // import "@optionality.io/clone-factory/contracts/CloneFactory.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./StabilityProxy.sol";
 import "./StringToken.sol";
@@ -49,7 +49,10 @@ contract StabilityFactory {
     }
 
     modifier isNewProxy() {
-        require(userProxys[msg.sender].initialized == false,  "addr already created a proxy");
+        require(
+            userProxys[msg.sender].initialized == false,
+            "addr already created a proxy"
+        );
         _;
     }
 
@@ -180,7 +183,12 @@ contract StabilityFactory {
                 stabilityPool
             );
         UserProxy memory proxy =
-            UserProxy({proxyAddress: clone, amount: 0, rewardDebt: 0, initialized:true});
+            UserProxy({
+                proxyAddress: clone,
+                amount: 0,
+                rewardDebt: 0,
+                initialized: true
+            });
         userProxys[msg.sender] = proxy;
         registeredClone[address(clone)] = true;
         emit Deploy(msg.sender, address(clone));

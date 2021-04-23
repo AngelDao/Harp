@@ -129,71 +129,57 @@ contract("STRING Token Tests", () => {
     //   const owner = accounts[0];
     //   const owner2 = accounts[1];
     //   const owner3 = accounts[2];
-
     //   await stabilityFactory.connect(owner).createStabilityProxy();
     //   await stabilityFactory.connect(owner2).createStabilityProxy();
     //   await stabilityFactory.connect(owner3).createStabilityProxy();
-
     //   const ownerProxyAddr = await stabilityFactory.userProxys(owner.address);
     //   const owner2ProxyAddr = await stabilityFactory.userProxys(owner2.address);
     //   const owner3ProxyAddr = await stabilityFactory.userProxys(owner3.address);
-
     //   //   console.log(ownerProxyAddr.proxyAddress);
     //   const ownerProxy = await StabilityProxy.at(ownerProxyAddr.proxyAddress);
     //   const owner2Proxy = await StabilityProxy.at(owner2ProxyAddr.proxyAddress);
     //   const owner3Proxy = await StabilityProxy.at(owner3ProxyAddr.proxyAddress);
-
     //   const addr = await ownerProxy.owner();
     //   const addr2 = await owner2Proxy.owner();
     //   const addr3 = await owner3Proxy.owner();
-
     //   console.log(addr);
     //   console.log(addr2);
     //   console.log(addr3);
-
     //   console.log();
-
     //   assert.equal(owner.address, addr);
     //   assert.equal(owner2.address, addr2);
     //   assert.equal(owner3.address, addr3);
     // });
-
-    const deployProxies = async () => {
-      const owner = accounts[0];
-      const owner2 = accounts[1];
-      const owner3 = accounts[2];
-
-      await stabilityFactory.connect(owner).createStabilityProxy();
-      await stabilityFactory.connect(owner2).createStabilityProxy();
-      await stabilityFactory.connect(owner3).createStabilityProxy();
-
-      const ownerProxyAddr = await stabilityFactory.userProxys(owner.address);
-      const owner2ProxyAddr = await stabilityFactory.userProxys(owner2.address);
-      const owner3ProxyAddr = await stabilityFactory.userProxys(owner3.address);
-
-      //   console.log(ownerProxyAddr.proxyAddress);
-      const ownerProxy = await StabilityProxy.at(ownerProxyAddr.proxyAddress);
-      const owner2Proxy = await StabilityProxy.at(owner2ProxyAddr.proxyAddress);
-      const owner3Proxy = await StabilityProxy.at(owner3ProxyAddr.proxyAddress);
-
-      return { ownerProxy, owner2Proxy, owner3Proxy };
-    };
-
-    const mintLUSD = async () => {
-      const owner = accounts[0];
-      const owner2 = accounts[1];
-      const owner3 = accounts[2];
-
-      await lusdToken.mintTo(owner.address, tokens("1000"), {
-        from: owner.address,
-      });
-      await lusdToken.mintTo(owner2.address, tokens("1000"), {
-        from: owner2.address,
-      });
-      await lusdToken.mintTo(owner3.address, tokens("1000"), {
-        from: owner3.address,
-      });
-    };
+    // const deployProxies = async () => {
+    //   const owner = accounts[0];
+    //   const owner2 = accounts[1];
+    //   const owner3 = accounts[2];
+    //   await stabilityFactory.connect(owner).createStabilityProxy();
+    //   await stabilityFactory.connect(owner2).createStabilityProxy();
+    //   await stabilityFactory.connect(owner3).createStabilityProxy();
+    //   const ownerProxyAddr = await stabilityFactory.userProxys(owner.address);
+    //   const owner2ProxyAddr = await stabilityFactory.userProxys(owner2.address);
+    //   const owner3ProxyAddr = await stabilityFactory.userProxys(owner3.address);
+    //   //   console.log(ownerProxyAddr.proxyAddress);
+    //   const ownerProxy = await StabilityProxy.at(ownerProxyAddr.proxyAddress);
+    //   const owner2Proxy = await StabilityProxy.at(owner2ProxyAddr.proxyAddress);
+    //   const owner3Proxy = await StabilityProxy.at(owner3ProxyAddr.proxyAddress);
+    //   return { ownerProxy, owner2Proxy, owner3Proxy };
+    // };
+    // const mintLUSD = async () => {
+    //   const owner = accounts[0];
+    //   const owner2 = accounts[1];
+    //   const owner3 = accounts[2];
+    //   await lusdToken.mintTo(owner.address, tokens("1000"), {
+    //     from: owner.address,
+    //   });
+    //   await lusdToken.mintTo(owner2.address, tokens("1000"), {
+    //     from: owner2.address,
+    //   });
+    //   await lusdToken.mintTo(owner3.address, tokens("1000"), {
+    //     from: owner3.address,
+    //   });
+    // };
     // it("deploy proxy then deposit", async () => {
     //   let owner = accounts[0];
     //   await mintLUSD();
@@ -206,70 +192,56 @@ contract("STRING Token Tests", () => {
     //   const proxyBalance = (
     //     await lusdToken.balanceOf(ownerProxy.address)
     //   ).toString();
-
     //   const proxyLUSDBalance = await ownerProxy.lusdBalance();
-
     //   const stabilityBalance = await lusdToken.balanceOf(stabilityPool.address);
     //   const userAccount = (await stabilityFactory.userProxys(owner.address))
     //     .amount;
-
     //   assert.equal(userAccount, tokens("10"));
     //   assert.equal(userBalance, tokens("990"));
     //   assert.equal(proxyBalance, tokens("0"));
     //   assert.equal(proxyLUSDBalance, tokens("10"));
     //   assert.equal(stabilityBalance, tokens("10"));
     // });
-
-    const withdrawCheckROI = async (proxy) => {
-      let owner = accounts[0];
-      await proxy.withdraw(tokens("10"), { from: owner.address });
-      const userBalance = (await lusdToken.balanceOf(owner.address)).toString();
-      const proxyBalance = (
-        await lusdToken.balanceOf(proxy.address)
-      ).toString();
-      const stabilityBalance = (
-        await lusdToken.balanceOf(stabilityPool.address)
-      ).toString();
-
-      const proxyLUSDBalance = await proxy.lusdBalance();
-
-      const rewards = await stringToken.balanceOf(owner.address);
-      const stringPerBlock = await stabilityFactory.stringPerBlock();
-
-      const expectedRewards = stringPerBlock.mul(5).mul(11);
-
-      assert.equal(rewards.toString(), expectedRewards.toString());
-      assert.equal(userBalance, tokens("1000"));
-      assert.equal(proxyBalance, tokens("0"));
-      assert.equal(stabilityBalance, tokens("0"));
-      assert.equal(proxyLUSDBalance, tokens("0"));
-    };
-
-    const claimCheckROI = async (proxy) => {
-      let owner = accounts[0];
-      await proxy.claim({ from: owner.address });
-      const userBalance = (await lusdToken.balanceOf(owner.address)).toString();
-      const proxyBalance = (
-        await lusdToken.balanceOf(proxy.address)
-      ).toString();
-      const stabilityBalance = (
-        await lusdToken.balanceOf(stabilityPool.address)
-      ).toString();
-
-      const proxyLUSDBalance = await proxy.lusdBalance();
-
-      const rewards = await stringToken.balanceOf(owner.address);
-      const stringPerBlock = await stabilityFactory.stringPerBlock();
-
-      const expectedRewards = stringPerBlock.mul(5).mul(11);
-
-      assert.equal(rewards.toString(), expectedRewards.toString());
-      assert.equal(userBalance, tokens("990"));
-      assert.equal(proxyBalance, tokens("0"));
-      assert.equal(proxyLUSDBalance, tokens("10"));
-      assert.equal(stabilityBalance, tokens("10"));
-    };
-
+    // const withdrawCheckROI = async (proxy) => {
+    //   let owner = accounts[0];
+    //   await proxy.withdraw(tokens("10"), { from: owner.address });
+    //   const userBalance = (await lusdToken.balanceOf(owner.address)).toString();
+    //   const proxyBalance = (
+    //     await lusdToken.balanceOf(proxy.address)
+    //   ).toString();
+    //   const stabilityBalance = (
+    //     await lusdToken.balanceOf(stabilityPool.address)
+    //   ).toString();
+    //   const proxyLUSDBalance = await proxy.lusdBalance();
+    //   const rewards = await stringToken.balanceOf(owner.address);
+    //   const stringPerBlock = await stabilityFactory.stringPerBlock();
+    //   const expectedRewards = stringPerBlock.mul(5).mul(11);
+    //   assert.equal(rewards.toString(), expectedRewards.toString());
+    //   assert.equal(userBalance, tokens("1000"));
+    //   assert.equal(proxyBalance, tokens("0"));
+    //   assert.equal(stabilityBalance, tokens("0"));
+    //   assert.equal(proxyLUSDBalance, tokens("0"));
+    // };
+    // const claimCheckROI = async (proxy) => {
+    //   let owner = accounts[0];
+    //   await proxy.claim({ from: owner.address });
+    //   const userBalance = (await lusdToken.balanceOf(owner.address)).toString();
+    //   const proxyBalance = (
+    //     await lusdToken.balanceOf(proxy.address)
+    //   ).toString();
+    //   const stabilityBalance = (
+    //     await lusdToken.balanceOf(stabilityPool.address)
+    //   ).toString();
+    //   const proxyLUSDBalance = await proxy.lusdBalance();
+    //   const rewards = await stringToken.balanceOf(owner.address);
+    //   const stringPerBlock = await stabilityFactory.stringPerBlock();
+    //   const expectedRewards = stringPerBlock.mul(5).mul(11);
+    //   assert.equal(rewards.toString(), expectedRewards.toString());
+    //   assert.equal(userBalance, tokens("990"));
+    //   assert.equal(proxyBalance, tokens("0"));
+    //   assert.equal(proxyLUSDBalance, tokens("10"));
+    //   assert.equal(stabilityBalance, tokens("10"));
+    // };
     // it("withdraw full from pool", async () => {
     //   let owner = accounts[0];
     //   await mintLUSD();
@@ -282,7 +254,6 @@ contract("STRING Token Tests", () => {
     //   await advanceBlock(10);
     //   await withdrawCheckROI(ownerProxy);
     // });
-
     // it("claim from pool", async () => {
     //   let owner = accounts[0];
     //   await mintLUSD();
@@ -295,28 +266,25 @@ contract("STRING Token Tests", () => {
     //   await advanceBlock(10);
     //   await claimCheckROI(ownerProxy);
     // });
-
-    const handleDeposit = async () => {
-      const owner = accounts[0];
-      const owner2 = accounts[1];
-      await mintLUSD();
-      const { ownerProxy, owner2Proxy } = await deployProxies();
-      await lusdToken.approve(ownerProxy.address, tokens("100"), {
-        from: owner.address,
-      });
-      await lusdToken.approve(owner2Proxy.address, tokens("100"), {
-        from: owner2.address,
-      });
-      await ownerProxy.deposit(tokens("10"), { from: owner.address });
-      await owner2Proxy.deposit(tokens("50"), { from: owner2.address });
-      return { ownerProxy, owner2Proxy };
-    };
-
+    // const handleDeposit = async () => {
+    //   const owner = accounts[0];
+    //   const owner2 = accounts[1];
+    //   await mintLUSD();
+    //   const { ownerProxy, owner2Proxy } = await deployProxies();
+    //   await lusdToken.approve(ownerProxy.address, tokens("100"), {
+    //     from: owner.address,
+    //   });
+    //   await lusdToken.approve(owner2Proxy.address, tokens("100"), {
+    //     from: owner2.address,
+    //   });
+    //   await ownerProxy.deposit(tokens("10"), { from: owner.address });
+    //   await owner2Proxy.deposit(tokens("50"), { from: owner2.address });
+    //   return { ownerProxy, owner2Proxy };
+    // };
     // it("2 users deposit in pool 1", async () => {
     //   const owner = accounts[0];
     //   const owner2 = accounts[1];
     //   const { ownerProxy, owner2Proxy } = await handleDeposit();
-
     //   const userBalance = (await lusdToken.balanceOf(owner.address)).toString();
     //   const userBalance2 = (
     //     await lusdToken.balanceOf(owner2.address)
@@ -330,10 +298,8 @@ contract("STRING Token Tests", () => {
     //   const stabilityBalance = (
     //     await lusdToken.balanceOf(stabilityPool.address)
     //   ).toString();
-
     //   const proxyLUSDBalance = (await ownerProxy.lusdBalance()).toString();
     //   const proxy2LUSDBalance = (await owner2Proxy.lusdBalance()).toString();
-
     //   assert.equal(proxyLUSDBalance, tokens("10"));
     //   assert.equal(proxy2LUSDBalance, tokens("50"));
     //   assert.equal(userBalance, tokens("990"));
@@ -342,12 +308,10 @@ contract("STRING Token Tests", () => {
     //   assert.equal(proxyBalance, tokens("0"));
     //   assert.equal(proxyBalance2, tokens("0"));
     // });
-
     // it("2 users deposit in pool then 1 withdraws half", async () => {
     //   const owner = accounts[0];
     //   const owner2 = accounts[1];
     //   const { ownerProxy, owner2Proxy } = await handleDeposit();
-
     //   let userBalance = (await lusdToken.balanceOf(owner.address)).toString();
     //   let userBalance2 = (await lusdToken.balanceOf(owner2.address)).toString();
     //   let proxyBalance = (
@@ -359,10 +323,8 @@ contract("STRING Token Tests", () => {
     //   let stabilityBalance = (
     //     await lusdToken.balanceOf(stabilityPool.address)
     //   ).toString();
-
     //   let proxyLUSDBalance = (await ownerProxy.lusdBalance()).toString();
     //   let proxy2LUSDBalance = (await owner2Proxy.lusdBalance()).toString();
-
     //   assert.equal(proxyLUSDBalance, tokens("10"));
     //   assert.equal(proxy2LUSDBalance, tokens("50"));
     //   assert.equal(userBalance, tokens("990"));
@@ -370,9 +332,7 @@ contract("STRING Token Tests", () => {
     //   assert.equal(stabilityBalance, tokens("60"));
     //   assert.equal(proxyBalance, tokens("0"));
     //   assert.equal(proxyBalance2, tokens("0"));
-
     //   await owner2Proxy.withdraw(tokens("25"), { from: owner2.address });
-
     //   userBalance = (await lusdToken.balanceOf(owner.address)).toString();
     //   userBalance2 = (await lusdToken.balanceOf(owner2.address)).toString();
     //   proxyBalance = (await lusdToken.balanceOf(ownerProxy.address)).toString();
@@ -382,10 +342,8 @@ contract("STRING Token Tests", () => {
     //   stabilityBalance = (
     //     await lusdToken.balanceOf(stabilityPool.address)
     //   ).toString();
-
     //   proxyLUSDBalance = (await ownerProxy.lusdBalance()).toString();
     //   proxy2LUSDBalance = (await owner2Proxy.lusdBalance()).toString();
-
     //   assert.equal(proxyLUSDBalance, tokens("10"));
     //   assert.equal(proxy2LUSDBalance, tokens("25"));
     //   assert.equal(userBalance, tokens("990"));
@@ -394,12 +352,10 @@ contract("STRING Token Tests", () => {
     //   assert.equal(proxyBalance, tokens("0"));
     //   assert.equal(proxyBalance2, tokens("0"));
     // });
-
     // it("2 users deposit in pool then 1 withdraws", async () => {
     //   const owner = accounts[0];
     //   const owner2 = accounts[1];
     //   const { ownerProxy, owner2Proxy } = await handleDeposit();
-
     //   let userBalance = (await lusdToken.balanceOf(owner.address)).toString();
     //   let userBalance2 = (await lusdToken.balanceOf(owner2.address)).toString();
     //   let proxyBalance = (
@@ -411,10 +367,8 @@ contract("STRING Token Tests", () => {
     //   let stabilityBalance = (
     //     await lusdToken.balanceOf(stabilityPool.address)
     //   ).toString();
-
     //   let proxyLUSDBalance = (await ownerProxy.lusdBalance()).toString();
     //   let proxy2LUSDBalance = (await owner2Proxy.lusdBalance()).toString();
-
     //   assert.equal(proxyLUSDBalance, tokens("10"));
     //   assert.equal(proxy2LUSDBalance, tokens("50"));
     //   assert.equal(userBalance, tokens("990"));
@@ -422,9 +376,7 @@ contract("STRING Token Tests", () => {
     //   assert.equal(stabilityBalance, tokens("60"));
     //   assert.equal(proxyBalance, tokens("0"));
     //   assert.equal(proxyBalance2, tokens("0"));
-
     //   await owner2Proxy.withdraw(tokens("50"), { from: owner2.address });
-
     //   userBalance = (await lusdToken.balanceOf(owner.address)).toString();
     //   userBalance2 = (await lusdToken.balanceOf(owner2.address)).toString();
     //   proxyBalance = (await lusdToken.balanceOf(ownerProxy.address)).toString();
@@ -434,10 +386,8 @@ contract("STRING Token Tests", () => {
     //   stabilityBalance = (
     //     await lusdToken.balanceOf(stabilityPool.address)
     //   ).toString();
-
     //   proxyLUSDBalance = (await ownerProxy.lusdBalance()).toString();
     //   proxy2LUSDBalance = (await owner2Proxy.lusdBalance()).toString();
-
     //   assert.equal(proxyLUSDBalance, tokens("10"));
     //   assert.equal(proxy2LUSDBalance, tokens("0"));
     //   assert.equal(userBalance, tokens("990"));
@@ -446,12 +396,10 @@ contract("STRING Token Tests", () => {
     //   assert.equal(proxyBalance, tokens("0"));
     //   assert.equal(proxyBalance2, tokens("0"));
     // });
-
     // it("2 users deposit in pool 1 then both withdraws half", async () => {
     //   const owner = accounts[0];
     //   const owner2 = accounts[1];
     //   const { ownerProxy, owner2Proxy } = await handleDeposit();
-
     //   let userBalance = (await lusdToken.balanceOf(owner.address)).toString();
     //   let userBalance2 = (await lusdToken.balanceOf(owner2.address)).toString();
     //   let proxyBalance = (
@@ -463,10 +411,8 @@ contract("STRING Token Tests", () => {
     //   let stabilityBalance = (
     //     await lusdToken.balanceOf(stabilityPool.address)
     //   ).toString();
-
     //   let proxyLUSDBalance = (await ownerProxy.lusdBalance()).toString();
     //   let proxy2LUSDBalance = (await owner2Proxy.lusdBalance()).toString();
-
     //   assert.equal(proxyLUSDBalance, tokens("10"));
     //   assert.equal(proxy2LUSDBalance, tokens("50"));
     //   assert.equal(userBalance, tokens("990"));
@@ -474,10 +420,8 @@ contract("STRING Token Tests", () => {
     //   assert.equal(stabilityBalance, tokens("60"));
     //   assert.equal(proxyBalance, tokens("0"));
     //   assert.equal(proxyBalance2, tokens("0"));
-
     //   await owner2Proxy.withdraw(tokens("25"), { from: owner2.address });
     //   await ownerProxy.withdraw(tokens("5"), { from: owner.address });
-
     //   userBalance = (await lusdToken.balanceOf(owner.address)).toString();
     //   userBalance2 = (await lusdToken.balanceOf(owner2.address)).toString();
     //   proxyBalance = (await lusdToken.balanceOf(ownerProxy.address)).toString();
@@ -487,10 +431,8 @@ contract("STRING Token Tests", () => {
     //   stabilityBalance = (
     //     await lusdToken.balanceOf(stabilityPool.address)
     //   ).toString();
-
     //   proxyLUSDBalance = (await ownerProxy.lusdBalance()).toString();
     //   proxy2LUSDBalance = (await owner2Proxy.lusdBalance()).toString();
-
     //   assert.equal(proxyLUSDBalance, tokens("5"));
     //   assert.equal(proxy2LUSDBalance, tokens("25"));
     //   assert.equal(userBalance, tokens("995"));
@@ -499,12 +441,10 @@ contract("STRING Token Tests", () => {
     //   assert.equal(proxyBalance, tokens("0"));
     //   assert.equal(proxyBalance2, tokens("0"));
     // });
-
     // it("2 users deposit in pool 1 then both withdraw ", async () => {
     //   const owner = accounts[0];
     //   const owner2 = accounts[1];
     //   const { ownerProxy, owner2Proxy } = await handleDeposit();
-
     //   let userBalance = (await lusdToken.balanceOf(owner.address)).toString();
     //   let userBalance2 = (await lusdToken.balanceOf(owner2.address)).toString();
     //   let proxyBalance = (
@@ -516,10 +456,8 @@ contract("STRING Token Tests", () => {
     //   let stabilityBalance = (
     //     await lusdToken.balanceOf(stabilityPool.address)
     //   ).toString();
-
     //   let proxyLUSDBalance = (await ownerProxy.lusdBalance()).toString();
     //   let proxy2LUSDBalance = (await owner2Proxy.lusdBalance()).toString();
-
     //   assert.equal(proxyLUSDBalance, tokens("10"));
     //   assert.equal(proxy2LUSDBalance, tokens("50"));
     //   assert.equal(userBalance, tokens("990"));
@@ -527,10 +465,8 @@ contract("STRING Token Tests", () => {
     //   assert.equal(stabilityBalance, tokens("60"));
     //   assert.equal(proxyBalance, tokens("0"));
     //   assert.equal(proxyBalance2, tokens("0"));
-
     //   await owner2Proxy.withdraw(tokens("50"), { from: owner2.address });
     //   await ownerProxy.withdraw(tokens("10"), { from: owner.address });
-
     //   userBalance = (await lusdToken.balanceOf(owner.address)).toString();
     //   userBalance2 = (await lusdToken.balanceOf(owner2.address)).toString();
     //   proxyBalance = (await lusdToken.balanceOf(ownerProxy.address)).toString();
@@ -540,10 +476,8 @@ contract("STRING Token Tests", () => {
     //   stabilityBalance = (
     //     await lusdToken.balanceOf(stabilityPool.address)
     //   ).toString();
-
     //   proxyLUSDBalance = (await ownerProxy.lusdBalance()).toString();
     //   proxy2LUSDBalance = (await owner2Proxy.lusdBalance()).toString();
-
     //   assert.equal(proxyLUSDBalance, tokens("0"));
     //   assert.equal(proxy2LUSDBalance, tokens("0"));
     //   assert.equal(userBalance, tokens("1000"));
@@ -552,12 +486,10 @@ contract("STRING Token Tests", () => {
     //   assert.equal(proxyBalance, tokens("0"));
     //   assert.equal(proxyBalance2, tokens("0"));
     // });
-
     // it("2 users deposit in pool 1 overwithdraws ", async () => {
     //   const owner = accounts[0];
     //   const owner2 = accounts[1];
     //   const { ownerProxy, owner2Proxy } = await handleDeposit();
-
     //   let userBalance = (await lusdToken.balanceOf(owner.address)).toString();
     //   let userBalance2 = (await lusdToken.balanceOf(owner2.address)).toString();
     //   let proxyBalance = (
@@ -569,10 +501,8 @@ contract("STRING Token Tests", () => {
     //   let stabilityBalance = (
     //     await lusdToken.balanceOf(stabilityPool.address)
     //   ).toString();
-
     //   let proxyLUSDBalance = (await ownerProxy.lusdBalance()).toString();
     //   let proxy2LUSDBalance = (await owner2Proxy.lusdBalance()).toString();
-
     //   assert.equal(proxyLUSDBalance, tokens("10"));
     //   assert.equal(proxy2LUSDBalance, tokens("50"));
     //   assert.equal(userBalance, tokens("990"));
@@ -580,7 +510,6 @@ contract("STRING Token Tests", () => {
     //   assert.equal(stabilityBalance, tokens("60"));
     //   assert.equal(proxyBalance, tokens("0"));
     //   assert.equal(proxyBalance2, tokens("0"));
-
     //   try {
     //     await ownerProxy.withdraw(tokens("50"), { from: owner.address });
     //   } catch (err) {
@@ -590,15 +519,11 @@ contract("STRING Token Tests", () => {
     //     );
     //   }
     // });
-
     // it("rewards for 2 depositers", async () => {
     //   const owner = accounts[0];
     //   const owner2 = accounts[1];
-
     //   const { ownerProxy, owner2Proxy } = await handleDeposit();
-
     //   //    causes 1 full block reward to go to first depositer
-
     //   //   11 blocks
     //   const stringPerBlock = await stabilityFactory.stringPerBlock();
     //   await advanceBlock(10);
@@ -616,7 +541,6 @@ contract("STRING Token Tests", () => {
     //   const temp = new BigNumber(stringPerBlock.toString());
     //   console.log(`String Per Block:${stringPerBlock.toString()}`);
     //   const expectedRewards = num.times(newBlocks).times(5);
-
     //   const owner1Balance = num
     //     .times(11)
     //     .times(5)
@@ -642,16 +566,12 @@ contract("STRING Token Tests", () => {
     //     truncateString(owner2Balance.toString())
     //   );
     // });
-
     // it("Check Boosted logic", async () => {
     //   const owner = accounts[0];
     //   const owner2 = accounts[1];
-
     //   const { ownerProxy, owner2Proxy } = await handleDeposit();
-
     //   await advanceBlock(300);
     //   await ownerProxy.withdraw(tokens("10"), { from: owner.address });
-
     //   let isBoosted = await stabilityFactory.isBoosted();
     //   assert.equal(isBoosted, false);
     // });

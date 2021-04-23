@@ -154,11 +154,28 @@ contract StringStaking is Ownable {
         }
     }
 
-    // View function to see pending STRING on frontend.
+    // View function to see pending LQTY on frontend.
     function pendingLQTY(address _user) external view returns (uint256) {
         UserInfo storage user = userInfo[_user];
         uint256 accLQTYPerShare = pool.accLQTYPerShare;
         uint256 lpSupply = pool.lpTokenSupply;
+
+        uint256 lqtyAvailableRewards = lqtyToken.balanceOf(address(this));
+        uint256 freshRewards = 0;
+
+        if (lqtyAvailableRewards > lastLQTYRewards) {
+            freshRewards = lqtyAvailableRewards.sub(lastLQTYRewards);
+        }
+
+        console.log("pendingavail", lqtyAvailableRewards);
+        console.log("pendinglast", lastLQTYRewards);
+        console.log("pendingfresh", freshRewards);
+
+        if (freshRewards > 0) {
+            accLQTYPerShare = pool.accLQTYPerShare.add(
+                freshRewards.mul(1e12).div(lpSupply)
+            );
+        }
 
         uint256 pending =
             user.amount.mul(accLQTYPerShare).div(1e12).sub(user.lqtyRewardDebt);
@@ -170,24 +187,25 @@ contract StringStaking is Ownable {
         UserInfo storage user = userInfo[msg.sender];
         updateSP();
         // console.log("sender: %s, balance: %s", msg.sender, user.amount);
+        console.log(
+            " last reward block:%s, current block:%s",
+            pool.lastRewardBlock,
+            block.number
+        );
         if (block.number <= pool.lastRewardBlock) {
             return;
         }
         uint256 lpSupply = pool.lpTokenSupply;
+        console.log("lpsupply", pool.lpTokenSupply);
         if (lpSupply == 0) {
             pool.lastRewardBlock = block.number;
             return;
         }
-        // console.log(
-        //     " last reward block:%s, current block:%s",
-        //     pool.lastRewardBlock,
-        //     block.number
-        // );
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
         uint256 stringReward = multiplier.mul(stringPerBlock);
         if (block.number < postBoostedBlock) {
             uint256 boostedReward = stringReward.mul(boostedMultiplier);
-            // console.log("boostedReward", boostedReward);
+            console.log("boostedReward", boostedReward);
             stringToken.mintTo(address(this), boostedReward);
         } else {
             if (isBoosted) {
@@ -241,7 +259,6 @@ contract StringStaking is Ownable {
             );
         }
         lastLQTYRewards = lqtyAvailableRewards;
-        pool.lastRewardBlock = block.number;
     }
 
     // Deposit LP tokens for STRING allocation.
@@ -262,11 +279,12 @@ contract StringStaking is Ownable {
             _amount
         );
 
-        // console.log("deposit amount", _amount);
+        console.log("deposit amount", _amount);
         user.amount = user.amount.add(_amount);
         pool.lpTokenSupply = pool.lpTokenSupply.add(_amount);
+        // console.log("")
 
-        // console.log("lpSupply", pool.lpTokenSupply);
+        console.log("lpSupply", pool.lpTokenSupply);
 
         // console.log(
         //     "reward debt for deposit",
