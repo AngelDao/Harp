@@ -19,6 +19,17 @@ export const toDecimal = (n) => {
   return n;
 };
 
+export const hasDecimal = (str) => {
+  const len = str.length;
+  let count = 0;
+  for (let i = 0; i < len; i++) {
+    if (str[i] === ".") {
+      count++;
+    }
+  }
+  return count > 1;
+};
+
 export const truncDust = (n) => {
   if (!n) {
     return 0;

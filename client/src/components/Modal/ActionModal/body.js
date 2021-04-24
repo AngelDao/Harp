@@ -57,7 +57,7 @@ const Body = ({
             onFocus={handleFocus}
             defaultValue={0}
             min={0}
-            precision={4}
+            precision={12}
             step={0.0001}
             max={parseFloat(balance)}
             value={value}
@@ -65,7 +65,7 @@ const Body = ({
             borderRadius="0%"
             borderColor="black"
             focusBorderColor="black"
-            onChange={(str, num) => handleChangeValue(num)}
+            onChange={(str, num) => handleChangeValue(num, str)}
             outline="none"
             backgroundColor={MasterStyles.background.secondaryMenu}
           >
