@@ -1,15 +1,41 @@
-const Farm = artifacts.require("Farm");
-// const {addresses } = require("./src/utils/")
+const { addresses } = require("../src/utils/handleContracts/addresses");
+const { ethers, artifacts } = require("hardhat");
+const Farm = require("../src/abis/Farm.json");
 
-module.exports = async function (callback) {
-  const ethLPToken = "0x30cf3d347815d2e7cd4e676fe68844d65e2eb7bc";
-  const lusdLPToken = "0x585947e2cea2c10d33ce0ddfb43600386f010447";
+const main = async () => {
+  const networkMap = {
+    kovan: 42,
+    rinkeby: 4,
+  };
+  let eth, lusd;
+  if (process.env.HARDHAT_NETWORK === "kovan") {
+    eth = addresses.kovan.ethLPToken;
+    lusd = addresses.kovan.lusdLPToken;
+  } else if (process.env.HARDHAT_NETWORK === "rinkeby") {
+    eth = addresses.rinkeby.ethLPToken;
+    lusd = addresses.rinkeby.lusdLPToken;
+  }
+  console.log(eth, lusd);
+
+  const [deployer] = await ethers.getSigners();
+
+  console.log(Farm.networks);
+  const farm = new ethers.Contract(
+    Farm.networks[networkMap[process.env.HARDHAT_NETWORK]].address,
+    Farm.abi,
+    deployer.provider
+  );
   console.log("entered");
-  const farm = await Farm.deployed();
+  await farm.connect(deployer).addPool(80, eth, true);
   console.log("entered");
-  await farm.add(80, ethLPToken, true);
+  await farm.connect(deployer).addPool(20, lusd, true);
   console.log("entered");
-  await farm.add(20, lusdLPToken, true);
-  console.log("entered");
-  callback();
 };
+
+(async () => {
+  try {
+    await main();
+  } catch (err) {
+    console.log(err);
+  }
+})();
