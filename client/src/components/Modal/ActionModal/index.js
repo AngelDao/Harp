@@ -56,6 +56,7 @@ const ActionModal = ({
       factory,
       lqtyToken,
       rewards,
+      stability,
     },
     address,
     setUserAllowances,
@@ -64,6 +65,7 @@ const ActionModal = ({
     web3UserProvider,
     reFetchData,
     userBalances,
+    stabilityBalances,
     rewardsBalances,
     profitShareBalances,
     farmBalances,
@@ -101,6 +103,7 @@ const ActionModal = ({
     rewards: rewardsBalances,
     factory: factoryBalances,
     proxy: proxyBalances,
+    stability: stabilityBalances,
   };
 
   const contractInstance = {
@@ -109,6 +112,7 @@ const ActionModal = ({
     factory,
     proxy,
     rewards,
+    stability,
   };
 
   const [value, setValue] = useState(0);
@@ -226,6 +230,8 @@ const ActionModal = ({
       contractAddress = profitShare._address;
     } else if (contract === "rewards") {
       contractAddress = rewards._address;
+    } else if (contract === "stability") {
+      contractAddress = stability._address;
     }
 
     let ctrct;
@@ -261,6 +267,22 @@ const ActionModal = ({
     const param1 = contract === "farm" && pair !== "LUSD" ? pool[pair] : val;
 
     const param2 = val;
+
+    if (contract === "stability") {
+      await ctrct.methods
+        .provideToSP(param1, profitShare._address)
+        .send({ from: address })
+        .once("sent", async () => {})
+        .on("transactionHash", async () => {
+          setSending(true);
+        })
+        .on("receipt", async () => {
+          setSending(false);
+          await reFetchData();
+        });
+
+      return;
+    }
 
     if (contract === "rewards") {
       await ctrct.methods
@@ -323,6 +345,22 @@ const ActionModal = ({
 
     const param1 = contract === "farm" && pair !== "LUSD" ? pool[pair] : val;
     const param2 = val;
+
+    if (contract === "stability") {
+      await ctrct.methods
+        .withdrawFromSP(param1)
+        .send({ from: address })
+        .once("sent", async () => {})
+        .on("transactionHash", async () => {
+          setSending(true);
+        })
+        .on("receipt", async () => {
+          setSending(false);
+          await reFetchData();
+        });
+
+      return;
+    }
 
     if (contract === "rewards") {
       await ctrct.methods

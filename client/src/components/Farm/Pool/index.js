@@ -67,6 +67,7 @@ const Pool = ({
     tvl,
     network,
     contracts,
+    stabilityBalances,
   } = useContext(CredentialsContext);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("");
@@ -120,6 +121,7 @@ const Pool = ({
     rewards: rewardsBalances,
     factory: factoryBalances,
     proxy: proxyBalances,
+    stability: stabilityBalances,
   };
 
   const farmLPMap = {

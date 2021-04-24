@@ -25,6 +25,7 @@ import {
   fetchTroveManager,
   fetchSortedTroves,
   fetchHintHelpers,
+  fetchStabilityPool,
 } from "./utils/handleContracts/contractConnection";
 import { fetchPrices, fetchTest } from "./utils/handlePriceData";
 import { fetchTVL } from "./utils/handleContracts/contractTVL";
@@ -44,6 +45,7 @@ function App() {
   const [profitShareBalances, setProfitShareBalances] = useState({});
   const [factoryBalances, setFactoryBalances] = useState({});
   const [rewardsBalances, setRewardsBalances] = useState({});
+  const [stabilityBalances, setStabilityBalances] = useState({});
   const [contracts, setContracts] = useState({});
   const [prices, setPrices] = useState({});
   const [loading, setLoading] = useState(false);
@@ -171,11 +173,20 @@ function App() {
 
     const [hintHelpers] = await fetchHintHelpers(web3, networkId);
 
+    const [stability, spAllowances, spBalances] = await fetchStabilityPool(
+      web3,
+      networkId,
+      address,
+      lusdToken,
+      profitShare
+    );
+
     // debugger;
     if (!troves) {
       setTroves({ troveCount, troves: sTroves });
     }
     setLiquityGlobals({ borrowRate });
+    setStabilityBalances(spBalances);
     setBorrowRate(borrowRate);
     setUserTrove(userTrove);
     setRewardsBalances(rwsBalances);
@@ -188,6 +199,7 @@ function App() {
       profitShare: psAllowances,
       proxy: proxyAllowance,
       rewards: rwsAllowances,
+      stability: spAllowances,
     });
     setContracts({
       hintHelpers,
@@ -205,6 +217,7 @@ function App() {
       gStringToken,
       lusdToken,
       lqtyToken,
+      stability,
     });
     setUserBalances({
       STRING,
@@ -336,6 +349,7 @@ function App() {
   }, [network]);
 
   const credentials = {
+    stabilityBalances,
     rewardsBalances,
     factoryBalances,
     profitShareBalances,

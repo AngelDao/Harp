@@ -194,7 +194,7 @@ export const fetchProfitShare = async (
     const pendingLQTY = toDecimal(
       fromWei(web3, await ps.methods.pendingLQTY(address).call())
     );
-    debugger;
+    // debugger;
 
     // const ammount = (await ps.methods.userInfo(address).call()).amount;
     // const trnced = fromWei(web3, ammount);
@@ -395,7 +395,7 @@ export const fetchStabilityFactory = async (
             .call()
         )
       );
-      debugger;
+      // debugger;
     } else {
       allowanceLUSD = 0;
       userStaked = 0;
@@ -646,4 +646,65 @@ export const fetchHintHelpers = async (web3, networkId) => {
     );
     return [hintHelpers];
   }
+};
+
+export const fetchStabilityPool = async (
+  web3,
+  networkId,
+  address,
+  lusdToken,
+  ps
+) => {
+  let sp;
+  // debugger;
+  if (networkId === 4) {
+    sp = new web3.eth.Contract(
+      IStabilityPool.abi,
+      addresses.rinkeby.stabilityPool
+    );
+  } else if (networkId === 42) {
+    sp = new web3.eth.Contract(
+      IStabilityPool.abi,
+      addresses.kovan.stabilityPool
+    );
+  }
+
+  // debugger;
+  const lusdAllowance = toDecimal(
+    fromWei(
+      web3,
+      await lusdToken.methods.allowance(address, sp._address).call()
+    )
+  );
+
+  // debugger;
+  const pendingLQTY = toDecimal(
+    fromWei(web3, await sp.methods.getDepositorLQTYGain(address).call())
+  );
+
+  // debugger;
+  const pendingETH = toDecimal(
+    fromWei(web3, await sp.methods.getDepositorETHGain(address).call())
+  );
+
+  // debugger;
+  const lusdStaked = toDecimal(
+    fromWei(web3, await sp.methods.getCompoundedLUSDDeposit(address).call())
+  );
+
+  const spAllowances = {
+    LUSD: lusdAllowance,
+  };
+
+  const spBalances = {
+    userPending: {
+      ETH: pendingETH,
+      LQTY: pendingLQTY,
+    },
+    userStaked: {
+      LUSD: lusdStaked,
+    },
+  };
+
+  return [sp, spAllowances, spBalances];
 };

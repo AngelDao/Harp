@@ -7,6 +7,7 @@ const Stake = () => {
   const [collapsed, setCollapsed] = useState({
     STRING: true,
     LQTY: true,
+    LUSD: true,
   });
   const {
     userBalances,
@@ -14,6 +15,7 @@ const Stake = () => {
     userAllowances,
     profitShareBalances,
     rewardsBalances,
+    stabilityBalances,
   } = useContext(CredentialsContext);
 
   return (
@@ -41,6 +43,28 @@ const Stake = () => {
         }}
         expand={() => {
           setCollapsed({ ...collapsed, STRING: false });
+        }}
+      />
+      <Title>LUSD</Title>
+      <Pool
+        from={"Stability"}
+        contract={"stability"}
+        src={""}
+        conditionalMargin
+        currency1={"LUSD"}
+        currencyLP={"LUSD"}
+        currencyEarned={["LQTY", "ETH"]}
+        collapsed={collapsed.LUSD}
+        LPTokensInWallet={userBalances.LUSD}
+        LPTokensAllowance={userAllowances.stability.LUSD}
+        LPTokensStaked={stabilityBalances.userStaked.LUSD}
+        pendingTokens={stabilityBalances.userPending.LQTY}
+        secondPendingTokens={stabilityBalances.userPending.ETH}
+        collapse={() => {
+          setCollapsed({ ...collapsed, LUSD: true });
+        }}
+        expand={() => {
+          setCollapsed({ ...collapsed, LUSD: false });
         }}
       />
       <Title>LQTY</Title>

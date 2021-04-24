@@ -31,7 +31,7 @@ const ActionModal = ({
   currencyEarned,
 }) => {
   const {
-    contracts: { farm, profitShare, proxy },
+    contracts: { farm, profitShare, proxy, stability },
     address,
     reFetchData,
     sending,
@@ -47,9 +47,25 @@ const ActionModal = ({
     profitShare,
     farm,
     factory: proxy,
+    stability,
   };
 
   const handleClaim = async () => {
+    if (contract === "stability") {
+      await contractInstance[contract].methods
+        .withdrawFromSP(0)
+        .send({ from: address })
+        .on("transactionHash", async () => {
+          setSending(true);
+        })
+        .on("receipt", async () => {
+          setSending(false);
+          await reFetchData();
+        });
+      close();
+      return;
+    }
+
     if (pair === "LQTY") {
       await contractInstance[contract].methods
         .unstake(0)
