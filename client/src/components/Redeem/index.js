@@ -53,26 +53,29 @@ const Redeem = () => {
   const [errorMsg, setError] = useState("");
   const [toClose, setToClose] = useState(false);
 
-  const handleChangeBorrowValue = (num) => {
+  const handleChangeBorrowValue = (num, str) => {
     const tCollusd = parseFloat(fromWei(web3, userTrove.coll)) * prices.ETH;
     const tDebtusd = parseFloat(fromWei(web3, userTrove.debt)) * prices.LUSD;
     const lusdUSD = parseFloat(num) * prices.LUSD;
     const paybackRatio = tCollusd / tDebtusd;
     const newCollat = (lusdUSD * paybackRatio) / prices.ETH;
 
-    if (parseFloat(num.toFixed(4)) > parseFloat(userBalances.LUSD).toFixed(4)) {
-      setError("Exceeds available LUSD in wallet");
+    if (
+      parseFloat(num.toFixed(4)) >
+      parseFloat(fromWei(web3, userTrove.debt)).toFixed(4) - 2000
+    ) {
+      setError("Exceeds available LUSD to redeem");
     } else {
       setError("");
     }
-
+    debugger;
     setMemTrove({
-      debt: num,
+      debt: str,
       collat: newCollat,
     });
   };
 
-  const handleChangeCollValue = (num, max) => {
+  const handleChangeCollValue = (num, max, str) => {
     const tCollusd = parseFloat(fromWei(web3, userTrove.coll)) * prices.ETH;
     const tDebtusd = parseFloat(fromWei(web3, userTrove.debt)) * prices.LUSD;
     const ethUSD = parseFloat(num) * prices.ETH;
@@ -97,7 +100,7 @@ const Redeem = () => {
     }
 
     setMemTrove({
-      collat: num,
+      collat: str,
       debt: newDebt,
     });
   };
@@ -194,8 +197,8 @@ const Redeem = () => {
         isOpen={isOpen}
         open={handleOpen}
         close={handleClose}
-        coll={memTrove.collat}
-        debt={memTrove.debt}
+        coll={parseFloat(memTrove.collat)}
+        debt={parseFloat(memTrove.debt)}
         cr={memTrove.cRatio}
       />
       <div style={{ marginTop: "10px" }}>
@@ -242,15 +245,15 @@ const Redeem = () => {
                     onFocus={() => handleFocus("debt")}
                     defaultValue={0}
                     min={0}
-                    precision={4}
+                    precision={12}
                     step={0.2}
-                    //   max={parseFloat(memTrove.debt)}
+                    //   max={parseFloat(parseFloat(memTrove.debt))}
                     value={isNaN(memTrove.debt) ? 0 : memTrove.debt}
-                    inputMode="decimal"
+                    inputMode="text"
                     borderRadius="0%"
                     borderColor="black"
                     focusBorderColor="black"
-                    onChange={(str, num) => handleChangeBorrowValue(num)}
+                    onChange={(str, num) => handleChangeBorrowValue(num, str)}
                     outline="none"
                     backgroundColor={MasterStyles.background.secondaryMenu}
                   >
@@ -285,15 +288,17 @@ const Redeem = () => {
                     onFocus={() => handleFocus("collat")}
                     defaultValue={0}
                     min={0}
-                    precision={4}
+                    precision={12}
                     step={0.2}
-                    //   max={parseFloat(memTrove.debt)}
+                    //   max={parseFloat(parseFloat(memTrove.debt))}
                     value={isNaN(memTrove.collat) ? 0 : memTrove.collat}
-                    inputMode="decimal"
+                    inputMode="text"
                     borderRadius="0%"
                     borderColor="black"
                     focusBorderColor="black"
-                    onChange={(str, num) => handleChangeCollValue(num)}
+                    onChange={(str, num) =>
+                      handleChangeCollValue(num, false, str)
+                    }
                     outline="none"
                     backgroundColor={MasterStyles.background.secondaryMenu}
                   >
@@ -345,15 +350,18 @@ const Redeem = () => {
                   <ActionButton
                     onClick={handleOpen}
                     action={
-                      memTrove.collat.toFixed(5) <= tColl.toFixed(5) &&
-                      memTrove.collat > 0 &&
-                      memTrove.debt <= parseFloat(userBalances.LUSD)
+                      parseFloat(memTrove.collat).toFixed(5) <=
+                        tColl.toFixed(5) &&
+                      parseFloat(memTrove.collat) > 0 &&
+                      parseFloat(memTrove.debt) <= parseFloat(userBalances.LUSD)
                     }
                     disabled={
                       !(
-                        memTrove.collat.toFixed(5) <= tColl.toFixed(5) &&
-                        memTrove.collat > 0 &&
-                        memTrove.debt <= parseFloat(userBalances.LUSD)
+                        parseFloat(memTrove.collat).toFixed(5) <=
+                          tColl.toFixed(5) &&
+                        parseFloat(memTrove.collat) > 0 &&
+                        parseFloat(memTrove.debt) <=
+                          parseFloat(userBalances.LUSD)
                       )
                     }
                   >
@@ -384,7 +392,7 @@ const Redeem = () => {
                     min={0}
                     precision={4}
                     step={0.2}
-                    //   max={parseFloat(memTrove.debt)}
+                    //   max={parseFloat(parseFloat(memTrove.debt))}
                     value={truncDust(fromWei(web3, userTrove.debt))}
                     inputMode="decimal"
                     borderRadius="0%"
@@ -413,7 +421,7 @@ const Redeem = () => {
                     isReadOnly
                     precision={4}
                     step={0.2}
-                    //   max={parseFloat(memTrove.debt)}
+                    //   max={parseFloat(parseFloat(memTrove.debt))}
                     value={truncDust(fromWei(web3, userTrove.coll))}
                     inputMode="decimal"
                     borderRadius="0%"
@@ -439,7 +447,7 @@ const Redeem = () => {
                     min={0}
                     precision={4}
                     step={0.2}
-                    //   max={parseFloat(memTrove.debt)}
+                    //   max={parseFloat(parseFloat(memTrove.debt))}
                     value={cr.toFixed(2) !== "NaN" ? cr.toFixed(2) : 0}
                     inputMode="decimal"
                     borderRadius="0%"

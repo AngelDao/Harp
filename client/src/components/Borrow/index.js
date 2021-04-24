@@ -27,6 +27,7 @@ import {
   fromWei,
   truncateAddress,
   truncDust,
+  hasDecimal,
 } from "../../utils/truncateString";
 import { fetchPage } from "../../utils/handleContracts/fetchPage";
 import Loader from "../Loader";
@@ -54,23 +55,23 @@ const Borrow = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMsg, setError] = useState(false);
 
-  const handleChangeBorrowValue = (num) => {
+  const handleChangeBorrowValue = (num, str) => {
+    const len = str.length;
     const requiredColl = 1.2;
     const lusdUSD = parseFloat(num) * prices.LUSD;
     const newCollat = (lusdUSD * requiredColl) / prices.ETH;
     const cr =
-      memTrove.collat &&
-      (memTrove.collat * prices.ETH) / lusdUSD >= requiredColl
-        ? ((memTrove.collat * prices.ETH) / lusdUSD) * 100
+      parseFloat(memTrove.collat) &&
+      (parseFloat(memTrove.collat) * prices.ETH) / lusdUSD >= requiredColl
+        ? ((parseFloat(memTrove.collat) * prices.ETH) / lusdUSD) * 100
         : ((newCollat * prices.ETH) / lusdUSD) * 100;
-
 
     const tColl = truncDust(fromWei(web3, userTrove.coll));
 
     const collat =
-      memTrove.collat &&
-      (memTrove.collat * prices.ETH) / lusdUSD >= requiredColl
-        ? memTrove.collat
+      parseFloat(memTrove.collat) &&
+      (parseFloat(memTrove.collat) * prices.ETH) / lusdUSD >= requiredColl
+        ? parseFloat(memTrove.collat)
         : newCollat;
 
     if (tColl <= 0 && num < 2000 && num !== 0) {
@@ -84,29 +85,30 @@ const Borrow = () => {
     }
 
     setMemTrove({
-      debt: num,
+      debt: str,
       collat: collat,
       cRatio: cr.toFixed(2),
     });
   };
 
-  const handleChangeCollValue = (num) => {
+  const handleChangeCollValue = (num, str) => {
     const requiredColl = 1.2;
     const ethUSD = parseFloat(num) * prices.ETH;
     const lusdUSD = parseFloat(memTrove.debt) * prices.LUSD;
     const newBorrow = ethUSD / requiredColl;
     const cr =
-      memTrove.collat &&
-      memTrove.debt &&
-      ethUSD / (memTrove.debt * prices.LUSD) >= requiredColl
+      parseFloat(memTrove.collat) &&
+      parseFloat(memTrove.debt) &&
+      ethUSD / (parseFloat(memTrove.debt) * prices.LUSD) >= requiredColl
         ? (ethUSD / lusdUSD) * 100
         : (ethUSD / newBorrow) * 100;
 
     console.log(newBorrow * borrowRate);
-    console.log(memTrove.debt * borrowRate);
+    console.log(parseFloat(memTrove.debt) * borrowRate);
     const debt =
-      memTrove.debt && ethUSD / (memTrove.debt * prices.LUSD) >= requiredColl
-        ? memTrove.debt
+      parseFloat(memTrove.debt) &&
+      ethUSD / (parseFloat(memTrove.debt) * prices.LUSD) >= requiredColl
+        ? parseFloat(memTrove.debt)
         : newBorrow / prices.LUSD;
 
     const tColl = truncDust(fromWei(web3, userTrove.coll));
@@ -121,7 +123,7 @@ const Borrow = () => {
       setError("");
     }
     setMemTrove({
-      collat: num,
+      collat: str,
       debt: debt,
       cRatio: cr.toFixed(2),
     });
@@ -263,15 +265,15 @@ const Borrow = () => {
                     onFocus={() => handleFocus("debt")}
                     defaultValue={0}
                     min={0}
-                    precision={4}
-                    step={0.2}
+                    precision={12}
+                    step={0.01}
                     //   max={parseFloat(memTrove.debt)}
                     value={isNaN(memTrove.debt) ? 0 : memTrove.debt}
-                    inputMode="decimal"
+                    inputMode="text"
                     borderRadius="0%"
                     borderColor="black"
                     focusBorderColor="black"
-                    onChange={(str, num) => handleChangeBorrowValue(num)}
+                    onChange={(str, num) => handleChangeBorrowValue(num, str)}
                     outline="none"
                     backgroundColor={MasterStyles.background.secondaryMenu}
                   >
@@ -314,7 +316,7 @@ const Borrow = () => {
                     borderRadius="0%"
                     borderColor="black"
                     focusBorderColor="black"
-                    onChange={(str, num) => handleChangeCollValue(num)}
+                    onChange={(str, num) => handleChangeCollValue(num, str)}
                     outline="none"
                     backgroundColor={MasterStyles.background.secondaryMenu}
                   >

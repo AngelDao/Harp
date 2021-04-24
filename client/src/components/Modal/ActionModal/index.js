@@ -130,13 +130,10 @@ const ActionModal = ({
     }
 
     const test = hasDecimal(str);
-    debugger;
     if (hasDecimal(str)) {
-      debugger;
       temp = str.replace(/[.]$/, "");
     }
 
-    debugger;
     setValue(temp);
   };
 
