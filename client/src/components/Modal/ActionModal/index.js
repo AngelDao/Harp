@@ -27,7 +27,12 @@ import {
   GStringCap,
 } from "./styles";
 import MasterStyles from "../../../utils/masterStyles";
-import { toWei, fromWei, toDecimal } from "../../../utils/truncateString";
+import {
+  toWei,
+  fromWei,
+  toDecimal,
+  hasDecimal,
+} from "../../../utils/truncateString";
 import CredentialsContext from "../../../context/credentialsContext";
 import { Pair } from "../../Farm/Pool/styles";
 import Loader from "../../Loader";
@@ -117,19 +122,23 @@ const ActionModal = ({
 
   const [value, setValue] = useState(0);
 
-  const handleChangeValue = (num) => {
-    let temp = num;
-    if (!num) {
-      temp = "";
+  const handleChangeValue = (num, str) => {
+    let temp = str;
+
+    if (!value && str === ".") {
+      temp = "0.";
     }
-    if (num === 0) {
-      temp = 0;
+
+    const test = hasDecimal(str);
+    if (hasDecimal(str)) {
+      temp = str.replace(/[.]$/, "");
     }
+
     setValue(temp);
   };
 
   const handleFocus = () => {
-    if (value === 0) {
+    if (value === "0") {
       setValue("");
     }
   };

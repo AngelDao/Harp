@@ -13,7 +13,7 @@ const StabilityFactory = artifacts.require("StabilityFactory.sol");
 const { addresses } = require("../src/utils/handleContracts/addresses");
 
 module.exports = async function (deployer, network, accounts) {
-  const deploy = "kovan";
+  const chain = process.argv[process.argv.length - 1];
 
   // HARP
   // 2nd Ganache
@@ -23,15 +23,12 @@ module.exports = async function (deployer, network, accounts) {
 
   let lusdToken, lqtyToken, stabilityPool;
 
-  if (deploy === "kovan") {
+  if (chain === "kovan") {
     lusdToken = addresses.kovan.lusdToken;
     lqtyToken = addresses.kovan.lqtyToken;
     stabilityPool = addresses.kovan.stabilityPool;
-  } else if (deploy === "ganache") {
-    stabilityPool = addresses.kovan.stabilityPool;
-    // lusdToken = await LUSDToken.deployed();
-    // lqtyToken = await LQTYToken.deployed();
-  } else if (deploy === "rinkeby") {
+  } else if (chain === "ganache") {
+  } else if (chain === "rinkeby") {
     lusdToken = addresses.rinkeby.lusdToken;
     lqtyToken = addresses.rinkeby.lqtyToken;
     stabilityPool = addresses.rinkeby.stabilityPool;

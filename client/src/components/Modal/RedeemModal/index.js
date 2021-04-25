@@ -138,7 +138,7 @@ const RedeemModal = ({ isOpen, close, coll, debt, toClose }) => {
             {!toClose ? (
               <>
                 <p>
-                  You are repayig <strong>{debt} LUSD</strong>.
+                  You are repaying <strong>{debt} LUSD</strong>.
                 </p>
                 <p style={{ marginTop: "25px" }}>
                   You are recieving <strong>{coll} ETH</strong>

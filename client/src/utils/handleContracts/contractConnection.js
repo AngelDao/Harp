@@ -191,9 +191,15 @@ export const fetchProfitShare = async (
 
     // const pendingLQTY = 0;
     // debugger;
-    const pendingLQTY = toDecimal(
-      fromWei(web3, await ps.methods.pendingLQTY(address).call())
-    );
+    let pendingLQTY;
+    try {
+      pendingLQTY = toDecimal(
+        fromWei(web3, await ps.methods.pendingLQTY(address).call())
+      );
+    } catch (err) {
+      console.log(err);
+      pendingLQTY = 0;
+    }
     // debugger;
 
     // const ammount = (await ps.methods.userInfo(address).call()).amount;
@@ -251,22 +257,36 @@ export const fetchFarm = async (
     const userSTRING_ETH_LP = toDecimal(
       fromWei(web3, (await farm.methods.userInfo(0, address).call()).amount)
     );
-    // ;
-    // const pendingSTRING_ETH_LP = 0;
-    // debugger;
-    const pendingSTRING_ETH_LP = toDecimal(
-      fromWei(web3, await farm.methods.pendingString(0, address).call())
-    );
 
-    // const pendingSTRING_LUSD_LP = 0;
-    const pendingSTRING_LUSD_LP = toDecimal(
-      fromWei(web3, await farm.methods.pendingString(1, address).call())
-    );
+    let pendingSTRING_ETH_LP;
+    try {
+      pendingSTRING_ETH_LP = toDecimal(
+        fromWei(web3, await farm.methods.pendingString(0, address).call())
+      );
+    } catch (err) {
+      console.log(err);
+      pendingSTRING_ETH_LP = 0;
+    }
 
-    // const userSTRING_LUSD_LP = 0;
-    const userSTRING_LUSD_LP = toDecimal(
-      fromWei(web3, (await farm.methods.userInfo(1, address).call()).amount)
-    );
+    let pendingSTRING_LUSD_LP;
+    try {
+      pendingSTRING_LUSD_LP = toDecimal(
+        fromWei(web3, await farm.methods.pendingString(1, address).call())
+      );
+    } catch (err) {
+      console.log(err);
+      pendingSTRING_LUSD_LP = 0;
+    }
+
+    let userSTRING_LUSD_LP;
+    try {
+      userSTRING_LUSD_LP = toDecimal(
+        fromWei(web3, (await farm.methods.userInfo(1, address).call()).amount)
+      );
+    } catch (err) {
+      console.log(err);
+      userSTRING_LUSD_LP = 0;
+    }
 
     const isBoosted = await farm.methods.isBoosted().call();
 
