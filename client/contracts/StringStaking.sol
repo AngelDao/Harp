@@ -165,7 +165,6 @@ contract StringStaking is Ownable {
             freshRewards = lqtyAvailableRewards.sub(lastLQTYRewards);
         }
 
-
         if (freshRewards > 0) {
             accLQTYPerShare = pool.accLQTYPerShare.add(
                 freshRewards.mul(1e12).div(lpSupply)
@@ -179,8 +178,7 @@ contract StringStaking is Ownable {
 
     // Update reward variables of the given pool to be up-to-date.
     function updatePool() public {
-        UserInfo storage user = userInfo[msg.sender];
-        updateSP();
+        _updateSP();
         if (block.number <= pool.lastRewardBlock) {
             return;
         }
@@ -208,7 +206,7 @@ contract StringStaking is Ownable {
         pool.lastRewardBlock = block.number;
     }
 
-    function updateSP() public {
+    function _updateSP() internal {
         uint256 lpSupply = pool.lpTokenSupply;
 
         if (lpSupply == 0) {
@@ -222,7 +220,6 @@ contract StringStaking is Ownable {
             freshRewards = lqtyAvailableRewards.sub(lastLQTYRewards);
         }
 
-
         if (freshRewards > 0) {
             pool.accLQTYPerShare = pool.accLQTYPerShare.add(
                 freshRewards.mul(1e12).div(lpSupply)
@@ -233,7 +230,6 @@ contract StringStaking is Ownable {
 
     // Deposit LP tokens for STRING allocation.
     function deposit(uint256 _amount) public {
-        require(_amount > 1000, "deposit must be greater than 1000 WEI");
         UserInfo storage user = userInfo[msg.sender];
         updatePool();
         if (user.amount > 0) {
@@ -250,7 +246,6 @@ contract StringStaking is Ownable {
 
         user.amount = user.amount.add(_amount);
         pool.lpTokenSupply = pool.lpTokenSupply.add(_amount);
-
 
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         user.lqtyRewardDebt = user.amount.mul(pool.accLQTYPerShare).div(1e12);
