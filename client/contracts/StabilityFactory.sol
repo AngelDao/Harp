@@ -49,7 +49,10 @@ contract StabilityFactory {
     }
 
     modifier isNewProxy() {
-        require(userProxys[msg.sender].initialized == false,  "addr already created a proxy");
+        require(
+            userProxys[msg.sender].initialized == false,
+            "addr already created a proxy"
+        );
         _;
     }
 
@@ -180,7 +183,12 @@ contract StabilityFactory {
                 stabilityPool
             );
         UserProxy memory proxy =
-            UserProxy({proxyAddress: clone, amount: 0, rewardDebt: 0, initialized:true});
+            UserProxy({
+                proxyAddress: clone,
+                amount: 0,
+                rewardDebt: 0,
+                initialized: true
+            });
         userProxys[msg.sender] = proxy;
         registeredClone[address(clone)] = true;
         emit Deploy(msg.sender, address(clone));
