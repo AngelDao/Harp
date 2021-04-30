@@ -6,6 +6,9 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "./Interfaces/IStabilityPool.sol";
 import "./StabilityFactory.sol";
+import "./Test/ETHSendContract.sol";
+
+import "hardhat/console.sol";
 
 contract StabilityProxy {
     using SafeMath for uint256;
@@ -17,6 +20,7 @@ contract StabilityProxy {
     IERC20 public lqtyToken;
     IStabilityPool public stabilityPool;
     StabilityFactory public stabilityFactory;
+    ETHSendContract public testContract;
 
     modifier onlyOwner() {
         require(msg.sender == owner, "only owner can call this method");
@@ -32,7 +36,9 @@ contract StabilityProxy {
         address _frontEnd,
         IERC20 _lusdToken,
         IERC20 _lqtyToken,
-        IStabilityPool _stabilityPool
+        IStabilityPool _stabilityPool,
+        ETHSendContract _test
+
     ) public {
         owner = _owner;
         lusdToken = _lusdToken;
@@ -40,12 +46,13 @@ contract StabilityProxy {
         stabilityPool = _stabilityPool;
         frontEnd = _frontEnd;
         stabilityFactory = _factory;
+        testContract = _test;
     }
 
     function deposit(uint256 _amount) public onlyOwner {
         stabilityFactory.update();
         if (lusdBalance > 0) {
-            _updateBalance();
+            _updateBalance(false);
         }
         lusdToken.transferFrom(msg.sender, address(this), _amount);
         stabilityFactory.addLUSD(_amount);
@@ -61,7 +68,7 @@ contract StabilityProxy {
             "Withdraw is for more than balance amount"
         );
         stabilityFactory.update();
-        _updateBalance();
+        _updateBalance(false);
         if (_amount > lusdBalance) {
             stabilityPool.withdrawFromSP(lusdBalance);
             _safeLUSDTransfer(owner, lusdBalance);
@@ -73,16 +80,16 @@ contract StabilityProxy {
         emit Withdraw(msg.sender, _amount);
     }
 
-    function claim() public onlyOwner {
+    function claim(bool _TESTadjust) public onlyOwner {
         stabilityFactory.update();
-        _updateBalance();
+        _updateBalance(_TESTadjust);
         stabilityPool.withdrawFromSP(0);
         _safeLQTYTransferAll(owner);
     }
 
     function emergencyWithdraw() public onlyOwner {
         uint256 currentBal =
-            stabilityPool.getCompoundedLUSDDeposit(address(this));
+            stabilityPool.getCompoundedLUSDDeposit(address(this), false);
         stabilityPool.withdrawFromSP(currentBal);
         stabilityFactory.updateProxyBalanceEmergency(owner);
         _safeLUSDTransfer(owner, currentBal);
@@ -104,7 +111,7 @@ contract StabilityProxy {
     function _safeETHTransferAll(address _to) internal {
         uint256 ethBal = address(this).balance;
         if (ethBal > 0) {
-            payable(_to).transfer(ethBal);
+         address(_to).call{value:ethBal}("");
         }
     }
 
@@ -115,25 +122,46 @@ contract StabilityProxy {
         }
     }
 
-    function _updateBalance() internal {
+    function _updateBalance(bool _TESTadjust) internal {
         uint256 currentBal =
-            stabilityPool.getCompoundedLUSDDeposit(address(this));
+            stabilityPool.getCompoundedLUSDDeposit(address(this), _TESTadjust);
+           
         if (currentBal > 0) {
-            uint256 diff = lusdBalance.sub(currentBal);
+            console.log("currentBal SP", currentBal);
+        console.log("lusdBalance", lusdBalance);
+            uint256 diff = 0;
+            
+            if(lusdBalance >= currentBal){
+
+            diff = lusdBalance.sub(currentBal);
+            }
+
+            stabilityFactory.claim(owner);
             if (diff > 0) {
+                console.log("diff", diff);
                 stabilityFactory.subtractLUSD(diff);
                 stabilityFactory.updateProxyBalance(currentBal, owner);
             }
-            stabilityFactory.claim(owner);
         }
+        if(lusdBalance >= currentBal){
+
         lusdBalance = currentBal;
+        }
     }
 
     fallback() external payable {
+        console.log("fallback");
         _safeETHTransferAll(owner);
     }
 
     receive() external payable {
+        console.log("receive");
+        uint256 ethBal = address(this).balance;
+        console.log("currentBal", ethBal);
         _safeETHTransferAll(owner);
+    }
+
+    function TESTclaim() external {
+        testContract.getAllETH();
     }
 }

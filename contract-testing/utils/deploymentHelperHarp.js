@@ -19,6 +19,10 @@ const deployHarp = async (addresses, liquity) => {
   const lqtyToken = liquity.lqtyToken.address;
   const lusdToken = liquity.lusdToken.address;
 
+  // TEST Contract
+
+  let testSend = await ethers.getContractFactory("ETHSendContract");
+
   // Harp contracts
   let stringToken = await ethers.getContractFactory("StringToken");
   let gstringToken = await ethers.getContractFactory("gStringToken");
@@ -27,6 +31,8 @@ const deployHarp = async (addresses, liquity) => {
   let stringStaking = await ethers.getContractFactory("StringStaking");
   let stabilityFactory = await ethers.getContractFactory("StabilityFactory");
   let lqtyTestToken = await ethers.getContractFactory("LQTYTokenTest");
+
+  testSend = await testSend.deploy();
 
   // deploy LQTY contract
   lqtyTestToken = await lqtyTestToken.deploy(owner, owner2);
@@ -64,7 +70,8 @@ const deployHarp = async (addresses, liquity) => {
     lqtyToken,
     stringToken.address,
     stabilityPool,
-    200
+    200,
+    testSend.address
   );
 
   // add TokenVesting as a verified STRING minter
@@ -93,6 +100,7 @@ const deployHarp = async (addresses, liquity) => {
     tokenVesting,
     farm,
     stabilityFactory,
+    testSend,
   };
 };
 

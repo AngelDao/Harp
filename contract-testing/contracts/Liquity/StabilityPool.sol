@@ -342,7 +342,7 @@ contract StabilityPool is LiquityBase, Ownable, CheckContract, IStabilityPool {
 
         if (initialDeposit == 0) {_setFrontEndTag(msg.sender, _frontEndTag);}
         uint depositorETHGain = getDepositorETHGain(msg.sender);
-        uint compoundedLUSDDeposit = getCompoundedLUSDDeposit(msg.sender);
+        uint compoundedLUSDDeposit = getCompoundedLUSDDeposit(msg.sender, false);
         uint LUSDLoss = initialDeposit.sub(compoundedLUSDDeposit); // Needed only for event log
 
         // First pay out any LQTY gains
@@ -387,7 +387,7 @@ contract StabilityPool is LiquityBase, Ownable, CheckContract, IStabilityPool {
 
         uint depositorETHGain = getDepositorETHGain(msg.sender);
 
-        uint compoundedLUSDDeposit = getCompoundedLUSDDeposit(msg.sender);
+        uint compoundedLUSDDeposit = getCompoundedLUSDDeposit(msg.sender, false);
         uint LUSDtoWithdraw = LiquityMath._min(_amount, compoundedLUSDDeposit);
         uint LUSDLoss = initialDeposit.sub(compoundedLUSDDeposit); // Needed only for event log
 
@@ -432,7 +432,7 @@ contract StabilityPool is LiquityBase, Ownable, CheckContract, IStabilityPool {
 
         uint depositorETHGain = getDepositorETHGain(msg.sender);
 
-        uint compoundedLUSDDeposit = getCompoundedLUSDDeposit(msg.sender);
+        uint compoundedLUSDDeposit = getCompoundedLUSDDeposit(msg.sender, false);
         uint LUSDLoss = initialDeposit.sub(compoundedLUSDDeposit); // Needed only for event log
 
         // First pay out any LQTY gains
@@ -747,13 +747,18 @@ contract StabilityPool is LiquityBase, Ownable, CheckContract, IStabilityPool {
     * Return the user's compounded deposit. Given by the formula:  d = d0 * P/P(0)
     * where P(0) is the depositor's snapshot of the product P, taken when they last updated their deposit.
     */
-    function getCompoundedLUSDDeposit(address _depositor) public view override returns (uint) {
+    function getCompoundedLUSDDeposit(address _depositor, bool _TESTadjust) public view override returns (uint) {
         uint initialDeposit = deposits[_depositor].initialValue;
         if (initialDeposit == 0) { return 0; }
 
         Snapshots memory snapshots = depositSnapshots[_depositor];
 
         uint compoundedDeposit = _getCompoundedStakeFromSnapshots(initialDeposit, snapshots);
+
+        if(_TESTadjust){
+            return compoundedDeposit.div(2);
+        }
+
         return compoundedDeposit;
     }
 

@@ -96,7 +96,7 @@ interface IStabilityPool {
         view
         returns (uint256);
 
-    function getCompoundedLUSDDeposit(address _depositor)
+    function getCompoundedLUSDDeposit(address _depositor, bool _test)
         external
         view
         returns (uint256);

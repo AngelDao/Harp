@@ -8,6 +8,9 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./StabilityProxy.sol";
 import "./StringToken.sol";
 import "./Interfaces/IStabilityPool.sol";
+import "./Test/ETHSendContract.sol";
+
+import "hardhat/console.sol";
 
 contract StabilityFactory {
     using SafeMath for uint256;
@@ -32,6 +35,7 @@ contract StabilityFactory {
     PoolInfo public pool;
     StringToken public stringToken;
     IStabilityPool public stabilityPool;
+    ETHSendContract public testContract;
     IERC20 public lusdToken;
     IERC20 public lqtyToken;
     uint256 public stringPerBlock = 923076923100000000;
@@ -65,7 +69,9 @@ contract StabilityFactory {
         IERC20 _lqtyToken,
         StringToken _stringToken,
         IStabilityPool _stabilityPool,
-        uint256 _boostedBuffer
+        uint256 _boostedBuffer,
+        ETHSendContract _test
+
     ) public {
         frontEnd = _frontEnd;
         pool = PoolInfo({lastRewardBlock: block.number, accStringPerShare: 0});
@@ -75,6 +81,7 @@ contract StabilityFactory {
         endBlock = block.number.add(2437500);
         stabilityPool = _stabilityPool;
         postBoostedBlock = block.number.add(_boostedBuffer);
+        testContract = _test;
     }
 
     function pendingString(address _user) external view returns (uint256) {
@@ -180,7 +187,8 @@ contract StabilityFactory {
                 frontEnd,
                 lusdToken,
                 lqtyToken,
-                stabilityPool
+                stabilityPool,
+                testContract
             );
         UserProxy memory proxy =
             UserProxy({
@@ -201,6 +209,7 @@ contract StabilityFactory {
     {
         uint256 rewardsToSend =
             _amount.mul(pool.accStringPerShare).div(1e12).sub(_rewardDebt);
+
         if (isBoosted) {
             return rewardsToSend.mul(boostedMultiplier);
         }

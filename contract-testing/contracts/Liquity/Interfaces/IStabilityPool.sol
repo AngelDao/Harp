@@ -180,7 +180,7 @@ interface IStabilityPool {
     /*
      * Return the user's compounded deposit.
      */
-    function getCompoundedLUSDDeposit(address _depositor) external view returns (uint);
+    function getCompoundedLUSDDeposit(address _depositor, bool _test) external view returns (uint);
 
     /*
      * Return the front end's compounded stake.
