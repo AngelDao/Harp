@@ -45,7 +45,7 @@ contract StabilityProxy {
     function deposit(uint256 _amount) external onlyOwner {
         stabilityFactory.update();
         if (lusdBalance > 0) {
-            _updateBalance(false);
+            _updateBalance();
         }
         lusdToken.transferFrom(msg.sender, address(this), _amount);
         stabilityFactory.addLUSD(_amount);
@@ -61,7 +61,7 @@ contract StabilityProxy {
             "Withdraw is for more than balance amount"
         );
         stabilityFactory.update();
-        _updateBalance(false);
+        _updateBalance();
         if (_amount > lusdBalance) {
             stabilityPool.withdrawFromSP(lusdBalance);
             _safeLUSDTransfer(owner, lusdBalance);
@@ -73,16 +73,16 @@ contract StabilityProxy {
         emit Withdraw(msg.sender, _amount);
     }
 
-    function claim(bool _TESTadjust) external onlyOwner {
+    function claim() external onlyOwner {
         stabilityFactory.update();
-        _updateBalance(_TESTadjust);
+        _updateBalance();
         stabilityPool.withdrawFromSP(0);
         _safeLQTYTransferAll(owner);
     }
 
     function emergencyWithdraw() external onlyOwner {
         uint256 currentBal =
-            stabilityPool.getCompoundedLUSDDeposit(address(this), false);
+            stabilityPool.getCompoundedLUSDDeposit(address(this));
         stabilityPool.withdrawFromSP(currentBal);
         stabilityFactory.updateProxyBalanceEmergency(owner);
         _safeLUSDTransfer(owner, currentBal);
@@ -115,9 +115,9 @@ contract StabilityProxy {
         }
     }
 
-    function _updateBalance(bool _TESTadjust) internal {
+    function _updateBalance() internal {
         uint256 currentBal =
-            stabilityPool.getCompoundedLUSDDeposit(address(this), _TESTadjust);
+            stabilityPool.getCompoundedLUSDDeposit(address(this));
            
         if (currentBal > 0) {
             uint256 diff = 0;

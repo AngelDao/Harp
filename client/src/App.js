@@ -188,6 +188,8 @@ function App() {
     if (!troves) {
       setTroves({ troveCount, troves: sTroves });
     }
+
+    debugger;
     setLiquityGlobals({ borrowRate });
     setStabilityBalances(spBalances);
     setBorrowRate(borrowRate);

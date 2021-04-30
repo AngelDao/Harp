@@ -8,7 +8,10 @@ const { addresses } = require("../src/utils/handleContracts/addresses");
 
 module.exports = async function (deployer, network, accounts) {
   // User Addresses
-  const owner = accounts[0];
+  let owner = accounts[0];
+  console.log(accounts);
+
+  console.log(deployer);
 
   // DAO Adresses
   const AngelDAO = "0x3Af2d668Afd7eF2B94b0862aE759712c067DFa4c";
@@ -20,12 +23,14 @@ module.exports = async function (deployer, network, accounts) {
   // Liquity Adressses
   let lusdToken, lqtyToken, stabilityPool;
   if (chain === "kovan") {
+    owner = deployer.networks.kovan.from;
     lusdToken = addresses.kovan.lusdToken;
     lqtyToken = addresses.kovan.lqtyToken;
     stabilityPool = addresses.kovan.stabilityPool;
   } else if (chain === "ganache") {
   } else if (chain === "mainnet") {
   } else if (chain === "rinkeby") {
+    owner = deployer.networks.rinkeby.from;
     lusdToken = addresses.rinkeby.lusdToken;
     lqtyToken = addresses.rinkeby.lqtyToken;
     stabilityPool = addresses.rinkeby.stabilityPool;
@@ -51,7 +56,7 @@ module.exports = async function (deployer, network, accounts) {
   await deployer.deploy(
     StringStaking,
     stringToken.address,
-    100,
+    bbCount,
     lqtyToken,
     gstringToken.address,
     stabilityPool
@@ -59,7 +64,7 @@ module.exports = async function (deployer, network, accounts) {
   const stringStaking = await StringStaking.deployed();
 
   // Deploy Farm
-  await deployer.deploy(Farm, stringToken.address, 100);
+  await deployer.deploy(Farm, stringToken.address, bbCount);
   const farm = await Farm.deployed();
 
   // Deploy StabilityFactory
@@ -70,7 +75,7 @@ module.exports = async function (deployer, network, accounts) {
     lqtyToken,
     stringToken.address,
     stabilityPool,
-    100
+    bbCount
   );
   const sf = await StabilityFactory.deployed();
 

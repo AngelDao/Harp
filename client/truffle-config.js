@@ -48,8 +48,10 @@ module.exports = {
           endpointUrlKovan
         );
       },
+      gas: 4600000,
     },
     rinkeby: {
+      gas: 4600000,
       network_id: 4,
       provider: function () {
         return new HDWalletProvider(

@@ -19,17 +19,28 @@ const main = async () => {
 
   const [deployer] = await ethers.getSigners();
 
-  console.log(Farm.networks);
+  console.log(Farm.networks[networkMap[process.env.HARDHAT_NETWORK]].address);
+  console.log(Farm.networks[networkMap[process.env.HARDHAT_NETWORK]].address);
+  console.log(Farm.networks[networkMap[process.env.HARDHAT_NETWORK]].address);
+  console.log(Farm.networks[networkMap[process.env.HARDHAT_NETWORK]].address);
   const farm = new ethers.Contract(
     Farm.networks[networkMap[process.env.HARDHAT_NETWORK]].address,
     Farm.abi,
     deployer.provider
   );
-  console.log("entered");
-  await farm.connect(deployer).addPool(80, eth, true);
-  console.log("entered");
-  await farm.connect(deployer).addPool(20, lusd, true);
-  console.log("entered");
+  console.log("startadding");
+  try {
+    // await farm.connect(deployer).addPool(80, eth, true);
+  } catch (err) {
+    console.log(err);
+  }
+  console.log("pool1 added");
+  try {
+    await farm.connect(deployer).addPool(20, lusd, true);
+  } catch (err) {
+    console.log(err);
+  }
+  console.log("pool2 added");
 };
 
 (async () => {
