@@ -74,9 +74,17 @@ section {
 }
 
 .logo img {
-  width: 400px;
-  height: auto;
+  min-width: 400px;
+  height: 140.5px;
   margin-top: -15px;
+}
+
+@media screen and (max-width: 400px) {
+  .logo img {
+    min-width: 275px;
+    min-height: auto;
+    margin-top: -15px;
+  }
 }
 
 .why-we-build-harp p {
