@@ -50,6 +50,7 @@ contract("STRING Token Tests", () => {
     await stringToken.addMinter(accounts[0].address);
     await stringToken.addMinter(tokenVesting.address);
     await stringToken.mintTo(accounts[0].address, tokens("2000000"));
+    await stringToken.revokeOwnership();
   });
 
   describe("Token Attributes Check On Deployment", async () => {
@@ -76,6 +77,15 @@ contract("STRING Token Tests", () => {
     it("sets vesting contract to mint", async () => {
       const canMint = await stringToken.isAllowedMinter(tokenVesting.address);
       assert.equal(canMint, true);
+    });
+    it("Owner does not exists", async () => {
+      let owner = await stringToken.owner();
+      console.log(owner);
+      console.log(owner);
+      console.log(owner);
+      console.log(owner);
+      console.log(owner);
+      assert.equal(owner, "0x0000000000000000000000000000000000000000");
     });
   });
 

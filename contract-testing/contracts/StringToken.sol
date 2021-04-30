@@ -46,6 +46,6 @@ contract StringToken is ERC20 {
     }
 
     function revokeOwnership () external onlyOwner {
-        owner = "";
+        owner = address(0);
     }
 }

@@ -97,6 +97,7 @@ contract("STRING Token Tests", () => {
     lusdLP = await lusdLP.deploy(accounts[0].address, accounts[1].address);
     await farm.addPool(20, lusdLP.address, true);
     await farm.addPool(80, ethLP.address, true);
+    await stringToken.revokeOwnership();
   });
 
   describe("Farm attributes on deployment", async () => {
@@ -115,6 +116,10 @@ contract("STRING Token Tests", () => {
     it("Sets correct rewardperblock", async () => {
       const reward = await farm.stringPerBlock();
       assert.equal(reward.toString(), tokens("0.641025641"));
+    });
+    it("Sets correct creator", async () => {
+      const creator = await farm.creator();
+      assert.equal(creator, accounts[0].address);
     });
   });
 

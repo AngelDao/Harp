@@ -97,6 +97,8 @@ contract("STRING Staking Tests", () => {
     await stringToken.mintTo(accounts[1].address, tokens("1000"));
     await stringToken.mintTo(accounts[2].address, tokens("1000"));
     await stringToken.mintTo(accounts[3].address, tokens("1000"));
+    await stringToken.revokeOwnership();
+    await gstringToken.revokeOwnership();
   });
 
   describe("Farm attributes on deployment", async () => {
@@ -115,6 +117,10 @@ contract("STRING Staking Tests", () => {
     it("Sets correct registered bool", async () => {
       const registered = await stringStaking.registered();
       assert.equal(registered, true);
+    });
+    it("Sets correct creator", async () => {
+      const creator = await stringStaking.creator();
+      assert.equal(creator, accounts[0].address);
     });
   });
 

@@ -44,7 +44,10 @@ contract("gSTRING Token Tests", () => {
     );
     harpContracts = await deploymentHelperHarp(accounts, contracts);
     gstringToken = harpContracts.gstringToken;
-    gstringToken.addMinter(accounts[0].address, { from: accounts[0].address });
+    await gstringToken.addMinter(accounts[0].address, {
+      from: accounts[0].address,
+    });
+    await gstringToken.revokeOwnership();
     await gstringToken.mintTo(accounts[1].address, tokens("1000"), {
       from: accounts[0].address,
     });
@@ -68,6 +71,14 @@ contract("gSTRING Token Tests", () => {
     it("Sets correct Decimal upon deployment", async () => {
       let decimals = await gstringToken.decimals();
       assert.equal(decimals, 18);
+    });
+    it("Owner does not exists", async () => {
+      let owner = await gstringToken.owner();
+      console.log(owner);
+      console.log(owner);
+      console.log(owner);
+      console.log(owner);
+      assert.equal(owner, "0x0000000000000000000000000000000000000000");
     });
   });
 

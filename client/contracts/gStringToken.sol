@@ -42,6 +42,6 @@ contract gStringToken is ERC20, ERC20Burnable {
     }
 
     function revokeOwnership () external onlyOwner {
-        owner = "";
+       owner = address(0);
     }
 }

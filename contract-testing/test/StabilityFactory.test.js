@@ -97,6 +97,7 @@ contract("Factory and Proxy Tests", () => {
     testSend = harpContracts.testSend;
     await stringToken.addMinter(stabilityFactory.address);
     await stringToken.addMinter(accounts[0].address);
+    await stringToken.revokeOwnership();
   });
 
   describe("Stability Factory attributes on deployment", async () => {

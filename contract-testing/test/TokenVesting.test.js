@@ -62,6 +62,7 @@ contract("STRING Token Tests", () => {
     tokenVesting = harpContracts.tokenVesting;
     await stringToken.addMinter(accounts[0].address);
     await stringToken.addMinter(tokenVesting.address);
+    await stringToken.revokeOwnership();
   });
 
   describe("Vesting Contract attributes on deployment", async () => {
