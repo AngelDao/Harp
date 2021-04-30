@@ -2,7 +2,6 @@
 
 pragma solidity 0.6.11;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -13,7 +12,7 @@ import "./Interfaces/IStabilityPool.sol";
 
 import "hardhat/console.sol";
 
-contract StringStaking is Ownable {
+contract StringStaking {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -110,7 +109,7 @@ contract StringStaking is Ownable {
         });
     }
 
-    function registerIt() public {
+    function registerIt() external onlyCreator {
         require(registered == false, "Already registered");
         stabilityPool.registerFrontEnd(9e17);
         registered = true;

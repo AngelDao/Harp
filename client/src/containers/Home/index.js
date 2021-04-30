@@ -30,7 +30,7 @@ const Home = () => {
   const connectionStatus = isConnected ? (
     <ConnectionContainer>
       {network && (
-        <NetworkContainer>
+        <NetworkContainer network={network}>
           <Network>
             {network.charAt(0).toUpperCase() + network.slice(1)}
           </Network>

@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity 0.6.11;
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "./StringToken.sol";
 
-contract Farm is Ownable {
+contract Farm  {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -38,8 +37,8 @@ contract Farm is Ownable {
 
     // The STRING TOKEN!
     StringToken public stringToken;
-    // Dev address.
-    address public devaddr;
+    // creator address.
+    address public creator;
     // Block number when bonus STRING period ends.
     uint256 public endBlock;
     // STRING tokens created per block.
@@ -66,11 +65,17 @@ contract Farm is Ownable {
         uint256 amount
     );
 
+     modifier onlyCreator() {
+        require(msg.sender == creator, "only creator can call this method");
+        _;
+    }
+
     constructor(StringToken _string, uint256 _boostedBuffer) public {
         stringToken = _string;
         endBlock = block.number.add(2437500);
         startBlock = block.number;
         postBoostedBlock = block.number.add(_boostedBuffer);
+        creator = msg.sender ;
     }
 
     function poolLength() external view returns (uint256) {
@@ -83,7 +88,7 @@ contract Farm is Ownable {
         uint256 _allocPoint,
         IERC20 _lpToken,
         bool _withUpdate
-    ) external onlyOwner {
+    ) external onlyCreator {
         if (_withUpdate) {
             massUpdatePools();
         }
@@ -105,7 +110,7 @@ contract Farm is Ownable {
         uint256 _pid,
         uint256 _allocPoint,
         bool _withUpdate
-    ) external onlyOwner {
+    ) external onlyCreator {
         if (_withUpdate) {
             massUpdatePools();
         }

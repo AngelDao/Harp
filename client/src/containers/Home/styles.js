@@ -85,25 +85,34 @@ export const NetworkContainer = styled.div`
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  background-image: -webkit-gradient(
+  background-image: ${({ network }) => {
+    const color = network === "mainnet" ? "#25e472" : "#ffc20b";
+    return `-webkit-gradient(
     linear,
     left bottom,
     left top,
-    color-stop(0.16, #ffc20b),
-    color-stop(0.79, #ffc20b)
-  );
-  background-image: -moz-linear-gradient(
-    center bottom,
-    #ffc20b 16%,
-    #ffc20b 79%
-  );
-  background-image: linear-gradient(to top, #ffc20b 16%, #ffc20b 79%);
+    color-stop(0.16, ${color}),
+    color-stop(0.79, ${color})
+  )`;
+  }};
+  background-image: ${({ network }) => {
+    const color = network === "mainnet" ? "#25e472" : "#ffc20b";
+    return `-moz-linear-gradient(
+      center bottom,
+      ${color} 16%,
+      ${color} 79%
+    )`;
+  }};
+  background-image: ${({ network }) => {
+    const color = network === "mainnet" ? "#25e472" : "#ffc20b";
+    return `linear-gradient(to top, ${color} 16%, ${color} 79%)`;
+  }};
   padding: 3px;
   outline: none;
   border: 1px solid #000;
   color: black;
   font-size: ${MasterStyles.fontSize.small};
-  background-color: #fcfcfc !important;
+  background-color: "#fcfcfc !important";
   width: 70px;
   height: 20px;
   display: flex;

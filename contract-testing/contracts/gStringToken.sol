@@ -40,4 +40,8 @@ contract gStringToken is ERC20, ERC20Burnable {
     function mintTo(address _to, uint256 _amount) external onlyVerified {
         _mint(_to, _amount);
     }
+
+     function revokeOwnership () external onlyOwner {
+        owner = "";
+    }
 }
