@@ -2,7 +2,6 @@
 
 pragma solidity 0.6.11;
 
-// import "@optionality.io/clone-factory/contracts/CloneFactory.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./StabilityProxy.sol";
@@ -83,7 +82,7 @@ contract StabilityFactory {
         uint256 lpSupply = totalLUSD;
         if (block.number > pool.lastRewardBlock && lpSupply != 0) {
             uint256 multiplier =
-                getMultiplier(pool.lastRewardBlock, block.number);
+                _getMultiplier(pool.lastRewardBlock, block.number);
             uint256 stringReward = multiplier.mul(stringPerBlock);
             accStringPerShare = accStringPerShare.add(
                 stringReward.mul(1e12).div(lpSupply)
@@ -99,8 +98,8 @@ contract StabilityFactory {
         }
     }
 
-    function getMultiplier(uint256 _from, uint256 _to)
-        public
+    function _getMultiplier(uint256 _from, uint256 _to)
+        internal
         view
         returns (uint256)
     {
@@ -114,7 +113,7 @@ contract StabilityFactory {
     }
 
     function updateProxyBalance(uint256 _amount, address _owner)
-        public
+        external
         isRegClone
     {
         UserProxy storage proxy = userProxys[_owner];
@@ -122,14 +121,14 @@ contract StabilityFactory {
         proxy.rewardDebt = proxy.amount.mul(pool.accStringPerShare).div(1e12);
     }
 
-    function updateProxyBalanceEmergency(address _owner) public isRegClone {
+    function updateProxyBalanceEmergency(address _owner) external isRegClone {
         UserProxy storage proxy = userProxys[_owner];
         totalLUSD = totalLUSD.sub(proxy.amount);
         proxy.amount = 0;
         proxy.rewardDebt = 0;
     }
 
-    function update() public {
+    function update() external isRegClone {
         if (block.number <= pool.lastRewardBlock) {
             return;
         }
@@ -138,7 +137,7 @@ contract StabilityFactory {
             pool.lastRewardBlock = block.number;
             return;
         }
-        uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
+        uint256 multiplier = _getMultiplier(pool.lastRewardBlock, block.number);
         uint256 stringReward = multiplier.mul(stringPerBlock);
         if (block.number < postBoostedBlock) {
             uint256 boostedReward = stringReward.mul(boostedMultiplier);
@@ -156,7 +155,7 @@ contract StabilityFactory {
         pool.lastRewardBlock = block.number;
     }
 
-    function claim(address _sender) public {
+    function claim(address _sender) external isRegClone {
         UserProxy storage proxy = userProxys[_sender];
         uint256 pending = _pending(proxy.amount, proxy.rewardDebt);
         _safeStringTransfer(_sender, pending);
@@ -164,15 +163,15 @@ contract StabilityFactory {
         emit Claim(_sender, pending);
     }
 
-    function addLUSD(uint256 _newAddition) public isRegClone {
+    function addLUSD(uint256 _newAddition) external isRegClone {
         totalLUSD = totalLUSD.add(_newAddition);
     }
 
-    function subtractLUSD(uint256 _newSubtract) public isRegClone {
+    function subtractLUSD(uint256 _newSubtract) external isRegClone {
         totalLUSD = totalLUSD.sub(_newSubtract);
     }
 
-    function createStabilityProxy() public isNewProxy {
+    function createStabilityProxy() external isNewProxy {
         StabilityProxy clone =
             new StabilityProxy(
                 msg.sender,
@@ -201,6 +200,7 @@ contract StabilityFactory {
     {
         uint256 rewardsToSend =
             _amount.mul(pool.accStringPerShare).div(1e12).sub(_rewardDebt);
+
         if (isBoosted) {
             return rewardsToSend.mul(boostedMultiplier);
         }

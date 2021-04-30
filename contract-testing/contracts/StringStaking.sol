@@ -185,7 +185,7 @@ contract StringStaking is Ownable {
     // Update reward variables of the given pool to be up-to-date.
     function updatePool() public {
         UserInfo storage user = userInfo[msg.sender];
-        updateSP();
+        _updateSP();
         // console.log("sender: %s, balance: %s", msg.sender, user.amount);
         console.log(
             " last reward block:%s, current block:%s",
@@ -225,7 +225,7 @@ contract StringStaking is Ownable {
         pool.lastRewardBlock = block.number;
     }
 
-    function updateSP() public {
+    function _updateSP() internal {
         // console.log("updateSPentered");
         // console.log(
         //     " last reward block:%s, current block:%s",
@@ -262,7 +262,7 @@ contract StringStaking is Ownable {
     }
 
     // Deposit LP tokens for STRING allocation.
-    function deposit(uint256 _amount) public {
+    function deposit(uint256 _amount) external {
         require(_amount > 1000, "deposit must be greater than 1000 WEI");
         UserInfo storage user = userInfo[msg.sender];
         updatePool();
@@ -300,7 +300,7 @@ contract StringStaking is Ownable {
     }
 
     // Withdraw LP tokens.
-    function withdraw(uint256 _amount) public {
+    function withdraw(uint256 _amount) external {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
         uint256 cNotes = gstringToken.balanceOf(msg.sender);
@@ -324,7 +324,7 @@ contract StringStaking is Ownable {
     }
 
     // Withdraw without caring about rewards. EMERGENCY ONLY.
-    function emergencyWithdraw() public {
+    function emergencyWithdraw() external {
         UserInfo storage user = userInfo[msg.sender];
         pool.lpToken.safeTransfer(address(msg.sender), user.amount);
         emit EmergencyWithdraw(msg.sender, user.amount);

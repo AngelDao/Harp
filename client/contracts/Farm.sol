@@ -83,7 +83,7 @@ contract Farm is Ownable {
         uint256 _allocPoint,
         IERC20 _lpToken,
         bool _withUpdate
-    ) public onlyOwner {
+    ) external onlyOwner {
         if (_withUpdate) {
             massUpdatePools();
         }
@@ -105,7 +105,7 @@ contract Farm is Ownable {
         uint256 _pid,
         uint256 _allocPoint,
         bool _withUpdate
-    ) public onlyOwner {
+    ) external onlyOwner {
         if (_withUpdate) {
             massUpdatePools();
         }
@@ -203,13 +203,13 @@ contract Farm is Ownable {
     }
 
     // Deposit LP tokens to Farm for STRING allocation.
-    function deposit(uint256 _pid, uint256 _amount) public {
+    function deposit(uint256 _pid, uint256 _amount) external {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
         updatePool(_pid);
         if (user.amount > 0) {
             uint256 pending = _pending(user, pool);
-            safeStringTransfer(msg.sender, pending);
+            _safeStringTransfer(msg.sender, pending);
         }
         pool.lpToken.safeTransferFrom(
             address(msg.sender),
@@ -222,31 +222,31 @@ contract Farm is Ownable {
     }
 
     // Withdraw LP tokens from Farm.
-    function withdraw(uint256 _pid, uint256 _amount) public {
+    function withdraw(uint256 _pid, uint256 _amount) external {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
         updatePool(_pid);
         uint256 pending = _pending(user, pool);
-        safeStringTransfer(msg.sender, pending);
+        _safeStringTransfer(msg.sender, pending);
         user.amount = user.amount.sub(_amount);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         pool.lpToken.safeTransfer(address(msg.sender), _amount);
         emit Withdraw(msg.sender, _pid, _amount);
     }
 
-    function claim(uint256 _pid) public {
+    function claim(uint256 _pid) external {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
         updatePool(_pid);
         uint256 pending = _pending(user, pool);
-        safeStringTransfer(msg.sender, pending);
+        _safeStringTransfer(msg.sender, pending);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
         emit Claim(msg.sender, pending);
     }
 
     // Withdraw without caring about rewards. EMERGENCY ONLY.
-    function emergencyWithdraw(uint256 _pid) public {
+    function emergencyWithdraw(uint256 _pid) external {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
         pool.lpToken.safeTransfer(address(msg.sender), user.amount);
@@ -256,7 +256,7 @@ contract Farm is Ownable {
     }
 
     // Safe STRING transfer function, just in case if rounding error causes pool to not have enough STRING.
-    function safeStringTransfer(address _to, uint256 _amount) internal {
+    function _safeStringTransfer(address _to, uint256 _amount) internal {
         uint256 stringBal = stringToken.balanceOf(address(this));
         if (_amount > stringBal) {
             stringToken.transfer(_to, stringBal);

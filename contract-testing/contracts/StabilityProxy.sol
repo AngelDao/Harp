@@ -49,7 +49,7 @@ contract StabilityProxy {
         testContract = _test;
     }
 
-    function deposit(uint256 _amount) public onlyOwner {
+    function deposit(uint256 _amount) external onlyOwner {
         stabilityFactory.update();
         if (lusdBalance > 0) {
             _updateBalance(false);
@@ -62,7 +62,7 @@ contract StabilityProxy {
         emit Deposit(msg.sender, _amount);
     }
 
-    function withdraw(uint256 _amount) public onlyOwner {
+    function withdraw(uint256 _amount) external onlyOwner {
         require(
             _amount <= lusdBalance,
             "Withdraw is for more than balance amount"
@@ -80,14 +80,14 @@ contract StabilityProxy {
         emit Withdraw(msg.sender, _amount);
     }
 
-    function claim(bool _TESTadjust) public onlyOwner {
+    function claim(bool _TESTadjust) external onlyOwner {
         stabilityFactory.update();
         _updateBalance(_TESTadjust);
         stabilityPool.withdrawFromSP(0);
         _safeLQTYTransferAll(owner);
     }
 
-    function emergencyWithdraw() public onlyOwner {
+    function emergencyWithdraw() external onlyOwner {
         uint256 currentBal =
             stabilityPool.getCompoundedLUSDDeposit(address(this), false);
         stabilityPool.withdrawFromSP(currentBal);

@@ -29,15 +29,15 @@ contract gStringToken is ERC20, ERC20Burnable {
         owner = _owner;
     }
 
-    function isAllowedMinter(address _for) public view returns (bool) {
+    function isAllowedMinter(address _for) external view returns (bool) {
         return allowedMinters[_for];
     }
 
-    function addMinter(address _vestingAddress) public onlyOwner {
+    function addMinter(address _vestingAddress) external onlyOwner {
         allowedMinters[_vestingAddress] = true;
     }
 
-    function mintTo(address _to, uint256 _amount) public onlyVerified {
+    function mintTo(address _to, uint256 _amount) external onlyVerified {
         _mint(_to, _amount);
     }
 }

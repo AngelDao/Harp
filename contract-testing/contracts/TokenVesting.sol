@@ -33,14 +33,14 @@ contract TokenVesting {
     }
 
     // set start time of vesting
-    function start() public {
+    function start() external {
         require(vestingStarted == false, "Vesting has already started");
         startDistributionTime = block.timestamp;
         lastDistributionTime = block.timestamp;
         vestingStarted = true;
     }
 
-    function releasePending() public {
+    function releasePending() external {
         require(
             !vestingComplete,
             "Vesting is complete no more tokens to be minted"

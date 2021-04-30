@@ -42,26 +42,26 @@ contract StabilityProxy {
         stabilityFactory = _factory;
     }
 
-    function deposit(uint256 _amount) public onlyOwner {
+    function deposit(uint256 _amount) external onlyOwner {
         stabilityFactory.update();
         if (lusdBalance > 0) {
-            _updateBalance();
+            _updateBalance(false);
         }
         lusdToken.transferFrom(msg.sender, address(this), _amount);
         stabilityFactory.addLUSD(_amount);
         lusdBalance = lusdBalance.add(_amount);
-        stabilityFactory.updateProxyBalance(lusdBalance, owner);
         stabilityPool.provideToSP(_amount, frontEnd);
+        stabilityFactory.updateProxyBalance(lusdBalance, owner);
         emit Deposit(msg.sender, _amount);
     }
 
-    function withdraw(uint256 _amount) public onlyOwner {
+    function withdraw(uint256 _amount) external onlyOwner {
         require(
             _amount <= lusdBalance,
             "Withdraw is for more than balance amount"
         );
         stabilityFactory.update();
-        _updateBalance();
+        _updateBalance(false);
         if (_amount > lusdBalance) {
             stabilityPool.withdrawFromSP(lusdBalance);
             _safeLUSDTransfer(owner, lusdBalance);
@@ -73,16 +73,16 @@ contract StabilityProxy {
         emit Withdraw(msg.sender, _amount);
     }
 
-    function claim() public onlyOwner {
+    function claim(bool _TESTadjust) external onlyOwner {
         stabilityFactory.update();
-        _updateBalance();
+        _updateBalance(_TESTadjust);
         stabilityPool.withdrawFromSP(0);
         _safeLQTYTransferAll(owner);
     }
 
-    function emergencyWithdraw() public onlyOwner {
+    function emergencyWithdraw() external onlyOwner {
         uint256 currentBal =
-            stabilityPool.getCompoundedLUSDDeposit(address(this));
+            stabilityPool.getCompoundedLUSDDeposit(address(this), false);
         stabilityPool.withdrawFromSP(currentBal);
         stabilityFactory.updateProxyBalanceEmergency(owner);
         _safeLUSDTransfer(owner, currentBal);
@@ -104,7 +104,7 @@ contract StabilityProxy {
     function _safeETHTransferAll(address _to) internal {
         uint256 ethBal = address(this).balance;
         if (ethBal > 0) {
-            payable(_to).transfer(ethBal);
+         address(_to).call{value:ethBal}("");
         }
     }
 
@@ -115,18 +115,28 @@ contract StabilityProxy {
         }
     }
 
-    function _updateBalance() internal {
+    function _updateBalance(bool _TESTadjust) internal {
         uint256 currentBal =
-            stabilityPool.getCompoundedLUSDDeposit(address(this));
+            stabilityPool.getCompoundedLUSDDeposit(address(this), _TESTadjust);
+           
         if (currentBal > 0) {
-            uint256 diff = lusdBalance.sub(currentBal);
+            uint256 diff = 0;
+            
+            if(lusdBalance >= currentBal){
+
+            diff = lusdBalance.sub(currentBal);
+            }
+
+            stabilityFactory.claim(owner);
             if (diff > 0) {
                 stabilityFactory.subtractLUSD(diff);
                 stabilityFactory.updateProxyBalance(currentBal, owner);
             }
-            stabilityFactory.claim(owner);
         }
+        if(lusdBalance >= currentBal){
+
         lusdBalance = currentBal;
+        }
     }
 
     fallback() external payable {

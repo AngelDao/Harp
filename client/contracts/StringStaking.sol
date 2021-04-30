@@ -229,7 +229,8 @@ contract StringStaking is Ownable {
     }
 
     // Deposit LP tokens for STRING allocation.
-    function deposit(uint256 _amount) public {
+    function deposit(uint256 _amount) external {
+        require(_amount > 1000, "deposit must be greater than 1000 WEI");
         UserInfo storage user = userInfo[msg.sender];
         updatePool();
         if (user.amount > 0) {
@@ -254,7 +255,7 @@ contract StringStaking is Ownable {
     }
 
     // Withdraw LP tokens.
-    function withdraw(uint256 _amount) public {
+    function withdraw(uint256 _amount) external {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
         uint256 cNotes = gstringToken.balanceOf(msg.sender);
@@ -274,7 +275,7 @@ contract StringStaking is Ownable {
     }
 
     // Withdraw without caring about rewards. EMERGENCY ONLY.
-    function emergencyWithdraw() public {
+    function emergencyWithdraw() external {
         UserInfo storage user = userInfo[msg.sender];
         pool.lpToken.safeTransfer(address(msg.sender), user.amount);
         emit EmergencyWithdraw(msg.sender, user.amount);
