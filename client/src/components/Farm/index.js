@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import Pool from "./Pool";
-import { FarmContainer, Title } from "./styles";
+import { FarmContainer, Title, Audit, AuditContainer } from "./styles";
 import CredentialsContext from "../../context/credentialsContext";
 
 const Farm = () => {
@@ -18,7 +18,12 @@ const Farm = () => {
 
   return (
     <FarmContainer>
-      <Title>Incentivized Pools</Title>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Title>Incentivized Pools</Title>
+        <AuditContainer style={{ marginLeft: "25px" }}>
+          <Audit>UNAUDITED, use at your own risk</Audit>
+        </AuditContainer>
+      </div>
       <Pool
         conditionalMargin
         contract={"factory"}
@@ -42,7 +47,12 @@ const Farm = () => {
           setCollapsed({ ...collapsed, LUSD: false });
         }}
       />
-      <Title>gSTRING Pools</Title>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Title>gSTRING Pools</Title>
+        <AuditContainer style={{ marginLeft: "25px" }}>
+          <Audit>UNAUDITED, use at your own risk</Audit>
+        </AuditContainer>
+      </div>
       <Pool
         from={"Uniswap"}
         contract={"farm"}

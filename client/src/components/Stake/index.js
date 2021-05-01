@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import Pool from "../Farm/Pool";
-import { FarmContainer, Title } from "./styles";
+import { FarmContainer, Title, Audit, AuditContainer } from "./styles";
 import CredentialsContext from "../../context/credentialsContext";
 
 const Stake = () => {
@@ -20,7 +20,12 @@ const Stake = () => {
 
   return (
     <FarmContainer>
-      <Title>STRING</Title>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Title contained>STRING</Title>
+        <AuditContainer style={{ marginLeft: "25px" }}>
+          <Audit>UNAUDITED, use at your own risk</Audit>
+        </AuditContainer>
+      </div>
       <Pool
         contract={"profitShare"}
         noClaim

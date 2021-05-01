@@ -104,7 +104,7 @@ contract StabilityProxy {
     function _safeETHTransferAll(address _to) internal {
         uint256 ethBal = address(this).balance;
         if (ethBal > 0) {
-         address(_to).call{value:ethBal}("");
+            address(_to).call{value: ethBal}("");
         }
     }
 
@@ -118,13 +118,12 @@ contract StabilityProxy {
     function _updateBalance() internal {
         uint256 currentBal =
             stabilityPool.getCompoundedLUSDDeposit(address(this));
-           
+
         if (currentBal > 0) {
             uint256 diff = 0;
-            
-            if(lusdBalance >= currentBal){
 
-            diff = lusdBalance.sub(currentBal);
+            if (lusdBalance >= currentBal) {
+                diff = lusdBalance.sub(currentBal);
             }
 
             stabilityFactory.claim(owner);
@@ -133,9 +132,8 @@ contract StabilityProxy {
                 stabilityFactory.updateProxyBalance(currentBal, owner);
             }
         }
-        if(lusdBalance >= currentBal){
-
-        lusdBalance = currentBal;
+        if (lusdBalance >= currentBal) {
+            lusdBalance = currentBal;
         }
     }
 

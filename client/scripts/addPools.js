@@ -28,9 +28,9 @@ const main = async () => {
     Farm.abi,
     deployer.provider
   );
-  console.log("startadding");
+  console.log("start adding");
   try {
-    // await farm.connect(deployer).addPool(80, eth, true);
+    await farm.connect(deployer).addPool(80, eth, true);
   } catch (err) {
     console.log(err);
   }
