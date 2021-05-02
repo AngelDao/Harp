@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract StringToken is ERC20 {
     mapping(address => bool) internal allowedMinters;
-    // 2 mil * 10e18
+    uint256 public maxSupply = 10000000000000000000000000;
     uint256 public HarpDAOAllocation = 2000000000000000000000000;
     address public owner;
 
@@ -28,7 +28,7 @@ contract StringToken is ERC20 {
         string memory _symbol,
         address _HarpDAOAddress,
         address _owner
-    ) public  ERC20(_name, _symbol) {
+    ) public ERC20(_name, _symbol) {
         owner = _owner;
         _mint(_HarpDAOAddress, HarpDAOAllocation);
     }
@@ -37,7 +37,7 @@ contract StringToken is ERC20 {
         return allowedMinters[_for];
     }
 
-    function addMinter(address _vestingAddress) external onlyOwner{
+    function addMinter(address _vestingAddress) external onlyOwner {
         allowedMinters[_vestingAddress] = true;
     }
 
@@ -45,7 +45,7 @@ contract StringToken is ERC20 {
         _mint(_to, _amount);
     }
 
-    function revokeOwnership () external onlyOwner {
+    function revokeOwnership() external onlyOwner {
         owner = address(0);
     }
 }

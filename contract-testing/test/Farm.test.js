@@ -121,6 +121,15 @@ contract("STRING Token Tests", () => {
       const creator = await farm.creator();
       assert.equal(creator, accounts[0].address);
     });
+    it("Sets correct lastSupply", async () => {
+      const creator = await farm.lastSupply();
+      assert.equal(creator, accounts[0].address);
+    });
+    it("Sets correct maxSupply", async () => {
+      const creator = await farm.creator();
+      assert.equal(creator, accounts[0].address);
+    });
+
   });
 
   describe("Farm actions", async () => {

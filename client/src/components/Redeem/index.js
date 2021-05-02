@@ -107,7 +107,7 @@ const Redeem = () => {
 
   const handleSetMax = () => {
     const tColl = fromWei(web3, userTrove.coll);
-    handleChangeCollValue(parseFloat(tColl), true);
+    handleChangeCollValue(parseFloat(tColl), true, tColl);
   };
 
   const handleFocus = (type) => {

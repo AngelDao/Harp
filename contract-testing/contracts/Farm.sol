@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "./StringToken.sol";
 
-contract Farm  {
+contract Farm {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -35,6 +35,8 @@ contract Farm  {
         uint256 accStringPerShare; // Accumulated STRING per share, times 1e12. See below.
     }
 
+    uint256 public lastSupply;
+    uint256 public maxSupply;
     // The STRING TOKEN!
     StringToken public stringToken;
     // creator address.
@@ -65,7 +67,7 @@ contract Farm  {
         uint256 amount
     );
 
-     modifier onlyCreator() {
+    modifier onlyCreator() {
         require(msg.sender == creator, "only creator can call this method");
         _;
     }
@@ -75,7 +77,9 @@ contract Farm  {
         endBlock = block.number.add(2437500);
         startBlock = block.number;
         postBoostedBlock = block.number.add(_boostedBuffer);
-        creator = msg.sender ;
+        creator = msg.sender;
+        lastSupply = stringToken.totalSupply();
+        maxSupply = stringToken.maxSupply();
     }
 
     function poolLength() external view returns (uint256) {
@@ -191,6 +195,11 @@ contract Farm  {
             multiplier.mul(stringPerBlock).mul(pool.allocPoint).div(
                 totalAllocPoint
             );
+
+        if (lastSupply.add(stringReward) > maxSupply) {
+            uint256 temp = lastSupply.add(stringReward);
+            stringReward = maxSupply.sub(lastSupply);
+        }
         if (block.number < postBoostedBlock) {
             uint256 boostedReward = stringReward.mul(boostedMultiplier);
             stringToken.mintTo(address(this), boostedReward);
@@ -211,7 +220,10 @@ contract Farm  {
     function deposit(uint256 _pid, uint256 _amount) external {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
-        updatePool(_pid);
+        _updateSupply();
+        if (lastSupply < maxSupply) {
+            updatePool(_pid);
+        }
         if (user.amount > 0) {
             uint256 pending = _pending(user, pool);
             _safeStringTransfer(msg.sender, pending);
@@ -231,7 +243,10 @@ contract Farm  {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
-        updatePool(_pid);
+        _updateSupply();
+        if (lastSupply < maxSupply) {
+            updatePool(_pid);
+        }
         uint256 pending = _pending(user, pool);
         _safeStringTransfer(msg.sender, pending);
         user.amount = user.amount.sub(_amount);
@@ -243,7 +258,10 @@ contract Farm  {
     function claim(uint256 _pid) external {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
-        updatePool(_pid);
+        _updateSupply();
+        if (lastSupply < maxSupply) {
+            updatePool(_pid);
+        }
         uint256 pending = _pending(user, pool);
         _safeStringTransfer(msg.sender, pending);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);
@@ -283,5 +301,9 @@ contract Farm  {
             return rewardsToSend.mul(boostedMultiplier);
         }
         return rewardsToSend;
+    }
+
+    function _updateSupply() internal {
+        lastSupply = stringToken.totalSupply();
     }
 }

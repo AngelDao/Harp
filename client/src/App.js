@@ -26,6 +26,7 @@ import {
   fetchSortedTroves,
   fetchHintHelpers,
   fetchStabilityPool,
+  fetchPriceFeed,
 } from "./utils/handleContracts/contractConnection";
 import { fetchPrices, fetchTest } from "./utils/handlePriceData";
 import { fetchTVL } from "./utils/handleContracts/contractTVL";
@@ -76,7 +77,6 @@ function App() {
 
   const handleUnsupported = (code) => {
     if (code === "0x2a" || code === "0x4" || code === "0x1") {
-      debugger;
       setUnsupported(false);
       setNetwork(
         code === "0x2a" ? "kovan" : code === "0x4" ? "rinkeby" : "mainnet"
@@ -184,12 +184,13 @@ function App() {
       profitShare
     );
 
+    const [priceFeed] = await fetchPriceFeed(networkId, web3);
+
     // debugger;
     if (!troves) {
       setTroves({ troveCount, troves: sTroves });
     }
 
-    debugger;
     setLiquityGlobals({ borrowRate });
     setStabilityBalances(spBalances);
     setBorrowRate(borrowRate);
@@ -236,16 +237,21 @@ function App() {
   };
 
   const handlePricing = async () => {
+    const web3 = window.web3;
+    // ;
+    const networkId = await web3.eth.net.getId();
     console.log("gather pricing");
     let [ETH, LUSD, LQTY] = await fetchPrices();
-    const STRING = 0.1;
-    const gSTRING = 0.1;
+    const STRING = 0.05;
+    const gSTRING = 0.05;
+
+    const [priceFeed, ethPrice] = await fetchPriceFeed(networkId, web3);
 
     const prc = {
       LQTY: LQTY ? LQTY : 0,
       LUSD: LUSD ? LUSD : 0,
       STRING,
-      ETH: ETH ? ETH : 0,
+      ETH: ETH ? parseFloat(ethPrice) : 0,
       gSTRING,
     };
     console.log("gather tvl");
@@ -285,7 +291,7 @@ function App() {
 
   const reFetchData = async () => {
     await handleContractConnect();
-    await handlePricing;
+    await handlePricing();
   };
 
   const toast = useToast();

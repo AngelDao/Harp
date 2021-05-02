@@ -10,6 +10,7 @@ const addresses = {
     troveManager: "0x5EBeC1ecc36a760A54E35d474F889EfB9E7eD2aD",
     sortedTroves: "0x91656701b33eca6425A239930FccAA842D0E2031",
     hintHelpers: "0xEEBfA9A488E9d83cd1a49b838c14D9231F5F2fCb",
+    priceFeed: "0xbA49275F8F890E7296F64b3e81F1Ada656030150",
   },
   rinkeby: {
     stabilityPool: "0xB8eb11f9eFF55378dfB692296C32DF020f5CC7fF",
@@ -22,6 +23,7 @@ const addresses = {
     troveManager: "0x04d630Bff6dea193Fd644dEcfC460db249854a02",
     sortedTroves: "0xac064890c6343F67450ba7aB97df6De38A8D7da8",
     hintHelpers: "0xd8FABEa5752D52Ee0dEbF6c90948F5446694EE7c",
+    priceFeed: "0x692Cd2D9Df7EFD91Ccd17F9eEFD72BAEE0584DB9",
   },
   mainnet: {
     stabilityPool: "0x66017D22b0f8556afDd19FC67041899Eb65a21bb",

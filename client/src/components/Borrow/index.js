@@ -122,6 +122,8 @@ const Borrow = () => {
     } else {
       setError("");
     }
+
+    debugger;
     setMemTrove({
       collat: str,
       debt: debt,
@@ -130,7 +132,7 @@ const Borrow = () => {
   };
 
   const handleSetMax = () => {
-    handleChangeCollValue(parseFloat(userBalances.ETH));
+    handleChangeCollValue(parseFloat(userBalances.ETH), userBalances.ETH);
   };
 
   const handleFocus = (type) => {

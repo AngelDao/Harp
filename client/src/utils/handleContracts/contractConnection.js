@@ -12,6 +12,7 @@ import IStabilityPool from "../../abis/IStabilityPool.json";
 import IBorrowOperations from "../../abis/IBorrowerOperations.json";
 import ITroveManager from "../../abis/ITroveManager.json";
 import ISortedTroves from "../../abis/ISortedTroves.json";
+import IPriceFeed from "../../abis/IPriceFeed.json";
 import IHintHelpers from "../../abis/HintHelpers.json";
 import { fromWei, toDecimal } from "../truncateString";
 import { addresses } from "./addresses";
@@ -727,4 +728,22 @@ export const fetchStabilityPool = async (
   };
 
   return [sp, spAllowances, spBalances];
+};
+
+export const fetchPriceFeed = async (networkId, web3) => {
+  let pf;
+  // debugger;
+  if (networkId === 4) {
+    pf = new web3.eth.Contract(IPriceFeed.abi, addresses.rinkeby.priceFeed);
+  } else if (networkId === 42) {
+    pf = new web3.eth.Contract(IPriceFeed.abi, addresses.kovan.priceFeed);
+  }
+
+  const ethPrice = toDecimal(
+    fromWei(web3, await pf.methods.lastGoodPrice().call())
+  );
+
+  debugger;
+
+  return [pf, ethPrice];
 };
