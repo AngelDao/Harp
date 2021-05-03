@@ -249,9 +249,9 @@ function App() {
 
     const prc = {
       LQTY: LQTY ? LQTY : 0,
-      LUSD: LUSD ? LUSD : 0,
+      LUSD: 1,
       STRING,
-      ETH: ETH ? parseFloat(ethPrice) : 0,
+      ETH: ETH ? parseFloat(ETH) : 0,
       gSTRING,
     };
     console.log("gather tvl");

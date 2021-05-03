@@ -56,9 +56,10 @@ const Borrow = () => {
   const [errorMsg, setError] = useState(false);
 
   const handleChangeBorrowValue = (num, str) => {
-    const len = str.length;
+    const lReserveAdj = 200;
+    const fee = num * borrowRate;
     const requiredColl = 1.2;
-    const lusdUSD = parseFloat(num) * prices.LUSD;
+    const lusdUSD = parseFloat(num) * prices.LUSD + lReserveAdj + fee;
     const newCollat = (lusdUSD * requiredColl) / prices.ETH;
     const cr =
       parseFloat(memTrove.collat) &&
@@ -74,34 +75,40 @@ const Borrow = () => {
         ? parseFloat(memTrove.collat)
         : newCollat;
 
-    if (tColl <= 0 && num < 2000 && num !== 0) {
+    const empty = num === 0 && str === "0";
+    if (!empty && tColl <= 0 && num < 2000 && num !== 0) {
       setError("Borrow must be > 2000");
     } else if (
+      !empty &&
       parseFloat(collat.toFixed(4)) > parseFloat(userBalances.ETH).toFixed(4)
     ) {
       setError("Not enough collateral");
     } else {
       setError("");
     }
-
+    debugger;
     setMemTrove({
-      debt: str,
-      collat: collat,
-      cRatio: cr.toFixed(2),
+      debt: empty ? 0 : str,
+      collat: empty ? 0 : collat,
+      cRatio: empty ? 0 : cr.toFixed(2),
     });
   };
 
   const handleChangeCollValue = (num, str) => {
+    const lReserve = 200;
     const requiredColl = 1.2;
+    const fee = isNaN((memTrove.debt * borrowRate).toFixed(4))
+      ? 0
+      : parseFloat(memTrove.debt) * borrowRate;
     const ethUSD = parseFloat(num) * prices.ETH;
-    const lusdUSD = parseFloat(memTrove.debt) * prices.LUSD;
+    const lusdUSD = parseFloat(memTrove.debt) * prices.LUSD + lReserve + fee;
     const newBorrow = ethUSD / requiredColl;
     const cr =
       parseFloat(memTrove.collat) &&
       parseFloat(memTrove.debt) &&
       ethUSD / (parseFloat(memTrove.debt) * prices.LUSD) >= requiredColl
         ? (ethUSD / lusdUSD) * 100
-        : (ethUSD / newBorrow) * 100;
+        : ((ethUSD + lReserve + fee) / newBorrow) * 100;
 
     console.log(newBorrow * borrowRate);
     console.log(parseFloat(memTrove.debt) * borrowRate);
@@ -113,9 +120,11 @@ const Borrow = () => {
 
     const tColl = truncDust(fromWei(web3, userTrove.coll));
 
-    if (tColl <= 0 && debt < 2000 && debt !== 0) {
+    const empty = num === 0 && str === "0";
+    if (!empty && tColl <= 0 && debt < 2000 && debt !== 0) {
       setError("Borrow must be > 2000");
     } else if (
+      !empty &&
       parseFloat(num.toFixed(4)) > parseFloat(userBalances.ETH).toFixed(4)
     ) {
       setError("Not enough collateral");
@@ -124,10 +133,11 @@ const Borrow = () => {
     }
 
     debugger;
+
     setMemTrove({
-      collat: str,
-      debt: debt,
-      cRatio: cr.toFixed(2),
+      collat: empty ? 0 : str,
+      debt: empty ? 0 : debt,
+      cRatio: empty ? 0 : cr.toFixed(2),
     });
   };
 
@@ -275,7 +285,9 @@ const Borrow = () => {
                     borderRadius="0%"
                     borderColor="black"
                     focusBorderColor="black"
-                    onChange={(str, num) => handleChangeBorrowValue(num, str)}
+                    onChange={(str, num) => {
+                      handleChangeBorrowValue(num, str);
+                    }}
                     outline="none"
                     backgroundColor={MasterStyles.background.secondaryMenu}
                   >

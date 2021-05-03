@@ -743,7 +743,5 @@ export const fetchPriceFeed = async (networkId, web3) => {
     fromWei(web3, await pf.methods.lastGoodPrice().call())
   );
 
-  debugger;
-
   return [pf, ethPrice];
 };
