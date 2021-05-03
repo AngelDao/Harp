@@ -56,8 +56,9 @@ const Borrow = () => {
   const [errorMsg, setError] = useState(false);
 
   const handleChangeBorrowValue = (num, str) => {
-    const lReserveAdj = 200;
-    const fee = num * borrowRate;
+    const isOpenTrove = parseFloat(fromWei(web3, userTrove.debt)) > 0;
+    const lReserveAdj = isOpenTrove ? 0 : 200;
+    const fee = isOpenTrove ? 0 : num * borrowRate;
     const requiredColl = 1.2;
     const lusdUSD = parseFloat(num) * prices.LUSD + lReserveAdj + fee;
     const newCollat = (lusdUSD * requiredColl) / prices.ETH;
@@ -89,17 +90,19 @@ const Borrow = () => {
     debugger;
     setMemTrove({
       debt: empty ? 0 : str,
-      collat: empty ? 0 : collat,
+      collat: empty ? 0 : collat.toFixed(9),
       cRatio: empty ? 0 : cr.toFixed(2),
     });
   };
 
   const handleChangeCollValue = (num, str) => {
-    const lReserve = 200;
+    const isOpenTrove = parseFloat(fromWei(web3, userTrove.debt)) > 0;
+    const lReserve = isOpenTrove ? 0 : 200;
     const requiredColl = 1.2;
-    const fee = isNaN((memTrove.debt * borrowRate).toFixed(4))
-      ? 0
-      : parseFloat(memTrove.debt) * borrowRate;
+    const fee =
+      isNaN((memTrove.debt * borrowRate).toFixed(4)) || isOpenTrove
+        ? 0
+        : parseFloat(memTrove.debt) * borrowRate;
     const ethUSD = parseFloat(num) * prices.ETH;
     const lusdUSD = parseFloat(memTrove.debt) * prices.LUSD + lReserve + fee;
     const newBorrow = ethUSD / requiredColl;
@@ -136,13 +139,14 @@ const Borrow = () => {
 
     setMemTrove({
       collat: empty ? 0 : str,
-      debt: empty ? 0 : debt,
+      debt: empty ? 0 : debt.toFixed(9),
       cRatio: empty ? 0 : cr.toFixed(2),
     });
   };
 
   const handleSetMax = () => {
-    handleChangeCollValue(parseFloat(userBalances.ETH), userBalances.ETH);
+    const afterFee = parseFloat(userBalances.ETH) - 0.05;
+    handleChangeCollValue(parseFloat(afterFee), afterFee);
   };
 
   const handleFocus = (type) => {
@@ -277,7 +281,7 @@ const Borrow = () => {
                     onFocus={() => handleFocus("debt")}
                     defaultValue={0}
                     min={0}
-                    precision={12}
+                    precision={9}
                     step={0.01}
                     //   max={parseFloat(memTrove.debt)}
                     value={isNaN(memTrove.debt) ? 0 : memTrove.debt}
@@ -322,7 +326,7 @@ const Borrow = () => {
                     onFocus={() => handleFocus("collat")}
                     defaultValue={0}
                     min={0}
-                    precision={4}
+                    precision={9}
                     step={0.2}
                     //   max={parseFloat(memTrove.debt)}
                     value={isNaN(memTrove.collat) ? 0 : memTrove.collat}

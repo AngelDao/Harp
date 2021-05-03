@@ -82,11 +82,12 @@ const Redeem = () => {
     const paybackRatio = tCollusd / tDebtusd;
     const newDebt = ethUSD / paybackRatio / prices.LUSD;
 
-    if (max && newDebt > parseFloat(userBalances.LUSD)) {
+    if (max) {
       handleChangeBorrowValue(
         parseFloat(
           (parseFloat(fromWei(web3, userTrove.debt)) - 2000.1).toFixed(6)
-        )
+        ),
+        ethUSD.toString()
       );
       return;
     }
@@ -99,6 +100,8 @@ const Redeem = () => {
       setError("");
     }
 
+    debugger;
+
     setMemTrove({
       collat: str,
       debt: newDebt,
@@ -106,8 +109,11 @@ const Redeem = () => {
   };
 
   const handleSetMax = () => {
-    const tColl = fromWei(web3, userTrove.coll);
-    handleChangeCollValue(parseFloat(tColl), true, tColl);
+    const tDebt = fromWei(web3, userTrove.debt);
+    const total = parseFloat(tDebt) - 2000;
+    const ETHcomp = total / prices.ETH;
+    debugger;
+    handleChangeCollValue(parseFloat(ETHcomp), true, ETHcomp.toString());
   };
 
   const handleFocus = (type) => {
@@ -190,12 +196,26 @@ const Redeem = () => {
   const tColl = parseFloat(truncDust(fromWei(web3, userTrove.coll)));
   const uBal = parseFloat(userBalances.ETH);
 
+  const pf =
+    parseFloat(memTrove.debt).toFixed(4) >
+    parseFloat(fromWei(web3, userTrove.debt)).toFixed(4) - 2000;
+
+  const cf = !(
+    parseFloat(memTrove.collat).toFixed(5) <= tColl.toFixed(5) &&
+    parseFloat(memTrove.collat) > 0 &&
+    parseFloat(memTrove.debt) <= parseFloat(userBalances.LUSD) &&
+    parseFloat(memTrove.debt).toFixed(4) >
+      parseFloat(fromWei(web3, userTrove.debt)).toFixed(4) - 2000
+  );
+
+  debugger;
+
   return (
     <>
       <RedeemModal
         toClose={toClose}
         isOpen={isOpen}
-        open={handleOpen}
+        open={() => handleOpen(false)}
         close={handleClose}
         coll={parseFloat(memTrove.collat)}
         debt={parseFloat(memTrove.debt)}
@@ -348,21 +368,22 @@ const Redeem = () => {
               {tColl > 0 && (
                 <>
                   <ActionButton
-                    onClick={handleOpen}
+                    onClick={() => handleOpen(false)}
                     action={
+                      !(
+                        parseFloat(memTrove.debt).toFixed(4) >
+                        parseFloat(fromWei(web3, userTrove.debt)).toFixed(4) -
+                          2000
+                      ) &&
                       parseFloat(memTrove.collat).toFixed(5) <=
                         tColl.toFixed(5) &&
                       parseFloat(memTrove.collat) > 0 &&
                       parseFloat(memTrove.debt) <= parseFloat(userBalances.LUSD)
                     }
                     disabled={
-                      !(
-                        parseFloat(memTrove.collat).toFixed(5) <=
-                          tColl.toFixed(5) &&
-                        parseFloat(memTrove.collat) > 0 &&
-                        parseFloat(memTrove.debt) <=
-                          parseFloat(userBalances.LUSD)
-                      )
+                      parseFloat(memTrove.debt).toFixed(4) >
+                        parseFloat(fromWei(web3, userTrove.debt)).toFixed(4) -
+                          2000 || !parseFloat(memTrove.collat)
                     }
                   >
                     Repay
