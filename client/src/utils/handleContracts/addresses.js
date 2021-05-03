@@ -36,6 +36,7 @@ const addresses = {
     troveManager: "0xA39739EF8b0231DbFA0DcdA07d7e29faAbCf4bb2",
     sortedTroves: "0x8FdD3fbFEb32b28fb73555518f8b361bCeA741A6",
     hintHelpers: "0xE84251b93D9524E0d2e621Ba7dc7cb3579F997C0",
+    priceFeed: "0x4c517D4e2C851CA76d7eC94B805269Df0f2201De",
   },
 };
 

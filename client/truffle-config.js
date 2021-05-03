@@ -25,12 +25,16 @@
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
+const { pkMain } = require("./scripts/secret");
 require("dotenv").config({ path: "./src/.env" });
 const endpointUrlKovan =
   "https://kovan.infura.io/v3/1161cdc1e4e143649ab82b0037230ac1";
 
 const endpointUrlRink =
   "https://rinkeby.infura.io/v3/1161cdc1e4e143649ab82b0037230ac1";
+
+const endpointURLMainnet =
+  "https://mainnet.infura.io/v3/1161cdc1e4e143649ab82b0037230ac1";
 
 module.exports = {
   networks: {
@@ -40,7 +44,6 @@ module.exports = {
       network_id: "*", // Match any network id
     },
     kovan: {
-      // skipDryRun: true,
       network_id: "42",
       provider: function () {
         return new HDWalletProvider(
@@ -50,6 +53,17 @@ module.exports = {
         );
       },
       gas: 4600000,
+    },
+    live: {
+      gasPrice: 90000000000,
+      gas: 4600000,
+      network_id: 1,
+      provider: function () {
+        return new HDWalletProvider({
+          privateKeys: [pkMain],
+          providerOrUrl: endpointURLMainnet,
+        });
+      },
     },
     rinkeby: {
       gas: 4600000,

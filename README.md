@@ -91,3 +91,9 @@ This contract handles the logic for the AngelDAO token allocation. 1 million tok
 ## Frontend
 
 The plan is to open source the entire front end code a week after launch to allow of other people to fork or see ways of interacting with the contracts.
+
+## Plan for critical bug
+
+The plan for a critical bug is to redeploy the contracts and deploy a claim contract to convert user amounts from state so users can claim their rightful STRING and redeposit in new contracts.
+
+Pending rewards will be ignored, all gSTRING lost will be ignored and any user losts funds that are not recoverabe/trackable to allow users to reclaim in new contracts will be burnt from AngelDAO and HarpDAO treasury up to the total amount of STRING they each hold.

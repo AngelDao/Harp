@@ -10,6 +10,14 @@ module.exports = async function (deployer, network, accounts) {
   // User Addresses
   let owner = accounts[0];
 
+  // mainnet
+  owner = deployer.networks.live.from;
+  console.log(deployer.networks.live.from);
+  console.log(accounts[0]);
+  console.log(accounts[0]);
+  console.log(accounts[0]);
+  console.log(accounts[0]);
+
   // DAO Adresses
   const AngelDAO = "0x8Ae4aA31C8D4cbBCdeF62fA2e301145bfd77F06B";
   const HarpDAO = "0xf46A8Fb9799A95f564444f9FD92B73024C3A24Bf";
@@ -24,8 +32,10 @@ module.exports = async function (deployer, network, accounts) {
     lusdToken = addresses.kovan.lusdToken;
     lqtyToken = addresses.kovan.lqtyToken;
     stabilityPool = addresses.kovan.stabilityPool;
-  } else if (chain === "ganache") {
-  } else if (chain === "mainnet") {
+  } else if (chain === "live") {
+    lusdToken = addresses.mainnet.lusdToken;
+    lqtyToken = addresses.mainnet.lqtyToken;
+    stabilityPool = addresses.mainnet.stabilityPool;
   } else if (chain === "rinkeby") {
     owner = deployer.networks.rinkeby.from;
     lusdToken = addresses.rinkeby.lusdToken;
