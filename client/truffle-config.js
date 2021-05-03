@@ -40,6 +40,7 @@ module.exports = {
       network_id: "*", // Match any network id
     },
     kovan: {
+      skipDryRun: true,
       network_id: "42",
       provider: function () {
         return new HDWalletProvider(
