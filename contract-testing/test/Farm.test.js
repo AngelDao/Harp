@@ -123,13 +123,12 @@ contract("STRING Token Tests", () => {
     });
     it("Sets correct lastSupply", async () => {
       const creator = await farm.lastSupply();
-      assert.equal(creator, accounts[0].address);
+      assert.equal(creator.toString(), tokens("2000000"));
     });
     it("Sets correct maxSupply", async () => {
-      const creator = await farm.creator();
-      assert.equal(creator, accounts[0].address);
+      const creator = await farm.maxSupply();
+      assert.equal(creator.toString(), tokens("2005000"));
     });
-
   });
 
   describe("Farm actions", async () => {
@@ -488,6 +487,58 @@ contract("STRING Token Tests", () => {
 
       let isBoosted = await farm.isBoosted();
       assert.equal(isBoosted, false);
+    });
+
+    it("check max supply reached", async () => {
+      let owner = accounts[0];
+      let owner2 = accounts[1];
+      await handleDeposit(1, owner, owner2);
+
+      advanceBlock(10000);
+
+      await farm.connect(owner).withdraw(1, tokens("10"));
+      await farm.connect(owner2).withdraw(1, tokens("50"));
+
+      const lastSupply = await farm.lastSupply();
+
+      let userBalance = await ethLP.balanceOf(owner.address);
+      let userBalance2 = await ethLP.balanceOf(owner2.address);
+
+      const stringBalu1 = await stringToken.balanceOf(owner.address);
+      const stringBalu2 = await stringToken.balanceOf(owner2.address);
+
+      console.log(stringBalu1.toString());
+      console.log(stringBalu2.toString());
+
+      assert.equal(userBalance.toString(), tokens("1000"));
+      assert.equal(userBalance2.toString(), tokens("1000"));
+      assert.equal(lastSupply.toString(), tokens("2005000"));
+
+      await farm.connect(owner).deposit(1, tokens("10"));
+      await farm.connect(owner2).deposit(1, tokens("50"));
+
+      await farm.connect(owner).withdraw(1, tokens("10"));
+      await farm.connect(owner2).withdraw(1, tokens("50"));
+
+      await farm.connect(owner).claim(1);
+      await farm.connect(owner2).claim(1);
+
+      userBalance = await ethLP.balanceOf(owner.address);
+      userBalance2 = await ethLP.balanceOf(owner2.address);
+
+      const totalRewards = userBalance.add(userBalance2);
+
+      const totalSupply = await stringToken.totalSupply();
+
+      const farmBalance = await stringToken.balanceOf(farm.address);
+
+      console.log("farmbalance", farmBalance.toString());
+
+      console.log(totalRewards.toString());
+      console.log(totalSupply.toString());
+
+      assert.equal(userBalance.toString(), tokens("1000"));
+      assert.equal(userBalance2.toString(), tokens("1000"));
     });
   });
 });

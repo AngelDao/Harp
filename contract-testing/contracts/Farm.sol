@@ -6,6 +6,8 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "./StringToken.sol";
 
+import "hardhat/console.sol";
+
 contract Farm {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
@@ -196,9 +198,11 @@ contract Farm {
                 totalAllocPoint
             );
 
+        console.log("supply check", lastSupply.add(stringReward) > maxSupply);
+        console.log("stringRewards", stringReward);
         if (lastSupply.add(stringReward) > maxSupply) {
-            uint256 temp = lastSupply.add(stringReward);
             stringReward = maxSupply.sub(lastSupply);
+            console.log("stringRewards", stringReward);
         }
         if (block.number < postBoostedBlock) {
             uint256 boostedReward = stringReward.mul(boostedMultiplier);
@@ -220,10 +224,10 @@ contract Farm {
     function deposit(uint256 _pid, uint256 _amount) external {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
-        _updateSupply();
         if (lastSupply < maxSupply) {
             updatePool(_pid);
         }
+        _updateSupply();
         if (user.amount > 0) {
             uint256 pending = _pending(user, pool);
             _safeStringTransfer(msg.sender, pending);
@@ -243,10 +247,10 @@ contract Farm {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
-        _updateSupply();
         if (lastSupply < maxSupply) {
             updatePool(_pid);
         }
+        _updateSupply();
         uint256 pending = _pending(user, pool);
         _safeStringTransfer(msg.sender, pending);
         user.amount = user.amount.sub(_amount);
@@ -258,10 +262,10 @@ contract Farm {
     function claim(uint256 _pid) external {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
-        _updateSupply();
         if (lastSupply < maxSupply) {
             updatePool(_pid);
         }
+        _updateSupply();
         uint256 pending = _pending(user, pool);
         _safeStringTransfer(msg.sender, pending);
         user.rewardDebt = user.amount.mul(pool.accStringPerShare).div(1e12);

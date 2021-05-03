@@ -27,6 +27,8 @@ contract StabilityFactory {
         bool initialized;
     }
 
+    uint256 public lastSupply;
+    uint256 public maxSupply;
     // address public impli;
     address public frontEnd;
     mapping(address => UserProxy) public userProxys;
@@ -82,6 +84,8 @@ contract StabilityFactory {
         stabilityPool = _stabilityPool;
         postBoostedBlock = block.number.add(_boostedBuffer);
         testContract = _test;
+        lastSupply = stringToken.totalSupply();
+        maxSupply = stringToken.maxSupply();
     }
 
     function pendingString(address _user) external view returns (uint256) {
@@ -137,6 +141,11 @@ contract StabilityFactory {
     }
 
     function update() external isRegClone {
+
+        if(lastSupply >= maxSupply){
+            return;
+        }
+
         if (block.number <= pool.lastRewardBlock) {
             return;
         }
@@ -147,6 +156,11 @@ contract StabilityFactory {
         }
         uint256 multiplier = _getMultiplier(pool.lastRewardBlock, block.number);
         uint256 stringReward = multiplier.mul(stringPerBlock);
+
+        if (lastSupply.add(stringReward) > maxSupply) {
+            stringReward = maxSupply.sub(lastSupply);
+        }
+        
         if (block.number < postBoostedBlock) {
             uint256 boostedReward = stringReward.mul(boostedMultiplier);
             stringToken.mintTo(address(this), boostedReward);
@@ -161,6 +175,7 @@ contract StabilityFactory {
             stringReward.mul(1e12).div(lpSupply)
         );
         pool.lastRewardBlock = block.number;
+        _updateSupply();
     }
 
     function claim(address _sender) external isRegClone {
@@ -223,5 +238,9 @@ contract StabilityFactory {
         } else {
             stringToken.transfer(_to, _amount);
         }
+    }
+
+    function _updateSupply() internal {
+        lastSupply = stringToken.totalSupply();
     }
 }

@@ -41,6 +41,8 @@ contract StringStaking {
         uint256 accLQTYPerShare;
     }
 
+    uint256 public lastSupply;
+    uint256 public maxSupply;
     // The STRING TOKEN!
     StringToken public stringToken;
     ILQTYToken public lqtyToken;
@@ -105,6 +107,8 @@ contract StringStaking {
             accStringPerShare: 0,
             accLQTYPerShare: 0
         });
+        lastSupply = stringToken.totalSupply();
+        maxSupply = stringToken.maxSupply();
     }
 
     function registerIt() external onlyCreator {
@@ -188,6 +192,10 @@ contract StringStaking {
         }
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
         uint256 stringReward = multiplier.mul(stringPerBlock);
+
+        if (lastSupply.add(stringReward) > maxSupply) {
+            stringReward = maxSupply.sub(lastSupply);
+        }
         if (block.number < postBoostedBlock) {
             uint256 boostedReward = stringReward.mul(boostedMultiplier);
             stringToken.mintTo(address(this), boostedReward);
@@ -231,7 +239,10 @@ contract StringStaking {
     function deposit(uint256 _amount) external {
         require(_amount > 1000, "deposit must be greater than 1000 WEI");
         UserInfo storage user = userInfo[msg.sender];
-        updatePool();
+        if (lastSupply < maxSupply) {
+            updatePool();
+        }
+        _updateSupply();
         if (user.amount > 0) {
             uint256 pending = _pending(user);
             uint256 pendingLQTY = _pendingLQTY(user);
@@ -259,7 +270,10 @@ contract StringStaking {
         require(user.amount >= _amount, "withdraw: not good");
         uint256 cNotes = gstringToken.balanceOf(msg.sender);
         require(_amount <= cNotes, "not enough gSTRING");
-        updatePool();
+        if (lastSupply < maxSupply) {
+            updatePool();
+        }
+        _updateSupply();
         uint256 pending = _pending(user);
         uint256 pendingLQTY = _pendingLQTY(user);
         safeStringTransfer(msg.sender, pending);
@@ -329,5 +343,9 @@ contract StringStaking {
                 _user.lqtyRewardDebt
             );
         return lqtyRewardsToSend;
+    }
+
+    function _updateSupply() internal {
+        lastSupply = stringToken.totalSupply();
     }
 }
