@@ -9,13 +9,10 @@ const { addresses } = require("../src/utils/handleContracts/addresses");
 module.exports = async function (deployer, network, accounts) {
   // User Addresses
   let owner = accounts[0];
-  console.log(accounts);
-
-  console.log(deployer);
 
   // DAO Adresses
-  const AngelDAO = "0x3Af2d668Afd7eF2B94b0862aE759712c067DFa4c";
-  const HarpDAO = "0xdF7054884fCb9A8681490A1D977fbD295C02cCFF";
+  const AngelDAO = "0x8Ae4aA31C8D4cbBCdeF62fA2e301145bfd77F06B";
+  const HarpDAO = "0xf46A8Fb9799A95f564444f9FD92B73024C3A24Bf";
 
   // Chain
   const chain = process.argv[process.argv.length - 1];
@@ -38,7 +35,7 @@ module.exports = async function (deployer, network, accounts) {
 
   // Config vars
   const years = 365 * 2;
-  const bbCount = 100;
+  const bbCount = 390000;
 
   // Deploy STRING Token
   await deployer.deploy(StringToken, "STRING Token", "STRING", HarpDAO, owner);

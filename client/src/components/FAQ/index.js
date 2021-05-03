@@ -72,12 +72,12 @@ const FAQ = () => {
               work for further integrations and improvements of the platform.
             </li>
             <li>
-              <b>14%</b> of supply will go to Liquity Network Participation. 80%
+              <b>45%</b> of supply will go to Liquity Network Participation. 80%
               of these tokens will be rewarded to stability pool participants
               and 20% of tokens will be rewarded to the rewards pool.
             </li>
             <li>
-              <b>56%</b> of supply will go to Liquidity Mining. 30% going to the
+              <b>25%</b> of supply will go to Liquidity Mining. 30% going to the
               STRING/ETH and 70% going to STRING/LUSD
             </li>
           </TokenomicsList>
