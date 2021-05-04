@@ -141,7 +141,16 @@ const PoolTable = ({
             <Pair>{currency2 ? `${currency1}/${currency2}` : currency1}</Pair>
           </AssetCell>
           <AssetCell style={{ width: "148px" }}>
-            <span>${tvl && readableTrunc(tvl.toFixed(2))}</span>
+            <span>
+              {currency1 === "STRING"
+                ? "--"
+                : tvl &&
+                  `$${
+                    isNaN(readableTrunc(tvl.toFixed(2)))
+                      ? "0"
+                      : readableTrunc(tvl.toFixed(2))
+                  }`}
+            </span>
           </AssetCell>
           <AssetCell style={{ width: "172px" }}>
             <span>{truncLPinWallet}</span>
@@ -255,7 +264,7 @@ const PoolTable = ({
                             .toFixed(2)
                             .toString()
                         )}`
-                      : "0.00"}
+                      : "$0.00"}
                   </span>
                 </AssetCell>
                 <AssetCell>

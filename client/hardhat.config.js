@@ -24,8 +24,9 @@ module.exports = {
       gasPrice: 20000000000,
     },
     live: {
-      network_id: "42",
-      gas: 12499988, // tx gas limit
+      network_id: "1",
+      gas: 100000000, // tx gas limit
+      gasPrice: 170000000000,
       url: endpointURLMainnet,
       accounts: [pkMain],
     },

@@ -201,7 +201,7 @@ function App() {
 
     const [priceFeed] = await fetchPriceFeed(networkId, web3);
 
-    // debugger;
+    debugger;
     if (!troves) {
       setTroves({ troveCount, troves: sTroves });
     }
