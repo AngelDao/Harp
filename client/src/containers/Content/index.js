@@ -41,8 +41,8 @@ const Content = ({ location }) => {
         }}
       >
         <span>
-          Chain not supported, change chain to <strong>Kovan</strong> or{" "}
-          <strong>Rinkeby</strong>
+          Chain not supported, change chain to <strong>Mainnet</strong>,{" "}
+          <strong>Kovan</strong>, or <strong>Rinkeby</strong>
         </span>
       </div>
     );

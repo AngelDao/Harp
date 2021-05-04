@@ -77,7 +77,7 @@ function App() {
 
   const handleUnsupported = (code) => {
     // || code === "0x1"
-    if (code === "0x2a" || code === "0x4") {
+    if (code === "0x2a" || code === "0x4" || code === "0x1") {
       setUnsupported(false);
       setNetwork(
         code === "0x2a" ? "kovan" : code === "0x4" ? "rinkeby" : "mainnet"
@@ -103,30 +103,38 @@ function App() {
       web3,
       address
     );
-    // debugger;
+    debugger;
     const [lusdToken, LUSD] = await fetchLUSDToken(networkId, web3, address);
-    // debugger;
+    debugger;
     const [lqtyToken, LQTY] = await fetchLQTYToken(networkId, web3, address);
-    // debugger;
+    debugger;
 
     const [stringToken, STRING] = await fetchStringToken(
       networkId,
       web3,
       address
     );
-    // debugger;
-    const [ETHLPToken, gSTRING_ETH_LP] = await fetchETHLPTokens(
-      networkId,
-      web3,
-      address
-    );
-    // debugger;
-    const [LUSDLPToken, gSTRING_LUSD_LP] = await fetchLUSDLPTokens(
-      networkId,
-      web3,
-      address
-    );
-    // debugger;
+    debugger;
+    let ETHLPToken, gSTRING_ETH_LP;
+    try {
+      const [e, g] = await fetchETHLPTokens(networkId, web3, address);
+      ETHLPToken = e;
+      gSTRING_ETH_LP = g;
+    } catch (err) {
+      ETHLPToken = {};
+      gSTRING_ETH_LP = 0;
+    }
+    debugger;
+    let LUSDLPToken, gSTRING_LUSD_LP;
+    try {
+      const [l, g] = await fetchLUSDLPTokens(networkId, web3, address);
+      LUSDLPToken = l;
+      gSTRING_LUSD_LP = g;
+    } catch (err) {
+      LUSDLPToken = {};
+      gSTRING_LUSD_LP = 0;
+    }
+    debugger;
     const [farm, allowances, farmBalances] = await fetchFarm(
       networkId,
       web3,
@@ -136,7 +144,7 @@ function App() {
       address,
       lusdToken
     );
-    // debugger;
+    debugger;
 
     const [profitShare, psAllowances, psBalances] = await fetchProfitShare(
       networkId,
@@ -145,7 +153,7 @@ function App() {
       gStringToken,
       address
     );
-    // debugger;
+    debugger;
 
     const [
       factory,
@@ -153,7 +161,13 @@ function App() {
       proxyAllowance,
       fyBalances,
       proxyBalances,
-    ] = await fetchStabilityFactory(networkId, web3, address, lusdToken);
+    ] = await fetchStabilityFactory(
+      networkId,
+      web3,
+      address,
+      lusdToken,
+      lqtyToken
+    );
 
     const [rewards, rwsBalances, rwsAllowances] = await fetchRewards(
       networkId,

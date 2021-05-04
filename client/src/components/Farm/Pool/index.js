@@ -143,11 +143,15 @@ const Pool = ({
   };
 
   const links = {
-    LUSD: `https://${network}.etherscan.io/address/${addresses[network].stabilityPool}`,
-    LQTY: `https://${network}.etherscan.io/address/${addresses[network].lqtyStaking}`,
-    STRING: `https://${network}.etherscan.io/address/${
-      contracts && contracts.profitShare._address
-    }`,
+    LUSD: `https://${
+      network === "mainnet" ? "www" : network
+    }.etherscan.io/address/${addresses[network].stabilityPool}`,
+    LQTY: `https://${
+      network === "mainnet" ? "www" : network
+    }.etherscan.io/address/${addresses[network].lqtyStaking}`,
+    STRING: `https://${
+      network === "mainnet" ? "www" : network
+    }.etherscan.io/address/${contracts && contracts.profitShare._address}`,
     "gSTRING/ETH": `https://app.uniswap.org/#/add/ETH/${contracts.gStringToken._address}`,
     "gSTRING/LUSD": `https://app.uniswap.org/#/add/${contracts.lusdToken._address}/${contracts.gStringToken._address}`,
   };

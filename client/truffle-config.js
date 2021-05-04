@@ -55,7 +55,7 @@ module.exports = {
       gas: 4600000,
     },
     live: {
-      gasPrice: 90000000000,
+      gasPrice: 50000000000,
       gas: 4600000,
       network_id: 1,
       provider: function () {

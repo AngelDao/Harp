@@ -43,40 +43,55 @@ export const fetchTVL = async (web3, prices, contracts) => {
   );
 
   const totalLUSDF = fromWei(web3, await factory.methods.totalLUSD().call());
+  let ETHLP,
+    gSTRINGLP,
+    LUSDLP,
+    gSTRINGLPL,
+    ETHLPSupply,
+    LUSDLPSupply,
+    ETHLPFarm,
+    LUSDLPFarm;
+  try {
+    ETHLP = fromWei(web3, await web3.eth.getBalance(ETHLPToken._address));
+    gSTRINGLP = fromWei(
+      web3,
+      await gStringToken.methods.balanceOf(ETHLPToken._address).call()
+    );
 
-  const ETHLP = fromWei(web3, await web3.eth.getBalance(ETHLPToken._address));
-  const gSTRINGLP = fromWei(
-    web3,
-    await gStringToken.methods.balanceOf(ETHLPToken._address).call()
-  );
+    LUSDLP = fromWei(
+      web3,
+      await lusdToken.methods.balanceOf(LUSDLPToken._address).call()
+    );
+    gSTRINGLPL = fromWei(
+      web3,
+      await gStringToken.methods.balanceOf(LUSDLPToken._address).call()
+    );
 
-  const LUSDLP = fromWei(
-    web3,
-    await lusdToken.methods.balanceOf(LUSDLPToken._address).call()
-  );
-  const gSTRINGLPL = fromWei(
-    web3,
-    await gStringToken.methods.balanceOf(LUSDLPToken._address).call()
-  );
+    ETHLPSupply = fromWei(web3, await ETHLPToken.methods.totalSupply().call());
+    LUSDLPSupply = fromWei(
+      web3,
+      await LUSDLPToken.methods.totalSupply().call()
+    );
 
-  const ETHLPSupply = fromWei(
-    web3,
-    await ETHLPToken.methods.totalSupply().call()
-  );
-  const LUSDLPSupply = fromWei(
-    web3,
-    await LUSDLPToken.methods.totalSupply().call()
-  );
+    ETHLPFarm = fromWei(
+      web3,
+      await ETHLPToken.methods.balanceOf(farm._address).call()
+    );
 
-  const ETHLPFarm = fromWei(
-    web3,
-    await ETHLPToken.methods.balanceOf(farm._address).call()
-  );
-
-  const LUSDLPFarm = fromWei(
-    web3,
-    await LUSDLPToken.methods.balanceOf(farm._address).call()
-  );
+    LUSDLPFarm = fromWei(
+      web3,
+      await LUSDLPToken.methods.balanceOf(farm._address).call()
+    );
+  } catch (err) {
+    ETHLP = 0;
+    gSTRINGLP = 0;
+    LUSDLP = 0;
+    gSTRINGLPL = 0;
+    ETHLPSupply = 0;
+    LUSDLPSupply = 0;
+    ETHLPFarm = 0;
+    LUSDLPFarm = 0;
+  }
 
   const totalLUSDS = fromWei(
     web3,

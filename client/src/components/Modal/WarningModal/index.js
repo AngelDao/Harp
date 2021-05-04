@@ -55,9 +55,9 @@ const WarningModal = ({ isOpen, handleAgree, onCancel }) => {
           // textAlign="center"
         >
           <p>
-            This app uses some smart contracts that are unaudited and
-            expiremental, you could lose all your money. Please be careful. We
-            will not compensate losses.
+            This app uses some smart contracts that are{" "}
+            <strong>unaudited</strong> and experimental, you could lose all your
+            money. Please be careful. We will not compensate losses.
           </p>
           <div
             style={{

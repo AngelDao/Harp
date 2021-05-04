@@ -37,48 +37,49 @@ export const fetchgStringToken = async (networkId, web3, address) => {
 
 export const fetchLUSDToken = async (networkId, web3, address) => {
   const LUSDTokenNetwork = LUSDToken.networks[networkId];
+  let lusdToken;
+
   if (networkId === 42) {
-    const lusdToken = new web3.eth.Contract(
-      LUSDToken.abi,
-      addresses.kovan.lusdToken
-    );
-    const LUSD = toDecimal(
-      fromWei(web3, await lusdToken.methods.balanceOf(address).call())
-    );
-    return [lusdToken, LUSD];
+    lusdToken = new web3.eth.Contract(LUSDToken.abi, addresses.kovan.lusdToken);
   } else if (networkId === 4) {
-    const lusdToken = new web3.eth.Contract(
+    lusdToken = new web3.eth.Contract(
       LUSDToken.abi,
       addresses.rinkeby.lusdToken
     );
-    const LUSD = toDecimal(
-      fromWei(web3, await lusdToken.methods.balanceOf(address).call())
+  } else if (networkId === 1) {
+    lusdToken = new web3.eth.Contract(
+      LUSDToken.abi,
+      addresses.mainnet.lusdToken
     );
-    return [lusdToken, LUSD];
   }
+  const LUSD = toDecimal(
+    fromWei(web3, await lusdToken.methods.balanceOf(address).call())
+  );
+
+  return [lusdToken, LUSD];
 };
 
 export const fetchLQTYToken = async (networkId, web3, address) => {
   const LQTYTokenNetwork = LQTYToken.networks[networkId];
+  let lqtyToken;
   if (networkId === 42) {
-    const lqtyToken = new web3.eth.Contract(
-      LQTYToken.abi,
-      addresses.kovan.lqtyToken
-    );
-    const LQTY = toDecimal(
-      fromWei(web3, await lqtyToken.methods.balanceOf(address).call())
-    );
-    return [lqtyToken, LQTY];
+    lqtyToken = new web3.eth.Contract(LQTYToken.abi, addresses.kovan.lqtyToken);
   } else if (networkId === 4) {
-    const lqtyToken = new web3.eth.Contract(
+    lqtyToken = new web3.eth.Contract(
       LQTYToken.abi,
       addresses.rinkeby.lqtyToken
     );
-    const LQTY = toDecimal(
-      fromWei(web3, await lqtyToken.methods.balanceOf(address).call())
+  } else if (networkId === 1) {
+    lqtyToken = new web3.eth.Contract(
+      LQTYToken.abi,
+      addresses.mainnet.lqtyToken
     );
-    return [lqtyToken, LQTY];
   }
+
+  const LQTY = toDecimal(
+    fromWei(web3, await lqtyToken.methods.balanceOf(address).call())
+  );
+  return [lqtyToken, LQTY];
 };
 
 export const fetchStringToken = async (networkId, web3, address) => {
@@ -97,61 +98,62 @@ export const fetchStringToken = async (networkId, web3, address) => {
 };
 
 export const fetchETHLPTokens = async (networkId, web3, address) => {
+  let ETHLPToken;
   if (networkId === 42) {
-    const ETHLPToken = new web3.eth.Contract(
-      IERC20.abi,
-      addresses.kovan.ethLPToken
-    );
-
-    const temp = fromWei(
-      web3,
-      await ETHLPToken.methods.balanceOf(address).call()
-    );
-    // const STRING_ETH_LP = 0;
-    const STRING_ETH_LP = toDecimal(
-      fromWei(web3, await ETHLPToken.methods.balanceOf(address).call())
-    );
-    return [ETHLPToken, STRING_ETH_LP];
+    ETHLPToken = new web3.eth.Contract(IERC20.abi, addresses.kovan.ethLPToken);
   }
   if (networkId === 4) {
-    const ETHLPToken = new web3.eth.Contract(
+    ETHLPToken = new web3.eth.Contract(
       IERC20.abi,
       addresses.rinkeby.ethLPToken
     );
-
-    // const STRING_ETH_LP = 0;
-    const STRING_ETH_LP = toDecimal(
-      fromWei(web3, await ETHLPToken.methods.balanceOf(address).call())
-    );
-    return [ETHLPToken, STRING_ETH_LP];
   }
+  if (networkId === 1) {
+    ETHLPToken = new web3.eth.Contract(
+      IERC20.abi,
+      addresses.mainnet.ethLPToken
+    );
+  }
+
+  const temp = fromWei(
+    web3,
+    await ETHLPToken.methods.balanceOf(address).call()
+  );
+
+  // const STRING_ETH_LP = 0;
+  const STRING_ETH_LP = toDecimal(
+    fromWei(web3, await ETHLPToken.methods.balanceOf(address).call())
+  );
+  return [ETHLPToken, STRING_ETH_LP];
 };
 
 export const fetchLUSDLPTokens = async (networkId, web3, address) => {
+  let LUSDLPToken;
   if (networkId === 42) {
-    const LUSDLPToken = new web3.eth.Contract(
+    LUSDLPToken = new web3.eth.Contract(
       IERC20.abi,
       addresses.kovan.lusdLPToken
     );
-    const STRING_LUSD_LP = toDecimal(
-      fromWei(web3, await LUSDLPToken.methods.balanceOf(address).call())
-    );
-    // const STRING_LUSD_LP = 0;
-
-    return [LUSDLPToken, STRING_LUSD_LP];
   }
   if (networkId === 4) {
-    const LUSDLPToken = new web3.eth.Contract(
+    LUSDLPToken = new web3.eth.Contract(
       IERC20.abi,
       addresses.rinkeby.lusdLPToken
     );
-    const STRING_LUSD_LP = toDecimal(
-      fromWei(web3, await LUSDLPToken.methods.balanceOf(address).call())
-    );
-    // const STRING_LUSD_LP = 0;
-
-    return [LUSDLPToken, STRING_LUSD_LP];
   }
+  if (networkId === 1) {
+    LUSDLPToken = new web3.eth.Contract(
+      IERC20.abi,
+      addresses.mainnet.lusdLPToken
+    );
+  }
+
+  const STRING_LUSD_LP = toDecimal(
+    fromWei(web3, await LUSDLPToken.methods.balanceOf(address).call())
+  );
+  // const STRING_LUSD_LP = 0;
+
+  return [LUSDLPToken, STRING_LUSD_LP];
 };
 
 export const fetchProfitShare = async (
@@ -246,14 +248,22 @@ export const fetchFarm = async (
   if (farmNetwork) {
     const farm = new web3.eth.Contract(Farm.abi, farmNetwork.address);
 
-    // const farmSTRING_ETH_LP = 0;
-    const farmSTRING_ETH_LP = toDecimal(
-      fromWei(web3, await ETHLPToken.methods.balanceOf(farm._address).call())
-    );
-    // const farmSTRING_LUSD_LP = 0;
-    const farmSTRING_LUSD_LP = toDecimal(
-      fromWei(web3, await LUSDLPToken.methods.balanceOf(farm._address).call())
-    );
+    let farmSTRING_ETH_LP;
+    try {
+      farmSTRING_ETH_LP = toDecimal(
+        fromWei(web3, await ETHLPToken.methods.balanceOf(farm._address).call())
+      );
+    } catch (err) {
+      farmSTRING_ETH_LP = 0;
+    }
+    let farmSTRING_LUSD_LP;
+    try {
+      farmSTRING_LUSD_LP = toDecimal(
+        fromWei(web3, await LUSDLPToken.methods.balanceOf(farm._address).call())
+      );
+    } catch (err) {
+      farmSTRING_LUSD_LP = 0;
+    }
 
     const userSTRING_ETH_LP = toDecimal(
       fromWei(web3, (await farm.methods.userInfo(0, address).call()).amount)
@@ -303,20 +313,30 @@ export const fetchFarm = async (
         await lusdToken.methods.allowance(address, farm._address).call()
       )
     );
-    // const allowancesSTRING_ETH_LP = 0;
-    const allowancesSTRING_ETH_LP = toDecimal(
-      fromWei(
-        web3,
-        await ETHLPToken.methods.allowance(address, farm._address).call()
-      )
-    );
-    // const allowancesSTRING_LUSD_LP = 0;
-    const allowancesSTRING_LUSD_LP = toDecimal(
-      fromWei(
-        web3,
-        await LUSDLPToken.methods.allowance(address, farm._address).call()
-      )
-    );
+    let allowancesSTRING_ETH_LP;
+
+    try {
+      allowancesSTRING_ETH_LP = toDecimal(
+        fromWei(
+          web3,
+          await ETHLPToken.methods.allowance(address, farm._address).call()
+        )
+      );
+    } catch (err) {
+      allowancesSTRING_ETH_LP = 0;
+    }
+
+    let allowancesSTRING_LUSD_LP;
+    try {
+      allowancesSTRING_LUSD_LP = toDecimal(
+        fromWei(
+          web3,
+          await LUSDLPToken.methods.allowance(address, farm._address).call()
+        )
+      );
+    } catch (err) {
+      allowancesSTRING_LUSD_LP = 0;
+    }
 
     const allowances = {
       STRING: allowancesSTRING,
@@ -347,7 +367,8 @@ export const fetchStabilityFactory = async (
   networkId,
   web3,
   address,
-  lusdToken
+  lusdToken,
+  lqtyToken
 ) => {
   const SFNetwork = StabilityFactory.networks[networkId];
 
@@ -416,6 +437,17 @@ export const fetchStabilityFactory = async (
             .call()
         )
       );
+
+      const readyLQTY = toDecimal(
+        fromWei(
+          web3,
+          await lqtyToken.methods.balanceOf(userProxy._address).call()
+        )
+      );
+
+      pendingLQTY = (
+        parseFloat(pendingLQTY) + parseFloat(readyLQTY)
+      ).toString();
       // debugger;
     } else {
       allowanceLUSD = 0;
@@ -453,220 +485,176 @@ export const fetchStabilityFactory = async (
 };
 
 export const fetchRewards = async (networkId, web3, address, lqtyToken) => {
+  let rewards;
   if (networkId === 42) {
-    const rewards = new web3.eth.Contract(
+    rewards = new web3.eth.Contract(
       ILQTYStaking.abi,
       addresses.kovan.lqtyStaking
     );
-
-    const lqtyStaked = toDecimal(
-      fromWei(web3, await rewards.methods.stakes(address).call())
-    );
-
-    const pendingETH = toDecimal(
-      fromWei(web3, await rewards.methods.getPendingETHGain(address).call())
-    );
-
-    const pendingLUSD = toDecimal(
-      fromWei(web3, await rewards.methods.getPendingLUSDGain(address).call())
-    );
-
-    const lqtyAllowance = toDecimal(
-      fromWei(
-        web3,
-        await lqtyToken.methods.allowance(address, rewards._address).call()
-      )
-    );
-    // const STRING_LUSD_LP = 0;
-
-    const rewardsAllowances = {
-      LQTY: lqtyAllowance,
-    };
-
-    const rewardsBalances = {
-      userPending: {
-        ETH: pendingETH,
-        LUSD: pendingLUSD,
-      },
-      userStaked: {
-        LQTY: lqtyStaked,
-      },
-    };
-
-    return [rewards, rewardsBalances, rewardsAllowances];
   }
   if (networkId === 4) {
-    const rewards = new web3.eth.Contract(
+    rewards = new web3.eth.Contract(
       ILQTYStaking.abi,
       addresses.rinkeby.lqtyStaking
     );
-
-    const lqtyStaked = toDecimal(
-      fromWei(web3, await rewards.methods.stakes(address).call())
-    );
-
-    const pendingETH = toDecimal(
-      fromWei(web3, await rewards.methods.getPendingETHGain(address).call())
-    );
-
-    const pendingLUSD = toDecimal(
-      fromWei(web3, await rewards.methods.getPendingLUSDGain(address).call())
-    );
-
-    const lqtyAllowance = toDecimal(
-      fromWei(
-        web3,
-        await lqtyToken.methods.allowance(address, rewards._address).call()
-      )
-    );
-    // const STRING_LUSD_LP = 0;
-
-    const rewardsAllowances = {
-      LQTY: lqtyAllowance,
-    };
-
-    const rewardsBalances = {
-      userPending: {
-        ETH: pendingETH,
-        LUSD: pendingLUSD,
-      },
-      userStaked: {
-        LQTY: lqtyStaked,
-      },
-    };
-
-    return [rewards, rewardsBalances, rewardsAllowances];
   }
+  if (networkId === 1) {
+    rewards = new web3.eth.Contract(
+      ILQTYStaking.abi,
+      addresses.mainnet.lqtyStaking
+    );
+  }
+
+  const lqtyStaked = toDecimal(
+    fromWei(web3, await rewards.methods.stakes(address).call())
+  );
+
+  const pendingETH = toDecimal(
+    fromWei(web3, await rewards.methods.getPendingETHGain(address).call())
+  );
+
+  const pendingLUSD = toDecimal(
+    fromWei(web3, await rewards.methods.getPendingLUSDGain(address).call())
+  );
+
+  const lqtyAllowance = toDecimal(
+    fromWei(
+      web3,
+      await lqtyToken.methods.allowance(address, rewards._address).call()
+    )
+  );
+  // const STRING_LUSD_LP = 0;
+
+  const rewardsAllowances = {
+    LQTY: lqtyAllowance,
+  };
+
+  const rewardsBalances = {
+    userPending: {
+      ETH: pendingETH,
+      LUSD: pendingLUSD,
+    },
+    userStaked: {
+      LQTY: lqtyStaked,
+    },
+  };
+
+  return [rewards, rewardsBalances, rewardsAllowances];
 };
 
 export const fetchBorrow = async (web3, networkId, address) => {
+  let borrow;
   if (networkId === 4) {
-    const borrow = new web3.eth.Contract(
+    borrow = new web3.eth.Contract(
       IBorrowOperations.abi,
       addresses.rinkeby.borrowerOperations
     );
-
-    return [borrow];
   } else if (networkId === 42) {
-    const borrow = new web3.eth.Contract(
+    borrow = new web3.eth.Contract(
       IBorrowOperations.abi,
       addresses.kovan.borrowerOperations
     );
-
-    return [borrow];
+  } else if (networkId === 1) {
+    borrow = new web3.eth.Contract(
+      IBorrowOperations.abi,
+      addresses.mainnet.borrowerOperations
+    );
   }
+  return [borrow];
 };
 
 export const fetchTroveManager = async (web3, networkId, address) => {
+  let troveManager;
   if (networkId === 4) {
-    const troveManager = new web3.eth.Contract(
+    troveManager = new web3.eth.Contract(
       ITroveManager.abi,
       addresses.rinkeby.troveManager
     );
-
-    const borrowRate = parseFloat(
-      fromWei(web3, await troveManager.methods.getBorrowingRate().call())
-    );
-    const troveCount = await troveManager.methods.getTroveOwnersCount().call();
-    const userTrove = await troveManager.methods.Troves(address).call();
-
-    return [troveManager, troveCount, userTrove, borrowRate];
   } else if (networkId === 42) {
-    const troveManager = new web3.eth.Contract(
+    troveManager = new web3.eth.Contract(
       ITroveManager.abi,
       addresses.kovan.troveManager
     );
-
-    const borrowRate = parseFloat(
-      fromWei(web3, await troveManager.methods.getBorrowingRate().call())
+  } else if (networkId === 1) {
+    troveManager = new web3.eth.Contract(
+      ITroveManager.abi,
+      addresses.mainnet.troveManager
     );
-
-    const troveCount = await troveManager.methods.getTroveOwnersCount().call();
-
-    const userTrove = await troveManager.methods.Troves(address).call();
-
-    return [troveManager, troveCount, userTrove, borrowRate];
   }
+
+  const borrowRate = parseFloat(
+    fromWei(web3, await troveManager.methods.getBorrowingRate().call())
+  );
+  const troveCount = await troveManager.methods.getTroveOwnersCount().call();
+  const userTrove = await troveManager.methods.Troves(address).call();
+
+  return [troveManager, troveCount, userTrove, borrowRate];
 };
 
 export const fetchSortedTroves = async (web3, networkId, troveManager) => {
+  let sortedTroves;
   if (networkId === 4) {
-    const sortedTroves = new web3.eth.Contract(
+    sortedTroves = new web3.eth.Contract(
       ISortedTroves.abi,
       addresses.rinkeby.sortedTroves
     );
-
-    const pageSize = 10;
-    const trovePages = { 1: [] };
-    let lastTrove = null;
-
-    for (let i = 0; i < pageSize; i++) {
-      let troveOwner;
-      if (!lastTrove) {
-        troveOwner = await sortedTroves.methods.getLast().call();
-      } else {
-        troveOwner = await sortedTroves.methods.getPrev(lastTrove).call();
-      }
-      if (
-        troveOwner &&
-        troveOwner !== "0x0000000000000000000000000000000000000000"
-      ) {
-        const trove = await troveManager.methods.Troves(troveOwner).call();
-        lastTrove = troveOwner;
-        trovePages[1].push({ owner: troveOwner, trove });
-      } else {
-        break;
-      }
-    }
-
-    return [sortedTroves, trovePages];
   } else if (networkId === 42) {
-    const sortedTroves = new web3.eth.Contract(
+    sortedTroves = new web3.eth.Contract(
       ISortedTroves.abi,
       addresses.kovan.sortedTroves
     );
-
-    const pageSize = 10;
-    const trovePages = { 1: [] };
-    let lastTrove = null;
-
-    for (let i = 0; i < pageSize; i++) {
-      let troveOwner;
-      if (!lastTrove) {
-        troveOwner = await sortedTroves.methods.getLast().call();
-      } else {
-        troveOwner = await sortedTroves.methods.getPrev(lastTrove).call();
-      }
-      if (
-        troveOwner &&
-        troveOwner !== "0x0000000000000000000000000000000000000000"
-      ) {
-        const trove = await troveManager.methods.Troves(troveOwner).call();
-        lastTrove = troveOwner;
-        trovePages[1].push({ owner: troveOwner, trove });
-      } else {
-        break;
-      }
-    }
-
-    return [sortedTroves, trovePages];
+  } else if (networkId === 1) {
+    sortedTroves = new web3.eth.Contract(
+      ISortedTroves.abi,
+      addresses.mainnet.sortedTroves
+    );
   }
+
+  const pageSize = 10;
+  const trovePages = { 1: [] };
+  let lastTrove = null;
+
+  for (let i = 0; i < pageSize; i++) {
+    let troveOwner;
+    if (!lastTrove) {
+      troveOwner = await sortedTroves.methods.getLast().call();
+    } else {
+      troveOwner = await sortedTroves.methods.getPrev(lastTrove).call();
+    }
+    if (
+      troveOwner &&
+      troveOwner !== "0x0000000000000000000000000000000000000000"
+    ) {
+      const trove = await troveManager.methods.Troves(troveOwner).call();
+      lastTrove = troveOwner;
+      trovePages[1].push({ owner: troveOwner, trove });
+    } else {
+      break;
+    }
+  }
+
+  return [sortedTroves, trovePages];
 };
 
 export const fetchHintHelpers = async (web3, networkId) => {
+  let hintHelpers;
   if (networkId === 4) {
-    const hintHelpers = new web3.eth.Contract(
+    hintHelpers = new web3.eth.Contract(
       IHintHelpers.abi,
       addresses.rinkeby.hintHelpers
     );
-    return [hintHelpers];
   } else if (networkId === 42) {
-    const hintHelpers = new web3.eth.Contract(
+    hintHelpers = new web3.eth.Contract(
       IHintHelpers.abi,
       addresses.kovan.hintHelpers
     );
-    return [hintHelpers];
+  } else if (networkId === 1) {
+    hintHelpers = new web3.eth.Contract(
+      IHintHelpers.abi,
+      addresses.mainnet.hintHelpers
+    );
   }
+  return [hintHelpers];
 };
 
 export const fetchStabilityPool = async (
@@ -687,6 +675,11 @@ export const fetchStabilityPool = async (
     sp = new web3.eth.Contract(
       IStabilityPool.abi,
       addresses.kovan.stabilityPool
+    );
+  } else if (networkId === 1) {
+    sp = new web3.eth.Contract(
+      IStabilityPool.abi,
+      addresses.mainnet.stabilityPool
     );
   }
 
@@ -737,6 +730,8 @@ export const fetchPriceFeed = async (networkId, web3) => {
     pf = new web3.eth.Contract(IPriceFeed.abi, addresses.rinkeby.priceFeed);
   } else if (networkId === 42) {
     pf = new web3.eth.Contract(IPriceFeed.abi, addresses.kovan.priceFeed);
+  } else if (networkId === 1) {
+    pf = new web3.eth.Contract(IPriceFeed.abi, addresses.mainnet.priceFeed);
   }
 
   const ethPrice = toDecimal(

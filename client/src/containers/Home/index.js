@@ -38,7 +38,12 @@ const Home = () => {
       )}
       <AddressContainer
         target="_blank"
-        href={network && `https://${network}.etherscan.io/address/${address}`}
+        href={
+          network &&
+          `https://${
+            network === "mainnet" ? "www" : network
+          }.etherscan.io/address/${address}`
+        }
       >
         <i>{truncateAddress(address)}</i>
       </AddressContainer>
