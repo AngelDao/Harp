@@ -402,6 +402,12 @@ export const fetchStabilityFactory = async (
           addresses.rinkeby.stabilityPool
         );
       }
+      if (networkId === 1) {
+        stabilityPool = new web3.eth.Contract(
+          IStabilityPool.abi,
+          addresses.mainnet.stabilityPool
+        );
+      }
     }
     const totalLUSD = toDecimal(
       fromWei(web3, await factory.methods.totalLUSD().call())

@@ -199,6 +199,9 @@ const Pool = ({
 
   let contractSel = contractBals[contract === "factory" ? "proxy" : contract];
 
+  if (contract === "stability") {
+    debugger;
+  }
   return (
     <>
       <Modal
@@ -284,16 +287,19 @@ const Pool = ({
           </DescContainer>
           <StatContainer>
             <Stat>
-              {dailyAPY && dailyAPY !== "NaN" ? readableTrunc(dailyAPY) : "∞"}%
+              {dailyAPY && dailyAPY !== "NaN" && parseFloat(yearlyAPY) > 1
+                ? readableTrunc(dailyAPY)
+                : "∞"}
+              %
             </Stat>
             <Stat>
-              {weeklyAPY && weeklyAPY !== "NaN"
+              {weeklyAPY && weeklyAPY !== "NaN" && parseFloat(yearlyAPY) > 1
                 ? readableTrunc(weeklyAPY)
                 : "∞"}
               %
             </Stat>
             <Stat>
-              {yearlyAPY && yearlyAPY !== "NaN"
+              {yearlyAPY && yearlyAPY !== "NaN" && parseFloat(yearlyAPY) > 1
                 ? readableTrunc(yearlyAPY)
                 : "∞"}
               %

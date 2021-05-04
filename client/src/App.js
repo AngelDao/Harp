@@ -103,18 +103,18 @@ function App() {
       web3,
       address
     );
-    debugger;
+    // debugger;
     const [lusdToken, LUSD] = await fetchLUSDToken(networkId, web3, address);
-    debugger;
+    // debugger;
     const [lqtyToken, LQTY] = await fetchLQTYToken(networkId, web3, address);
-    debugger;
+    // debugger;
 
     const [stringToken, STRING] = await fetchStringToken(
       networkId,
       web3,
       address
     );
-    debugger;
+    // debugger;
     let ETHLPToken, gSTRING_ETH_LP;
     try {
       const [e, g] = await fetchETHLPTokens(networkId, web3, address);
@@ -124,7 +124,7 @@ function App() {
       ETHLPToken = {};
       gSTRING_ETH_LP = 0;
     }
-    debugger;
+    // debugger;
     let LUSDLPToken, gSTRING_LUSD_LP;
     try {
       const [l, g] = await fetchLUSDLPTokens(networkId, web3, address);
@@ -134,7 +134,7 @@ function App() {
       LUSDLPToken = {};
       gSTRING_LUSD_LP = 0;
     }
-    debugger;
+    // debugger;
     const [farm, allowances, farmBalances] = await fetchFarm(
       networkId,
       web3,
@@ -144,7 +144,7 @@ function App() {
       address,
       lusdToken
     );
-    debugger;
+    // debugger;
 
     const [profitShare, psAllowances, psBalances] = await fetchProfitShare(
       networkId,
@@ -153,7 +153,7 @@ function App() {
       gStringToken,
       address
     );
-    debugger;
+    // debugger;
 
     const [
       factory,
@@ -257,8 +257,8 @@ function App() {
     const networkId = await web3.eth.net.getId();
     console.log("gather pricing");
     let [ETH, LUSD, LQTY] = await fetchPrices();
-    const STRING = 0.05;
-    const gSTRING = 0.05;
+    const STRING = 0.0;
+    const gSTRING = 0.0;
 
     const [priceFeed, ethPrice] = await fetchPriceFeed(networkId, web3);
 

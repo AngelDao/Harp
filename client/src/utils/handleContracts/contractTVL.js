@@ -100,10 +100,15 @@ export const fetchTVL = async (web3, prices, contracts) => {
       .call()
   );
 
+  const totalStability = fromWei(
+    web3,
+    await lusdToken.methods.balanceOf(stability._address).call()
+  );
+
   const ETHLPRatio = ETHLPFarm / ETHLPSupply;
   const LUSDRatio = LUSDLPFarm / LUSDLPSupply;
 
-  const stabilityTVL = parseFloat(totalLUSDS) * LUSD;
+  const stabilityTVL = parseFloat(totalStability) * LUSD;
   const rewardsTVL = parseFloat(totalLQTYR) * LQTY;
   const profitShareTVL = parseFloat(totalSTRINGSS) * STRING;
   const factoryTVL = parseFloat(totalLUSDF) * LUSD;

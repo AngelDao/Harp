@@ -6,7 +6,7 @@ import gStringLogo from "../../../assets/gString1.png";
 import liquityLogo from "../../../assets/liq.svg";
 import lusdLogo from "../../../assets/lusd.png";
 import uniswapLogo from "../../../assets/uniswap2.svg";
-import { readableTrunc } from "../../../utils/truncateString";
+import { readableTrunc, truncDust } from "../../../utils/truncateString";
 import {
   InfoTable,
   HR,
@@ -25,7 +25,6 @@ import {
   ButtonContainer,
   UserInfoContainer,
 } from "./styles";
-import { truncDust } from "../../../utils/truncateString";
 
 const PoolTable = ({
   ps,
@@ -236,20 +235,26 @@ const PoolTable = ({
                 </AssetCell>
                 <AssetCell style={{ width: "148px" }}>
                   <span>
-                    $
-                    {prices &&
-                      readableTrunc(prices[pairNames[c]].toFixed(2).toString())}
+                    {c === "STRING"
+                      ? "--"
+                      : prices &&
+                        `$${readableTrunc(
+                          prices[pairNames[c]].toFixed(2).toString()
+                        )}`}
                   </span>
                 </AssetCell>
                 <AssetCell style={{ width: "172px" }}>
                   <span>
-                    $
-                    {prices && pendingAmounts[i]
-                      ? readableTrunc(
+                    {c === "STRING"
+                      ? "--"
+                      : pendingAmounts[i] === "Dust"
+                      ? "$0.00"
+                      : prices && pendingAmounts[i]
+                      ? `$${readableTrunc(
                           (prices[pairNames[c]] * pendingAmounts[i])
                             .toFixed(2)
                             .toString()
-                        )
+                        )}`
                       : "0.00"}
                   </span>
                 </AssetCell>

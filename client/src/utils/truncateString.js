@@ -47,6 +47,9 @@ export const truncDust = (n) => {
 };
 
 export const readableTrunc = (str) => {
+  if (str === "Dust") {
+    return "0.00";
+  }
   let temp = str.replace(/[.].+$/g, "");
 
   if (temp.length === 6) {
