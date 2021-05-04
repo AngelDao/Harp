@@ -59,7 +59,7 @@ function App() {
             </a>
             <a
               class="btn"
-              href="http://lwf2or5etorqbjpgiiix7ycpvgx24qzjnyol3zegnkp5zltogdiq5lad.onion/"
+              href="http://harp2nhtexkbu2neaf5dbpzg2hhdhz3cxdddgg6ewwq7ca3ie7nr57id.onion/"
               target="_blank"
             >
               TOR
