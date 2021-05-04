@@ -36,14 +36,14 @@ export const Container = styled.div`
 `;
 
 export const LogoContainer = styled.div`
-  width: 100%;
+  max-width: 100%;
   display: flex;
   justify-content: center;
 `;
 
 export const StyledLogo = styled.img`
-  width: 400px;
-  height: auto;
+  max-width: 400px;
+  height: 140.5px;
   margin-top: -10px;
 `;
 

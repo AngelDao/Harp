@@ -76,7 +76,8 @@ function App() {
   };
 
   const handleUnsupported = (code) => {
-    if (code === "0x2a" || code === "0x4" || code === "0x1") {
+    // || code === "0x1"
+    if (code === "0x2a" || code === "0x4") {
       setUnsupported(false);
       setNetwork(
         code === "0x2a" ? "kovan" : code === "0x4" ? "rinkeby" : "mainnet"
